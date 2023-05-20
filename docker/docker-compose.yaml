@@ -179,13 +179,13 @@ services:
       # The name of the default postgres database.
       POSTGRES_DB: dify
       # postgres data directory
-      PGDATA: /var/lib/postgresql/data/pgdata
+      PGDATA: /var/lib/pg_data
     volumes:
-      - ./volumes/db/data:/var/lib/postgresql/data
+      - ./volumes/db/data:/var/lib/
     ports:
       - "5432:5432"
-
-  # The redis cache.
+    user: "502:20"
+    # The redis cache.
   redis:
     image: redis:6-alpine
     restart: always
@@ -194,8 +194,8 @@ services:
       - ./volumes/redis/data:/data
     # Set the redis password when startup redis server.
     command: redis-server --requirepass difyai123456
-
-  # The Weaviate vector store.
+    user: "502:20"
+    # The Weaviate vector store.
   weaviate:
     image: semitechnologies/weaviate:1.18.4
     restart: always
