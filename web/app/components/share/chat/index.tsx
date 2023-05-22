@@ -23,6 +23,8 @@ import { replaceStringWithValues } from '@/app/components/app/configuration/prom
 import AppUnavailable from '../../base/app-unavailable'
 import { userInputsFormToPromptVariables } from '@/utils/model-config'
 import { SuggestedQuestionsAfterAnswerConfig } from '@/models/debug'
+import BasicSidebar from "@/app/components/basic-sidebar";
+import { fetchAppList } from '@/service/apps';
 export type IMainProps = {
   params: {
     locale: string
@@ -40,6 +42,7 @@ const Main: FC<IMainProps> = () => {
   /*
   * app info
   */
+  const [apps, setApps] = useState<any[]>([]);
   const [appUnavailable, setAppUnavailable] = useState<boolean>(false)
   const [isUnknwonReason, setIsUnknwonReason] = useState<boolean>(false)
   const [appId, setAppId] = useState<string>('')
@@ -56,7 +59,7 @@ const Main: FC<IMainProps> = () => {
       if (plan !== 'basic')
         document.title = `${siteInfo.title}`
       else
-        document.title = `${siteInfo.title} - Powered by Dify`
+        document.title = `${siteInfo.title} - MetaIO`
     }
 
   }, [siteInfo?.title, plan])
@@ -227,8 +230,10 @@ const Main: FC<IMainProps> = () => {
   useEffect(() => {
     (async () => {
       try {
-        const [appData, conversationData, appParams] = await Promise.all([fetchAppInfo(), fetchConversations(), fetchAppParams()])
+
+        const [appData, conversationData, appParams, appsResult] = await Promise.all([fetchAppInfo(), fetchConversations(), fetchAppParams(), fetchAppList({ page: 1 })]);
         const { app_id: appId, site: siteInfo, model_config, plan }: any = appData
+        setApps(appsResult.data);
         setAppId(appId)
         setPlan(plan)
         const tempIsPublicVersion = siteInfo.prompt_public
@@ -450,6 +455,7 @@ const Main: FC<IMainProps> = () => {
         {JSON.stringify(existConversationInputs ? existConversationInputs : {})} */}
       <div className="flex rounded-t-2xl bg-white overflow-hidden">
         {/* sidebar */}
+        <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps} />
         {!isMobile && renderSidebar()}
         {isMobile && isShowSidebar && (
           <div className='fixed inset-0 z-50'

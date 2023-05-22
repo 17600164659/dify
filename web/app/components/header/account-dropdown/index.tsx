@@ -32,22 +32,22 @@ export default function AppSelector({ userProfile, onLogout, langeniusVersionInf
   const { t } = useTranslation()
 
   return (
-    <div className="">
+    <div className="" style={{ margin: "0 auto", position: "absolute", bottom: 30, marginLeft: 24, }}>
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button
             className="
               inline-flex items-center h-[38px]
               rounded-xl pl-2 pr-2.5 text-[14px] font-normal
-              text-gray-800 hover:bg-gray-200
+              text-gray-800
             "
           >
-            <Avatar name={userProfile.name} className='mr-2' />
-            {userProfile.name}
+            <Avatar name={userProfile.name} className='mt-4' />
+            {/* {userProfile.name}
             <ChevronDownIcon
               className="w-3 h-3 ml-1"
               aria-hidden="true"
-            />
+            /> */}
           </Menu.Button>
         </div>
         <Transition
@@ -60,8 +60,9 @@ export default function AppSelector({ userProfile, onLogout, langeniusVersionInf
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items
+            style={{ zIndex: 10000, left: 20, bottom: 86 }}
             className="
-              absolute right-0 mt-1.5 w-60 max-w-80
+              fixed left-1 mt-1.5 w-60 max-w-80 bottom-30
               divide-y divide-gray-100 origin-top-right rounded-lg bg-white
               shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_rgba(0,0,0,0.05)]
             "

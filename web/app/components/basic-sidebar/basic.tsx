@@ -43,7 +43,7 @@ const ICON_MAP = {
 
 export default function AppBasic({ iconUrl, name, type, hoverTip, textStyle, iconType = 'app' }: IAppBasicProps) {
   return (
-    <div className="flex items-start" style={{ marginTop: 9 }}>
+    <div className="flex items-start">
       {iconUrl && (
         <div className='flex-shrink-0 mr-3'>
           {/* <img className="inline-block rounded-lg h-9 w-9" src={iconUrl} alt={name} /> */}

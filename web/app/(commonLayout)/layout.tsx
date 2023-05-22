@@ -13,7 +13,7 @@ const Layout: FC<ICommonLayoutProps> = ({ children }) => {
 }
 
 export const metadata = {
-  title: 'Dify',
+  title: 'MetaIO',
 }
 
 export default Layout

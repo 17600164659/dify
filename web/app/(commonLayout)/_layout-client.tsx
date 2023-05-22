@@ -67,14 +67,20 @@ const CommonLayout: FC<ICommonLayoutProps> = ({ children }) => {
     router.push('/signin')
   }
 
+  window.APP = {
+    userProfile: userProfile,
+    onLogout: onLogout,
+    langeniusVersionInfo: langeniusVersionInfo,
+  }
+
   return (
     <SWRConfig value={{
       shouldRetryOnError: false
     }}>
       <AppContext.Provider value={{ apps: appList.data, mutateApps, userProfile, mutateUserProfile }}>
-        <DatasetsContext.Provider value={{ datasets: datasetList?.data || [], mutateDatasets,  currentDataset }}>
+        <DatasetsContext.Provider value={{ datasets: datasetList?.data || [], mutateDatasets, currentDataset }}>
           <div className='relative flex flex-col h-full overflow-scroll bg-gray-100'>
-            <Header isBordered={['/apps', '/datasets'].includes(pathname)} curApp={curApp as any} appItems={appList.data} userProfile={userProfile} onLogout={onLogout} langeniusVersionInfo={langeniusVersionInfo} />
+            {/* <Header isBordered={['/apps', '/datasets'].includes(pathname)} curApp={curApp as any} appItems={appList.data} userProfile={userProfile} onLogout={onLogout} langeniusVersionInfo={langeniusVersionInfo} /> */}
             {children}
           </div>
         </DatasetsContext.Provider>

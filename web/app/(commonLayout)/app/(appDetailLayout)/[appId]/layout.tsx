@@ -18,6 +18,7 @@ import {
 } from '@heroicons/react/24/solid'
 import s from './style.module.css'
 import AppSideBar from '@/app/components/app-sidebar'
+import BasicSideBar from '@/app/components/basic-sidebar'
 import { fetchAppDetail } from '@/service/apps'
 
 export type IAppDetailLayoutProps = {
@@ -43,12 +44,13 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
   const appModeName = response?.mode?.toUpperCase() === 'COMPLETION' ? t('common.appModes.completionApp') : t('common.appModes.chatApp')
   useEffect(() => {
     if (response?.name)
-      document.title = `${(response.name || 'App')} - Dify`
+      document.title = `${(response.name || 'App')} - MetaIO`
   }, [response])
   if (!response)
     return null
   return (
     <div className={cn(s.app, 'flex', 'overflow-hidden')}>
+      <BasicSideBar title={"未陌AI"} desc={appModeName} />
       <AppSideBar title={response.name} desc={appModeName} navigation={navigation} />
       <div className="bg-white grow">{children}</div>
     </div>

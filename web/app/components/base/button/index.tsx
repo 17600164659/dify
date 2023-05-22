@@ -18,6 +18,7 @@ const Button: FC<IButtonProps> = ({
   className,
   onClick,
   loading = false,
+  color,
 }) => {
   let style = 'cursor-pointer'
   switch (type) {
@@ -34,6 +35,7 @@ const Button: FC<IButtonProps> = ({
 
   return (
     <div
+      style={color ? { color } : {}}
       className={`inline-flex justify-center items-center content-center h-9 leading-5 rounded-lg px-4 py-2 text-base ${style} ${className && className}`}
       onClick={disabled ? undefined : onClick}
     >
