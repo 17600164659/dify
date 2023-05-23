@@ -156,7 +156,7 @@ services:
 
   # Frontend web application.
   web:
-    image: langgenius/dify-web:latest
+    image: dify-web-1
     restart: always
     environment:
       EDITION: SELF_HOSTED
