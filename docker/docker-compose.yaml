@@ -2,7 +2,7 @@ version: '3.1'
 services:
   # API service
   api:
-    image: docker-api-1
+    image: test-api-1
     restart: always
     environment:
       # Startup mode, 'api' starts the API server.
