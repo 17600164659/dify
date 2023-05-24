@@ -122,6 +122,7 @@ def load_user(user_id):
                     account.current_tenant_id = tenant_account_join.tenant_id
                     session['workspace_id'] = account.current_tenant_id
 
+            print(account)
             # Log in the user with the updated user_id
             flask_login.login_user(account, remember=True)
 

@@ -1,1 +1,1 @@
-docker build -t docker-api-1 . -f ./Dockerfile
+docker build -t test-api-1 . -f ./Dockerfile
