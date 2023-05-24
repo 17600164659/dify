@@ -175,20 +175,20 @@ const baseFetch = (
                 if (IS_CE_EDITION) {
                   bodyJson.then((data: any) => {
                     if (data.code === 'not_setup') {
-                      globalThis.location.href = `${globalThis.location.origin}/install`
+                      // globalThis.location.href = `${globalThis.location.origin}/install`
                     } else {
                       if (location.pathname === '/signin') {
                         bodyJson.then((data: any) => {
                           Toast.notify({ type: 'error', message: data.message })
                         })
                       } else {
-                        globalThis.location.href = loginUrl
+                        // globalThis.location.href = loginUrl
                       }
                     }
                   })
                   return Promise.reject()
                 }
-                globalThis.location.href = loginUrl
+                // globalThis.location.href = loginUrl
                 break
               }
               case 403:
@@ -196,7 +196,7 @@ const baseFetch = (
                   bodyJson.then((data: any) => {
                     Toast.notify({ type: 'error', message: data.message })
                     if (data.code === 'already_setup') {
-                      globalThis.location.href = `${globalThis.location.origin}/signin`
+                      // globalThis.location.href = `${globalThis.location.origin}/signin`
                     }
                   })
                 })

@@ -27,6 +27,8 @@ const databaseUrl = 'https://assets.metaio.cc/assets/difyassets/database.png';
 const appUrl = 'https://assets.metaio.cc/assets/difyassets/app.png';
 const logoUrl = 'https://assets.metaio.cc/assets/difyassets/logo.png';
 
+const headerPreUrl = 'https://assets.metaio.cc/assets/difyassets/dify-header-';
+
 const AppDetailNav: FC<IAppDetailNavProps> = ({
   title,
   desc,
@@ -35,11 +37,12 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
   iconType = 'app',
   isChat,
   apps,
+  noHeader,
 }) => {
   let userProfile;
   let onLogout;
   let langeniusVersionInfo;
-  if (!isChat) {
+  if (!isChat && !noHeader) {
     userProfile = window.APP.userProfile;
     onLogout = window.APP.onLogout;
     langeniusVersionInfo = window.APP.langeniusVersionInfo;
@@ -74,7 +77,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
               <div style={{ cursor: "pointer" }} onClick={() => getAppInfoAndGo(appInfo)}>
                 <div class="basic-sidebar-menu-item active">
                   {
-                    appInfo.icon ? <img className='basic-sidebar-menu-icon' src={appInfo.icon} /> : appInfo.name.substr(0, 1)
+                    <img className='basic-sidebar-menu-icon big' src={headerPreUrl + (Math.floor(Math.random() * 9) + 1) + '.png'} />
                   }
                 </div>
                 <div style={{ textAlign: "center" }} className='basic-sidebar-menu-item-title'>
@@ -87,7 +90,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
       }
 
       {
-        !isChat ? (
+        !isChat && !noHeader ? (
           <WorkspaceProvider>
             <AccountDropdown userProfile={userProfile} onLogout={onLogout} langeniusVersionInfo={langeniusVersionInfo} />
           </WorkspaceProvider>

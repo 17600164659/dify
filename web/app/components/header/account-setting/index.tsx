@@ -36,12 +36,12 @@ export default function AccountSetting({
           icon: <UserIcon className={iconClassName} />,
           activeIcon: <UserIconSolid className={iconClassName} />,
         },
-        {
-          key: 'integrations',
-          name: t('common.settings.integrations'),
-          icon: <AtSymbolIcon className={iconClassName} />,
-          activeIcon: <AtSymbolIcon className={iconClassName} />,
-        },
+        // {
+        //   key: 'integrations',
+        //   name: t('common.settings.integrations'),
+        //   icon: <AtSymbolIcon className={iconClassName} />,
+        //   activeIcon: <AtSymbolIcon className={iconClassName} />,
+        // },
         {
           key: 'language',
           name: t('common.settings.language'),

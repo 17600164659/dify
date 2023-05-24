@@ -138,7 +138,7 @@ const NormalForm = () => {
 
       <div className="w-full mx-auto mt-8">
         <div className="bg-white ">
-          {!IS_CE_EDITION && (
+          {/* {!IS_CE_EDITION && (
             <div className="flex flex-col gap-3 mt-6">
               <div className='w-full'>
                 <a href={`${apiPrefix}/oauth/login/github`}>
@@ -179,11 +179,12 @@ const NormalForm = () => {
                 </a>
               </div>
             </div>
-          )}
+          )} */}
 
-          {
-            IS_CE_EDITION && <>
-              {/* <div className="relative mt-6">
+          {/* {
+            IS_CE_EDITION &&  */}
+          <>
+            {/* <div className="relative mt-6">
                 <div className="absolute inset-0 flex items-center" aria-hidden="true">
                   <div className="w-full border-t border-gray-300" />
                 </div>
@@ -192,27 +193,27 @@ const NormalForm = () => {
                 </div>
               </div> */}
 
-              <form className="space-y-6" onSubmit={() => { }}>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                    {t('login.email')}
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      id="email"
-                      type="email"
-                      autoComplete="email"
-                      className={'appearance-none block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 rounded-md shadow-sm placeholder-gray-400 sm:text-sm'}
-                    />
-                  </div>
+            <form className="space-y-6" onSubmit={() => { }}>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  {t('login.email')}
+                </label>
+                <div className="mt-1">
+                  <input
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    className={'appearance-none block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 rounded-md shadow-sm placeholder-gray-400 sm:text-sm'}
+                  />
                 </div>
+              </div>
 
-                <div>
-                  <label htmlFor="password" className="flex items-center justify-between text-sm font-medium text-gray-700">
-                    <span>{t('login.password')}</span>
-                    {/* <Tooltip
+              <div>
+                <label htmlFor="password" className="flex items-center justify-between text-sm font-medium text-gray-700">
+                  <span>{t('login.password')}</span>
+                  {/* <Tooltip
                       selector='forget-password'
                       htmlContent={
                         <div>
@@ -227,41 +228,41 @@ const NormalForm = () => {
                     >
                       <span className='cursor-pointer text-primary-600'>{t('login.forget')}</span>
                     </Tooltip> */}
-                  </label>
-                  <div className="relative mt-1 rounded-md shadow-sm">
-                    <input
-                      id="password"
-                      value={password}
-                      onChange={e => setPassword(e.target.value)}
-                      type={showPassword ? 'text' : 'password'}
-                      autoComplete="current-password"
-                      className={`appearance-none block w-full px-3 py-2
+                </label>
+                <div className="relative mt-1 rounded-md shadow-sm">
+                  <input
+                    id="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    type={showPassword ? 'text' : 'password'}
+                    autoComplete="current-password"
+                    className={`appearance-none block w-full px-3 py-2
                   border border-gray-300
                   focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
                   rounded-md shadow-sm placeholder-gray-400 sm:text-sm pr-10`}
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500"
-                      >
-                        {showPassword ? '👀' : '😝'}
-                      </button>
-                    </div>
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500"
+                    >
+                      {showPassword ? '👀' : '😝'}
+                    </button>
                   </div>
                 </div>
+              </div>
 
-                <div>
-                  <Button
-                    type='primary'
-                    onClick={handleEmailPasswordLogin}
-                    disabled={isLoading}
-                  >{t('login.signBtn')}</Button>
-                </div>
-              </form>
-            </>
-          }
+              <div>
+                <Button
+                  type='primary'
+                  onClick={handleEmailPasswordLogin}
+                  disabled={isLoading}
+                >{t('login.signBtn')}</Button>
+              </div>
+            </form>
+          </>
+          {/* } */}
           {/*  agree to our Terms and Privacy Policy. */}
           <div className="block mt-6 text-xs text-gray-600">
             {t('login.tosDesc')}

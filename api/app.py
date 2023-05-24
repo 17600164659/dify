@@ -145,27 +145,30 @@ def register_blueprints(app):
     from controllers.web import bp as web_bp
     from controllers.console import bp as console_app_bp
 
+    CORS(service_api_bp,supports_credentials=True)
     app.register_blueprint(service_api_bp)
 
-    CORS(web_bp,
-         resources={
-             r"/*": {"origins": app.config['WEB_API_CORS_ALLOW_ORIGINS']}},
-         supports_credentials=True,
-         allow_headers=['Content-Type', 'Authorization'],
-         methods=['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
-         expose_headers=['X-Version', 'X-Env']
-         )
+    # CORS(web_bp,
+    #      resources={
+    #          r"/*": {"origins": app.config['WEB_API_CORS_ALLOW_ORIGINS']}},
+    #      supports_credentials=True,
+    #      allow_headers=['Content-Type', 'Authorization'],
+    #      methods=['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
+    #      expose_headers=['X-Version', 'X-Env']
+    #      )
+    CORS(web_bp,supports_credentials=True)
 
     app.register_blueprint(web_bp)
 
-    CORS(console_app_bp,
-         resources={
-             r"/*": {"origins": app.config['CONSOLE_CORS_ALLOW_ORIGINS']}},
-         supports_credentials=True,
-         allow_headers=['Content-Type', 'Authorization'],
-         methods=['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
-         expose_headers=['X-Version', 'X-Env']
-         )
+    # CORS(console_app_bp,
+    #      resources={
+    #          r"/*": {"origins": app.config['CONSOLE_CORS_ALLOW_ORIGINS']}},
+    #      supports_credentials=True,
+    #      allow_headers=['Content-Type', 'Authorization'],
+    #      methods=['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
+    #      expose_headers=['X-Version', 'X-Env']
+    #      )
+    CORS(console_app_bp,supports_credentials=True)
 
     app.register_blueprint(console_app_bp)
 
