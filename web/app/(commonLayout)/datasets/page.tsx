@@ -29,7 +29,7 @@ const AppList = async (props) => {
   return (
     <div style={customStyle}>
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} />
-      <div className='flex flex-col overflow-auto bg-gray-100 shrink-0 grow'>
+      <div style={{ width: "81vh" }} className='flex flex-col overflow-auto bg-gray-100 shrink-0 grow'>
         <Datasets />
         {/* <DatasetFooter /> */}
       </div >

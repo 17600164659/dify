@@ -29,7 +29,7 @@ const Apps = () => {
   return (
     <div style={customStyle}>
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} />
-      <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-4 grow shrink-0'>
+      <nav style={{ width: "81vh" }} className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-4 grow shrink-0'>
         {apps.map(app => (<AppCard key={app.id} app={app} />))}
         <NewAppCard />
       </nav>
