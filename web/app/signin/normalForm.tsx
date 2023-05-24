@@ -263,7 +263,7 @@ const NormalForm = () => {
             </>
           }
           {/*  agree to our Terms and Privacy Policy. */}
-          <div className="block mt-6 text-xs text-gray-600">
+          {/* <div className="block mt-6 text-xs text-gray-600">
             {t('login.tosDesc')}
             &nbsp;
             <Link
@@ -277,7 +277,7 @@ const NormalForm = () => {
               target={'_blank'}
               href='https://docs.dify.ai/user-agreement/privacy-policy'
             >{t('login.pp')}</Link>
-          </div>
+          </div> */}
 
         </div>
       </div>
