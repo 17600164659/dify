@@ -22,6 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
     margin-top: 30px;
     transition: all 0.2s;
 }
@@ -45,6 +46,11 @@
     font-weight: 400;
     font-size: 12px;
     color: #595E68;
+    width: 60px;
+    overflow: hidden;
+    height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .basic-sidebar-menu .basic-sidebar-menu-item .basic-sidebar-menu-icon {
