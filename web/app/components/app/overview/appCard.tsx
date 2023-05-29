@@ -162,7 +162,7 @@ function AppCard({
           })}
         </div>
       </div>
-      {isApp
+      {isApp && false
         ? (
           <div
             className={

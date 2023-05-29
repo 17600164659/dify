@@ -313,10 +313,10 @@ const TextGeneration = () => {
               <>
                 <div>·</div>
                 <div>{t('share.chat.privacyPolicyLeft')}
-                  <a
+                  {/* <a
                     className='text-gray-500'
                     href={siteInfo.privacy_policy}
-                    target='_blank'>{t('share.chat.privacyPolicyMiddle')}</a>
+                    target='_blank'>{t('share.chat.privacyPolicyMiddle')}</a> */}
                   {t('share.chat.privacyPolicyRight')}
                 </div>
               </>

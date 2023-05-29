@@ -112,7 +112,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
             <ChevronRightIcon />
           </div>
         </div>
-        <p className={`mt-1 ${s.policy} text-gray-500`}>{t(`${prefixSettings}.more.copyright`)} & {t(`${prefixSettings}.more.privacyPolicy`)}</p>
+        {/* <p className={`mt-1 ${s.policy} text-gray-500`}>{t(`${prefixSettings}.more.copyright`)} & {t(`${prefixSettings}.more.privacyPolicy`)}</p> */}
       </div>}
       {isShowMore && <>
         <hr className='w-full mt-6' />
@@ -122,8 +122,8 @@ const SettingsModal: FC<ISettingsModalProps> = ({
           onChange={onChange('copyright')}
           placeholder={t(`${prefixSettings}.more.copyRightPlaceholder`) as string}
         />
-        <div className={`mt-8 font-medium ${s.settingTitle} text-gray-900`}>{t(`${prefixSettings}.more.privacyPolicy`)}</div>
-        <p className={`mt-1 ${s.settingsTip} text-gray-500`}>
+        {/* <div className={`mt-8 font-medium ${s.settingTitle} text-gray-900`}>{t(`${prefixSettings}.more.privacyPolicy`)}</div> */}
+        {/* <p className={`mt-1 ${s.settingsTip} text-gray-500`}>
           <Trans
             i18nKey={`${prefixSettings}.more.privacyPolicyTip`}
             components={{ privacyPolicyLink: <Link href={'https://langgenius.ai/privacy-policy'} target='_blank' className='text-primary-600' /> }}
@@ -133,7 +133,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
           value={inputInfo.privacyPolicy}
           onChange={onChange('privacyPolicy')}
           placeholder={t(`${prefixSettings}.more.privacyPolicyPlaceholder`) as string}
-        />
+        /> */}
       </>}
       <div className='mt-10 flex justify-end'>
         <Button className='mr-2 flex-shrink-0' onClick={onHide}>{t('common.operation.cancel')}</Button>
