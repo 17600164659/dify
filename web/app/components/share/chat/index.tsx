@@ -465,7 +465,7 @@ const Main: FC<IMainProps> = () => {
         {!isMobile && renderSidebar()}
         {isMobile && isShowSidebar && (
           <div className='fixed inset-0 z-50'
-            style={{ backgroundColor: 'rgba(35, 56, 118, 0.2)' }}
+            style={{ backgroundColor: 'rgba(35, 56, 118, 0.2)', display: isShowSidebar ? 'block' : 'none' }}
             onClick={hideSidebar}
           >
             <div className='inline-block' style={{ display: 'inline-flex' }} onClick={e => e.stopPropagation()}>
