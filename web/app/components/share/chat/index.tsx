@@ -233,7 +233,7 @@ const Main: FC<IMainProps> = () => {
     (async () => {
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
-      }, 1000)
+      }, 200)
       try {
         const promises = Promise.all([fetchAppInfo(), fetchConversations(), fetchAppParams()]);
         if (!is_share) {
