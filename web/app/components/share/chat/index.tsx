@@ -455,7 +455,7 @@ const Main: FC<IMainProps> = () => {
         {JSON.stringify(existConversationInputs ? existConversationInputs : {})} */}
       <div className="flex rounded-t-2xl bg-white overflow-hidden">
         {/* sidebar */}
-        <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps} />
+        {!isMobile && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps} />}
         {!isMobile && renderSidebar()}
         {isMobile && isShowSidebar && (
           <div className='fixed inset-0 z-50'
@@ -463,6 +463,7 @@ const Main: FC<IMainProps> = () => {
             onClick={hideSidebar}
           >
             <div className='inline-block' onClick={e => e.stopPropagation()}>
+              <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps} />
               {renderSidebar()}
             </div>
           </div>
