@@ -468,7 +468,7 @@ const Main: FC<IMainProps> = () => {
             style={{ backgroundColor: 'rgba(35, 56, 118, 0.2)', display: isShowSidebar ? 'block' : 'none' }}
             onClick={hideSidebar}
           >
-            <div className='inline-block' style={{ display: 'inline-flex' }} onClick={e => e.stopPropagation()}>
+            <div className='inline-block' style={{ display: is_share ? 'inline-block' : 'inline-flex' }} onClick={e => e.stopPropagation()}>
               {!is_share && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
               {renderSidebar()}
             </div>
