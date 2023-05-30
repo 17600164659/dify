@@ -227,15 +227,18 @@ const Main: FC<IMainProps> = () => {
     return []
   }
 
-
+  const is_share = qs.get('is_share');
   // init
   useEffect(() => {
     (async () => {
       try {
-
-        const [appData, conversationData, appParams, appsResult] = await Promise.all([fetchAppInfo(), fetchConversations(), fetchAppParams(), fetchAppList({ page: 1 })]);
+        const promises = Promise.all([fetchAppInfo(), fetchConversations(), fetchAppParams()]);
+        if (!is_share) {
+          promises.push(fetchAppList({ page: 1 }))
+        }
+        const [appData, conversationData, appParams, appsResult] = await promises;
         const { app_id: appId, site: siteInfo, model_config, plan }: any = appData
-        setApps(appsResult.data);
+        setApps(appsResult ? appsResult.data : []);
         setAppId(appId)
         setPlan(plan)
         const tempIsPublicVersion = siteInfo.prompt_public
@@ -444,7 +447,6 @@ const Main: FC<IMainProps> = () => {
   if (!appId || !siteInfo || !promptConfig)
     return <Loading type='app' />
 
-  const is_share = qs.get('is_share');
   return (
     <div className='bg-gray-100'>
       <Header
@@ -458,7 +460,7 @@ const Main: FC<IMainProps> = () => {
         {JSON.stringify(existConversationInputs ? existConversationInputs : {})} */}
       <div className="flex rounded-t-2xl bg-white overflow-hidden">
         {/* sidebar */}
-        {!isMobile && !is_share && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps} />}
+        {!isMobile && !is_share && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
         {!isMobile && renderSidebar()}
         {isMobile && isShowSidebar && (
           <div className='fixed inset-0 z-50'
@@ -466,7 +468,7 @@ const Main: FC<IMainProps> = () => {
             onClick={hideSidebar}
           >
             <div className='inline-block' style={{ display: 'inline-flex' }} onClick={e => e.stopPropagation()}>
-              {!is_share && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps} />}
+              {!is_share && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
               {renderSidebar()}
             </div>
           </div>
