@@ -54,7 +54,7 @@ const Main: FC<IMainProps> = () => {
   const [inited, setInited] = useState<boolean>(false)
   const [plan, setPlan] = useState<string>('basic') // basic/plus/pro
   // in mobile, show sidebar by click button
-  const [isShowSidebar, { setTrue: showSidebar, setFalse: hideSidebar }] = useBoolean(false)
+  const [isShowSidebar, { setTrue: showSidebar, setFalse: hideSidebar }] = useBoolean(true)
   // Can Use metadata(https://beta.nextjs.org/docs/api-reference/metadata) to set title. But it only works in server side client. 
   useEffect(() => {
     if (siteInfo?.title) {
@@ -231,6 +231,7 @@ const Main: FC<IMainProps> = () => {
   // init
   useEffect(() => {
     (async () => {
+      hideSidebar();
       try {
         const promises = Promise.all([fetchAppInfo(), fetchConversations(), fetchAppParams()]);
         if (!is_share) {
