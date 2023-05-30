@@ -234,11 +234,11 @@ const Main: FC<IMainProps> = () => {
       try {
         const promises = Promise.all([fetchAppInfo(), fetchConversations(), fetchAppParams()]);
         if (!is_share) {
-          promises.push(fetchAppList({ page: 1 }))
+          const appsResult = await fetchAppList({ page: 1 });
+          setApps(appsResult.data);
         }
-        const [appData, conversationData, appParams, appsResult] = await promises;
+        const [appData, conversationData, appParams] = await promises;
         const { app_id: appId, site: siteInfo, model_config, plan }: any = appData
-        setApps(appsResult ? appsResult.data : []);
         setAppId(appId)
         setPlan(plan)
         const tempIsPublicVersion = siteInfo.prompt_public
