@@ -1,4 +1,5 @@
 const translation = {
+  title: '应用',
   createApp: '创建应用',
   modes: {
     completion: '文本生成型',
@@ -34,6 +35,10 @@ const translation = {
     appCreated: '应用已创建',
     appCreateFailed: '应用创建失败',
   },
+  emoji: {
+    ok: '确认',
+    cancel: '取消',
+  }
 }
 
 export default translation

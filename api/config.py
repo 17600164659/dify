@@ -47,6 +47,7 @@ DEFAULTS = {
     'PDF_PREVIEW': 'True',
     'LOG_LEVEL': 'INFO',
     'DISABLE_PROVIDER_CONFIG_VALIDATION': 'False',
+    'DEFAULT_LLM_PROVIDER': 'openai'
 }
 
 
@@ -77,7 +78,7 @@ class Config:
         self.CONSOLE_URL = get_env('CONSOLE_URL')
         self.API_URL = get_env('API_URL')
         self.APP_URL = get_env('APP_URL')
-        self.CURRENT_VERSION = "0.2.0"
+        self.CURRENT_VERSION = "0.3.1"
         self.COMMIT_SHA = get_env('COMMIT_SHA')
         self.EDITION = "SELF_HOSTED"
         self.DEPLOY_ENV = get_env('DEPLOY_ENV')
@@ -180,6 +181,10 @@ class Config:
         # By default it is False
         # You could disable it for compatibility with certain OpenAPI providers
         self.DISABLE_PROVIDER_CONFIG_VALIDATION = get_bool_env('DISABLE_PROVIDER_CONFIG_VALIDATION')
+
+        # For temp use only
+        # set default LLM provider, default is 'openai', support `azure_openai`
+        self.DEFAULT_LLM_PROVIDER = get_env('DEFAULT_LLM_PROVIDER')
 
 class CloudEditionConfig(Config):
 
