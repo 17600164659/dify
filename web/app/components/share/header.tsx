@@ -7,6 +7,8 @@ import {
 } from '@heroicons/react/24/solid'
 export type IHeaderProps = {
   title: string
+  icon: string
+  icon_background: string
   isMobile?: boolean
   onShowSideBar?: () => void
   onCreateNewChat?: () => void
@@ -19,6 +21,8 @@ const newBgStyle = {
 const Header: FC<IHeaderProps> = ({
   title,
   isMobile,
+  icon,
+  icon_background,
   onShowSideBar,
   onCreateNewChat,
 }) => {
@@ -33,7 +37,7 @@ const Header: FC<IHeaderProps> = ({
         </div>
       ) : <div></div>}
       <div className='flex items-center space-x-2'>
-        <AppIcon size="small" />
+        <AppIcon size="small" icon={icon} background={icon_background} />
         <div className=" text-sm text-gray-800 font-bold">{title}</div>
       </div>
       {isMobile ? (

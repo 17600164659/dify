@@ -1,5 +1,5 @@
 'use client'
-import type { FC } from 'react'
+import { FC, useRef } from 'react'
 import React, { useEffect, useState } from 'react'
 import { usePathname, useRouter, useSelectedLayoutSegments } from 'next/navigation'
 import useSWR, { SWRConfig } from 'swr'
@@ -8,7 +8,7 @@ import { fetchAppList } from '@/service/apps'
 import { fetchDatasets } from '@/service/datasets'
 import { fetchLanggeniusVersion, fetchUserProfile, logout } from '@/service/common'
 import Loading from '@/app/components/base/loading'
-import AppContext from '@/context/app-context'
+import { AppContextProvider } from '@/context/app-context'
 import DatasetsContext from '@/context/datasets-context'
 import type { LangGeniusVersionResponse, UserProfileResponse } from '@/models/common'
 
@@ -23,6 +23,7 @@ const CommonLayout: FC<ICommonLayoutProps> = ({ children }) => {
   const pattern = pathname.replace(/.*\/app\//, '')
   const [idOrMethod] = pattern.split('/')
   const isNotDetailPage = idOrMethod === 'list'
+  const pageContainerRef = useRef<HTMLDivElement>(null)
 
   const appId = isNotDetailPage ? '' : idOrMethod
 
@@ -84,7 +85,7 @@ const CommonLayout: FC<ICommonLayoutProps> = ({ children }) => {
             {children}
           </div>
         </DatasetsContext.Provider>
-      </AppContext.Provider>
+      </AppContextProvider>
     </SWRConfig>
   )
 }

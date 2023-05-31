@@ -1,14 +1,17 @@
-from typing import Optional, List, Union
+import logging
+from typing import Optional, List, Union, Tuple
 
 from langchain.callbacks import CallbackManager
 from langchain.chat_models.base import BaseChatModel
 from langchain.llms import BaseLLM
 from langchain.schema import BaseMessage, BaseLanguageModel, HumanMessage
+from requests.exceptions import ChunkedEncodingError
+
 from core.constant import llm_constant
 from core.callback_handler.llm_callback_handler import LLMCallbackHandler
 from core.callback_handler.std_out_callback_handler import DifyStreamingStdOutCallbackHandler, \
     DifyStdOutCallbackHandler
-from core.conversation_message_task import ConversationMessageTask, ConversationTaskStoppedException
+from core.conversation_message_task import ConversationMessageTask, ConversationTaskStoppedException, PubHandler
 from core.llm.error import LLMBadRequestError
 from core.llm.llm_builder import LLMBuilder
 from core.chain.main_chain_builder import MainChainBuilder
@@ -39,7 +42,8 @@ class Completion:
             memory = cls.get_memory_from_conversation(
                 tenant_id=app.tenant_id,
                 app_model_config=app_model_config,
-                conversation=conversation
+                conversation=conversation,
+                return_messages=False
             )
 
             inputs = conversation.inputs
@@ -83,6 +87,11 @@ class Completion:
             )
         except ConversationTaskStoppedException:
             return
+        except ChunkedEncodingError as e:
+            # Interrupt by LLM (like OpenAI), handle it.
+            logging.warning(f'ChunkedEncodingError: {e}')
+            conversation_message_task.end()
+            return
 
     @classmethod
     def run_final_llm(cls, tenant_id: str, mode: str, app_model_config: AppModelConfig, query: str, inputs: dict,
@@ -96,7 +105,7 @@ class Completion:
         )
 
         # get llm prompt
-        prompt = cls.get_main_llm_prompt(
+        prompt, stop_words = cls.get_main_llm_prompt(
             mode=mode,
             llm=final_llm,
             pre_prompt=app_model_config.pre_prompt,
@@ -114,30 +123,47 @@ class Completion:
             mode=mode
         )
 
-        response = final_llm.generate([prompt])
+        response = final_llm.generate([prompt], stop_words)
 
         return response
 
     @classmethod
-    def get_main_llm_prompt(cls, mode: str, llm: BaseLanguageModel, pre_prompt: str, query: str, inputs: dict, chain_output: Optional[str],
+    def get_main_llm_prompt(cls, mode: str, llm: BaseLanguageModel, pre_prompt: str, query: str, inputs: dict,
+                            chain_output: Optional[str],
                             memory: Optional[ReadOnlyConversationTokenDBBufferSharedMemory]) -> \
-            Union[str | List[BaseMessage]]:
+            Tuple[Union[str | List[BaseMessage]], Optional[List[str]]]:
+        # disable template string in query
+        query_params = OutLinePromptTemplate.from_template(template=query).input_variables
+        if query_params:
+            for query_param in query_params:
+                if query_param not in inputs:
+                    inputs[query_param] = '{' + query_param + '}'
+
         pre_prompt = PromptBuilder.process_template(pre_prompt) if pre_prompt else pre_prompt
         if mode == 'completion':
             prompt_template = OutLinePromptTemplate.from_template(
-                template=("Use the following pieces of [CONTEXT] to answer the question at the end. "
-                          "If you don't know the answer, "
-                          "just say that you don't know, don't try to make up an answer. \n"
-                          "```\n"
-                          "[CONTEXT]\n"
-                          "{context}\n"
-                          "```\n" if chain_output else "")
+                template=("""Use the following CONTEXT as your learned knowledge:
+[CONTEXT]
+{context}
+[END CONTEXT]
+
+When answer to user:
+- If you don't know, just say that you don't know.
+- If you don't know when you are not sure, ask for clarification. 
+Avoid mentioning that you obtained the information from the context.
+And answer according to the language of the user's question.
+""" if chain_output else "")
                          + (pre_prompt + "\n" if pre_prompt else "")
                          + "{query}\n"
             )
 
             if chain_output:
                 inputs['context'] = chain_output
+                context_params = OutLinePromptTemplate.from_template(template=chain_output).input_variables
+                if context_params:
+                    for context_param in context_params:
+                        if context_param not in inputs:
+                            inputs[context_param] = '{' + context_param + '}'
 
             prompt_inputs = {k: inputs[k] for k in prompt_template.input_variables if k in inputs}
             prompt_content = prompt_template.format(
@@ -147,64 +173,83 @@ class Completion:
 
             if isinstance(llm, BaseChatModel):
                 # use chat llm as completion model
-                return [HumanMessage(content=prompt_content)]
+                return [HumanMessage(content=prompt_content)], None
             else:
-                return prompt_content
+                return prompt_content, None
         else:
             messages: List[BaseMessage] = []
-
-            system_message = None
-            if pre_prompt:
-                # append pre prompt as system message
-                system_message = PromptBuilder.to_system_message(pre_prompt, inputs)
-
-            if chain_output:
-                # append context as system message, currently only use simple stuff prompt
-                context_message = PromptBuilder.to_system_message(
-                    """Use the following pieces of [CONTEXT] to answer the users question. 
-If you don't know the answer, just say that you don't know, don't try to make up an answer.
-```
-[CONTEXT]
-{context}
-```""",
-                    {'context': chain_output}
-                )
-
-                if not system_message:
-                    system_message = context_message
-                else:
-                    system_message.content = context_message.content + "\n\n" + system_message.content
-
-            if system_message:
-                messages.append(system_message)
 
             human_inputs = {
                 "query": query
             }
 
-            # construct main prompt
-            human_message = PromptBuilder.to_human_message(
-                prompt_content="{query}",
-                inputs=human_inputs
-            )
+            human_message_prompt = ""
+
+            if pre_prompt:
+                pre_prompt_inputs = {k: inputs[k] for k in
+                                     OutLinePromptTemplate.from_template(template=pre_prompt).input_variables
+                                     if k in inputs}
+
+                if pre_prompt_inputs:
+                    human_inputs.update(pre_prompt_inputs)
+
+            if chain_output:
+                human_inputs['context'] = chain_output
+                human_message_prompt += """Use the following CONTEXT as your learned knowledge.
+[CONTEXT]
+{context}
+[END CONTEXT]
+
+When answer to user:
+- If you don't know, just say that you don't know.
+- If you don't know when you are not sure, ask for clarification. 
+Avoid mentioning that you obtained the information from the context.
+And answer according to the language of the user's question.
+"""
+
+            if pre_prompt:
+                human_message_prompt += pre_prompt
+
+            query_prompt = "\nHuman: {query}\nAI: "
 
             if memory:
                 # append chat histories
-                tmp_messages = messages.copy() + [human_message]
-                curr_message_tokens = memory.llm.get_messages_tokens(tmp_messages)
-                rest_tokens = llm_constant.max_context_token_length[
-                                  memory.llm.model_name] - memory.llm.max_tokens - curr_message_tokens
+                tmp_human_message = PromptBuilder.to_human_message(
+                    prompt_content=human_message_prompt + query_prompt,
+                    inputs=human_inputs
+                )
+
+                curr_message_tokens = memory.llm.get_messages_tokens([tmp_human_message])
+                rest_tokens = llm_constant.max_context_token_length[memory.llm.model_name] \
+                              - memory.llm.max_tokens - curr_message_tokens
                 rest_tokens = max(rest_tokens, 0)
-                history_messages = cls.get_history_messages_from_memory(memory, rest_tokens)
-                messages += history_messages
+                histories = cls.get_history_messages_from_memory(memory, rest_tokens)
+
+                # disable template string in query
+                histories_params = OutLinePromptTemplate.from_template(template=histories).input_variables
+                if histories_params:
+                    for histories_param in histories_params:
+                        if histories_param not in human_inputs:
+                            human_inputs[histories_param] = '{' + histories_param + '}'
+
+                human_message_prompt += "\n\n" + histories
+
+            human_message_prompt += query_prompt
+
+            # construct main prompt
+            human_message = PromptBuilder.to_human_message(
+                prompt_content=human_message_prompt,
+                inputs=human_inputs
+            )
 
             messages.append(human_message)
 
-            return messages
+            return messages, ['\nHuman:']
 
     @classmethod
     def get_llm_callback_manager(cls, llm: Union[StreamableOpenAI, StreamableChatOpenAI],
-                                 streaming: bool, conversation_message_task: ConversationMessageTask) -> CallbackManager:
+                                 streaming: bool,
+                                 conversation_message_task: ConversationMessageTask) -> CallbackManager:
         llm_callback_handler = LLMCallbackHandler(llm, conversation_message_task)
         if streaming:
             callback_handlers = [llm_callback_handler, DifyStreamingStdOutCallbackHandler()]
@@ -216,7 +261,7 @@ If you don't know the answer, just say that you don't know, don't try to make up
     @classmethod
     def get_history_messages_from_memory(cls, memory: ReadOnlyConversationTokenDBBufferSharedMemory,
                                          max_token_limit: int) -> \
-            List[BaseMessage]:
+            str:
         """Get memory messages."""
         memory.max_token_limit = max_token_limit
         memory_key = memory.memory_variables[0]
@@ -286,7 +331,7 @@ If you don't know the answer, just say that you don't know, don't try to make up
         )
 
         # get llm prompt
-        original_prompt = cls.get_main_llm_prompt(
+        original_prompt, _ = cls.get_main_llm_prompt(
             mode="completion",
             llm=llm,
             pre_prompt=pre_prompt,
