@@ -45,7 +45,7 @@ const nextConfig = {
       // },
       {
         source: '/',
-        destination: '/chat/vEJdIfCYoHvn9peR',
+        destination: '/chat/vEJdIfCYoHvn9peR?is_share=true',
         permanent: false,
       },
     ]
