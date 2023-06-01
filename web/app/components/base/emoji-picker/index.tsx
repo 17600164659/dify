@@ -123,7 +123,8 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({
                 }}
               >
                 <div className='cursor-pointer w-8 h-8 p-1 flex items-center justify-center rounded-lg hover:ring-1 ring-offset-1 ring-gray-300'>
-                  <em-emoji id={emoji} />
+                  {/* <em-emoji id={emoji} /> */}
+                  <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />
                 </div>
               </div>
             })}
@@ -145,7 +146,8 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({
                 }}
               >
                 <div className='cursor-pointer w-8 h-8 p-1 flex items-center justify-center rounded-lg hover:ring-1 ring-offset-1 ring-gray-300'>
-                  <em-emoji id={emoji} />
+                  {/* <em-emoji id={emoji} /> */}
+                  <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />
                 </div>
               </div>
             })}
@@ -177,7 +179,8 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({
               'w-8 h-8 p-1 flex items-center justify-center rounded-lg',
             )
             } style={{ background: color }}>
-              {selectedEmoji !== '' && <em-emoji id={selectedEmoji} />}
+              {/* {selectedEmoji !== '' && <em-emoji id={selectedEmoji} />} */}
+              {selectedEmoji !== '' && <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />}
             </div>
           </div>
         })}
