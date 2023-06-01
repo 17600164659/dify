@@ -184,7 +184,6 @@ services:
       - ./volumes/db/data:/var/lib/
     ports:
       - "5432:5432"
-    user: "502:20"
     # The redis cache.
   redis:
     image: redis:6-alpine
@@ -194,7 +193,6 @@ services:
       - ./volumes/redis/data:/data
     # Set the redis password when startup redis server.
     command: redis-server --requirepass difyai123456
-    user: "502:20"
     # The Weaviate vector store.
   weaviate:
     image: semitechnologies/weaviate:1.18.4
