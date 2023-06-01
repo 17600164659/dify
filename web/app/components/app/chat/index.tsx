@@ -285,16 +285,14 @@ const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedba
   return (
     <div key={id}>
       <div className='flex items-start'>
-        <div className={`${s.answerIcon} w-10 h-10 shrink-0`}>
-          {/* {isResponsing
+        <img src="https://assets.metaio.cc/assets/difyassets/logo.png" className='w-10 h-10 shrink-0' />
+        {/* <div className={`${s.answerIcon} w-10 h-10 shrink-0`}>
+          {isResponsing
             && <div className={s.typeingIcon}>
               <LoadingAnim type='avatar' />
             </div>
-          } */}
-          {isResponsing
-            && <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />
           }
-        </div>
+        </div> */}
         <div className={s.answerWrapWrap}>
           <div className={`${s.answerWrap} ${showEdit ? 'w-full' : ''}`}>
             <div className={`${s.answer} relative text-sm text-gray-900`}>
