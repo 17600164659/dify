@@ -38,9 +38,14 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // {
+      //   source: '/',
+      //   destination: '/apps',
+      //   permanent: false,
+      // },
       {
         source: '/',
-        destination: '/apps',
+        destination: '/chat/vEJdIfCYoHvn9peR',
         permanent: false,
       },
     ]

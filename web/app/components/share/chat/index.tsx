@@ -32,7 +32,7 @@ export type IMainProps = {
   isInstalledApp?: boolean
   installedAppInfo?: InstalledApp
 }
-const qs = new URLSearchParams(location.search);
+
 const Main: FC<IMainProps> = ({
   isInstalledApp = false,
   installedAppInfo,
@@ -93,6 +93,7 @@ const Main: FC<IMainProps> = ({
 
   const [conversationIdChangeBecauseOfNew, setConversationIdChangeBecauseOfNew, getConversationIdChangeBecauseOfNew] = useGetState(false)
   const [isChatStarted, { setTrue: setChatStarted, setFalse: setChatNotStarted }] = useBoolean(false)
+  const [isShare, { setTrue: setShareTrue, setFalse: setShareFalse }] = useBoolean(false);
   const handleStartChat = (inputs: Record<string, any>) => {
     createNewChat()
     setConversationIdChangeBecauseOfNew(true)
@@ -231,7 +232,7 @@ const Main: FC<IMainProps> = ({
 
     return []
   }
-  const is_share = qs.get('is_share');
+
   const fetchInitData = () => {
     return Promise.all([isInstalledApp
       ? {
@@ -249,6 +250,13 @@ const Main: FC<IMainProps> = ({
   // init
   useEffect(() => {
     (async () => {
+      const qs = new URLSearchParams(window.location.search);
+      const is_share = qs.get('is_share');
+      if (is_share) {
+        setShareTrue();
+      } else {
+        setShareFalse();
+      }
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
       }, 100)
@@ -502,15 +510,15 @@ const Main: FC<IMainProps> = ({
           : {}}
       >
         {/* sidebar */}
-        {!isMobile && !is_share && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
+        {!isMobile && !isShare && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
         {!isMobile && renderSidebar()}
         {isMobile && isShowSidebar && (
           <div className='fixed inset-0 z-50'
             style={{ backgroundColor: 'rgba(35, 56, 118, 0.2)', display: isShowSidebar ? 'block' : 'none' }}
             onClick={hideSidebar}
           >
-            <div className='inline-block' style={{ display: is_share ? 'inline-block' : 'inline-flex' }} onClick={e => e.stopPropagation()}>
-              {!is_share && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
+            <div className='inline-block' style={{ display: isShare ? 'inline-block' : 'inline-flex' }} onClick={e => e.stopPropagation()}>
+              {!isShare && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
               {renderSidebar()}
             </div>
           </div>

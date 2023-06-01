@@ -45,7 +45,7 @@ const Apps = () => {
   useEffect(() => {
     const onScroll = debounce(() => {
       if (!loadingStateRef.current) {
-        const { scrollTop, clientHeight } = pageContainerRef.current!
+        const { scrollTop, clientHeight } = pageContainerRef?.current!
         const anchorOffset = anchorRef.current!.offsetTop
         if (anchorOffset - scrollTop - clientHeight < 100) {
           setSize(size => size + 1)
@@ -53,8 +53,8 @@ const Apps = () => {
       }
     }, 50)
 
-    pageContainerRef.current?.addEventListener('scroll', onScroll)
-    return () => pageContainerRef.current?.removeEventListener('scroll', onScroll)
+    pageContainerRef?.current?.addEventListener('scroll', onScroll)
+    return () => pageContainerRef?.current?.removeEventListener('scroll', onScroll)
   }, [])
 
   return (

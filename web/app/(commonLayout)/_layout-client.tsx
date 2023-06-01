@@ -66,27 +66,27 @@ const CommonLayout: FC<ICommonLayoutProps> = ({ children }) => {
       params: {},
     })
     router.push('/signin')
-  }
+  };
 
   window.APP = {
     userProfile: userProfile,
     onLogout: onLogout,
     langeniusVersionInfo: langeniusVersionInfo,
-  }
+  };
 
   return (
     <SWRConfig value={{
       shouldRetryOnError: false
     }}>
-      <AppContext.Provider value={{ apps: appList.data, mutateApps, userProfile, mutateUserProfile }}>
+      <AppContextProvider value={{ apps: appList.data, mutateApps, userProfile, mutateUserProfile }}>
         <DatasetsContext.Provider value={{ datasets: datasetList?.data || [], mutateDatasets, currentDataset }}>
-          <div className='relative flex flex-col h-full overflow-scroll bg-gray-100'>
+          <div className='relative flex flex-col h-full overflow-scroll bg-gray-100' style={{ height: '100vh' }}>
             {/* <Header isBordered={['/apps', '/datasets'].includes(pathname)} curApp={curApp as any} appItems={appList.data} userProfile={userProfile} onLogout={onLogout} langeniusVersionInfo={langeniusVersionInfo} /> */}
             {children}
           </div>
         </DatasetsContext.Provider>
       </AppContextProvider>
     </SWRConfig>
-  )
+  );
 }
 export default React.memo(CommonLayout)
