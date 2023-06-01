@@ -392,12 +392,14 @@ const Question: FC<IQuestionProps> = ({ id, content, more, useCurrentUserAvatar 
       </div>
       {useCurrentUserAvatar
         ? (
-          <div className='w-10 h-10 shrink-0 leading-10 text-center mr-2 rounded-full bg-primary-600 text-white'>
-            {userName?.[0].toLocaleUpperCase()}
-          </div>
+          // <div className='w-10 h-10 shrink-0 leading-10 text-center mr-2 rounded-full bg-primary-600 text-white'>
+          //   {userName?.[0].toLocaleUpperCase()}
+          // </div>
+          <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />
         )
         : (
-          <div className={`${s.questionIcon} w-10 h-10 shrink-0 `}></div>
+          // <div className={`${s.questionIcon} w-10 h-10 shrink-0 `}></div>
+          <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />
         )}
     </div>
   )
