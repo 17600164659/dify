@@ -36,4 +36,15 @@
     color: #FFFFFF;
     text-align: center;
     line-height: 40px;
+
+    position: relative;
+    top: -12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s;
+}
+
+.new-chat-button:hover {
+    font-size: 18px;
 }
