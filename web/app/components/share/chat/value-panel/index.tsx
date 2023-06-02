@@ -5,6 +5,7 @@ import { StarIcon } from '@/app/components/share/chat/welcome/massive-component'
 import Button from '@/app/components/base/button'
 import { useTranslation } from 'react-i18next'
 
+import './styles.css';
 import s from './style.module.css'
 
 export interface ITemplateVarPanelProps {
@@ -12,26 +13,34 @@ export interface ITemplateVarPanelProps {
   header: ReactNode
   children?: ReactNode | null
   isFold: boolean
+  onClick: any
 }
 
 const TemplateVarPanel: FC<ITemplateVarPanelProps> = ({
   className,
   header,
   children,
-  isFold
+  isFold,
+  onClick
 }) => {
+  console.log(onClick, 232323)
   return (
     <div className={cn(isFold ? 'border border-indigo-100' : s.boxShodow, className, 'rounded-xl ')}>
       {/* header */}
       <div
-        className={cn(isFold && 'rounded-b-xl', 'rounded-t-xl px-6 py-4 bg-indigo-25 text-xs')}
+        className={cn(isFold && 'rounded-b-xl', 'rounded-t-xl px-6 py-4 text-xs')}
       >
-        {header}
+        <div className='new-chat-title'>
+          <img src="https://assets.metaio.cc/assets/difyassets/title.png" />
+          <p className='new-chat-content'>欢迎打开iPollo.ai的WEB3奇幻世界大门</p>
+        </div>
       </div>
       {/* body */}
-      {!isFold && children && (
+      {!isFold && (
         <div className='rounded-b-xl p-6'>
-          {children}
+          <div className='new-chat-button' onClick={onClick}>
+            开启新对话
+          </div>
         </div>
       )}
     </div>

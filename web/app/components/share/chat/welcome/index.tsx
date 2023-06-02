@@ -171,8 +171,10 @@ const Welcome: FC<IWelcomeProps> = ({
                 <PromptTemplate html={highLightPromoptTemplate} />
               </>
             }
+            onClick={handleChat}
           >
-            <ChatBtn onClick={handleChat} />
+            {/* <ChatBtn onClick={handleChat} /> */}
+            {/* <div onClick={handleChat} style={{ widthL 1 }}>开启新对话</div> */}
           </TemplateVarPanel>
         </div>
       )
@@ -184,6 +186,7 @@ const Welcome: FC<IWelcomeProps> = ({
         header={
           <AppInfo siteInfo={siteInfo} />
         }
+        onClick={handleChat}
       >
         <ChatBtn onClick={handleChat} />
       </TemplateVarPanel>
@@ -197,6 +200,7 @@ const Welcome: FC<IWelcomeProps> = ({
         header={
           <AppInfo siteInfo={siteInfo} />
         }
+        onClick={handleChat}
       >
         {renderInputs()}
         <ChatBtn
@@ -230,6 +234,7 @@ const Welcome: FC<IWelcomeProps> = ({
       return (
         <TemplateVarPanel
           isFold={false}
+          onClick={handleChat}
           header={
             <>
               <PanelTitle
@@ -246,6 +251,7 @@ const Welcome: FC<IWelcomeProps> = ({
     return (
       <TemplateVarPanel
         isFold={isFold}
+        onClick={() => setIsFold(false)}
         header={
           <>
             <PanelTitle
@@ -275,6 +281,7 @@ const Welcome: FC<IWelcomeProps> = ({
     return (
       <TemplateVarPanel
         isFold={isFold}
+        onClick={() => setIsFold(false)}
         header={
           <div className='flex items-center justify-between text-indigo-600'>
             <PanelTitle

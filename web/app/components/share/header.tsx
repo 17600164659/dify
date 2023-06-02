@@ -33,7 +33,8 @@ const Header: FC<IHeaderProps> = ({
           className='flex items-center justify-center h-8 w-8 cursor-pointer'
           onClick={() => onShowSideBar?.()}
         >
-          <Bars3Icon className="h-4 w-4 text-gray-500" />
+          {/* <Bars3Icon className="h-4 w-4 text-gray-500" /> */}
+          <img src="https://assets.metaio.cc/assets/difyassets/menu.png" style={{ width: 20, height: 20 }} />
         </div>
       ) : <div></div>}
       <div className='flex items-center space-x-2'>
@@ -44,7 +45,8 @@ const Header: FC<IHeaderProps> = ({
         <div className='flex items-center justify-center h-8 w-8 cursor-pointer'
           onClick={() => onCreateNewChat?.()}
         >
-          <PencilSquareIcon className="h-4 w-4 text-gray-500" />
+          {/* <PencilSquareIcon className="h-4 w-4 text-gray-500" /> */}
+          <img src="https://assets.metaio.cc/assets/difyassets/newchat.png" style={{ width: 20, height: 20 }} />
         </div>) : <div></div>}
     </div>
   )

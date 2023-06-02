@@ -26,6 +26,7 @@ const AppIcon: FC<AppIconProps> = ({
   innerIcon,
   onClick,
 }) => {
+  console.log(style.appIcon, 23232323)
   return (
     <span
       className={classNames(
@@ -34,9 +35,9 @@ const AppIcon: FC<AppIconProps> = ({
         rounded && style.rounded,
         className ?? '',
       )}
-      style={{
-        background,
-      }}
+      // style={{
+      //   background,
+      // }}
       onClick={onClick}
     >
       {/* {innerIcon ? innerIcon : icon && icon !== '' ? <em-emoji id={icon} /> : <em-emoji id='🤖' />} */}
