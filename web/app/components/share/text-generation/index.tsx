@@ -28,7 +28,7 @@ import { appDefaultIconBackground } from '@/config'
 
 export type IMainProps = {
   isInstalledApp?: boolean,
-  installedAppInfo? : InstalledApp
+  installedAppInfo?: InstalledApp
 }
 
 const TextGeneration: FC<IMainProps> = ({
@@ -167,14 +167,14 @@ const TextGeneration: FC<IMainProps> = ({
 
   const fetchInitData = () => {
     return Promise.all([isInstalledApp ? {
-      app_id: installedAppInfo?.id, 
+      app_id: installedAppInfo?.id,
       site: {
         title: installedAppInfo?.app.name,
         prompt_public: false,
         copyright: ''
       },
       plan: 'basic',
-    }: fetchAppInfo(), fetchAppParams(isInstalledApp, installedAppInfo?.id)])
+    } : fetchAppInfo(), fetchAppParams(isInstalledApp, installedAppInfo?.id)])
   }
 
   useEffect(() => {
@@ -215,7 +215,7 @@ const TextGeneration: FC<IMainProps> = ({
           "flex flex-col h-full shrink-0",
           isPC ? 'px-10 py-8' : 'bg-gray-50',
           isTablet && 'p-6', isMoble && 'p-4')
-        }
+      }
     >
       <>
         <div className='shrink-0 flex items-center justify-between'>
@@ -345,8 +345,8 @@ const TextGeneration: FC<IMainProps> = ({
           <div className={cn(
             isInstalledApp ? 'left-[248px]' : 'left-8',
             'fixed  bottom-4  flex space-x-2 text-gray-400 font-normal text-xs'
-            )}>
-            <div className="">© {siteInfo.copyright || siteInfo.title} {(new Date()).getFullYear()}</div>
+          )}>
+            <div className="">© iPollo.ai {(new Date()).getFullYear()}</div>
             {siteInfo.privacy_policy && (
               <>
                 <div>·</div>

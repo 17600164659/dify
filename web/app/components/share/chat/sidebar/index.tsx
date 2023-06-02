@@ -82,9 +82,8 @@ const Sidebar: FC<ISidebarProps> = ({
       <div className="flex flex-shrink-0 p-4 !pb-0">
         <Button
           onClick={() => { onCurrentIdChange('-1') }}
-          style={{ color: 'black' }}
           className="group block w-full flex-shrink-0 !justify-start !h-9 text-primary-600 items-center text-sm">
-          <PencilSquareIcon style={{ color: 'black' }} className="mr-2 h-4 w-4" /> {t('share.chat.newChat')}
+          <PencilSquareIcon style={{ color: 'black' }} className="mr-2 h-4 w-4" /> <span style={{ color: 'black' }}>{t('share.chat.newChat')}</span>
         </Button>
       </div>
 
@@ -124,7 +123,7 @@ const Sidebar: FC<ISidebarProps> = ({
         })}
       </nav>
       <div className="flex flex-shrink-0 pr-4 pb-4 pl-4">
-        <div className="text-gray-400 font-normal text-xs">© {copyRight} {(new Date()).getFullYear()}</div>
+        <div className="text-gray-400 font-normal text-xs">© iPollo.ai {(new Date()).getFullYear()}</div>
       </div>
     </div >
   )

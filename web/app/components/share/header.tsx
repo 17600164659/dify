@@ -39,7 +39,7 @@ const Header: FC<IHeaderProps> = ({
       ) : <div></div>}
       <div className='flex items-center space-x-2'>
         <AppIcon size="small" icon={icon} background={icon_background} />
-        <div className=" text-sm text-gray-800 font-bold">{title}</div>
+        <div className=" text-sm text-gray-800 font-bold">iPollo.ai</div>
       </div>
       {isMobile ? (
         <div className='flex items-center justify-center h-8 w-8 cursor-pointer'
