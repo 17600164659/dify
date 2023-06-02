@@ -1,13 +1,13 @@
 # コントリビュート
 
-[Dify](https://dify.ai) に興味を持ち、貢献したいと思うようになったことに感謝します！始める前に、
+[iPolloai](https://dify.ai) に興味を持ち、貢献したいと思うようになったことに感謝します！始める前に、
 [行動規範](https://github.com/langgenius/.github/blob/main/CODE_OF_CONDUCT.md)を読み、
 [既存の問題](https://github.com/langgenius/langgenius-gateway/issues)をチェックしてください。
-本ドキュメントは、[Dify](https://dify.ai) をビルドしてテストするための開発環境の構築方法を説明するものです。
+本ドキュメントは、[iPolloai](https://dify.ai) をビルドしてテストするための開発環境の構築方法を説明するものです。
 
 ### 依存関係のインストール
 
-[Dify](https://dify.ai)をビルドするには、お使いのマシンに以下の依存関係をインストールし、設定する必要があります:
+[iPolloai](https://dify.ai)をビルドするには、お使いのマシンに以下の依存関係をインストールし、設定する必要があります:
 
 - [Git](http://git-scm.com/)
 - [Docker](https://www.docker.com/)
@@ -42,11 +42,11 @@ git clone git@github.com:<github_username>/dify.git
 
 ### ブラウザで dify にアクセス
 
-[Dify](https://dify.ai) をローカル環境で見ることができるようになりました [http://localhost:3000](http://localhost:3000)。
+[iPolloai](https://dify.ai) をローカル環境で見ることができるようになりました [http://localhost:3000](http://localhost:3000)。
 
 ## プルリクエストの作成
 
-変更後、プルリクエスト (PR) をオープンしてください。プルリクエストを提出すると、Dify チーム/コミュニティの他の人があなたと一緒にそれをレビューします。
+変更後、プルリクエスト (PR) をオープンしてください。プルリクエストを提出すると、iPolloai チーム/コミュニティの他の人があなたと一緒にそれをレビューします。
 
 マージコンフリクトなどの問題が発生したり、プルリクエストの開き方がわからなくなったりしませんでしたか？ [GitHub's pull request tutorial](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests) で、マージコンフリクトやその他の問題を解決する方法をチェックしてみてください。あなたの PR がマージされると、[コントリビュータチャート](https://github.com/langgenius/langgenius-gateway/graphs/contributors)にコントリビュータとして誇らしげに掲載されます。
 

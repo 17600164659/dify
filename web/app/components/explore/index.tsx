@@ -21,10 +21,10 @@ const Explore: FC<IExploreProps> = ({
   const [installedApps, setInstalledApps] = useState<InstalledApp[]>([])
 
   useEffect(() => {
-    document.title = `${t('explore.title')} -  Dify`;
+    document.title = `${t('explore.title')} -  iPollo.ai`;
     (async () => {
-      const { accounts } = await fetchMembers({ url: '/workspaces/current/members', params: {}})
-      if(!accounts) return
+      const { accounts } = await fetchMembers({ url: '/workspaces/current/members', params: {} })
+      if (!accounts) return
       const currUser = accounts.find(account => account.id === userProfile.id)
       setHasEditPermission(currUser?.role !== 'normal')
     })()
