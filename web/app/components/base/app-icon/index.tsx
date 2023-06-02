@@ -26,7 +26,6 @@ const AppIcon: FC<AppIconProps> = ({
   innerIcon,
   onClick,
 }) => {
-  console.log(style.appIcon, 23232323)
   return (
     <span
       className={classNames(

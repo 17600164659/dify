@@ -23,7 +23,6 @@ const TemplateVarPanel: FC<ITemplateVarPanelProps> = ({
   isFold,
   onClick
 }) => {
-  console.log(onClick, 232323)
   return (
     <div className={cn(isFold ? 'border border-indigo-100' : s.boxShodow, className, 'rounded-xl ')}>
       {/* header */}

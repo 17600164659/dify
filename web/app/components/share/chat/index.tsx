@@ -409,6 +409,7 @@ const Main: FC<IMainProps> = ({
 
             draft.push({ ...responseItem })
           })
+        console.log(newListWithAnswer, 23232323)
         setChatList(newListWithAnswer)
       },
       async onCompleted(hasError?: boolean) {
@@ -432,7 +433,6 @@ const Main: FC<IMainProps> = ({
           setSuggestQuestions(data)
           setIsShowSuggestion(true)
         }
-        console.log(currChatList, 23232323);
       },
       onError() {
         setResponsingFalse()
