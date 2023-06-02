@@ -432,6 +432,7 @@ const Main: FC<IMainProps> = ({
           setSuggestQuestions(data)
           setIsShowSuggestion(true)
         }
+        console.log(currChatList, 23232323);
       },
       onError() {
         setResponsingFalse()
