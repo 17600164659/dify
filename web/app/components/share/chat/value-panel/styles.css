@@ -7,6 +7,8 @@
 
 .new-chat-title img {
     margin-bottom: 18px;
+    width: 136px;
+    height: 30px;
 }
 
 .new-chat-content {
