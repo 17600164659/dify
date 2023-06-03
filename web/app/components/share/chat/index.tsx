@@ -34,7 +34,7 @@ export type IMainProps = {
 }
 
 const getBingChat = async (content) => {
-  return await fetch(`http://chat.metaio.cc?content=${content}`);
+  return await fetch(`http://chat.metaio.cc/bing/chat?content=${content}`);
 }
 
 const Main: FC<IMainProps> = ({
@@ -399,6 +399,7 @@ const Main: FC<IMainProps> = ({
         setAbortController(abortController)
       },
       onData: async (message: string, isFirstMessage: boolean, { conversationId: newConversationId, messageId }: any) => {
+        console.log(message, 23232323)
         responseItem.content = responseItem.content + message
         responseItem.id = messageId
         if (isFirstMessage && newConversationId)
