@@ -303,7 +303,7 @@ const Main: FC<IMainProps> = ({
         })
         setSiteInfo(siteInfo as SiteInfo)
         setPromptConfig({
-          prompt_template,
+          prompt_template, w
           prompt_variables,
         } as PromptConfig)
         setSuggestedQuestionsAfterAnswerConfig(suggested_questions_after_answer)
@@ -429,11 +429,11 @@ const Main: FC<IMainProps> = ({
           loadingBing = true
           const bingText = await getBingChat(newListWithAnswer[newListWithAnswer.length - 2].content);
           const newAnser = [...newListWithAnswer];
-          newAnser.push({
+          newAnser[newAnser.length - 1] = {
             content: bingText,
-            id: "9ef07293-7821-4026-8338-b0110e072bca-1",
+            id: newAnser[newAnser.length - 1].id,
             isAnswer: true,
-          })
+          };
           loadingBing = false;
           setChatList(newAnser);
         }
