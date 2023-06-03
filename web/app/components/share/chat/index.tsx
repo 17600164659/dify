@@ -303,7 +303,7 @@ const Main: FC<IMainProps> = ({
         })
         setSiteInfo(siteInfo as SiteInfo)
         setPromptConfig({
-          prompt_template, w
+          prompt_template,
           prompt_variables,
         } as PromptConfig)
         setSuggestedQuestionsAfterAnswerConfig(suggested_questions_after_answer)
