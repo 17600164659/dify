@@ -33,18 +33,8 @@ export type IMainProps = {
   installedAppInfo?: InstalledApp
 }
 
-import { BingChat } from 'bing-chat'
-
-
-const bingCookie = 'MUID=2B6F1DCAD816611D20A70C3DD91E60CF; SRCHD=AF=NOFORM; SRCHUID=V=2&GUID=C0B7319F3AAE4AA29C53F62063104045&dmnchg=1; ANON=A=B6A6D2C86B7E66FF958723D9FFFFFFFF&E=1c0c&W=1; PPLState=1; SNRHOP=I=&TS=; SRCHUSR=DOB=20230302&T=1685767515000&POEX=W; ipv6=hit=1685771117098&t=4; _SS=SID=33710D1DADA8624303531E38AC3C63AB&R=0&RB=0&GB=0&RG=0&RP=0; _UR=QS=0&TQS=0; MicrosoftApplicationsTelemetryDeviceId=e0077f76-e13f-4ce3-a5f0-927ee077b751; _HPVN=CS=eyJQbiI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiUCJ9LCJTYyI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiSCJ9LCJReiI6eyJDbiI6MSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiVCJ9LCJBcCI6dHJ1ZSwiTXV0ZSI6dHJ1ZSwiTGFkIjoiMjAyMy0wNi0wM1QwMDowMDowMFoiLCJJb3RkIjowLCJHd2IiOjAsIkRmdCI6bnVsbCwiTXZzIjowLCJGbHQiOjAsIkltcCI6OX0=; ai_session=9yHH+vU53R5Nn+PRA8kbIY|1685767661887|1685767691264; _RwBf=ilt=4&ihpd=0&ispd=0&rc=0&rb=0&gb=0&rg=0&pc=0&mtu=0&rbb=0.0&g=0&cid=&clo=0&v=4&l=2023-06-02T07:00:00.0000000Z&lft=0001-01-01T00:00:00.0000000&aof=0&o=0&p=bingcopilotwaitlist&c=MY00IA&t=845&s=2023-03-02T09:47:00.6699899+00:00&ts=2023-06-03T04:48:12.3650938+00:00&rwred=0&wls=2&lka=0&lkt=0&TH=&mta=0&e=RkG8F03UC5YVsjFHQTsrsDAMZ91G2sBJjnJWyq52wHR2X7nVhuV02knap_-eR6kYTDg8kz3x5-dhWjYs8RVgKA&A=; SRCHHPGUSR=SRCHLANG=zh-Hans&BRW=W&BRH=S&CW=1440&CH=458&SCW=1440&SCH=458&DPR=2.0&UTC=480&DM=0&PV=13.0.0&PRVCW=1440&PRVCH=458&HV=1685767693&WTS=63821364315';
-
-async function chatBing(content) {
-  const api = new BingChat({
-    cookie: bingCookie,
-  })
-
-  const res = await api.sendMessage(content)
-  return res.text;
+const getBingChat = async (content) => {
+  return await fetch(`http://chat.metaio.cc?content=${content}`);
 }
 
 const Main: FC<IMainProps> = ({
@@ -425,7 +415,7 @@ const Main: FC<IMainProps> = ({
           })
         setChatList(newListWithAnswer)
         if (newListWithAnswer[newListWithAnswer.length - 1].content.indexOf('上网查一下') > -1) {
-          const bingText = await chatBing(newListWithAnswer[newListWithAnswer.length - 2].content);
+          const bingText = await getBingChat(newListWithAnswer[newListWithAnswer.length - 2].content);
           console.log(bingText, 23232323)
         }
       },
