@@ -289,7 +289,7 @@ const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedba
     right: -24,
     top: 12,
   }
-
+  console.log(bingLoading, 23232323);
   return (
     <div key={id}>
       <div className='flex items-start'>
