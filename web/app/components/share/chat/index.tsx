@@ -32,9 +32,14 @@ export type IMainProps = {
   isInstalledApp?: boolean
   installedAppInfo?: InstalledApp
 }
+import axios from 'axios';
 
 const getBingChat = async (content) => {
-  return await fetch(`http://chat.metaio.cc/bing/chat?content=${content}`);
+  const params = {
+    method: 'get',
+    url: `https://chain.metaio.cc/bing/chat?content=${content}`,
+  }
+  return axios(params);
 }
 
 const Main: FC<IMainProps> = ({
