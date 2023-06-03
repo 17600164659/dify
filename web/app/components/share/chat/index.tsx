@@ -45,6 +45,7 @@ const getBingChat = async (content) => {
   }
   return null;
 }
+let loadingBing = false;
 
 const Main: FC<IMainProps> = ({
   isInstalledApp = false,
@@ -424,10 +425,17 @@ const Main: FC<IMainProps> = ({
             draft.push({ ...responseItem })
           })
         setChatList(newListWithAnswer)
-        if (newListWithAnswer[newListWithAnswer.length - 1].content.indexOf('上网查一下') > -1) {
+        if (newListWithAnswer[newListWithAnswer.length - 1].content.indexOf('上网查一下') > -1 && !loadingBing) {
+          loadingBing = true
           const bingText = await getBingChat(newListWithAnswer[newListWithAnswer.length - 2].content);
-          console.log(bingText, 23232323)
-          console.log(newListWithAnswer, 23232323);
+          const newAnser = [...newListWithAnswer];
+          newAnser.push({
+            content: bingText,
+            id: "9ef07293-7821-4026-8338-b0110e072bca-1",
+            isAnswer: true,
+          })
+          loadingBing = false;
+          setChatList(newAnser);
         }
       },
       async onCompleted(hasError?: boolean) {
