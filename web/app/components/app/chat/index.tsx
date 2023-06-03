@@ -489,6 +489,7 @@ const Chat: FC<IChatProps> = ({
       {/* Chat List */}
       <div className="h-full space-y-[30px]">
         {chatList.map((item) => {
+          console.log(item, 23232323)
           if (item.isAnswer) {
             const isLast = item.id === chatList[chatList.length - 1].id
             return <Answer
