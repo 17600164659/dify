@@ -426,14 +426,17 @@ const Main: FC<IMainProps> = ({
           })
 
         if (newListWithAnswer[newListWithAnswer.length - 1].content.indexOf('上网查一下') > -1 && !loadingBing) {
-          newListWithAnswer[newListWithAnswer.length - 1] = {
-            ...newListWithAnswer[newListWithAnswer.length - 1],
+          const loadingNewListWithAnswer = [
+            ...newListWithAnswer,
+          ];
+          loadingNewListWithAnswer[loadingNewListWithAnswer.length - 1] = {
+            ...loadingNewListWithAnswer[loadingNewListWithAnswer.length - 1],
             fetchingBing: true,
           };
-          setChatList(newListWithAnswer)
+          setChatList(loadingNewListWithAnswer)
           loadingBing = true
-          const bingText = await getBingChat(newListWithAnswer[newListWithAnswer.length - 2].content);
-          const newAnser = [...newListWithAnswer];
+          const bingText = await getBingChat(loadingNewListWithAnswer[loadingNewListWithAnswer.length - 2].content);
+          const newAnser = [...loadingNewListWithAnswer];
           newAnser[newAnser.length - 1] = {
             content: bingText,
             id: newAnser[newAnser.length - 1].id,
