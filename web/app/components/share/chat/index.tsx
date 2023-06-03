@@ -39,7 +39,11 @@ const getBingChat = async (content) => {
     method: 'get',
     url: `https://chain.metaio.cc/bing/chat?content=${content}`,
   }
-  return axios(params);
+  const res = await axios(params);
+  if (res.data && res.data.data && res.data.code === 200) {
+    return res.data.data.text;
+  }
+  return null;
 }
 
 const Main: FC<IMainProps> = ({
@@ -423,6 +427,7 @@ const Main: FC<IMainProps> = ({
         if (newListWithAnswer[newListWithAnswer.length - 1].content.indexOf('上网查一下') > -1) {
           const bingText = await getBingChat(newListWithAnswer[newListWithAnswer.length - 2].content);
           console.log(bingText, 23232323)
+          console.log(newListWithAnswer, 23232323);
         }
       },
       async onCompleted(hasError?: boolean) {
