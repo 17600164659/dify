@@ -1,1 +1,1 @@
-docker build -t dify-web-1 . -f ./Dockerfile
+docker build -t dify-api-1 . -f ./Dockerfile
