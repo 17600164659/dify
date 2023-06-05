@@ -5,7 +5,6 @@ from typing import Union, Generator
 from flask import stream_with_context, Response
 from flask_restful import reqparse
 from werkzeug.exceptions import NotFound, InternalServerError
-from baiduspider import BaiduSpider
 
 import services
 from controllers.service_api import api
@@ -32,7 +31,6 @@ class CompletionApi(AppApiResource):
         parser.add_argument('response_mode', type=str, choices=['blocking', 'streaming'], location='json')
         parser.add_argument('user', type=str, location='json')
         args = parser.parse_args()
-        print(args)
 
         streaming = args['response_mode'] == 'streaming'
 
@@ -176,18 +174,8 @@ def compact_response(response: Union[dict | Generator]) -> Response:
         return Response(stream_with_context(generate()), status=200,
                         mimetype='text/event-stream')
 
-# class ChatStopApi(AppApiResource):
-#     def post(self, app_model, end_user, task_id):
-#         if app_model.mode != 'chat':
-#             raise NotChatAppError()
-
-#         PubHandler.stop(end_user, task_id)
-
-#         return {'result': 'success'}, 200
-
 api.add_resource(CompletionApi, '/completion-messages')
 api.add_resource(CompletionStopApi, '/completion-messages/<string:task_id>/stop')
 api.add_resource(ChatApi, '/chat-messages')
-# api.add_resource(ChatApi, '/chat-search')
 api.add_resource(ChatStopApi, '/chat-messages/<string:task_id>/stop')
 
