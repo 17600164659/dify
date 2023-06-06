@@ -266,13 +266,20 @@ export const upload = (options: any): Promise<any> => {
   })
 }
 
-export const ssePost = (url: string, fetchOptions: any, { isPublicAPI = false, onData, onCompleted, onError, getAbortController }: IOtherOptions) => {
+export const ssePost = (url: string, fetchOptions: any, { isPublicAPI = false, onData, onCompleted, onError, getAbortController }: IOtherOptions, Authorization: string) => {
   const abortController = new AbortController()
 
   const options = Object.assign({}, baseOptions, {
     method: 'POST',
     signal: abortController.signal,
   }, fetchOptions)
+
+  if (Authorization) {
+    options.headers = new Headers({
+      'Content-Type': ContentType.json,
+      Authorization,
+    })
+  }
 
   getAbortController?.(abortController)
 

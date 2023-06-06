@@ -33,19 +33,7 @@ export type IMainProps = {
   installedAppInfo?: InstalledApp
 }
 import axios from 'axios';
-
-const getBingChat = async (content) => {
-  const params = {
-    method: 'get',
-    url: `https://chain.metaio.cc/bing/chat?content=${content}`,
-  }
-  const res = await axios(params);
-  if (res.data && res.data.data && res.data.code === 200) {
-    return res.data.data.text;
-  }
-  return null;
-}
-let loadingBing = false;
+import { decision, execute } from './decision';
 
 const Main: FC<IMainProps> = ({
   isInstalledApp = false,
@@ -103,6 +91,7 @@ const Main: FC<IMainProps> = ({
     setHasMore(has_more)
     setConversationList([...conversationList, ...conversations])
   }
+
   const [suggestedQuestionsAfterAnswerConfig, setSuggestedQuestionsAfterAnswerConfig] = useState<SuggestedQuestionsAfterAnswerConfig | null>(null)
 
   const [conversationIdChangeBecauseOfNew, setConversationIdChangeBecauseOfNew, getConversationIdChangeBecauseOfNew] = useGetState(false)
@@ -404,12 +393,20 @@ const Main: FC<IMainProps> = ({
 
     setResponsingTrue()
     setIsShowSuggestion(false)
+    const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
+    console.log(decisionValue, 23232323)
+    try {
+      const decisionJson = JSON.parse(decisionValue);
+      const executedPrompt = await execute(decisionJson);
+      data.query = data.query + executedPrompt;
+    } catch (e) {
+      console.error(e);
+    }
     sendChatMessage(data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)
       },
       onData: async (message: string, isFirstMessage: boolean, { conversationId: newConversationId, messageId }: any) => {
-        console.log(message, 23232323)
         responseItem.content = responseItem.content + message
         responseItem.id = messageId
         if (isFirstMessage && newConversationId)
@@ -424,29 +421,7 @@ const Main: FC<IMainProps> = ({
 
             draft.push({ ...responseItem })
           })
-
-        if (newListWithAnswer[newListWithAnswer.length - 1].content.indexOf('上网查一下') > -1 && !loadingBing) {
-          loadingBing = true
-          const loadingNewListWithAnswer = [
-            ...newListWithAnswer,
-          ];
-          loadingNewListWithAnswer[loadingNewListWithAnswer.length - 1] = {
-            ...loadingNewListWithAnswer[loadingNewListWithAnswer.length - 1],
-            fetchingBing: true,
-          };
-          setChatList(loadingNewListWithAnswer)
-          const bingText = await getBingChat(loadingNewListWithAnswer[loadingNewListWithAnswer.length - 2].content);
-          const newAnser = [...loadingNewListWithAnswer];
-          newAnser[newAnser.length - 1] = {
-            content: bingText,
-            id: newAnser[newAnser.length - 1].id,
-            isAnswer: true,
-          };
-          loadingBing = false;
-          setChatList(newAnser);
-        } else {
-          setChatList(newListWithAnswer)
-        }
+        setChatList(newListWithAnswer)
       },
       async onCompleted(hasError?: boolean) {
         setResponsingFalse()

@@ -22,7 +22,7 @@ import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
 
 const stopIcon = (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00004 0.583313C3.45621 0.583313 0.583374 3.45615 0.583374 6.99998C0.583374 10.5438 3.45621 13.4166 7.00004 13.4166C10.5439 13.4166 13.4167 10.5438 13.4167 6.99998C13.4167 3.45615 10.5439 0.583313 7.00004 0.583313ZM4.73029 4.98515C4.66671 5.10993 4.66671 5.27328 4.66671 5.59998V8.39998C4.66671 8.72668 4.66671 8.89003 4.73029 9.01481C4.78621 9.12457 4.87545 9.21381 4.98521 9.26973C5.10999 9.33331 5.27334 9.33331 5.60004 9.33331H8.40004C8.72674 9.33331 8.89009 9.33331 9.01487 9.26973C9.12463 9.21381 9.21387 9.12457 9.2698 9.01481C9.33337 8.89003 9.33337 8.72668 9.33337 8.39998V5.59998C9.33337 5.27328 9.33337 5.10993 9.2698 4.98515C9.21387 4.87539 9.12463 4.78615 9.01487 4.73023C8.89009 4.66665 8.72674 4.66665 8.40004 4.66665H5.60004C5.27334 4.66665 5.10999 4.66665 4.98521 4.73023C4.87545 4.78615 4.78621 4.87539 4.73029 4.98515Z" fill="#667085" />
+    <path fill-rule="evenodd" clipRule="evenodd" d="M7.00004 0.583313C3.45621 0.583313 0.583374 3.45615 0.583374 6.99998C0.583374 10.5438 3.45621 13.4166 7.00004 13.4166C10.5439 13.4166 13.4167 10.5438 13.4167 6.99998C13.4167 3.45615 10.5439 0.583313 7.00004 0.583313ZM4.73029 4.98515C4.66671 5.10993 4.66671 5.27328 4.66671 5.59998V8.39998C4.66671 8.72668 4.66671 8.89003 4.73029 9.01481C4.78621 9.12457 4.87545 9.21381 4.98521 9.26973C5.10999 9.33331 5.27334 9.33331 5.60004 9.33331H8.40004C8.72674 9.33331 8.89009 9.33331 9.01487 9.26973C9.12463 9.21381 9.21387 9.12457 9.2698 9.01481C9.33337 8.89003 9.33337 8.72668 9.33337 8.39998V5.59998C9.33337 5.27328 9.33337 5.10993 9.2698 4.98515C9.21387 4.87539 9.12463 4.78615 9.01487 4.73023C8.89009 4.66665 8.72674 4.66665 8.40004 4.66665H5.60004C5.27334 4.66665 5.10999 4.66665 4.98521 4.73023C4.87545 4.78615 4.78621 4.87539 4.73029 4.98515Z" fill="#667085" />
   </svg>
 )
 export type Feedbacktype = {
@@ -170,7 +170,7 @@ type IAnswerProps = {
 }
 
 // The component needs to maintain its own state to control whether to display input component
-const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedbackEdit = false, onFeedback, onSubmitAnnotation, displayScene = 'web', isResponsing, isLast, bingLoading }) => {
+const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedbackEdit = false, onFeedback, onSubmitAnnotation, displayScene = 'web', isResponsing, isLast }) => {
   const { id, content, more, feedback, adminFeedback, annotation: initAnnotation } = item
   const [showEdit, setShowEdit] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -289,7 +289,6 @@ const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedba
     right: -24,
     top: 12,
   }
-  console.log(bingLoading, 23232323);
   return (
     <div key={id}>
       <div className='flex items-start'>
@@ -302,7 +301,6 @@ const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedba
           }
         </div> */}
         <div className={s.answerWrapWrap} style={{ position: 'relative' }}>
-          {bingLoading ? <img src="https://assets.metaio.cc/assets/difyassets/anser-loading.gif" style={loadingStyle} /> : null}
           <div className={`${s.answerWrap} ${showEdit ? 'w-full' : ''}`}>
             <div className={`${s.answer} relative text-sm text-gray-900`}>
               <div className={'ml-2 py-3 px-4 bg-gray-100 rounded-tr-2xl rounded-b-2xl'}>
@@ -392,7 +390,7 @@ const Question: FC<IQuestionProps> = ({ id, content, more, useCurrentUserAvatar 
           <div
             className={'mr-2 py-3 px-4 bg-blue-500 rounded-tl-2xl rounded-b-2xl'}
           >
-            <Markdown content={content} />
+            <Markdown content={content.replace(/\{\{\{[\s\S]+\}\}\}/g, "")} />
           </div>
         </div>
         {more && <MoreInfo more={more} isQuestion={true} />}
@@ -489,11 +487,9 @@ const Chat: FC<IChatProps> = ({
       {/* Chat List */}
       <div className="h-full space-y-[30px]">
         {chatList.map((item) => {
-          console.log(item, 23232323)
           if (item.isAnswer) {
             const isLast = item.id === chatList[chatList.length - 1].id
             return <Answer
-              bingLoading={item.fetchingBing}
               isLast={isLast}
               key={item.id}
               item={item}

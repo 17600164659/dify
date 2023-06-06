@@ -1,7 +1,7 @@
 import type { IOnCompleted, IOnData, IOnError } from './base'
-import { 
+import {
   get as consoleGet, post as consolePost, del as consoleDel,
-  getPublic as get, postPublic as post, ssePost, delPublic as del 
+  getPublic as get, postPublic as post, ssePost, delPublic as del
 } from './base'
 import type { Feedbacktype } from '@/app/components/app/chat'
 
@@ -25,13 +25,13 @@ export const sendChatMessage = async (body: Record<string, any>, { onData, onCom
   onCompleted: IOnCompleted
   onError: IOnError,
   getAbortController?: (abortController: AbortController) => void
-}, isInstalledApp: boolean, installedAppId = '') => {
+}, isInstalledApp: boolean, installedAppId = '', Authorization: string) => {
   return ssePost(getUrl('chat-messages', isInstalledApp, installedAppId), {
     body: {
       ...body,
       response_mode: 'streaming',
     },
-  }, { onData, onCompleted, isPublicAPI: !isInstalledApp, onError, getAbortController })
+  }, { onData, onCompleted, isPublicAPI: !isInstalledApp, onError, getAbortController }, Authorization)
 }
 
 export const sendCompletionMessage = async (body: Record<string, any>, { onData, onCompleted, onError }: {
@@ -51,11 +51,11 @@ export const fetchAppInfo = async () => {
   return get('/site')
 }
 
-export const fetchConversations = async (isInstalledApp: boolean, installedAppId='', last_id?: string) => {
-  return getAction('get', isInstalledApp)(getUrl('conversations', isInstalledApp, installedAppId), { params: {...{ limit: 20 }, ...(last_id ? { last_id } : {}) } })
+export const fetchConversations = async (isInstalledApp: boolean, installedAppId = '', last_id?: string) => {
+  return getAction('get', isInstalledApp)(getUrl('conversations', isInstalledApp, installedAppId), { params: { ...{ limit: 20 }, ...(last_id ? { last_id } : {}) } })
 }
 
-export const fetchChatList = async (conversationId: string, isInstalledApp: boolean, installedAppId='') => {
+export const fetchChatList = async (conversationId: string, isInstalledApp: boolean, installedAppId = '') => {
   return getAction('get', isInstalledApp)(getUrl('messages', isInstalledApp, installedAppId), { params: { conversation_id: conversationId, limit: 20, last_id: '' } })
 }
 
