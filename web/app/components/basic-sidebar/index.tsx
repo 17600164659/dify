@@ -19,7 +19,8 @@ export type IAppDetailNavProps = {
     icon: any
     selectedIcon: any
   }>
-  extraInfo?: React.ReactNode
+  extraInfo?: React.ReactNode,
+  layout: string
 }
 
 const sampleAppIconUrl = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
@@ -56,7 +57,6 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
   }
 
   const pathname = globalThis && globalThis.location ? globalThis.location.pathname : '/datasets';
-
   return (
     <div className="flex flex-col w-17 overflow-y-auto bg-white border-r border-gray-200 shrink-0" style={{ zIndex: 10, boxShadow: "4px 0px 32px rgba(77, 90, 115, 0.08)" }}>
       <img src={logoUrl} className='basic-sidebar-header' />
@@ -67,7 +67,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
               <div className={`basic-sidebar-menu-item ${pathname === '/apps' ? 'active' : ''}`}>
                 <img className='basic-sidebar-menu-icon' src={appUrl} />
                 {
-                  layout === '/apps' ? (<div>应<br />用</div>) : null
+                  layout === 'apps' ? (<div>应<br />用</div>) : null
                 }
               </div>
             </Link>
@@ -75,7 +75,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
               <div className={`basic-sidebar-menu-item ${pathname === '/datasets' ? 'active' : ''}`}>
                 <img className='basic-sidebar-menu-icon' src={databaseUrl} />
                 {
-                  layout === '/datasets' ? (<div>数<br />据<br />集</div>) : null
+                  layout === 'datasets' ? (<div>数<br />据<br />集</div>) : null
                 }
               </div>
             </Link>

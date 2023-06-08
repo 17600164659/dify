@@ -1,0 +1,56 @@
+.main-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 1000;
+}
+
+.main-container .main-bg {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.main-app-list {
+    height: calc(100vh - 194px);
+    position: absolute;
+    top: 106px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: white;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    padding: 56px 40px;
+    padding-bottom: 20px;
+    overflow-y: scroll;
+}
+
+.main-footer {
+    height: 88px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0px -16px 40px rgba(151, 156, 167, 0.08);
+    background-color: white;
+    z-index: 11;
+}
+
+.main-header {}
+
+.main-logo {
+    width: 243px;
+    height: 55px;
+}
+
+.main-share {
+    width: 62px;
+    height: 62px;
+}
+
+.main-app-list .main-chat {}

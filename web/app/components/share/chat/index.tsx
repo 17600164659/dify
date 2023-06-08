@@ -34,6 +34,7 @@ export type IMainProps = {
 }
 import axios from 'axios';
 import { decision, execute } from './decision';
+import MainMobile from './main-mobile';
 
 const Main: FC<IMainProps> = ({
   isInstalledApp = false,
@@ -250,6 +251,7 @@ const Main: FC<IMainProps> = ({
       : fetchAppInfo(), fetchConversations(isInstalledApp, installedAppInfo?.id), fetchAppParams(isInstalledApp, installedAppInfo?.id)])
   }
 
+  // fetchConversations(isInstalledApp, installedAppInfo?.id, '', 'x8qCJ8rWwj4WtYtn')
   // init
   useEffect(() => {
     (async () => {
@@ -431,6 +433,8 @@ const Main: FC<IMainProps> = ({
         let currChatList = conversationList
         if (getConversationIdChangeBecauseOfNew()) {
           const { data: conversations, has_more }: any = await fetchConversations(isInstalledApp, installedAppInfo?.id)
+          const { data: conversationsaaa }: any = await fetchConversations(isInstalledApp, installedAppInfo?.id, '', 'x8qCJ8rWwj4WtYtn');
+          console.log(conversationsaaa, 23232323);
           setHasMore(has_more)
           setConversationList(conversations as ConversationItem[])
           currChatList = conversations
@@ -496,6 +500,9 @@ const Main: FC<IMainProps> = ({
 
   return (
     <div className='bg-gray-100'>
+      {
+        isMobile ? <MainMobile /> : null
+      }
       {!isInstalledApp && (
         <Header
           title={siteInfo.title}

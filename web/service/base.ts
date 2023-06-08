@@ -126,7 +126,12 @@ const baseFetch = (
   const options = Object.assign({}, baseOptions, fetchOptions)
   if (isPublicAPI) {
     const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
-    options.headers.set('Authorization', `bearer ${sharedToken}`)
+    // console.log(fetchOptions.bearer, 23232323);
+    if (fetchOptions.bearer) {
+      options.headers.set('Authorization', `bearer ${fetchOptions.bearer}`)
+    } else {
+      options.headers.set('Authorization', `bearer ${sharedToken}`)
+    }
   }
 
   let urlPrefix = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX
