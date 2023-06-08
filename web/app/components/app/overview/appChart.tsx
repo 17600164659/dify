@@ -107,7 +107,7 @@ const Chart: React.FC<IChartProps> = ({
     // @ts-expect-error field is valid
     return item[yField] || 0
   })
-
+  console.log(extraDataForMarkLine, 23232323)
   const options: EChartsOption = {
     dataset: {
       dimensions: ['date', yField],
@@ -172,33 +172,34 @@ const Chart: React.FC<IChartProps> = ({
     },
     series: [
       {
-        type: 'bar',
+        type: 'line',
         showSymbol: true,
         // symbol: 'circle',
         // triggerLineEvent: true,
-        symbolSize: 4,
         lineStyle: {
           color: COLOR_TYPE_MAP[CHART_TYPE_CONFIG[chartType].colorType].lineColor,
           width: 2,
+          type: 'dashed'
         },
         itemStyle: {
           color: COLOR_TYPE_MAP[CHART_TYPE_CONFIG[chartType].colorType].lineColor,
+          width: 1,
         },
-        areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [{
-              offset: 0, color: COLOR_TYPE_MAP[CHART_TYPE_CONFIG[chartType].colorType].bgColor[0],
-            }, {
-              offset: 1, color: COLOR_TYPE_MAP[CHART_TYPE_CONFIG[chartType].colorType].bgColor[1],
-            }],
-            global: false,
-          },
-        },
+        // areaStyle: {
+        //   color: {
+        //     type: 'linear',
+        //     x: 0,
+        //     y: 0,
+        //     x2: 0,
+        //     y2: 1,
+        //     colorStops: [{
+        //       offset: 0, color: "#0493f2",
+        //     }, {
+        //       offset: 1, color: "#0493f22a",
+        //     }],
+        //     global: false,
+        //   },
+        // },
         tooltip: {
           padding: [8, 12, 8, 12],
           formatter(params) {
@@ -208,8 +209,8 @@ const Chart: React.FC<IChartProps> = ({
                 ? ''
                 : `<span style='font-size:12px'>
                                   <span style='margin-left:4px;color:#6B7280'>(</span>
-                                  <span style='color:#FF8A4C'>~$${get(params.data, 'total_price', 0)}</span>
-                                  <span style='color:#6B7280'>)</span>
+                                  <span style='color:#7fff4c'>~$${get(params.data, 'total_price', 0)}</span>
+                                  <span style='color:#8e5b9a'>)</span>
                               </span>`}
                           </div>`
           },

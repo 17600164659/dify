@@ -60,7 +60,7 @@ const OpeningStatement: FC<IOpeningStatementProps> = ({
     .replace(/>/g, '&gt;')
     .replace(regex, varHighlightHTML({ name: '$1' })) // `<span class="${highLightClassName}">{{$1}}</span>`
     .replace(/\n/g, '<br />')
-    
+
 
 
   const handleEdit = () => {
@@ -155,7 +155,7 @@ const OpeningStatement: FC<IOpeningStatementProps> = ({
 
                 <div className='flex gap-2'>
                   <Button className='!h-8 text-sm' onClick={handleCancel}>{t('common.operation.cancel')}</Button>
-                  <Button className='!h-8 text-sm' onClick={handleConfirm} type="primary">{t('common.operation.save')}</Button>
+                  <Button background="181A24" className='!h-8 text-sm' onClick={handleConfirm} type="primary">{t('common.operation.save')}</Button>
                 </div>
               </div>
             )}

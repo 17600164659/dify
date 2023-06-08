@@ -64,7 +64,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
         !isChat ? (
           <div className='basic-sidebar-menu'>
             <Link href="/apps">
-              <div className={`basic-sidebar-menu-item ${pathname === '/apps' ? 'active' : ''}`}>
+              <div className={`basic-sidebar-menu-item ${layout === 'apps' ? 'active' : ''}`}>
                 <img className='basic-sidebar-menu-icon' src={appUrl} />
                 {
                   layout === 'apps' ? (<div>应<br />用</div>) : null
@@ -72,7 +72,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
               </div>
             </Link>
             <Link href="/datasets">
-              <div className={`basic-sidebar-menu-item ${pathname === '/datasets' ? 'active' : ''}`}>
+              <div className={`basic-sidebar-menu-item ${layout === 'datasets' ? 'active' : ''}`}>
                 <img className='basic-sidebar-menu-icon' src={databaseUrl} />
                 {
                   layout === 'datasets' ? (<div>数<br />据<br />集</div>) : null

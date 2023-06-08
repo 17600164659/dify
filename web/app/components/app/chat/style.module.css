@@ -73,7 +73,7 @@
 
 .question::before {
   right: 0;
-  background: url(./icons/question.svg) no-repeat;
+  background: #181A24;
 }
 
 .textArea {

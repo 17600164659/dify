@@ -500,9 +500,9 @@ const Main: FC<IMainProps> = ({
 
   return (
     <div className='bg-gray-100'>
-      {
+      {/* {
         isMobile ? <MainMobile /> : null
-      }
+      } */}
       {!isInstalledApp && (
         <Header
           title={siteInfo.title}
