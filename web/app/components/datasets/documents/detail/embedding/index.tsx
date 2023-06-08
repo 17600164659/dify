@@ -211,7 +211,7 @@ const EmbeddingDetail: FC<Props> = ({ detail, stopPosition = 'top', datasetId: d
             (isEmbeddingPaused || isEmbeddingError) && s.barPaused,
             indexingStatusDetail?.indexing_status === 'completed' && 'rounded-r-md')
         }
-        style={{ width: `${percent}%` }}
+          style={{ width: `${percent}%` }}
         />
       </div>
       <div className={s.progressData}>
@@ -245,7 +245,7 @@ const EmbeddingDetail: FC<Props> = ({ detail, stopPosition = 'top', datasetId: d
               {t('datasetCreation.stepThree.resume')}
             </Button>
           )}
-          <Button className='w-fit' type='primary' onClick={navToDocument}>
+          <Button className='w-fit' type='primary' background="#181A24" onClick={navToDocument}>
             <span>{t('datasetCreation.stepThree.navTo')}</span>
             <ArrowRightIcon className='h-4 w-4 ml-2 stroke-current stroke-1' />
           </Button>

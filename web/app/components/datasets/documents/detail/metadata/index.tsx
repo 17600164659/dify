@@ -206,6 +206,7 @@ const Metadata: FC<IMetadataProps> = ({ docDetail, loading, onUpdate }) => {
           </Radio.Group>
           {!doc_type && !documentType && (
             <Button type='primary'
+              background="#181A24"
               onClick={confirmDocType}
               disabled={!tempDocType}
             >
@@ -213,7 +214,7 @@ const Metadata: FC<IMetadataProps> = ({ docDetail, loading, onUpdate }) => {
             </Button>
           )}
           {documentType && <div className={s.opBtnWrapper}>
-            <Button onClick={confirmDocType} className={`${s.opBtn} ${s.opSaveBtn}`} type='primary' >{t('common.operation.save')}</Button>
+            <Button onClick={confirmDocType} background="#181A24" className={`${s.opBtn} ${s.opSaveBtn}`} type='primary' >{t('common.operation.save')}</Button>
             <Button onClick={cancelDocType} className={`${s.opBtn} ${s.opCancelBtn}`}>{t('common.operation.cancel')}</Button>
           </div>}
         </div >
@@ -316,6 +317,7 @@ const Metadata: FC<IMetadataProps> = ({ docDetail, loading, onUpdate }) => {
                   <Button onClick={onSave}
                     className={`${s.opBtn} ${s.opSaveBtn}`}
                     type='primary'
+                    background="#181A24"
                     loading={saveLoading}
                   >
                     {t('common.operation.save')}

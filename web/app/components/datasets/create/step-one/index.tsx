@@ -88,7 +88,7 @@ const StepOne = ({
             </div>
           </div>
           <FileUploader onFileUpdate={updateFile} file={file} />
-          <Button background="#181A24" disabled={!file} className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
+          <Button background="#181A24" disabled={!file} background="#181A24" className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
           {/* {!datasetId && (
             <>
               <div className={s.dividerLine} />

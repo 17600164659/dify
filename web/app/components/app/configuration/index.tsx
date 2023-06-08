@@ -264,7 +264,7 @@ const Configuration: FC = () => {
               />
               <div className='mx-3 w-[1px] h-[14px] bg-gray-200'></div>
               <Button onClick={() => setShowConfirm(true)} className='shrink-0 mr-2 w-[70px] !h-8 !text-[13px] font-medium'>{t('appDebug.operation.resetConfig')}</Button>
-              <Button type='primary' onClick={saveAppConfig} className='shrink-0 w-[70px] !h-8 !text-[13px] font-medium'>{t('appDebug.operation.applyConfig')}</Button>
+              <Button type='primary' background="#181A24" onClick={saveAppConfig} className='shrink-0 w-[70px] !h-8 !text-[13px] font-medium'>{t('appDebug.operation.applyConfig')}</Button>
             </div>
           </div>
           <div className='flex grow h-[200px]'>

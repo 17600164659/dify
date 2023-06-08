@@ -116,6 +116,7 @@ export default function AccountPage() {
               <Button
                 disabled={editing || !editName}
                 type='primary'
+                background="#181A24"
                 className='text-sm font-medium'
                 onClick={handleSaveName}
               >

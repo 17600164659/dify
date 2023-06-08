@@ -27,7 +27,7 @@ const EmptyDatasetCreationModal = ({
   const { notify } = useContext(ToastContext)
   const router = useRouter()
 
-  const submit =  async () => {
+  const submit = async () => {
     if (!inputValue) {
       notify({ type: 'error', message: t('datasetCreation.stepOne.modal.nameNotEmpty') })
       return
@@ -55,7 +55,7 @@ const EmptyDatasetCreationModal = ({
     >
       <div className={s.modalHeader}>
         <div className={s.title}>{t('datasetCreation.stepOne.modal.title')}</div>
-        <span className={s.close} onClick={onHide}/>
+        <span className={s.close} onClick={onHide} />
       </div>
       <div className={s.tip}>{t('datasetCreation.stepOne.modal.tip')}</div>
       <div className={s.form}>
@@ -63,7 +63,7 @@ const EmptyDatasetCreationModal = ({
         <Input className='!h-8' value={inputValue} placeholder={t('datasetCreation.stepOne.modal.placeholder') || ''} onChange={setInputValue} />
       </div>
       <div className='flex flex-row-reverse'>
-        <Button className='w-24 ml-2' type='primary' onClick={submit}>{t('datasetCreation.stepOne.modal.confirmButton')}</Button>
+        <Button className='w-24 ml-2' background="#181A24" type='primary' onClick={submit}>{t('datasetCreation.stepOne.modal.confirmButton')}</Button>
         <Button className='w-24' onClick={onHide}>{t('datasetCreation.stepOne.modal.cancelButton')}</Button>
       </div>
     </Modal>

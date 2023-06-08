@@ -27,7 +27,7 @@ const StepsNavBar = ({
   return (
     <div className='w-full pt-4'>
       <div className={s.stepsHeader}>
-        <div onClick={navBackHandle} className={s.navBack} />
+        <div onClick={navBackHandle} className={s.navBack} style={{ color: 'black', backgroundImage: 'none' }}>←</div>
         {!datasetId ? t('datasetCreation.steps.header.creation') : t('datasetCreation.steps.header.update')}
       </div>
       <div className={cn(s.stepList)}>

@@ -50,7 +50,7 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
     return null
   return (
     <div className={cn(s.app, 'flex', 'overflow-hidden')}>
-      <BasicSideBar title={"未陌AI"} desc={appModeName} />
+      <BasicSideBar title={"未陌AI"} desc={appModeName} layout="apps" />
       <AppSideBar title={response.name} desc={appModeName} navigation={navigation} />
       <div className="bg-white grow">{children}</div>
     </div>

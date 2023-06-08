@@ -27,7 +27,7 @@ const HasNotSetAPI: FC<IHasNotSetAPIProps> = ({
       title={isTrailFinished ? t('appDebug.notSetAPIKey.trailFinished') : t('appDebug.notSetAPIKey.title')}
       description={t('appDebug.notSetAPIKey.description')}
       footer={
-        <Button type='primary' className='flex items-center space-x-2' onClick={onSetting}>
+        <Button type='primary' background="#181A24" className='flex items-center space-x-2' onClick={onSetting}>
           <span>{t('appDebug.notSetAPIKey.settingBtn')}</span>
           {icon}
         </Button>}

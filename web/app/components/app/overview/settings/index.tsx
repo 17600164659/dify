@@ -137,7 +137,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
       </>}
       <div className='mt-10 flex justify-end'>
         <Button className='mr-2 flex-shrink-0' onClick={onHide}>{t('common.operation.cancel')}</Button>
-        <Button type='primary' className='flex-shrink-0' onClick={onClickSave} loading={saveLoading}>{t('common.operation.save')}</Button>
+        <Button type='primary' background="#181A24" className='flex-shrink-0' onClick={onClickSave} loading={saveLoading}>{t('common.operation.save')}</Button>
       </div>
     </Modal >
   )

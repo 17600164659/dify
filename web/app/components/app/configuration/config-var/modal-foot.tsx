@@ -16,7 +16,7 @@ const ModalFoot: FC<IModalFootProps> = ({
   return (
     <div className='flex justify-end gap-2'>
       <Button onClick={onCancel}>{t('common.operation.cancel')}</Button>
-      <Button type='primary' onClick={onConfirm}>{t('common.operation.save')}</Button>
+      <Button type='primary' background="#181A24" onClick={onConfirm}>{t('common.operation.save')}</Button>
     </div>
   )
 }

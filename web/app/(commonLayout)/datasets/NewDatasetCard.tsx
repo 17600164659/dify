@@ -10,7 +10,7 @@ const CreateAppCard = forwardRef<HTMLAnchorElement>((_, ref) => {
   const [showNewAppDialog, setShowNewAppDialog] = useState(false)
 
   return (
-    <a ref={ref} className={classNames(style.listItem, style.newItemCard)} href='/datasets/create' style={{ position: 'relative' }}>
+    <a ref={ref} className={classNames(style.listItem, style.newItemCard)} href='/datasets/create' style={{ width: 295, height: 240, position: 'relative' }}>
       <div className={style.listItemTitle}>
         <span className={style.newItemIcon}>
           <span className={classNames(style.newItemIconImage, style.newItemIconAdd)} />

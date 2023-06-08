@@ -340,6 +340,7 @@ const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedba
                     <div className="mt-2 flex flex-row">
                       <Button
                         type='primary'
+                        background="#181A24"
                         className='mr-2'
                         loading={loading}
                         onClick={async () => {

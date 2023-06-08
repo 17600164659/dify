@@ -69,7 +69,7 @@ const CardView: FC<ICardViewProps> = ({ appId }) => {
   return (
     <div className='flex flex-row justify-between w-full mb-6'>
       <AppCard
-        styles={{ flex: 0.5 }}
+        styles={{ flex: 1 }}
         className='mr-3 flex-1'
         appInfo={response}
         onChangeStatus={onChangeSiteStatus}

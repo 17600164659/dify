@@ -25,14 +25,14 @@ const InviteModal = ({
   const handleSend = async () => {
     if (emailRegex.test(email)) {
       try {
-        const res = await inviteMember({ url: '/workspaces/current/members/invite-email', body: { email, role: 'admin'} })
+        const res = await inviteMember({ url: '/workspaces/current/members/invite-email', body: { email, role: 'admin' } })
 
         if (res.result === 'success') {
           onCancel()
           onSend()
         }
       } catch (e) {
-        
+
       }
     } else {
       notify({ type: 'error', message: t('common.members.emailInvalid') })
@@ -41,7 +41,7 @@ const InviteModal = ({
 
   return (
     <div className={s.wrap}>
-      <Modal isShow onClose={() => {}} className={s.modal}>
+      <Modal isShow onClose={() => { }} className={s.modal}>
         <div className='flex justify-between mb-2'>
           <div className='text-xl font-semibold text-gray-900'>{t('common.members.inviteTeamMember')}</div>
           <XMarkIcon className='w-4 h-4 cursor-pointer' onClick={onCancel} />
@@ -58,10 +58,11 @@ const InviteModal = ({
             onChange={e => setEmail(e.target.value)}
             placeholder={t('common.members.emailPlaceholder') || ''}
           />
-          <Button 
-            className='w-full text-sm font-medium' 
+          <Button
+            className='w-full text-sm font-medium'
             onClick={handleSend}
             type='primary'
+            background="#181A24"
           >
             {t('common.members.sendInvite')}
           </Button>

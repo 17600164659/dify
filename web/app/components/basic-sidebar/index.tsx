@@ -38,6 +38,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
   isChat,
   apps,
   noHeader,
+  layout,
 }) => {
   let userProfile;
   let onLogout;
@@ -66,7 +67,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
               <div className={`basic-sidebar-menu-item ${pathname === '/apps' ? 'active' : ''}`}>
                 <img className='basic-sidebar-menu-icon' src={appUrl} />
                 {
-                  pathname.indexOf('/app') > -1 ? (<div>应<br />用</div>) : null
+                  layout === '/apps' ? (<div>应<br />用</div>) : null
                 }
               </div>
             </Link>
@@ -74,7 +75,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
               <div className={`basic-sidebar-menu-item ${pathname === '/datasets' ? 'active' : ''}`}>
                 <img className='basic-sidebar-menu-icon' src={databaseUrl} />
                 {
-                  pathname.indexOf('/datasets') > -1 ? (<div>数<br />据<br />集</div>) : null
+                  layout === '/datasets' ? (<div>数<br />据<br />集</div>) : null
                 }
               </div>
             </Link>

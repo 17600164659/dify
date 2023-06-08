@@ -167,8 +167,8 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
     return <Loading />
 
   return (
-    <div className='flex' style={{ height: 'calc(100vh - 56px)' }}>
-      <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} />
+    <div className='flex' style={{ height: 'calc(100vh)' }}>
+      <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="datasets" />
       {!hideSideBar && <AppSideBar
         title={datasetRes?.name || '--'}
         icon={datasetRes?.icon || 'https://static.dify.ai/images/dataset-default-icon.png'}

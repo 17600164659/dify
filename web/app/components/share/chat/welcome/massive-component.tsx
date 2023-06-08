@@ -45,6 +45,7 @@ export const ChatBtn: FC<{ onClick: () => void, className?: string }> = ({
   return (
     <Button
       type='primary'
+      background="#181A24"
       className={cn(className, `space-x-2 flex items-center ${s.customBtn}`)}
       onClick={onClick}>
       <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">

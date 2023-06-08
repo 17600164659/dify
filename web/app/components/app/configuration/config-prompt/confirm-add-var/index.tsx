@@ -62,7 +62,7 @@ const ConfirmAddVar: FC<IConfirmAddVarProps> = ({
         </div>
         <div className='mt-7 flex justify-end space-x-2'>
           <Button className='w-20 h-8 !text-[13px]' onClick={onCancel}>{t('common.operation.cancel')}</Button>
-          <Button className='w-20 h-8 !text-[13px]' type='primary' onClick={onConfrim}>{t('common.operation.add')}</Button>
+          <Button className='w-20 h-8 !text-[13px]' background="#181A24" type='primary' onClick={onConfrim}>{t('common.operation.add')}</Button>
         </div>
       </div>
 

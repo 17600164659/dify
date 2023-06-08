@@ -143,6 +143,7 @@ const OneMoreStep = () => {
           <div>
             <Button
               type='primary'
+              background="#181A24"
               disabled={state.formState === 'processing'}
               onClick={() => {
                 dispatch({ type: 'formState', value: 'processing' })

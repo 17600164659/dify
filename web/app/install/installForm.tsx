@@ -141,7 +141,7 @@ const InstallForm = () => {
             </div> */}
 
             <div>
-              <Button type='primary' onClick={handleSetting}>
+              <Button type='primary' onClick={handleSetting} background="#181A24">
                 {t('login.installBtn')}
               </Button>
             </div>

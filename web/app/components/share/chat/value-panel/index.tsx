@@ -71,6 +71,7 @@ export const VarOpBtnGroup: FC<{ className?: string, onConfirm: () => void, onCa
         className='text-sm'
         type='primary'
         onClick={onConfirm}
+        background="#181A24"
       >
         {t('common.operation.save')}
       </Button>

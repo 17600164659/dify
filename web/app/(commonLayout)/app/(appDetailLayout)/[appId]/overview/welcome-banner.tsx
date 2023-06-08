@@ -148,7 +148,7 @@ const EditKeyDiv: FC<IEditKeyDiv> = ({ className = '', showInPopover = false, on
         {(editStatus === 'error' || editStatus === 'error-api-key-exceed-bill') && <div className="absolute inset-y-0 right-0 flex flex-row-reverse items-center pr-6 pointer-events-none">
           <ExclamationCircleIcon className="w-5 h-5 text-red-800" />
         </div>}
-        {showInPopover ? null : <Button type='primary' onClick={onSaveKey} className='!h-9 !inline-block ml-2' loading={loading} disabled={editStatus !== 'verified'}>{t('common.operation.save')}</Button>}
+        {showInPopover ? null : <Button type='primary' background="#181A24" onClick={onSaveKey} className='!h-9 !inline-block ml-2' loading={loading} disabled={editStatus !== 'verified'}>{t('common.operation.save')}</Button>}
       </div>
       {renderErrorMessage()}
       <Link className="inline-flex items-center mt-2 text-xs font-normal cursor-pointer text-primary-600 w-fit" href="https://platform.openai.com/account/api-keys" target={'_blank'}>
@@ -157,7 +157,7 @@ const EditKeyDiv: FC<IEditKeyDiv> = ({ className = '', showInPopover = false, on
       </Link>
       {showInPopover && <div className='flex justify-end mt-6'>
         <Button className='flex-shrink-0 mr-2' onClick={onClosePanel}>{t('common.operation.cancel')}</Button>
-        <Button type='primary' className='flex-shrink-0' onClick={onSaveKey} loading={loading} disabled={editStatus !== 'verified'}>{t('common.operation.save')}</Button>
+        <Button background="#181A24" type='primary' className='flex-shrink-0' onClick={onSaveKey} loading={loading} disabled={editStatus !== 'verified'}>{t('common.operation.save')}</Button>
       </div>}
     </div>
   )

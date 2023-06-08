@@ -133,6 +133,7 @@ function AppCard({
         <div
           className={`pt-2 flex flex-row items-center ${!isApp ? 'mb-[calc(2rem_+_1px)]' : ''
             }`}
+          style={{ float: 'right' }}
         >
           {OPERATIONS_MAP[cardType].map((op) => {
             return (

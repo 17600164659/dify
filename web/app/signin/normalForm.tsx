@@ -255,6 +255,7 @@ const NormalForm = () => {
                 <div>
                   <Button
                     type='primary'
+                    background="#181A24"
                     onClick={handleEmailPasswordLogin}
                     disabled={isLoading}
                   >{t('login.signBtn')}</Button>
