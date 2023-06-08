@@ -433,8 +433,8 @@ const Main: FC<IMainProps> = ({
         let currChatList = conversationList
         if (getConversationIdChangeBecauseOfNew()) {
           const { data: conversations, has_more }: any = await fetchConversations(isInstalledApp, installedAppInfo?.id)
-          const { data: conversationsaaa }: any = await fetchConversations(isInstalledApp, installedAppInfo?.id, '', 'x8qCJ8rWwj4WtYtn');
-          console.log(conversationsaaa, 23232323);
+          // const { data: conversationsaaa }: any = await fetchConversations(isInstalledApp, installedAppInfo?.id, '', 'x8qCJ8rWwj4WtYtn');
+          // console.log(conversationsaaa, 23232323);
           setHasMore(has_more)
           setConversationList(conversations as ConversationItem[])
           currChatList = conversations
