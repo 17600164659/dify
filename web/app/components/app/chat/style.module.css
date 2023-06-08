@@ -71,10 +71,11 @@
   display: flex;
 }
 
+/* 
 .question::before {
   right: 0;
   background: #181A24;
-}
+} */
 
 .textArea {
   padding-top: 13px;
