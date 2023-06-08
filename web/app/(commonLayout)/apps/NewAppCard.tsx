@@ -14,7 +14,7 @@ const CreateAppCard = forwardRef<HTMLAnchorElement, CreateAppCardProps>(({ onSuc
   const { t } = useTranslation()
   const [showNewAppDialog, setShowNewAppDialog] = useState(false)
   return (
-    <a ref={ref} className={classNames(style.listItem, style.newItemCard)} onClick={() => setShowNewAppDialog(true)}>
+    <a ref={ref} className={classNames(style.listItem, style.newItemCard)} onClick={() => setShowNewAppDialog(true)} style={{ width: 295, height: 240 }}>
       <div className={style.listItemTitle}>
         <span className={style.newItemIcon}>
           <span className={classNames(style.newItemIconImage, style.newItemIconAdd)} />

@@ -65,25 +65,26 @@
 
 .stepNum {
   @apply box-border absolute top-2 left-3 flex justify-center items-center  w-6 h-6;
-  color: #98a2b3;
+  color: black;
   font-size: 12px;
-  border: 1px solid #F2F4F7;
+  /* border: 1px solid #F2F4F7; */
+  background-color: #F3F4F6;
   border-radius: 24px;
   z-index: 1;
 }
 
 .stepName {
-  color: #98a2b3;
+  color: black;
 }
 
 .stepItem.active .stepNum {
-  color: #1c64f2;
-  background-color: #EFF4FF;
+  color: white;
+  background-color: #4D5A73;
   border: none;
 }
 
 .stepItem.active .stepName {
-  color: #1c64f2;
+  color: #4D5A73;
 }
 
 .stepItem.done .stepNum {
@@ -104,3 +105,5 @@
 .stepItem.done .stepName {
   color: #667085;
 }
+
+

@@ -15,7 +15,7 @@ const translation = {
   communityIntro: '与团队成员、贡献者和开发者在不同频道中交流',
   roadmap: '产品路线图',
   newApp: {
-    startToCreate: '开始创建一个新应用',
+    startToCreate: '创建一个新应用',
     captionName: '给应用起个名字',
     captionAppType: '想要哪种应用类型？',
     previewDemo: '预览 Demo',

@@ -25,6 +25,9 @@ const AppIcon: FC<AppIconProps> = ({
   className,
   innerIcon,
   onClick,
+  styles,
+  width,
+  height,
 }) => {
   return (
     <span
@@ -38,9 +41,10 @@ const AppIcon: FC<AppIconProps> = ({
       //   background,
       // }}
       onClick={onClick}
+      style={styles}
     >
       {/* {innerIcon ? innerIcon : icon && icon !== '' ? <em-emoji id={icon} /> : <em-emoji id='🤖' />} */}
-      <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />
+      <img src="https://assets.metaio.cc/assets/difyassets/logo.png" style={{ width: width || 33, height: height || 33 }} />
     </span>
   )
 }

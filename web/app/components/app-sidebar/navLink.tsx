@@ -14,7 +14,7 @@ export default function NavLink({
 }) {
   const segment = useSelectedLayoutSegment()
   const isActive = href.toLowerCase().split('/')?.pop() === segment?.toLowerCase()
-  const NavIcon = isActive ? iconMap.selected : iconMap.normal
+  const NavIcon = iconMap.normal; // isActive ? iconMap.selected : iconMap.normal
 
   return (
     <Link
@@ -24,6 +24,12 @@ export default function NavLink({
         isActive ? 'bg-primary-50 text-primary-600 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-700',
         'group flex items-center rounded-md px-2 py-2 text-sm font-normal',
       )}
+      style={isActive ? {
+        background: '#F5F6F6',
+        color: "#181A24"
+      } : {
+        color: "#181A24"
+      }}
     >
       <NavIcon
         className={classNames(
@@ -31,6 +37,7 @@ export default function NavLink({
           isActive ? 'text-primary-600' : 'text-gray-700',
         )}
         aria-hidden="true"
+        style={{ color: "#181A24" }}
       />
       {name}
     </Link>

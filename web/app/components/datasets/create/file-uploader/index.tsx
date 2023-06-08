@@ -25,7 +25,7 @@ const ACCEPTS = [
   '.txt',
 ]
 
-const MAX_SIZE = 15 * 1024 *1024
+const MAX_SIZE = 15 * 1024 * 1024
 
 const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
   const { t } = useTranslation()
@@ -117,7 +117,7 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
           fileUploader.current.value = ''
         }
         setCurrentFile(undefined)
-        return 
+        return
       }
       notify({ type: 'error', message: t('datasetCreation.stepOne.uploader.failed') })
       return
@@ -140,7 +140,7 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
       return ''
     }
     const arr = currentFile.name.split('.')
-    return arr[arr.length-1]
+    return arr[arr.length - 1]
   }
   const getFileName = (name: string) => {
     const arr = name.split('.')
@@ -194,17 +194,17 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
         {!currentFile && !file && (
           <div className={cn(s.uploader, dragging && s.dragging)}>
             <span>{t('datasetCreation.stepOne.uploader.button')}</span>
-            <label className={s.browse} onClick={selectHandle}>{t('datasetCreation.stepOne.uploader.browse')}</label>
-            {dragging && <div ref={dragRef} className={s.draggingCover}/>}
+            <label style={{ color: "#181A24" }} className={s.browse} onClick={selectHandle}>{t('datasetCreation.stepOne.uploader.browse')}</label>
+            {dragging && <div ref={dragRef} className={s.draggingCover} />}
           </div>
         )}
       </div>
       {currentFile && (
         <div className={cn(s.file, uploading && s.uploading)}>
           {uploading && (
-            <div className={s.progressbar} style={{ width: `${percent}%`}}/>
+            <div className={s.progressbar} style={{ width: `${percent}%` }} />
           )}
-          <div className={cn(s.fileIcon, s[getFileType(currentFile)])}/>
+          <div className={cn(s.fileIcon, s[getFileType(currentFile)])} />
           <div className={s.fileInfo}>
             <div className={s.filename}>
               <span className={s.name}>{getFileName(currentFile.name)}</span>
@@ -219,7 +219,7 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
             {uploading && (
               <>
                 <div className={s.percent}>{`${percent}%`}</div>
-                <div className={s.divider}/>
+                <div className={s.divider} />
                 <div className={s.buttonWrapper}>
                   <Button className={cn(s.button, 'ml-2 !h-8 bg-white')} onClick={abort}>{t('datasetCreation.stepOne.uploader.cancel')}</Button>
                 </div>
@@ -229,8 +229,8 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
               <>
                 <div className={s.buttonWrapper}>
                   <Button className={cn(s.button, 'ml-2 !h-8 bg-white')} onClick={selectHandle}>{t('datasetCreation.stepOne.uploader.change')}</Button>
-                  <div className={s.divider}/>
-                  <div className={s.remove} onClick={removeFile}/>
+                  <div className={s.divider} />
+                  <div className={s.remove} onClick={removeFile} />
                 </div>
               </>
             )}
@@ -239,7 +239,7 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
       )}
       {!currentFile && file && (
         <div className={cn(s.file)}>
-          <div className={cn(s.fileIcon, s[file.extension])}/>
+          <div className={cn(s.fileIcon, s[file.extension])} />
           <div className={s.fileInfo}>
             <div className={s.filename}>
               <span className={s.name}>{getFileName(file.name)}</span>
@@ -253,8 +253,8 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
           <div className={s.actionWrapper}>
             <div className={s.buttonWrapper}>
               <Button className={cn(s.button, 'ml-2 !h-8 bg-white')} onClick={selectHandle}>{t('datasetCreation.stepOne.uploader.change')}</Button>
-              <div className={s.divider}/>
-              <div className={s.remove} onClick={removeFile}/>
+              <div className={s.divider} />
+              <div className={s.remove} onClick={removeFile} />
             </div>
           </div>
         </div>

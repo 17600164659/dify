@@ -130,6 +130,7 @@ const Form = ({
         <div className={labelClass} />
         <div className='w-[480px]'>
           <Button
+            background="#181A24"
             className='min-w-24 text-sm'
             type='primary'
             onClick={handleSave}

@@ -28,6 +28,7 @@ import Indicator from '@/app/components/header/indicator'
 import AppIcon from '@/app/components/base/app-icon'
 import Loading from '@/app/components/base/loading'
 import DatasetDetailContext from '@/context/dataset-detail'
+import BasicSidebar from "@/app/components/basic-sidebar";
 
 // import { fetchDatasetDetail } from '@/service/datasets'
 
@@ -44,7 +45,7 @@ const LikedItem: FC<{ type?: 'plugin' | 'app'; appStatus?: boolean; detail: Rela
   return (
     <Link className={s.itemWrapper} href={`/app/${detail?.id}/overview`}>
       <div className={s.iconWrapper}>
-        <AppIcon size='tiny' />
+        <AppIcon width={24} height={24} size='tiny' />
         {type === 'app' && (
           <div className={s.statusPoint}>
             <Indicator color={appStatus ? 'green' : 'gray'} />
@@ -167,6 +168,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
 
   return (
     <div className='flex' style={{ height: 'calc(100vh - 56px)' }}>
+      <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} />
       {!hideSideBar && <AppSideBar
         title={datasetRes?.name || '--'}
         icon={datasetRes?.icon || 'https://static.dify.ai/images/dataset-default-icon.png'}

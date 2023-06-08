@@ -13,6 +13,7 @@ import { ToastContext } from '@/app/components/base/toast'
 import { deleteApp } from '@/service/apps'
 import AppIcon from '@/app/components/base/app-icon'
 import AppsContext from '@/context/app-context'
+import './appCardCustom.css';
 
 export type AppCardProps = {
   app: App
@@ -49,17 +50,21 @@ const AppCard = ({
 
   return (
     <>
-      <Link href={`/app/${app.id}/overview`} className={style.listItem}>
+      <Link href={`/app/${app.id}/overview`} className={style.listItem} style={{ width: 295, height: 240, position: 'relative' }}>
         <div className={style.listItemTitle}>
           <AppIcon size='small' icon={app.icon} background={app.icon_background} />
           <div className={style.listItemHeading}>
             <div className={style.listItemHeadingContent}>{app.name}</div>
           </div>
-          <span className={style.deleteAppIcon} onClick={onDeleteClick} />
+          <span className={style.deleteAppIcon} onClick={onDeleteClick} style={{ backgroundImage: "url('https://assets.metaio.cc/assets/difyassets/delete.png')" }} />
         </div>
         <div className={style.listItemDescription}>{app.model_config?.pre_prompt}</div>
-        <div className={style.listItemFooter}>
+        {/* <div className={style.listItemFooter}>
           <AppModeLabel mode={app.mode} />
+        </div> */}
+        <div className='mode-type-container'>
+          <img src="https://assets.metaio.cc/assets/difyassets/dh.png" />
+          对话型应用
         </div>
 
         {showConfirmDelete && (

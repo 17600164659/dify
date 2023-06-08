@@ -35,18 +35,20 @@ const PermissionsRadio = ({
     <div className={classNames(s.wrapper, 'flex justify-between w-full')}>
       {
         options.map(option => (
-          <div 
-            key={option.key} 
+          <div
+            key={option.key}
             className={classNames(
-              option.key === value && s['item-active'], 
-              itemClass, 
+              option.key === value && s['item-active'],
+              itemClass,
               s.item
             )}
             onClick={() => onChange(option.key as DataSet['permission'])}
+            style={option.key === value ? { border: "1px solid #181A24" } : {}}
           >
-            <div className={classNames(s['user-icon'], 'mr-3')} />
+            {/* <div className={classNames(s['user-icon'], 'mr-3')} style={{ background: "url(https://assets.metaio.cc/assets/difyassets/td.png)" }} /> */}
+            <img className='mr-3' src="https://assets.metaio.cc/assets/difyassets/td.png" style={{ width: 24, height: 20 }} />
             <div className='grow text-sm text-gray-900'>{option.text}</div>
-            <div className={classNames(radioClass, s.radio)} />
+            {/* <div className={classNames(radioClass, s.radio)} /> */}
           </div>
         ))
       }

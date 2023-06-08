@@ -51,9 +51,9 @@ const useLazyLoad = (ref: RefObject<Element>): boolean => {
   return isIntersecting;
 };
 
-export function Markdown(props: { content: string }) {
+export function Markdown(props: any) {
   return (
-    <div className="markdown-body">
+    <div className="markdown-body" style={props.isAnswer === undefined ? {} : { color: 'white' }}>
       <ReactMarkdown
         remarkPlugins={[RemarkMath, RemarkGfm, RemarkBreaks]}
         rehypePlugins={[

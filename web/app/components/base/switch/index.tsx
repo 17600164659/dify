@@ -40,6 +40,9 @@ const Switch = ({ onChange, size = 'lg', defaultValue = false, disabled = false 
         'relative inline-flex  flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out',
         disabled ? '!opacity-50 !cursor-not-allowed' : '',
       )}
+      style={{
+        background: enabled ? "#181A24" : "rgb(229,231,235)"
+      }}
     >
       <span
         aria-hidden="true"

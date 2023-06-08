@@ -57,7 +57,7 @@ const EmptyElement: FC<{ onClick: () => void; type?: 'upload' | 'sync' }> = ({ o
       <div className={s.emptyTip}>
         {t(`datasetDocuments.list.empty.${type}.tip`)}
       </div>
-      {type === 'upload' && <Button onClick={onClick} className={s.addFileBtn}>
+      {type === 'upload' && <Button onClick={onClick} className={s.addFileBtn} background="#181A24" color="white">
         <PlusIcon className={s.plusIcon} />{t('datasetDocuments.list.addFile')}
       </Button>}
     </div>
@@ -111,7 +111,7 @@ const Documents: FC<IDocumentsProps> = ({ datasetId }) => {
             onChange={debounce(setSearchValue, 500)}
             value={searchValue}
           />
-          <Button type='primary' onClick={routeToDocCreate} className='!h-8 !text-[13px]'>
+          <Button background="#181A24" color="white" type='primary' onClick={routeToDocCreate} className='!h-8 !text-[13px]'>
             <PlusIcon className='h-4 w-4 mr-2 stroke-current' />
             {t('datasetDocuments.list.addFile')}
           </Button>

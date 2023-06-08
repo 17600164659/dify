@@ -51,6 +51,7 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
     if (show) {
       mutateTemplates()
       setIsWithTemplate(false)
+      setNewAppMode('chat');
     }
   }, [show])
 
@@ -111,19 +112,20 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
       title={t('app.newApp.startToCreate')}
       footer={
         <>
-          <Button onClick={onClose}>{t('app.newApp.Cancel')}</Button>
-          <Button type="primary" onClick={onCreate}>{t('app.newApp.Create')}</Button>
+          <Button background="#F5F6F6" onClick={onClose}>{t('app.newApp.Cancel')}</Button>
+          <Button background="#181A24" type="primary" onClick={onCreate}>{t('app.newApp.Create')}</Button>
         </>
       }
     >
-      <h3 className={style.newItemCaption}>{t('app.newApp.captionName')}</h3>
+      <h3 style={{ marginBottom: 12 }} className={style.newItemCaption}>{t('app.newApp.captionName')}</h3>
 
       <div className='flex items-center justify-between gap-3 mb-8'>
-        <AppIcon size='large' onClick={() => { setShowEmojiPicker(true) }} className='cursor-pointer' icon={emoji.icon} background={emoji.icon_background} />
+        {/* <AppIcon size='large' onClick={() => { setShowEmojiPicker(true) }} className='cursor-pointer' icon={emoji.icon} background={emoji.icon_background} /> */}
+        <AppIcon size='large' className='cursor-pointer' icon={emoji.icon} styles={{ background: "#F5F6F7", borderRadis: 12 }} />
         <input ref={nameInputRef} className='h-10 px-3 text-sm font-normal bg-gray-100 rounded-lg grow' />
       </div>
 
-      <div className='h-[247px]'>
+      {/* <div className='h-[247px]'>
         <div className={style.newItemCaption}>
           <h3 className='inline'>{t('app.newApp.captionAppType')}</h3>
           {isWithTemplate && (
@@ -155,7 +157,6 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
                   </div>
                   <div className={style.listItemDescription}>{template.model_config?.pre_prompt}</div>
                   <AppModeLabel mode={template.mode} className='mt-2' />
-                  {/* <AppModeLabel mode='chat' className='mt-2' /> */}
                 </li>
               ))}
             </ul>
@@ -208,7 +209,7 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
               </div>
             </>
           )}
-      </div>
+      </div> */}
     </Dialog>
   </>
 }

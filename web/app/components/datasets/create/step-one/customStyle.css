@@ -1,0 +1,26 @@
+.data-source-item {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    padding: 0 !important;
+    padding-left: 24px !important;
+    width: 260px !important;
+    height: 95px !important;
+}
+
+.data-source-item-icon {
+    width: 44px;
+    margin-right: 14px;
+}
+
+.data-source-item-title {
+    margin-bottom: 4px;
+}
+
+.data-source-item-discription {
+    font-family: 'Microsoft YaHei';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #4D5A73;
+}

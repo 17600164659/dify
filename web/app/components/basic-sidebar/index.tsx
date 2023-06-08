@@ -54,20 +54,28 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
     window.location.href = `${window.location.origin}/chat/${data.site.access_token}`;
   }
 
+  const pathname = globalThis && globalThis.location ? globalThis.location.pathname : '/datasets';
+
   return (
-    <div className="flex flex-col w-17 overflow-y-auto bg-white border-r border-gray-200 shrink-0">
+    <div className="flex flex-col w-17 overflow-y-auto bg-white border-r border-gray-200 shrink-0" style={{ zIndex: 10, boxShadow: "4px 0px 32px rgba(77, 90, 115, 0.08)" }}>
       <img src={logoUrl} className='basic-sidebar-header' />
       {
         !isChat ? (
           <div className='basic-sidebar-menu'>
             <Link href="/apps">
-              <div class="basic-sidebar-menu-item">
+              <div className={`basic-sidebar-menu-item ${pathname === '/apps' ? 'active' : ''}`}>
                 <img className='basic-sidebar-menu-icon' src={appUrl} />
+                {
+                  pathname.indexOf('/app') > -1 ? (<div>应<br />用</div>) : null
+                }
               </div>
             </Link>
             <Link href="/datasets">
-              <div class="basic-sidebar-menu-item">
+              <div className={`basic-sidebar-menu-item ${pathname === '/datasets' ? 'active' : ''}`}>
                 <img className='basic-sidebar-menu-icon' src={databaseUrl} />
+                {
+                  pathname.indexOf('/datasets') > -1 ? (<div>数<br />据<br />集</div>) : null
+                }
               </div>
             </Link>
           </div>

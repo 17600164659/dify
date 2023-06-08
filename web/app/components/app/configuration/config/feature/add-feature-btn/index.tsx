@@ -20,6 +20,8 @@ const AddFeatureBtn: FC<IAddFeatureBtnProps> = ({
       '
       style={{
         boxShadow: '0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06)',
+        background: "#181A24",
+        color: "white",
       }}
       onClick={onClick}
     >

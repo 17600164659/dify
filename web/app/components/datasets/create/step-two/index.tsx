@@ -282,9 +282,11 @@ const StepTwo = ({
                 segmentationType === SegmentType.AUTO && s.active
               )}
               onClick={() => setSegmentationType(SegmentType.AUTO)}
+              style={segmentationType === SegmentType.AUTO ? { border: "1px solid #181A24" } : {}}
             >
-              <span className={cn(s.typeIcon, s.auto)} />
-              <span className={cn(s.radio)} />
+              <img className={cn(s.auto)} src="https://assets.metaio.cc/assets/difyassets/flash.png" style={{ width: 27, height: 37, position: 'absolute', top: 16, left: 23 }} />
+              {/* <span className={cn(s.typeIcon, s.auto)} /> */}
+              {/* <span className={cn(s.radio)} /> */}
               <div className={s.typeHeader}>
                 <div className={s.title}>{t('datasetCreation.stepTwo.auto')}</div>
                 <div className={s.tip}>{t('datasetCreation.stepTwo.autoDescription')}</div>
@@ -298,9 +300,11 @@ const StepTwo = ({
                 segmentationType === SegmentType.CUSTOM && s.custom,
               )}
               onClick={() => setSegmentationType(SegmentType.CUSTOM)}
+              style={segmentationType === SegmentType.CUSTOM ? { border: "1px solid #181A24" } : {}}
             >
-              <span className={cn(s.typeIcon, s.customize)} />
-              <span className={cn(s.radio)} />
+              <img className={cn(s.auto)} src="https://assets.metaio.cc/assets/difyassets/zdy.png" style={{ width: 31, height: 30, position: 'absolute', top: 19, left: 23 }} />
+              {/* <span className={cn(s.typeIcon, s.customize)} /> */}
+              {/* <span className={cn(s.radio)} /> */}
               <div className={s.typeHeader}>
                 <div className={s.title}>{t('datasetCreation.stepTwo.custom')}</div>
                 <div className={s.tip}>{t('datasetCreation.stepTwo.customDescription')}</div>
@@ -334,14 +338,14 @@ const StepTwo = ({
                       <div className={s.label}>{t('datasetCreation.stepTwo.rules')}</div>
                       {rules.map(rule => (
                         <div key={rule.id} className={s.ruleItem}>
-                          <input id={rule.id} type="checkbox" defaultChecked={rule.enabled} onChange={() => ruleChangeHandle(rule.id)} className="w-4 h-4 rounded border-gray-300 text-blue-700 focus:ring-blue-700" />
+                          <input id={rule.id} type="checkbox" defaultChecked={rule.enabled} onChange={() => ruleChangeHandle(rule.id)} className="w-4 h-4 rounded border-gray-300 text-blue-700 focus:ring-black" />
                           <label htmlFor={rule.id} className="ml-2 text-sm font-normal cursor-pointer text-gray-800">{getRuleName(rule.id)}</label>
                         </div>
                       ))}
                     </div>
                   </div>
                   <div className={s.formFooter}>
-                    <Button type="primary" className={cn(s.button, '!h-8 text-primary-600')} onClick={confirmChangeCustomConfig}>{t('datasetCreation.stepTwo.preview')}</Button>
+                    <Button background="#181A24" type="primary" className={cn(s.button, '!h-8 text-primary-600')} onClick={confirmChangeCustomConfig}>{t('datasetCreation.stepTwo.preview')}</Button>
                     <Button className={cn(s.button, 'ml-2 !h-8')} onClick={resetRules}>{t('datasetCreation.stepTwo.reset')}</Button>
                   </div>
                 </div>
@@ -366,8 +370,10 @@ const StepTwo = ({
                       setIndexType(IndexingType.QUALIFIED)
                     }
                   }}
+                  style={!hasSetIndexType && indexType === IndexingType.QUALIFIED ? { border: "1px solid #181A24" } : {}}
                 >
-                  <span className={cn(s.typeIcon, s.qualified)} />
+                  <img src="https://assets.metaio.cc/assets/difyassets/gzl.png" className={cn(s.typeIcon)} style={{ width: 25, background: 'none' }} />
+                  {/* <span className={cn(s.typeIcon, s.qualified)} /> */}
                   {!hasSetIndexType && <span className={cn(s.radio)} />}
                   <div className={s.typeHeader}>
                     <div className={s.title}>
@@ -404,8 +410,10 @@ const StepTwo = ({
                     hasSetIndexType && '!w-full',
                   )}
                   onClick={() => !hasSetIndexType && setIndexType(IndexingType.ECONOMICAL)}
+                  style={!hasSetIndexType && indexType === IndexingType.ECONOMICAL ? { border: "1px solid #181A24" } : {}}
                 >
-                  <span className={cn(s.typeIcon, s.economical)} />
+                  <img src="https://assets.metaio.cc/assets/difyassets/jj.png" className={cn(s.typeIcon)} style={{ width: 34, background: 'none' }} />
+                  {/* <span className={cn(s.typeIcon, s.economical)} /> */}
                   {!hasSetIndexType && <span className={cn(s.radio)} />}
                   <div className={s.typeHeader}>
                     <div className={s.title}>{t('datasetCreation.stepTwo.economical')}</div>
@@ -447,7 +455,7 @@ const StepTwo = ({
             <div className='flex items-center mt-8 py-2'>
               <Button onClick={() => onStepChange(-1)}>{t('datasetCreation.stepTwo.lastStep')}</Button>
               <div className={s.divider} />
-              <Button type='primary' onClick={createHandle}>{t('datasetCreation.stepTwo.nextStep')}</Button>
+              <Button background="#181A24" type='primary' onClick={createHandle}>{t('datasetCreation.stepTwo.nextStep')}</Button>
             </div>
           </div>
         </div>

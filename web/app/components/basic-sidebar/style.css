@@ -17,14 +17,21 @@
 .basic-sidebar-menu .basic-sidebar-menu-item {
     background: rgba(0, 0, 0, 0);
     border-radius: 10px;
-    width: 36px;
-    height: 36px;
+    padding: 8px;
+    /* width: 36px;
+    height: 36px; */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     margin-top: 30px;
     transition: all 0.2s;
+    font-size: 12px;
+}
+
+.basic-sidebar-menu .basic-sidebar-menu-item img {
+    margin-bottom: 6px;
 }
 
 .basic-sidebar-menu .basic-sidebar-menu-item:hover {
@@ -33,11 +40,6 @@
 
 .basic-sidebar-menu .basic-sidebar-menu-item.active {
     background: rgba(0, 0, 0, 0.04);
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    color: #595E68;
 }
 
 .basic-sidebar-menu-item-title {

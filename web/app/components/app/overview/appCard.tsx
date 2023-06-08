@@ -27,6 +27,7 @@ export type IAppCardProps = {
   onChangeStatus: (val: boolean) => Promise<any>
   onSaveSiteConfig?: (params: any) => Promise<any>
   onGenerateCode?: () => Promise<any>
+  styles: any
 }
 
 function AppCard({
@@ -37,6 +38,7 @@ function AppCard({
   onSaveSiteConfig,
   onGenerateCode,
   className,
+  styles,
 }: IAppCardProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -96,6 +98,7 @@ function AppCard({
   return (
     <div
       className={`flex flex-col w-full shadow-sm border-[0.5px] rounded-lg border-gray-200 ${className ?? ''}`}
+      style={styles ? styles : {}}
     >
       <div className={`px-6 py-4 ${customBgColor ?? bgColor} rounded-lg`}>
         <div className="mb-2.5 flex flex-row items-start justify-between">

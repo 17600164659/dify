@@ -19,6 +19,8 @@ const Button: FC<IButtonProps> = ({
   onClick,
   loading = false,
   color,
+  background,
+  border
 }) => {
   let style = 'cursor-pointer'
   switch (type) {
@@ -33,9 +35,14 @@ const Button: FC<IButtonProps> = ({
       break
   }
 
+  const styles = {};
+  if (color) styles.color = color;
+  if (background) styles.background = background;
+  if (border) styles.border = border;
+
   return (
     <div
-      style={color ? { color } : {}}
+      style={styles}
       className={`inline-flex justify-center items-center content-center h-9 leading-5 rounded-lg px-4 py-2 text-base ${style} ${className && className}`}
       onClick={disabled ? undefined : onClick}
     >

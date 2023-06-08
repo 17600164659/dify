@@ -21,9 +21,16 @@ export type IAppDetailNavProps = {
 
 const AppDetailNav: FC<IAppDetailNavProps> = ({ title, desc, icon, icon_background, navigation, extraInfo, iconType = 'app' }) => {
   return (
-    <div className="flex flex-col w-56 overflow-y-auto bg-white border-r border-gray-200 shrink-0">
+    <div className="flex flex-col w-56 overflow-y-auto bg-white border-r border-gray-200 shrink-0" style={{ zIndex: 9, boxShadow: "4px 0px 32px rgba(77, 90, 115, 0.08)" }}>
       <div className="flex flex-shrink-0 p-4">
-        <AppBasic iconType={iconType} icon={icon} icon_background={icon_background} name={title} type={desc} />
+        <AppBasic iconType={iconType} icon={icon} icon_background={icon_background} name={title} type={desc} styles={{
+          padding: '2px 12px',
+          marginTop: 5,
+          color: "white",
+          background: '#181A24',
+          boxShadow: "10px 10px 81px rgba(77, 90, 115, 0.08)",
+          borderRadius: 8,
+        }} />
       </div>
       <nav className="flex-1 p-4 space-y-1 bg-white">
         {navigation.map((item, index) => {

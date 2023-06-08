@@ -56,7 +56,8 @@ const TextAreaWithButton: FC<Props> = ({
     <>
       <div className={s.wrapper}>
         <div className="flex items-center mb-3">
-          <DocumentTextIcon className="w-4 h-4 text-primary-600 mr-2" />
+          {/* <DocumentTextIcon className="w-4 h-4 text-primary-600 mr-2" /> */}
+          <img src="https://assets.metaio.cc/assets/difyassets/ywb.png" className="w-4 h-4 mr-2" />
           <span className="text-gray-800 font-semibold text-sm">
             {t("datasetHitTesting.input.title")}
           </span>
@@ -98,6 +99,7 @@ const TextAreaWithButton: FC<Props> = ({
           >
             <div>
               <Button
+                background="#181A24"
                 onClick={onSubmit}
                 type="primary"
                 loading={loading}

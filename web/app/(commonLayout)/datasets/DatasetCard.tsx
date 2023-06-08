@@ -48,16 +48,15 @@ const DatasetCard = ({
 
   return (
     <>
-      <Link href={`/datasets/${dataset.id}/documents`} className={style.listItem}>
-        <div className={style.listItemTitle}>
+      <Link href={`/datasets/${dataset.id}/documents`} className={style.listItem} style={{ width: 295, height: 240, position: 'relative' }}>
+        <div className={style.listItemTitle} style={{ marginBottom: 44 }}>
           <AppIcon size='small' />
           <div className={style.listItemHeading}>
             <div className={style.listItemHeadingContent}>{dataset.name}</div>
           </div>
           <span className={style.deleteAppIcon} onClick={onDeleteClick} />
         </div>
-        <div className={style.listItemDescription}>{dataset.description}</div>
-        <div className={classNames(style.listItemFooter, style.datasetCardFooter)}>
+        <div className={classNames(style.listItemFooter, style.datasetCardFooter)} style={{ marginBottom: 8 }}>
           <span className={style.listItemStats}>
             <span className={classNames(style.listItemFooterIcon, style.docIcon)} />
             {dataset.document_count}{t('dataset.documentCount')}
@@ -71,6 +70,7 @@ const DatasetCard = ({
             {dataset.app_count}{t('dataset.appCount')}
           </span>
         </div>
+        <div className={style.listItemDescription}>{dataset.description}</div>
 
         {showConfirmDelete && (
           <Confirm

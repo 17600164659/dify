@@ -42,7 +42,7 @@ const ICON_MAP = {
   dataset: <AppIcon innerIcon={DatasetSvg} className='!border-[0.5px] !border-indigo-100 !bg-indigo-25' />,
 }
 
-export default function AppBasic({ icon, icon_background, name, type, hoverTip, textStyle, iconType = 'app' }: IAppBasicProps) {
+export default function AppBasic({ icon, icon_background, name, type, hoverTip, textStyle, iconType = 'app', styles = {}, styleTop }: IAppBasicProps) {
   return (
     <div className="flex items-start" style={{ marginTop: 9 }}>
       {icon && icon_background && iconType === 'app' && (
@@ -57,14 +57,17 @@ export default function AppBasic({ icon, icon_background, name, type, hoverTip, 
 
       }
       <div className="group">
-        <div className={`flex flex-row items-center text-sm font-semibold text-gray-700 group-hover:text-gray-900 ${textStyle?.main}`}>
+        <div style={styleTop ? styleTop : {}} className={`flex flex-row items-center text-sm font-semibold text-gray-700 group-hover:text-gray-900 ${textStyle?.main}`}>
           {name}
           {hoverTip
             && <Tooltip content={hoverTip} selector={`a${randomString(16)}`}>
               <InformationCircleIcon className='w-4 h-4 ml-1 text-gray-400' />
             </Tooltip>}
         </div>
-        <div className={`text-xs font-normal text-gray-500 group-hover:text-gray-700 ${textStyle?.extra}`}>{type}</div>
+        <div
+          className={`text-xs font-normal text-gray-500 group-hover:text-gray-700 ${textStyle?.extra}`}
+          style={styles}
+        >{type}</div>
       </div>
     </div>
   )

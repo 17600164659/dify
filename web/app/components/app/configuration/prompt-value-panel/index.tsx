@@ -66,8 +66,9 @@ const PromptValuePanel: FC<IPromptValuePanelProps> = ({
     <div className='pt-3 pb-4 rounded-t-xl bg-indigo-25'>
       <div className="px-4">
         <div className="flex items-center space-x-1">
-          {starIcon}
-          <div className="text-xs font-medium text-indigo-600 uppercase">{t('appDebug.inputs.previewTitle')}</div>
+          {/* {starIcon} */}
+          <img src="https://assets.metaio.cc/assets/difyassets/magic.png" width={14} height={13} />
+          <div style={{ color: '#181A24' }} className="text-xs font-medium text-indigo-600 uppercase">{t('appDebug.inputs.previewTitle')}</div>
         </div>
         <div className='mt-2  leading-normal'>
           {
