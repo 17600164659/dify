@@ -530,7 +530,7 @@ const Main: FC<IMainProps> = ({
           icon_background={siteInfo.icon_background}
           isMobile={isMobile}
           // onShowSideBar={showSidebar}
-          onShowSideBar={() => window.history.back()}
+          onShowSideBar={() => window.history.go(-1)}
           onCreateNewChat={() => handleConversationIdChange('-1')}
         />
       )}

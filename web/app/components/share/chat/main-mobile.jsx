@@ -19,6 +19,7 @@ export default () => {
             requests.push({
                 promise: fetchConversations(false, undefined, '', item.id),
                 appId: item.id,
+                icon: item.icon,
             });
         });
 
@@ -26,9 +27,13 @@ export default () => {
         let result = [];
         requests.map((request, index) => {
             const conver = conversations[index];
-            conver.data.map(item => item.appId = request.appId)
+            conver.data.map(item => {
+                item.appId = request.appId;
+                item.icon = request.icon;
+            })
             result = result.concat(conver.data);
         })
+        console.log(result, 23232323)
         setAllConversations(result);
     }
 
@@ -49,7 +54,7 @@ export default () => {
                         const timer = new Date(parseInt(`${item.created_at}000`));
                         return (
                             <div className='main-chat' key={item.id} onClick={() => onSelect(item.appId, item.id)}>
-                                <img className='main-chat-head' src="https://assets.metaio.cc/assets/difyassets/logo.png" />
+                                <img className='main-chat-head' src={item.icon} />
                                 <div className='main-chat-info'>
                                     <p className='main-chat-info-title'>{item.name}</p>
                                     <p className='main-chat-info-discrption'>

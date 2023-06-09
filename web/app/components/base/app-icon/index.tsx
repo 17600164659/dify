@@ -4,6 +4,7 @@ import style from './style.module.css'
 
 import data from '@emoji-mart/data'
 import { init } from 'emoji-mart'
+import { roles } from '@/app/components/share/chat/constants';
 
 init({ data })
 
@@ -29,6 +30,15 @@ const AppIcon: FC<AppIconProps> = ({
   width,
   height,
 }) => {
+  const appId = window.location.pathname.split('/')[2];
+  let appIcon = '';
+  roles.map(role => {
+    if (role.id === appId) {
+      appIcon = role.icon;
+    }
+  })
+  console.log(appIcon, 23232323)
+
   return (
     <span
       className={classNames(
@@ -44,7 +54,7 @@ const AppIcon: FC<AppIconProps> = ({
       style={styles}
     >
       {/* {innerIcon ? innerIcon : icon && icon !== '' ? <em-emoji id={icon} /> : <em-emoji id='🤖' />} */}
-      <img src="https://assets.metaio.cc/assets/difyassets/logo.png" style={{ width: width || 33, height: height || 33 }} />
+      <img src={appIcon || "https://assets.metaio.cc/assets/difyassets/logo.png"} style={{ width: width || 33, height: height || 33 }} />
     </span>
   )
 }
