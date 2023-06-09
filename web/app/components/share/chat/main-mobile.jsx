@@ -33,7 +33,6 @@ export default () => {
             })
             result = result.concat(conver.data);
         })
-        console.log(result, 23232323)
         setAllConversations(result);
     }
 

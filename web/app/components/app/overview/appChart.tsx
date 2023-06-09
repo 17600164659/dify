@@ -107,7 +107,6 @@ const Chart: React.FC<IChartProps> = ({
     // @ts-expect-error field is valid
     return item[yField] || 0
   })
-  console.log(extraDataForMarkLine, 23232323)
   const options: EChartsOption = {
     dataset: {
       dimensions: ['date', yField],

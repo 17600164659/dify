@@ -56,7 +56,6 @@ const Apps = () => {
     pageContainerRef?.current?.addEventListener('scroll', onScroll)
     return () => pageContainerRef?.current?.removeEventListener('scroll', onScroll)
   }, [])
-  console.log(data, 23232323)
   return (
     <div style={customStyle}>
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="apps" />

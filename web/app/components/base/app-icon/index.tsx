@@ -37,7 +37,6 @@ const AppIcon: FC<AppIconProps> = ({
       appIcon = role.icon;
     }
   })
-  console.log(appIcon, 23232323)
 
   return (
     <span
