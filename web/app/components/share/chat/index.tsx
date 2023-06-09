@@ -261,12 +261,16 @@ const Main: FC<IMainProps> = ({
       const qs = new URLSearchParams(window.location.search);
       const is_share = qs.get('is_share');
       const is_new = qs.get('is_new');
+      const preConversation = qs.get('conversation');
       if (is_share) {
         setShareTrue();
       } else {
         setShareFalse();
       }
-      if (is_new !== undefined && is_new !== null) {
+      if (
+        (is_new !== undefined && is_new !== null) ||
+        (preConversation)
+      ) {
         setShowMainMobile(false);
       }
       if (is_new) {
@@ -315,7 +319,7 @@ const Main: FC<IMainProps> = ({
         setConversationList(conversations as ConversationItem[])
 
         if (isNotNewConversation && !is_new)
-          setCurrConversationId(_conversationId, appId, false)
+          setCurrConversationId(preConversation || _conversationId, appId, false)
 
         setInited(true)
       }
@@ -525,7 +529,8 @@ const Main: FC<IMainProps> = ({
           icon={siteInfo.icon || ''}
           icon_background={siteInfo.icon_background}
           isMobile={isMobile}
-          onShowSideBar={showSidebar}
+          // onShowSideBar={showSidebar}
+          onShowSideBar={() => window.history.back()}
           onCreateNewChat={() => handleConversationIdChange('-1')}
         />
       )}

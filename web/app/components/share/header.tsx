@@ -34,7 +34,7 @@ const Header: FC<IHeaderProps> = ({
           onClick={() => onShowSideBar?.()}
         >
           {/* <Bars3Icon className="h-4 w-4 text-gray-500" /> */}
-          <img src="https://assets.metaio.cc/assets/difyassets/menu.png" style={{ width: 20, height: 20 }} />
+          <img src="https://assets.metaio.cc/assets/difyassets/back.png" style={{ width: 20, height: 20 }} />
         </div>
       ) : <div></div>}
       <div className='flex items-center space-x-2'>

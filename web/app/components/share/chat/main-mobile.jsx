@@ -3,21 +3,30 @@ import { fetchConversations } from '@/service/share'
 import './main-mobile-style.css'
 import { roles } from './constants';
 
-export default ({ sessionList, onSelect }) => {
+export default () => {
     const [allConversations, setAllConversations] = useState([]);
     const toRole = (id) => {
         window.location.href = `${window.location.origin}/chat/${id}?is_share=true&is_new=true`;
     }
 
+    const onSelect = (appId, id) => {
+        window.location.href = `${window.location.origin}/chat/${appId}?is_share=true&conversation=${id}`;
+    }
+
     const getConversations = async () => {
         const requests = [];
         roles.forEach(item => {
-            requests.push(fetchConversations(false, undefined, '', item.id));
+            requests.push({
+                promise: fetchConversations(false, undefined, '', item.id),
+                appId: item.id,
+            });
         });
 
-        const conversations = await Promise.all(requests);
+        const conversations = await Promise.all(requests.map(item => item.promise));
         let result = [];
-        conversations.map(conver => {
+        requests.map((request, index) => {
+            const conver = conversations[index];
+            conver.data.map(item => item.appId = request.appId)
             result = result.concat(conver.data);
         })
         setAllConversations(result);
@@ -39,7 +48,7 @@ export default ({ sessionList, onSelect }) => {
                     allConversations.sort((a, b) => b.created_at - a.created_at).map(item => {
                         const timer = new Date(parseInt(`${item.created_at}000`));
                         return (
-                            <div className='main-chat' key={item.id} onClick={() => onSelect(item.id)}>
+                            <div className='main-chat' key={item.id} onClick={() => onSelect(item.appId, item.id)}>
                                 <img className='main-chat-head' src="https://assets.metaio.cc/assets/difyassets/logo.png" />
                                 <div className='main-chat-info'>
                                     <p className='main-chat-info-title'>{item.name}</p>
@@ -57,7 +66,7 @@ export default ({ sessionList, onSelect }) => {
                     {
                         roles.map((item, index) => (
                             <div onClick={() => toRole(item.id)} className="main-roles" key={item.id} style={index === 0 ? { marginLeft: 20 } : index === roles.length - 1 ? { marginRight: 20 } : {}}>
-                                <img className='main-roles-header' src="https://assets.metaio.cc/assets/difyassets/logo.png" width={16} height={16} />
+                                <img className='main-roles-header' src={item.icon} width={16} height={16} />
                                 <span className='main-roles-name'>{item.name}</span>
                             </div>
                         ))
