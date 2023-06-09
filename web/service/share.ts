@@ -52,7 +52,7 @@ export const fetchAppInfo = async () => {
 }
 
 export const fetchConversations = async (isInstalledApp: boolean, installedAppId = '', last_id?: string, bearer?: string) => {
-  return getAction('get', isInstalledApp)(getUrl('conversations', isInstalledApp, installedAppId), { params: { ...{ limit: 20 }, ...(last_id ? { last_id } : {}) }, ...(bearer ? { bearer } : {}) })
+  return getAction('get', isInstalledApp)(getUrl('conversations', isInstalledApp, installedAppId), { params: { ...{ limit: 100 }, ...(last_id ? { last_id } : {}) }, ...(bearer ? { bearer } : {}) })
 }
 
 export const fetchChatList = async (conversationId: string, isInstalledApp: boolean, installedAppId = '') => {

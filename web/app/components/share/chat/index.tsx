@@ -271,6 +271,7 @@ const Main: FC<IMainProps> = ({
           setApps(appsResult.data);
         }
         const [appData, conversationData, appParams]: any = await fetchInitData()
+        console.log(conversationData.data, 23232323);
         const { app_id: appId, site: siteInfo, plan }: any = appData
         setAppId(appId)
         setPlan(plan)
@@ -395,9 +396,9 @@ const Main: FC<IMainProps> = ({
 
     setResponsingTrue()
     setIsShowSuggestion(false)
-    const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
-    console.log(decisionValue, 23232323)
     try {
+      const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
+      console.log(decisionValue, 23232323)
       const decisionJson = JSON.parse(decisionValue);
       const executedPrompt = await execute(decisionJson);
       data.query = data.query + executedPrompt;
@@ -501,7 +502,7 @@ const Main: FC<IMainProps> = ({
   return (
     <div className='bg-gray-100'>
       {/* {
-        isMobile ? <MainMobile /> : null
+        isMobile ? <MainMobile sessionList={conversationList} /> : null
       } */}
       {!isInstalledApp && (
         <Header
