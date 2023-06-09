@@ -31,7 +31,7 @@ export default ({ sessionList, onSelect }) => {
             <img className='main-bg' src="https://assets.metaio.cc/assets/difyassets/main-bg.png" />
             <div className='main-header'>
                 <img className='main-logo' src='https://assets.metaio.cc/assets/difyassets/main-logo.png' />
-                <img className='main-share' src='https://assets.metaio.cc/assets/difyassets/share.png' />
+                {/* <img className='main-share' src='https://assets.metaio.cc/assets/difyassets/share.png' /> */}
             </div>
             <div className='main-app-list'>
                 {
