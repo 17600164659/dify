@@ -34,6 +34,7 @@ export type IMainProps = {
 }
 import axios from 'axios';
 import { decision, execute } from './decision';
+import { roles } from './constants';
 import MainMobile from './main-mobile';
 
 const Main: FC<IMainProps> = ({
@@ -47,6 +48,7 @@ const Main: FC<IMainProps> = ({
   /*
   * app info
   */
+  const [showMainMobile, setShowMainMobile] = useState(true);
   const [apps, setApps] = useState<any[]>([]);
   const [appUnavailable, setAppUnavailable] = useState<boolean>(false)
   const [isUnknwonReason, setIsUnknwonReason] = useState<boolean>(false)
@@ -98,6 +100,7 @@ const Main: FC<IMainProps> = ({
   const [conversationIdChangeBecauseOfNew, setConversationIdChangeBecauseOfNew, getConversationIdChangeBecauseOfNew] = useGetState(false)
   const [isChatStarted, { setTrue: setChatStarted, setFalse: setChatNotStarted }] = useBoolean(false)
   const [isShare, { setTrue: setShareTrue, setFalse: setShareFalse }] = useBoolean(false);
+  const [isBeginNew, { setTrue: setBeginNewTrue, setFalse: setBeginNewFalse }] = useBoolean(false);
   const handleStartChat = (inputs: Record<string, any>) => {
     createNewChat()
     setConversationIdChangeBecauseOfNew(true)
@@ -257,11 +260,21 @@ const Main: FC<IMainProps> = ({
     (async () => {
       const qs = new URLSearchParams(window.location.search);
       const is_share = qs.get('is_share');
+      const is_new = qs.get('is_new');
       if (is_share) {
         setShareTrue();
       } else {
         setShareFalse();
       }
+      if (is_new !== undefined && is_new !== null) {
+        setShowMainMobile(false);
+      }
+      if (is_new) {
+        setBeginNewTrue();
+      } else {
+        setBeginNewFalse();
+      }
+
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
       }, 100)
@@ -271,7 +284,6 @@ const Main: FC<IMainProps> = ({
           setApps(appsResult.data);
         }
         const [appData, conversationData, appParams]: any = await fetchInitData()
-        console.log(conversationData.data, 23232323);
         const { app_id: appId, site: siteInfo, plan }: any = appData
         setAppId(appId)
         setPlan(plan)
@@ -302,7 +314,7 @@ const Main: FC<IMainProps> = ({
 
         setConversationList(conversations as ConversationItem[])
 
-        if (isNotNewConversation)
+        if (isNotNewConversation && !is_new)
           setCurrConversationId(_conversationId, appId, false)
 
         setInited(true)
@@ -398,7 +410,6 @@ const Main: FC<IMainProps> = ({
     setIsShowSuggestion(false)
     try {
       const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
-      console.log(decisionValue, 23232323)
       const decisionJson = JSON.parse(decisionValue);
       const executedPrompt = await execute(decisionJson);
       data.query = data.query + executedPrompt;
@@ -434,8 +445,6 @@ const Main: FC<IMainProps> = ({
         let currChatList = conversationList
         if (getConversationIdChangeBecauseOfNew()) {
           const { data: conversations, has_more }: any = await fetchConversations(isInstalledApp, installedAppInfo?.id)
-          // const { data: conversationsaaa }: any = await fetchConversations(isInstalledApp, installedAppInfo?.id, '', 'x8qCJ8rWwj4WtYtn');
-          // console.log(conversationsaaa, 23232323);
           setHasMore(has_more)
           setConversationList(conversations as ConversationItem[])
           currChatList = conversations
@@ -499,11 +508,17 @@ const Main: FC<IMainProps> = ({
   if (!appId || !siteInfo || !promptConfig)
     return <Loading type='app' />
 
+  const onSelectConversation = (id: any) => {
+    handleConversationIdChange(id);
+    setTimeout(() => {
+      setShowMainMobile(false);
+    }, 100)
+  }
   return (
     <div className='bg-gray-100'>
-      {/* {
-        isMobile ? <MainMobile sessionList={conversationList} /> : null
-      } */}
+      {
+        (isMobile && showMainMobile) ? <MainMobile onSelect={onSelectConversation} sessionList={conversationList} /> : null
+      }
       {!isInstalledApp && (
         <Header
           title={siteInfo.title}

@@ -40,6 +40,7 @@
     background-color: white;
     z-index: 11;
     padding-top: 10px;
+    overflow-x: scroll;
 }
 
 .main-header {
@@ -95,4 +96,31 @@
     font-size: 12px;
     line-height: 12px;
     color: #7F8794;
+}
+
+.main-roles {
+    width: 98px;
+    height: 31px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #F5F6F7;
+    border-radius: 8px;
+    margin-right: 8px;
+    float: left;
+}
+
+.main-roles-header {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.main-roles-name {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    text-align: center;
+    color: #2A374C;
 }
