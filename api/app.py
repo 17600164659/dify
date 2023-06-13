@@ -63,6 +63,7 @@ config_type = os.getenv("EDITION", default="SELF_HOSTED")  # ce edition first
 
 def create_app(test_config=None) -> Flask:
     app = DifyApp(__name__)
+    cors = CORS(app)
 
     if test_config:
         app.config.from_object(test_config)
@@ -197,7 +198,6 @@ def register_blueprints(app):
 
 # create app
 app = create_app()
-cors = CORS(app)
 celery = app.extensions["celery"]
 
 
