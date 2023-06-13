@@ -16,7 +16,7 @@ if (process.env.NEXT_PUBLIC_API_PREFIX && process.env.NEXT_PUBLIC_PUBLIC_API_PRE
   publicApiPrefix = globalThis.document.body.getAttribute('data-pubic-api-prefix') as string
 } else {
   if (isDevelopment) {
-    apiPrefix = 'https://cloud.dify.dev/console/api';
+    apiPrefix = 'https://ipollo.ai/console/api';
     publicApiPrefix = 'https://dev.udify.app/api';
     // apiPrefix = 'http://localhost/console/api';
     // publicApiPrefix = `http://localhost/api`; // avoid browser private mode api cross origin

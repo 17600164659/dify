@@ -196,8 +196,8 @@ def register_blueprints(app):
 
 
 # create app
-old_app = create_app()
-app = CORS(old_app)
+app = create_app()
+cors = CORS(app)
 celery = app.extensions["celery"]
 
 
