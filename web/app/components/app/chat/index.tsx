@@ -20,6 +20,7 @@ import { Markdown } from '@/app/components/base/markdown'
 import { formatNumber } from '@/utils/format'
 import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
 import { roles } from '@/app/components/share/chat/constants';
+import "./style.css"
 
 const stopIcon = (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -317,7 +318,7 @@ const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedba
               <div className={'ml-2 py-3 px-4 bg-gray-100 rounded-tr-2xl rounded-b-2xl'}>
                 {item.isOpeningStatement && (
                   <div className='flex items-center mb-1 gap-1'>
-                    <OpeningStatementIcon />
+                    {/* <OpeningStatementIcon /> */}
                     <div className='text-xs text-gray-500'>{t('appDebug.openingStatement.title')}</div>
                   </div>
                 )}
@@ -345,8 +346,9 @@ const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedba
                       minHeight={58}
                       className={`${cn(s.textArea)} !py-2 resize-none block w-full !px-3 bg-gray-50 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-700 tracking-[0.2px]`}
                     />
-                    <div className="mt-2 flex flex-row">
+                    <div className="mt-2 flex flex-row" style={{ justifyContent: 'flex-end' }}>
                       <Button
+                        borderRadius={1000}
                         type='primary'
                         background="#181A24"
                         className='mr-2'
@@ -362,6 +364,7 @@ const Answer: FC<IAnswerProps> = ({ item, feedbackDisabled = false, isHideFeedba
                           setShowEdit(false)
                         }}>{t('common.operation.confirm')}</Button>
                       <Button
+                        borderRadius={1000}
                         onClick={() => {
                           setInputValue(annotation?.content ?? '')
                           setShowEdit(false)
@@ -521,7 +524,7 @@ const Chat: FC<IChatProps> = ({
       <img src="" />
       {
         !isHideSendInput && (
-          <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0')}>
+          <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0', 'answer-textarea custom-no-border')}>
             {isResponsing && (
               <div className='flex justify-center mb-4'>
                 <Button className='flex items-center space-x-1 bg-white' onClick={() => abortResponsing?.()}>
@@ -561,7 +564,7 @@ const Chat: FC<IChatProps> = ({
                   </div>
                 </div>)
             }
-            <div className="relative">
+            <div className="relative custom-no-border">
               <AutoHeightTextarea
                 value={query}
                 onChange={handleContentChange}
@@ -570,7 +573,7 @@ const Chat: FC<IChatProps> = ({
                 minHeight={48}
                 autoFocus
                 controlFocus={controlFocus}
-                className={`${cn(s.textArea)} resize-none block w-full pl-3 bg-gray-50 border border-gray-200 rounded-md  focus:outline-none sm:text-sm text-gray-700`}
+                className={`${cn(s.textArea)} resize-none block w-full pl-3 rounded-md  focus:outline-none sm:text-sm text-gray-700 custom-no-border`}
               />
               <div className="absolute top-0 right-2 flex items-center h-[48px]">
                 <div className={`${s.count} mr-4 h-5 leading-5 text-sm bg-gray-50 text-gray-500`}>{query.trim().length}</div>

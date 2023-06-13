@@ -1,0 +1,10 @@
+.promptSubmitBtns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #19243B;
+    border-radius: 200px;
+    width: 168px;
+    height: 40px;
+    margin-left: 16px;
+}

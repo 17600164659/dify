@@ -15,6 +15,7 @@ import s from './style.module.css'
 import Loading from '@/app/components/base/loading'
 import { fetchChatConversations, fetchCompletionConversations } from '@/service/log'
 import { fetchAppDetail } from '@/service/apps'
+import './style.css';
 
 export type ILogsProps = {
   appId: string
@@ -92,7 +93,7 @@ const Logs: FC<ILogsProps> = ({ appId }) => {
   const total = isChatMode ? chatConversations?.total : completionConversations?.total
 
   return (
-    <div className='flex flex-col h-full'>
+    <div className='flex flex-col h-full' style={{ background: 'white' }}>
       <div className='flex flex-col justify-center px-6 pt-4'>
         <h1 className='flex text-xl font-medium text-gray-900'>{t('appLog.title')}</h1>
         <p className='flex text-sm font-normal text-gray-500'>{t('appLog.description')}</p>
@@ -125,7 +126,7 @@ const Logs: FC<ILogsProps> = ({ appId }) => {
             </Pagination.PrevButton>
             <div className={`flex items-center justify-center flex-grow ${s.pagination}`}>
               <Pagination.PageButton
-                activeClassName="bg-primary-50 dark:bg-opacity-0 text-primary-600 dark:text-white"
+                activeClassName="bg-primary-50 dark:bg-opacity-0 text-primary-600 dark:text-white active-page-button"
                 className="flex items-center justify-center h-8 w-8 rounded-full cursor-pointer"
                 inactiveClassName="text-gray-500"
               />

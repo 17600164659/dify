@@ -22,7 +22,8 @@ import { fetchDatasets } from '@/service/datasets'
 import AccountSetting from '@/app/components/header/account-setting'
 import { useBoolean } from 'ahooks'
 import Button from '../../base/button'
-import Loading from '../../base/loading'
+import Loading from '../../base/loading';
+import s from './style.module.css';
 
 const Configuration: FC = () => {
   const { t } = useTranslation()
@@ -244,35 +245,39 @@ const Configuration: FC = () => {
     >
       <>
         <div className="flex flex-col h-full">
-          <div className='flex items-center justify-between px-6 border-b shrink-0 h-14 boder-gray-100'>
-            <div className='text-xl text-gray-900'>{t('appDebug.pageTitle')}</div>
-            <div className='flex items-center'>
-              {/* Model and Parameters */}
-              <ConfigModel
-                mode={mode}
-                completionParams={completionParams}
-                modelId={modelConfig.model_id}
-                setModelId={setModelId}
-                onCompletionParamsChange={(newParams: CompletionParams) => {
-                  setCompletionParams(newParams)
-                }}
-                disabled={!hasSetAPIKEY}
-                canUseGPT4={hasSetCustomAPIKEY}
-                onShowUseGPT4Confirm={() => {
-                  setShowUseGPT4Confirm(true)
-                }}
-              />
-              <div className='mx-3 w-[1px] h-[14px] bg-gray-200'></div>
-              <Button onClick={() => setShowConfirm(true)} className='shrink-0 mr-2 w-[70px] !h-8 !text-[13px] font-medium'>{t('appDebug.operation.resetConfig')}</Button>
-              <Button type='primary' background="#181A24" onClick={saveAppConfig} className='shrink-0 w-[70px] !h-8 !text-[13px] font-medium'>{t('appDebug.operation.applyConfig')}</Button>
-            </div>
-          </div>
           <div className='flex grow h-[200px]'>
-            <div className="w-[574px] shrink-0 h-full overflow-y-auto border-r border-gray-100 py-4 px-6">
+            <div style={{ background: 'white', borderTopRightRadius: 16, borderBottomRightRadius: 16 }} className="w-[574px] shrink-0 h-full overflow-y-auto border-r border-gray-100 py-4 px-6">
+              <div style={{ justifyContent: 'flex-end' }} className='flex items-center justify-between px-6 border-b shrink-0 h-14 boder-gray-100'>
+                {/* <div className='text-xl text-gray-900'>{t('appDebug.pageTitle')}</div> */}
+                <div className='flex items-center'>
+                  {/* Model and Parameters */}
+                  <ConfigModel
+                    mode={mode}
+                    completionParams={completionParams}
+                    modelId={modelConfig.model_id}
+                    setModelId={setModelId}
+                    onCompletionParamsChange={(newParams: CompletionParams) => {
+                      setCompletionParams(newParams)
+                    }}
+                    disabled={!hasSetAPIKEY}
+                    canUseGPT4={hasSetCustomAPIKEY}
+                    onShowUseGPT4Confirm={() => {
+                      setShowUseGPT4Confirm(true)
+                    }}
+                  />
+                  <div className={s.promptSubmitBtns}>
+                    <Button type="nohover" border="none" color="white" onClick={() => setShowConfirm(true)}>{t('appDebug.operation.resetConfig')}</Button>
+                    <div className='mx-3 w-[1px] h-[14px] bg-gray-200'></div>
+                    <Button type="nohover" border="none" color="white" onClick={saveAppConfig}>{t('appDebug.operation.applyConfig')}</Button>
+                  </div>
+                </div>
+              </div>
               <Config />
             </div>
-            <div className="relative grow h-full overflow-y-auto  py-4 px-6 bg-gray-50 flex flex-col">
-              <Debug hasSetAPIKEY={hasSetAPIKEY} onSetting={showSetAPIKey} />
+            <div style={{ minHeight: 600 }} className="relative grow overflow-y-auto  py-4 px-6 flex flex-col">
+              <div style={{ background: 'white', borderRadius: 16, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <Debug hasSetAPIKEY={hasSetAPIKEY} onSetting={showSetAPIKey} />
+              </div>
             </div>
           </div>
         </div>

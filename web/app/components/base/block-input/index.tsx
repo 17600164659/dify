@@ -41,6 +41,11 @@ const BlockInput: FC<IBlockInputProps> = ({
   className,
   onConfirm,
 }) => {
+  const textAreBgStyle = {
+    background: "#F1F3F9",
+    boxShadow: '0px 12px 26px rgba(90, 100, 120, 0.07)',
+    borderRadius: 16,
+  };
   const { t } = useTranslation()
   // current is used to store the current value of the contentEditable element
   const [currentValue, setCurrentValue] = useState<string>(value)
@@ -72,7 +77,7 @@ const BlockInput: FC<IBlockInputProps> = ({
     .replace(/>/g, '&gt;')
     .replace(regex, varHighlightHTML({ name: '$1' })) // `<span class="${highLightClassName}">{{$1}}</span>`
     .replace(/\n/g, '<br />')
-    
+
 
   // Not use useCallback. That will cause out callback get old data.
   const handleSubmit = () => {
@@ -139,7 +144,7 @@ const BlockInput: FC<IBlockInputProps> = ({
     </div>)
 
   return (
-    <div className={classNames('block-input w-full overflow-y-auto border-none rounded-lg')}>
+    <div className={classNames('block-input w-full overflow-y-auto border-none rounded-lg')} style={textAreBgStyle}>
       {textAreaContent}
       {/* footer */}
       <div className='flex item-center h-14 px-4'>

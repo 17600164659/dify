@@ -1,0 +1,140 @@
+.overview-container {
+    background: white;
+    padding: 32px;
+    padding-top: 44px;
+    padding-bottom: 72px;
+    /* height: 100%; */
+}
+
+.overview-title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    color: #19243B;
+    margin-bottom: 24px;
+}
+
+.app-overview {
+    margin-bottom: 56px;
+}
+
+.app-overview-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-overview-list-item {
+    width: 188px;
+    height: 88px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    background: #F3F5FB;
+}
+
+.app-overview-list-item-mr {
+    margin-right: 12px;
+}
+
+.app-overview-list-item-mb {
+    margin-bottom: 12px;
+}
+
+.app-overview-list-item-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    box-shadow: 0px 6px 15px rgba(90, 100, 120, 0.08);
+    border-radius: 12px;
+    margin-right: 16px;
+}
+
+.app-overview-list-item-icon img {
+    width: 32px;
+    height: 32px;
+}
+
+.app-overview-list-item-contents {}
+
+.app-overview-list-item-title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #757C89;
+}
+
+.app-overview-list-item-deascription {
+    font-family: 'DIN Alternate';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    color: #19243B;
+}
+
+
+.user-overview {
+    margin-bottom: 32px;
+}
+
+.user-overview-list {}
+
+.user-overview-list-item {
+    padding-left: 20px;
+    padding-right: 24px;
+    border: 1px solid #E5E7EA;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 88px;
+}
+
+.user-overview-list-item-icon {
+    width: 48px;
+    height: 48px;
+    background: #F3F5FB;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.user-overview-list-item-icon img {
+    width: 32px;
+    height: 32px;
+}
+
+.user-overview-list-item-name {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #757C89;
+    flex: 1;
+}
+
+.user-overview-list-item-num {
+    margin-left: 16px;
+    font-family: 'DIN Alternate';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: right;
+    letter-spacing: 0.04em;
+    color: #19243B;
+}
+
+.data-overview-chart {
+    width: 100%;
+    height: 221px;
+}

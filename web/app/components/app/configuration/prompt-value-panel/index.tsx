@@ -63,11 +63,11 @@ const PromptValuePanel: FC<IPromptValuePanelProps> = ({
   }
 
   const promptPreview = (
-    <div className='pt-3 pb-4 rounded-t-xl bg-indigo-25'>
+    <div className='pt-3 pb-4 rounded-t-xl bg-indigo-25' style={{ borderRadius: 16, background: 'url(https://assets.metaio.cc/assets/difyassets/appoverviewbg.png)' }}>
       <div className="px-4">
         <div className="flex items-center space-x-1">
           {/* {starIcon} */}
-          <img src="https://assets.metaio.cc/assets/difyassets/magic.png" width={14} height={13} />
+          {/* <img src="https://assets.metaio.cc/assets/difyassets/magic.png" width={14} height={13} /> */}
           <div style={{ color: '#181A24' }} className="text-xs font-medium text-indigo-600 uppercase">{t('appDebug.inputs.previewTitle')}</div>
         </div>
         <div className='mt-2  leading-normal'>
@@ -98,7 +98,7 @@ const PromptValuePanel: FC<IPromptValuePanelProps> = ({
       <div className="mt-5 px-4">
         <div className='mb-4 '>
           <div className='flex items-center space-x-1'>
-            <div className='flex items-center justify-center w-4 h-4'><VarIcon /></div>
+            {/* <div className='flex items-center justify-center w-4 h-4'><VarIcon /></div> */}
             <div className='text-sm font-semibold text-gray-800'>{t('appDebug.inputs.userInputField')}</div>
           </div>
           {appType === AppType.completion && promptVariables.length > 0 && (

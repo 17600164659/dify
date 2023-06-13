@@ -6,3 +6,15 @@
     top: 12px;
     transform: rotate(360deg);
 }
+
+.answer-textarea {
+    width: 96%;
+    border: 1px solid #19243B;
+    border-radius: 16px;
+    margin: 0 auto;
+    margin-bottom: 14px;
+}
+
+.custom-no-border {
+    background: none !important;
+}

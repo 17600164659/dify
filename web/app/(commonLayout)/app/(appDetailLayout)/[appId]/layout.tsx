@@ -36,11 +36,16 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
   const { data: response } = useSWR(detailParams, fetchAppDetail)
 
   const navigation = [
-    { name: t('common.appMenus.overview'), href: `/app/${appId}/overview`, icon: ChartBarSquareIcon, selectedIcon: ChartBarSquareSolidIcon },
-    { name: t('common.appMenus.promptEng'), href: `/app/${appId}/configuration`, icon: Cog8ToothIcon, selectedIcon: Cog8ToothSolidIcon },
-    // { name: t('common.appMenus.apiAccess'), href: `/app/${appId}/develop`, icon: CommandLineIcon, selectedIcon: CommandLineSolidIcon },
-    { name: t('common.appMenus.logAndAnn'), href: `/app/${appId}/logs`, icon: DocumentTextIcon, selectedIcon: DocumentTextSolidIcon },
+    { name: '浏览', href: `/app/${appId}/overview`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" /> },
+    { name: '微调训练', href: `/app/${appId}/configuration`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/wtxl.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/wtxl.png" /> },
+    { name: '日志标记', href: `/app/${appId}/logs`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
   ]
+  // const navigation = [
+  //   { name: t('common.appMenus.overview'), href: `/app/${appId}/overview`, icon: ChartBarSquareIcon, selectedIcon: ChartBarSquareSolidIcon },
+  //   { name: t('common.appMenus.promptEng'), href: `/app/${appId}/configuration`, icon: Cog8ToothIcon, selectedIcon: Cog8ToothSolidIcon },
+  //   // { name: t('common.appMenus.apiAccess'), href: `/app/${appId}/develop`, icon: CommandLineIcon, selectedIcon: CommandLineSolidIcon },
+  //   { name: t('common.appMenus.logAndAnn'), href: `/app/${appId}/logs`, icon: DocumentTextIcon, selectedIcon: DocumentTextSolidIcon },
+  // ]
   const appModeName = response?.mode?.toUpperCase() === 'COMPLETION' ? t('common.appModes.completionApp') : t('common.appModes.chatApp')
   useEffect(() => {
     if (response?.name)
@@ -52,7 +57,7 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
     <div className={cn(s.app, 'flex', 'overflow-hidden')}>
       <BasicSideBar title={"未陌AI"} desc={appModeName} layout="apps" />
       <AppSideBar title={response.name} desc={appModeName} navigation={navigation} />
-      <div className="bg-white grow">{children}</div>
+      <div className="bg-white grow" style={{ background: '#ebeef4' }}>{children}</div>
     </div>
   )
 }

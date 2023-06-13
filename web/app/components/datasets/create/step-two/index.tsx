@@ -282,7 +282,7 @@ const StepTwo = ({
                 segmentationType === SegmentType.AUTO && s.active
               )}
               onClick={() => setSegmentationType(SegmentType.AUTO)}
-              style={segmentationType === SegmentType.AUTO ? { border: "1px solid #181A24" } : {}}
+              style={segmentationType === SegmentType.AUTO ? { border: "1px solid #181A24", background: '#F1F3F9' } : { background: '#F1F3F9' }}
             >
               <img className={cn(s.auto)} src="https://assets.metaio.cc/assets/difyassets/flash.png" style={{ width: 27, height: 37, position: 'absolute', top: 16, left: 23 }} />
               {/* <span className={cn(s.typeIcon, s.auto)} /> */}
@@ -300,7 +300,7 @@ const StepTwo = ({
                 segmentationType === SegmentType.CUSTOM && s.custom,
               )}
               onClick={() => setSegmentationType(SegmentType.CUSTOM)}
-              style={segmentationType === SegmentType.CUSTOM ? { border: "1px solid #181A24" } : {}}
+              style={segmentationType === SegmentType.CUSTOM ? { border: "1px solid #181A24", background: '#F1F3F9' } : { background: '#F1F3F9' }}
             >
               <img className={cn(s.auto)} src="https://assets.metaio.cc/assets/difyassets/zdy.png" style={{ width: 31, height: 30, position: 'absolute', top: 19, left: 23 }} />
               {/* <span className={cn(s.typeIcon, s.customize)} /> */}
@@ -345,8 +345,8 @@ const StepTwo = ({
                     </div>
                   </div>
                   <div className={s.formFooter}>
-                    <Button background="#181A24" type="primary" className={cn(s.button, '!h-8 text-primary-600')} onClick={confirmChangeCustomConfig}>{t('datasetCreation.stepTwo.preview')}</Button>
-                    <Button className={cn(s.button, 'ml-2 !h-8')} onClick={resetRules}>{t('datasetCreation.stepTwo.reset')}</Button>
+                    <Button borderRadius={1000} background="#181A24" type="primary" className={cn(s.button, '!h-8 text-primary-600')} onClick={confirmChangeCustomConfig}>{t('datasetCreation.stepTwo.preview')}</Button>
+                    <Button borderRadius={1000} className={cn(s.button, 'ml-2 !h-8')} onClick={resetRules}>{t('datasetCreation.stepTwo.reset')}</Button>
                   </div>
                 </div>
               )}
@@ -370,7 +370,7 @@ const StepTwo = ({
                       setIndexType(IndexingType.QUALIFIED)
                     }
                   }}
-                  style={!hasSetIndexType && indexType === IndexingType.QUALIFIED ? { border: "1px solid #181A24" } : {}}
+                  style={!hasSetIndexType && indexType === IndexingType.QUALIFIED ? { border: "1px solid #181A24", background: '#F1F3F9' } : { background: '#F1F3F9' }}
                 >
                   <img src="https://assets.metaio.cc/assets/difyassets/gzl.png" className={cn(s.typeIcon)} style={{ width: 25, background: 'none' }} />
                   {/* <span className={cn(s.typeIcon, s.qualified)} /> */}
@@ -410,7 +410,7 @@ const StepTwo = ({
                     hasSetIndexType && '!w-full',
                   )}
                   onClick={() => !hasSetIndexType && setIndexType(IndexingType.ECONOMICAL)}
-                  style={!hasSetIndexType && indexType === IndexingType.ECONOMICAL ? { border: "1px solid #181A24" } : {}}
+                  style={!hasSetIndexType && indexType === IndexingType.ECONOMICAL ? { border: "1px solid #181A24", background: '#F1F3F9' } : { background: '#F1F3F9' }}
                 >
                   <img src="https://assets.metaio.cc/assets/difyassets/jj.png" className={cn(s.typeIcon)} style={{ width: 34, background: 'none' }} />
                   {/* <span className={cn(s.typeIcon, s.economical)} /> */}
@@ -453,9 +453,9 @@ const StepTwo = ({
               </div>
             </div>
             <div className='flex items-center mt-8 py-2'>
-              <Button onClick={() => onStepChange(-1)}>{t('datasetCreation.stepTwo.lastStep')}</Button>
+              <Button borderRadius={1000} onClick={() => onStepChange(-1)}>{t('datasetCreation.stepTwo.lastStep')}</Button>
               <div className={s.divider} />
-              <Button background="#181A24" type='primary' onClick={createHandle}>{t('datasetCreation.stepTwo.nextStep')}</Button>
+              <Button borderRadius={1000} background="#181A24" type='primary' onClick={createHandle}>{t('datasetCreation.stepTwo.nextStep')}</Button>
             </div>
           </div>
         </div>

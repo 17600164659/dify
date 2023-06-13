@@ -41,11 +41,53 @@ const Datasets = () => {
   }, [])
 
   return (
-    <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-4 grow shrink-0' style={{ flex: 1 }}>
+    <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-3 grow shrink-0' style={{ flex: 1, paddingRight: 0, paddingTop: 130, position: 'relative' }}>
+      <a style={{
+        width: 176,
+        height: 76,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 24,
+        left: 46,
+        background: 'white',
+        borderRadius: 16,
+        boxShadow: "0px 12px 26px rgba(90, 100, 120, 0.03)",
+        cursor: 'pointer',
+      }} href='/datasets/create'>
+        <div style={{
+          width: 28,
+          height: 28,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginRight: 12,
+          borderRadius: 4,
+          background: "#181A24",
+        }}>
+          <img
+            src="https://assets.metaio.cc/assets/difyassets/add-white.png"
+            style={{
+              width: 16,
+              height: 16,
+            }} />
+        </div>
+        <div style={{
+          fontFamily: 'PingFang SC',
+          fontStyle: "normal",
+          fontWeight: 600,
+          fontSize: 20,
+          color: "#19243B"
+        }}>创建数据集</div>
+      </a>
       {data?.map(({ data: datasets }) => datasets.map(dataset => (
         <DatasetCard key={dataset.id} dataset={dataset} onDelete={mutate} />)
       ))}
-      <NewDatasetCard ref={anchorRef} />
+      {data?.map(({ data: datasets }) => datasets.map(dataset => (
+        <DatasetCard key={dataset.id} dataset={dataset} onDelete={mutate} />)
+      ))}
+      {/* <NewDatasetCard ref={anchorRef} /> */}
     </nav>
   )
 }

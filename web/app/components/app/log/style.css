@@ -1,0 +1,27 @@
+.active-page-button {
+    color: white !important;
+    background: #181A24 !important;
+}
+
+.panel-body {
+    background: url(https://assets.metaio.cc/assets/difyassets/appoverviewbg.png);
+    box-shadow: 0px 12px 26px rgba(90, 100, 120, 0.07);
+    border-radius: 16px;
+}
+
+.panel-body-prompt-title {
+    font-family: 'PingFang SC' !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    color: #19243B !important;
+    margin-bottom: 12px !important;
+}
+
+.panel-body-prompt-content {
+    font-family: 'PingFang SC' !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    color: #757C89 !important;
+}

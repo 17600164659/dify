@@ -343,7 +343,7 @@ const Debug: FC<IDebug> = ({
   return (
     <>
       <div className="shrink-0">
-        <div className='flex items-center justify-between mb-2'>
+        {/* <div className='flex items-center justify-between mb-2'>
           <div className='h2 '>{t('appDebug.inputs.title')}</div>
           {mode === 'chat' && (
             <Button className='flex items-center gap-1 !h-8 !bg-white' onClick={clearConversation}>
@@ -353,7 +353,7 @@ const Debug: FC<IDebug> = ({
               <span className='text-primary-600 text-[13px] font-semibold'>{t('common.operation.refresh')}</span>
             </Button>
           )}
-        </div>
+        </div> */}
         <PromptValuePanel
           appType={mode as AppType}
           value={completionQuery}

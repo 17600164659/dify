@@ -116,7 +116,7 @@ const ConifgModel: FC<IConifgModelProps> = ({
         onShowUseGPT4Confirm()
         return
       }
-      if(id !== 'gpt-4' && completionParams.max_tokens > 4000) {
+      if (id !== 'gpt-4' && completionParams.max_tokens > 4000) {
         Toast.notify({
           type: 'warning',
           message: t('common.model.params.setToCurrentModelMaxTokenTip')
@@ -180,6 +180,7 @@ const ConifgModel: FC<IConifgModelProps> = ({
       <div
         className={cn(`flex items-center border h-8 px-2.5 space-x-2 rounded-lg`, disabled ? diabledStyle : ableStyle)}
         onClick={() => !disabled && toogleShowConfig()}
+        style={{ background: 'red', color: '#19243B', background: "#FFFFFF", boxShadow: "2px 2px 16px rgba(0, 0, 0, 0.14)", borderRadius: 20 }}
       >
         <ModelIcon />
         <div className='text-[13px] text-gray-900 font-medium'>{selectedModel.name}</div>
@@ -206,7 +207,7 @@ const ConifgModel: FC<IConifgModelProps> = ({
             <div className="flex items-center justify-between my-5 h-9">
               <div>{t('appDebug.modelConfig.model')}</div>
               {/* model selector */}
-              <div className="relative" style={{zIndex: 30}}>
+              <div className="relative" style={{ zIndex: 30 }}>
                 <div ref={triggerRef} onClick={() => !selectModelDisabled && toogleOption()} className={cn(selectModelDisabled ? 'cursor-not-allowed' : 'cursor-pointer', "flex items-center h-9 px-3 space-x-2 rounded-lg bg-gray-50 ")}>
                   <ModelIcon />
                   <div className="text-sm gray-900">{selectedModel?.name}</div>

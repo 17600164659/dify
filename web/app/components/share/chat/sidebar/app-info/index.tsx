@@ -1,6 +1,6 @@
 'use client'
 import React, { FC } from 'react'
-import cn  from 'classnames'
+import cn from 'classnames'
 import { appDefaultIconBackground } from '@/config/index'
 import AppIcon from '@/app/components/base/app-icon'
 
@@ -19,7 +19,8 @@ const AppInfo: FC<IAppInfoProps> = ({
 }) => {
   return (
     <div className={cn(className, 'flex items-center space-x-3')}>
-      <AppIcon size="small" icon={icon} background={icon_background || appDefaultIconBackground} />
+      {/* <AppIcon size="small" icon={icon} background={icon_background || appDefaultIconBackground} /> */}
+      <img src="https://assets.metaio.cc/assets/difyassets/sxw.png" />
       <div className='w-0 grow text-sm font-semibold text-gray-800 overflow-hidden  text-ellipsis whitespace-nowrap'>{name}</div>
     </div>
   )

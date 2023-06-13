@@ -24,7 +24,7 @@ const FilePreview = ({
       setPreviewContent(res.content)
       setLoading(false)
     }
-    catch {}
+    catch { }
   }
 
   const getFileName = (currentFile?: File) => {
@@ -42,7 +42,11 @@ const FilePreview = ({
   }, [file])
 
   return (
-    <div className={cn(s.filePreview)}>
+    <div className={cn(s.filePreview)} style={{
+      margin: 20, background: "#FFFFFF",
+      boxShadow: "0px 0px 26px rgba(90, 100, 120, 0.12)",
+      borderRadius: 16,
+    }}>
       <div className={cn(s.previewHeader)}>
         <div className={cn(s.title)}>{t('datasetCreation.stepOne.filePreview')}</div>
         <div className={cn(s.fileName)}>
@@ -50,7 +54,7 @@ const FilePreview = ({
         </div>
       </div>
       <div className={cn(s.previewContent)}>
-        {loading && <div className={cn(s.loading)}/>}
+        {loading && <div className={cn(s.loading)} />}
         {!loading && (
           <div className={cn(s.fileContent)}>{previewContent}</div>
         )}

@@ -1,0 +1,9 @@
+.step-num {
+    background: #FFFFFF !important;
+    border-radius: 4px !important;
+}
+
+.step-num.active {
+    box-shadow: 0px 6px 15px rgba(90, 100, 120, 0.14) !important;
+    color: #19243B !important;
+}

@@ -4,6 +4,7 @@ import {
 } from '@heroicons/react/24/outline'
 import Tooltip from '../base/tooltip'
 import AppIcon from '../base/app-icon'
+import "./style.css";
 
 const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_'
 
@@ -21,6 +22,7 @@ export type IAppBasicProps = {
   type: string | React.ReactNode
   hoverTip?: string
   textStyle?: { main?: string; extra?: string }
+  noHeader?: boolean
 }
 
 const AlgorithmSvg = <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,10 +43,9 @@ const ICON_MAP = {
   api: <AppIcon innerIcon={AlgorithmSvg} className='border !bg-purple-50 !border-purple-200' />,
   dataset: <AppIcon innerIcon={DatasetSvg} className='!border-[0.5px] !border-indigo-100 !bg-indigo-25' />,
 }
-
-export default function AppBasic({ icon, icon_background, name, type, hoverTip, textStyle, iconType = 'app', styles = {}, styleTop }: IAppBasicProps) {
+export default function AppBasic({ icon, icon_background, name, type, hoverTip, textStyle, iconType = 'app', styles = {}, styleTop, noHeader }: IAppBasicProps) {
   return (
-    <div className="flex items-start" style={{ marginTop: 9 }}>
+    <div className="flex items-start" style={{ marginTop: 9, marginLeft: 16 }}>
       {icon && icon_background && iconType === 'app' && (
         <div className='flex-shrink-0 mr-3'>
           <AppIcon icon={icon} background={icon_background} />
@@ -56,6 +57,7 @@ export default function AppBasic({ icon, icon_background, name, type, hoverTip, 
         </div>
 
       }
+      {!noHeader && <img className='overview-header' src="https://assets.metaio.cc/assets/difyassets/logo.png" />}
       <div className="group">
         <div style={styleTop ? styleTop : {}} className={`flex flex-row items-center text-sm font-semibold text-gray-700 group-hover:text-gray-900 ${textStyle?.main}`}>
           {name}

@@ -53,7 +53,13 @@ const AppIcon: FC<AppIconProps> = ({
       style={styles}
     >
       {/* {innerIcon ? innerIcon : icon && icon !== '' ? <em-emoji id={icon} /> : <em-emoji id='🤖' />} */}
-      <img src={appIcon || "https://assets.metaio.cc/assets/difyassets/logo.png"} style={{ width: width || 33, height: height || 33 }} />
+      <img
+        src={appIcon || "https://assets.metaio.cc/assets/difyassets/logo.png"}
+        style={{
+          width: width || 88,
+          height: height || 88,
+          maxWidth: width || 88,
+        }} />
     </span>
   )
 }

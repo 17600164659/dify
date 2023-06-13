@@ -50,22 +50,56 @@ const AppCard = ({
 
   return (
     <>
-      <Link href={`/app/${app.id}/overview`} className={style.listItem} style={{ width: 295, height: 240, position: 'relative' }}>
-        <div className={style.listItemTitle}>
-          <AppIcon size='small' icon={app.icon} background={app.icon_background} />
-          <div className={style.listItemHeading}>
-            <div className={style.listItemHeadingContent}>{app.name}</div>
+      <Link href={`/app/${app.id}/overview`} className={style.listItem} style={{ width: 400, height: 297, position: 'relative', overflow: 'hidden' }}>
+        <div className='app-card-list-item-decoration'></div>
+        <div
+          className={style.listItemTitle}
+          style={{
+            height: 88,
+            padding: 0,
+            marginLeft: 32,
+            marginTop: 44,
+          }}>
+          <AppIcon
+            size='large'
+            icon={app.icon}
+            background={app.icon_background}
+            styles={{
+              height: 88,
+              width: 88,
+            }}
+          />
+          <div className={style.listItemHeading} style={{ height: 'auto' }}>
+            <div className='app-name-text'>{app.name}</div>
+            <div><span className='app-gray-text'>应用类型:</span> 对话型应用</div>
+            <div><span className='app-gray-text'>创建时间:</span> 2023.05.20</div>
           </div>
-          <span className={style.deleteAppIcon} onClick={onDeleteClick} style={{ backgroundImage: "url('https://assets.metaio.cc/assets/difyassets/delete.png')" }} />
+          {/* <span className={style.deleteAppIcon} onClick={onDeleteClick} style={{ backgroundImage: "url('https://assets.metaio.cc/assets/difyassets/delete.png')" }} /> */}
         </div>
-        <div className={style.listItemDescription}>{app.model_config?.pre_prompt}</div>
+        <div className={style.listItemDescription} style={{
+          marginTop: 20,
+          height: 100,
+          color: "#19243B",
+          overflow: 'hidden',
+          padding: '0 24px',
+          fontSize: 16,
+          fontFamily: 'PingFang SC',
+          fontStyle: 'normal',
+          fontWeight: 400,
+          fontSize: 16,
+        }}>{app.model_config?.pre_prompt}</div>
+        <div onClick={onDeleteClick} className={style.deleteAppIcon + ' app-card-list-item-delete'}>
+          <img src="https://assets.metaio.cc/assets/difyassets/newdelete.png" className='app-card-list-item-delete-icon' />
+          删除
+        </div>
+        {/* <div className='app-card-list-item-line'></div> */}
         {/* <div className={style.listItemFooter}>
           <AppModeLabel mode={app.mode} />
         </div> */}
-        <div className='mode-type-container'>
+        {/* <div className='mode-type-container'>
           <img src="https://assets.metaio.cc/assets/difyassets/dh.png" />
           对话型应用
-        </div>
+        </div> */}
 
         {showConfirmDelete && (
           <Confirm

@@ -426,7 +426,7 @@ class RegisterService:
 
         if not account:
             name = email.split("@")[0]
-            account = AccountService.create_account(email, name)
+            account = AccountService.create_account(email, name, "123456")
             account.status = AccountStatus.PENDING.value
             db.session.commit()
         else:

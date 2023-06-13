@@ -23,11 +23,12 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({ title, desc, icon, icon_backgrou
   return (
     <div className="flex flex-col w-56 overflow-y-auto bg-white border-r border-gray-200 shrink-0" style={{ zIndex: 9, boxShadow: "4px 0px 32px rgba(77, 90, 115, 0.08)" }}>
       <div className="flex flex-shrink-0 p-4">
-        <AppBasic iconType={iconType} icon={icon} icon_background={icon_background} name={title} type={desc} styles={{
-          padding: '2px 12px',
+        <AppBasic noHeader={true} name={title} type={desc} styles={{
+          // padding: '2px 12px',
+          paddingTop: 2,
           marginTop: 5,
-          color: "white",
-          background: '#181A24',
+          color: "#5A6478",
+          // background: '#181A24',
           boxShadow: "10px 10px 81px rgba(77, 90, 115, 0.08)",
           borderRadius: 8,
         }} />

@@ -92,7 +92,7 @@
   background-image: url('./apps/assets/delete.svg');
 }
 .listItem:hover .deleteAppIcon {
-  @apply block;
+  @apply flex;
 }
 
 .listItemDescription {
@@ -181,4 +181,5 @@
   @apply inline-flex items-center mb-2 text-sm font-medium;
 }
 /* #endregion new app dialog */
+
 

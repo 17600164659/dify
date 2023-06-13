@@ -10,6 +10,7 @@ import { AvgResponseTime, AvgSessionInteractions, ConversationsChart, CostChart,
 import type { Item } from '@/app/components/base/select'
 import { SimpleSelect } from '@/app/components/base/select'
 import { TIME_PERIOD_LIST } from '@/app/components/app/log/filter'
+import './style.css'
 
 dayjs.extend(quarterOfYear)
 
@@ -38,7 +39,7 @@ export default function ChartView({ appId }: IChartViewProps) {
   return (
     <div>
       <div className='flex flex-row items-center mt-8 mb-4 text-gray-900 text-base'>
-        <span className='mr-3'>{t('appOverview.analysis.title')}</span>
+        {/* <span className='mr-3'>{t('appOverview.analysis.title')}</span> */}
         <SimpleSelect
           items={TIME_PERIOD_LIST.map(item => ({ value: item.value, name: t(`appLog.filter.period.${item.name}`) }))}
           className='mt-0 !w-40'
@@ -47,28 +48,30 @@ export default function ChartView({ appId }: IChartViewProps) {
         />
       </div>
       <div className='flex flex-row w-full mb-6'>
-        <div className='flex-1 mr-3'>
-          <ConversationsChart period={period} id={appId} />
+        <div className='flex-1 mr-3 custom-chart-item'>
+          <ConversationsChart period={period} id={appId} noHeader={true} />
         </div>
-        <div className='flex-1 ml-3'>
-          <EndUsersChart period={period} id={appId} />
+        <div className='flex-1 ml-3 custom-chart-item'>
+          <EndUsersChart period={period} id={appId} noHeader={true} />
         </div>
       </div>
       <div className='flex flex-row w-full mb-6'>
-        <div className='flex-1 mr-3'>
+        <div className='flex-1 mr-3 custom-chart-item'>
           {isChatApp
             ? (
-              <AvgSessionInteractions period={period} id={appId} />
+              <AvgSessionInteractions period={period} id={appId} noHeader={true} />
             )
             : (
-              <AvgResponseTime period={period} id={appId} />
+              <AvgResponseTime period={period} id={appId} noHeader={true} />
             )}
         </div>
-        <div className='flex-1 ml-3'>
-          <UserSatisfactionRate period={period} id={appId} />
+        <div className='flex-1 ml-3 custom-chart-item'>
+          <UserSatisfactionRate period={period} id={appId} noHeader={true} />
         </div>
       </div>
-      <CostChart period={period} id={appId} />
+      <div className='custom-chart-item'>
+        <CostChart period={period} id={appId} />
+      </div>
     </div>
   )
 }

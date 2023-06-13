@@ -20,7 +20,8 @@ const Button: FC<IButtonProps> = ({
   loading = false,
   color,
   background,
-  border
+  border,
+  borderRadius,
 }) => {
   let style = 'cursor-pointer'
   switch (type) {
@@ -30,6 +31,9 @@ const Button: FC<IButtonProps> = ({
     case 'warning':
       style = (disabled || loading) ? 'bg-red-600/75 cursor-not-allowed text-white' : 'bg-red-600 hover:bg-red-600/75 hover:shadow-md cursor-pointer text-white hover:shadow-sm'
       break
+    case 'nohover':
+      style = 'border-solid border border-gray-200 cursor-pointer text-gray-500'
+      break
     default:
       style = disabled ? 'border-solid border border-gray-200 bg-gray-200 cursor-not-allowed text-gray-800' : 'border-solid border border-gray-200 cursor-pointer text-gray-500 hover:bg-white hover:shadow-sm hover:border-gray-300'
       break
@@ -37,8 +41,9 @@ const Button: FC<IButtonProps> = ({
 
   const styles = {};
   if (color) styles.color = color;
-  if (background) styles.background = background;
+  if (background) styles.background = disabled ? background + '81' : background;
   if (border) styles.border = border;
+  if (borderRadius) styles.borderRadius = borderRadius;
 
   return (
     <div

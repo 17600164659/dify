@@ -32,7 +32,7 @@ export default function AppSelector({ userProfile, onLogout, langeniusVersionInf
   const { t } = useTranslation()
 
   return (
-    <div className="" style={{ margin: "0 auto", position: "absolute", bottom: 30, marginLeft: 24, }}>
+    <div className="" style={{ margin: "0 auto", position: "absolute", bottom: 37, marginLeft: 12, marginRigh: 16 }}>
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button

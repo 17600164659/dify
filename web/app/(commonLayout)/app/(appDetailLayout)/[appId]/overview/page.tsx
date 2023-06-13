@@ -17,10 +17,10 @@ const Overview = async ({
   return (
     <div className="h-full px-16 py-6 overflow-scroll">
       <WelcomeBanner />
-      <div className='flex flex-row items-center justify-between mb-4 text-xl text-gray-900'>
+      {/* <div className='flex flex-row items-center justify-between mb-4 text-xl text-gray-900'>
         {t('overview.title')}
         <EditKeyPopover />
-      </div>
+      </div> */}
       <CardView appId={appId} />
       <ChartView appId={appId} />
     </div>

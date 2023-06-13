@@ -18,6 +18,7 @@ import Button from '@/app/components/base/button'
 import Tag from '@/app/components/base/tag'
 import Switch from '@/app/components/base/switch'
 import type { AppDetailResponse } from '@/models/app'
+import './style.css';
 
 export type IAppCardProps = {
   className?: string
@@ -100,7 +101,7 @@ function AppCard({
       className={`flex flex-col w-full shadow-sm border-[0.5px] rounded-lg border-gray-200 ${className ?? ''}`}
       style={styles ? styles : {}}
     >
-      <div className={`px-6 py-4 ${customBgColor ?? bgColor} rounded-lg`}>
+      <div className={`px-6 py-4 ${customBgColor ?? bgColor} rounded-lg`} style={{ background: 'url(https://assets.metaio.cc/assets/difyassets/appoverviewbg.png)' }}>
         <div className="mb-2.5 flex flex-row items-start justify-between">
           <AppBasic
             iconType={isApp ? 'app' : 'api'}
@@ -114,9 +115,9 @@ function AppCard({
             }
           />
           <div className="flex flex-row items-center h-9">
-            <Tag className="mr-2" color={runningStatus ? 'green' : 'yellow'}>
+            {/* <Tag className="mr-2" color={runningStatus ? 'green' : 'yellow'}>
               {runningStatus ? t('appOverview.overview.status.running') : t('appOverview.overview.status.disable')}
-            </Tag>
+            </Tag> */}
             <Switch defaultValue={runningStatus} onChange={onChangeStatus} />
           </div>
         </div>
@@ -125,7 +126,7 @@ function AppCard({
             <div className="pb-1 text-xs text-gray-500">
               {isApp ? t('appOverview.overview.appInfo.accessibleAddress') : t('appOverview.overview.apiInfo.accessibleAddress')}
             </div>
-            <div className="text-sm text-gray-800">
+            <div className="text-sm text-gray-800" style={{ color: '#5A6478' }}>
               {isApp ? appUrl : apiUrl}
             </div>
           </div>
@@ -133,12 +134,12 @@ function AppCard({
         <div
           className={`pt-2 flex flex-row items-center ${!isApp ? 'mb-[calc(2rem_+_1px)]' : ''
             }`}
-          style={{ float: 'right' }}
+        // style={{ float: 'right' }}
         >
           {OPERATIONS_MAP[cardType].map((op) => {
             return (
               <Button
-                className="mr-2 text-gray-800"
+                className="mr-2 text-gray-800 overview-btn"
                 key={op.opName}
                 onClick={genClickFuncByName(op.opName)}
                 disabled={

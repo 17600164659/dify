@@ -147,7 +147,7 @@ const ConfigVar: FC<IConfigVarProps> = ({ promptVariables, onPromptVariablesChan
         <div className='pt-2 pb-1 text-xs text-gray-500'>{t('appDebug.notSetVar')}</div>
       )}
       {hasVar && (
-        <div className='rounded-lg border border-gray-200 bg-white'>
+        <div className='rounded-lg border border-gray-200' style={{ position: 'relative' }}>
           <table className={`${s.table} w-full border-collapse border-0 rounded-lg text-sm`}>
             <thead className="border-b  border-gray-200 text-gray-500 text-xs font-medium">
               <tr className='uppercase'>
@@ -157,16 +157,19 @@ const ConfigVar: FC<IConfigVarProps> = ({ promptVariables, onPromptVariablesChan
                 <td>{t('appDebug.variableTable.action')}</td>
               </tr>
             </thead>
+            <div style={{ position: 'absolute', width: '100%', height: 1, background: 'rgba(107,114,128,0.12)' }}></div>
+            <div style={{ marginBottom: 18, width: "100%", height: 0 }}></div>
             <tbody className="text-gray-700">
               {promptVariables.map(({ key, name, type, required }, index) => (
                 <tr key={index} className="h-9 leading-9">
                   <td className="w-[160px] border-b border-gray-100 pl-3">
                     <div className='flex items-center space-x-1'>
-                      <IconTypeIcon type={type} />
+                      {/* <IconTypeIcon type={type} /> */}
                       <input
                         type="text"
                         placeholder="key"
                         value={key}
+                        style={{ background: 'none' }}
                         onChange={e => updatePromptKey(index, e.target.value)}
                         onBlur={e => updatePromptNameIfNameEmpty(index, e.target.value)}
                         maxLength={getMaxVarNameLength(name)}
@@ -179,6 +182,7 @@ const ConfigVar: FC<IConfigVarProps> = ({ promptVariables, onPromptVariablesChan
                       type="text"
                       placeholder={key}
                       value={name}
+                      style={{ background: 'none' }}
                       onChange={e => updatePromptVariable(key, 'name', e.target.value)}
                       maxLength={getMaxVarNameLength(name)}
                       className="h-6 leading-6 block w-full rounded-md border-0 py-1.5 text-gray-900  placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-gray-200"

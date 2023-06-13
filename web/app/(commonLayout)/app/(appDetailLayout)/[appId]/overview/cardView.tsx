@@ -10,6 +10,7 @@ import { ToastContext } from '@/app/components/base/toast'
 import { fetchAppDetail, updateAppApiStatus, updateAppSiteAccessToken, updateAppSiteConfig, updateAppSiteStatus } from '@/service/apps'
 import type { IToastProps } from '@/app/components/base/toast'
 import type { App } from '@/types/app'
+import "./style.css";
 
 export type ICardViewProps = {
   appId: string
@@ -69,12 +70,54 @@ const CardView: FC<ICardViewProps> = ({ appId }) => {
   return (
     <div className='flex flex-row justify-between w-full mb-6'>
       <AppCard
-        styles={{ flex: 1 }}
+        styles={{ flex: 0.5 }}
         className='mr-3 flex-1'
         appInfo={response}
         onChangeStatus={onChangeSiteStatus}
         onGenerateCode={onGenerateCode}
         onSaveSiteConfig={onSaveSiteConfig} />
+      <div className='overview-4-card'>
+        <div className='card-line' style={{ marginBottom: 12 }}>
+          <div style={{ marginRight: 12 }} className='card-item'>
+            <div style={{ background: '#e6eefc' }} className="card-icon-bg">
+              <img src="https://assets.metaio.cc/assets/difyassets/xzyh.png" className='card-icon-img' />
+            </div>
+            <div>
+              <p className='card-num'>999</p>
+              <p className='card-title'>今日新增用户数</p>
+            </div>
+          </div>
+          <div className='card-item'>
+            <div style={{ background: '#e1e3f5' }} className="card-icon-bg">
+              <img src="https://assets.metaio.cc/assets/difyassets/ljyh.png" className='card-icon-img' />
+            </div>
+            <div>
+              <p className='card-num'>999</p>
+              <p className='card-title'>累计用户数</p>
+            </div>
+          </div>
+        </div>
+        <div className='card-line'>
+          <div style={{ marginRight: 12 }} className='card-item'>
+            <div style={{ background: '#faf0ec' }} className="card-icon-bg">
+              <img src="https://assets.metaio.cc/assets/difyassets/xzht.png" className='card-icon-img' />
+            </div>
+            <div>
+              <p className='card-num'>999</p>
+              <p className='card-title'>今日新增话题数</p>
+            </div>
+          </div>
+          <div className='card-item'>
+            <div style={{ background: '#ebf6ef' }} className="card-icon-bg">
+              <img src="https://assets.metaio.cc/assets/difyassets/ljht.png" className='card-icon-img' />
+            </div>
+            <div>
+              <p className='card-num'>999</p>
+              <p className='card-title'>累计话题数</p>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* <AppCard
         className='ml-3 flex-1'
         cardType='api'

@@ -49,7 +49,8 @@ const DatasetConfig: FC = () => {
   return (
     <FeaturePanel
       className='mt-3'
-      headerIcon={Icon}
+      // headerIcon={Icon}
+      headerIcon={<img src="https://assets.metaio.cc/assets/difyassets/sxw.png" />}
       title={t('appDebug.feature.dataSet.title')}
       headerRight={<OperationBtn type="add" onClick={showSelectDataSet} />}
       hasHeaderBottomBorder={!hasData}

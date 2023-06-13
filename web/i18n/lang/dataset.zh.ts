@@ -1,6 +1,6 @@
 const translation = {
-  documentCount: ' 文档',
-  wordCount: '千字符',
+  documentCount: ' 文档数',
+  wordCount: '字符数',
   appCount: ' 关联应用',
   createDataset: '创建数据集',
   createDatasetIntro: '导入您自己的文本数据或通过 Webhook 实时写入数据以增强 LLM 的上下文。',

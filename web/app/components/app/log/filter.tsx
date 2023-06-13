@@ -57,11 +57,11 @@ const Filter: FC<IFilterProps> = ({ appId, queryParams, setQueryParams }: IFilte
             }
           }
           items={[{ value: 'all', name: t('appLog.filter.annotation.all') },
-            { value: 'annotated', name: t('appLog.filter.annotation.annotated', { count: data?.count }) },
-            { value: 'not_annotated', name: t('appLog.filter.annotation.not_annotated') }]}
+          { value: 'annotated', name: t('appLog.filter.annotation.annotated', { count: data?.count }) },
+          { value: 'not_annotated', name: t('appLog.filter.annotation.not_annotated') }]}
         />
       </div>
-      <div className="relative">
+      <div className="relative" style={{ border: '1px solid #E5E7EA', borderRadius: 1000 }}>
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
         </div>

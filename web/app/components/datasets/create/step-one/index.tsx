@@ -18,6 +18,18 @@ type IStepOneProps = {
   onStepChange: () => void,
 }
 
+const dataSourceConfig = [
+  { icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: '本地文件', deascription: '已经整理好的文件', dataType: 'FILE' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Notion', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Web单页', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: '网站', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'GitHub', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Google Sheet', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'WemoData', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Twitter', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Airtable', deascription: '即将上线', dataType: 'COMMINGSOON' },
+];
+
 const StepOne = ({
   datasetId,
   onStepChange,
@@ -35,45 +47,36 @@ const StepOne = ({
   return (
     <div className='flex w-full h-full'>
       <div className='grow overflow-y-auto relative'>
-        <div className={s.stepHeader}>{t('datasetCreation.steps.one')}</div>
+        <div style={{ position: 'inherit' }} className={s.stepHeader}>{t('datasetCreation.steps.one')}</div>
         <div className={s.form}>
-          <div className={s.dataSourceTypeList}>
-            <div
-              className={cn(s.dataSourceItem, dataSourceType === 'FILE' && s.active) + ' data-source-item'}
-              onClick={() => setDataSourceType('FILE')}
-              style={dataSourceType === 'FILE' ? { borderColor: "#181A24", color: "#181A24" } : {}}
-            >
-              {/* <span className={cn(s.datasetIcon)} /> */}
-              <img className='data-source-item-icon' src="https://assets.metaio.cc/assets/difyassets/file.png" />
-              <div className='data-source-item-info'>
-                <div className='data-source-item-title'>{t('datasetCreation.stepOne.dataSourceType.file')}</div>
-                <div className='data-source-item-discription'>标注</div>
-              </div>
-            </div>
-            <div
+          <div className={s.dataSourceTypeList} style={{ display: 'block', overflow: 'hidden' }}>
+            {
+              dataSourceConfig.map(config => (
+                <div
+                  className={cn(s.dataSourceItem, config.disabled && s.disabled, dataSourceType === config.dataType && s.active) + ' data-source-item'}
+                  onClick={() => config.disabled ? null : setDataSourceType(config.dataType)}
+                  style={dataSourceType === config.dataType ? { borderColor: "#181A24", color: "#181A24", float: 'left', marginBottom: 12 } : { float: 'left', marginBottom: 12 }}
+                >
+                  {/* <span className={cn(s.datasetIcon)} /> */}
+                  <img className='data-source-item-icon' src={config.icon} />
+                  <div className='data-source-item-info'>
+                    <div className='data-source-item-title'>{config.name}</div>
+                    <div className='data-source-item-discription'>{config.deascription}</div>
+                  </div>
+                </div>
+              ))
+            }
+            {/* <div
               className={cn(s.dataSourceItem, s.disabled, dataSourceType === 'notion' && s.active) + ' data-source-item'}
             // onClick={() => setDataSourceType('notion')}
             >
               <span className={s.comingTag}>Coming soon</span>
-              {/* <span className={cn(s.datasetIcon, s.notion)} /> */}
               <img className='data-source-item-icon' src="https://assets.metaio.cc/assets/difyassets/notion.png" />
               <div className='data-source-item-info'>
                 <div className='data-source-item-title'>{t('datasetCreation.stepOne.dataSourceType.notion')}</div>
                 <div className='data-source-item-discription'>标注</div>
               </div>
-            </div>
-            <div
-              className={cn(s.dataSourceItem, s.disabled, dataSourceType === 'web' && s.active) + ' data-source-item'}
-            // onClick={() => setDataSourceType('web')}
-            >
-              <span className={s.comingTag}>Coming soon</span>
-              {/* <span className={cn(s.datasetIcon, s.web)} /> */}
-              <img className='data-source-item-icon' src="https://assets.metaio.cc/assets/difyassets/web.png" />
-              <div className='data-source-item-info'>
-                <div className='data-source-item-title'>{t('datasetCreation.stepOne.dataSourceType.web')}</div>
-                <div className='data-source-item-discription'>标注</div>
-              </div>
-            </div>
+            </div> */}
             <div
               className={cn(s.dataSourceItem, s.disabled, dataSourceType === 'web' && s.active) + ' data-source-item'}
               onClick={modalShowHandle}
@@ -83,12 +86,12 @@ const StepOne = ({
               <img className='data-source-item-icon' src="https://assets.metaio.cc/assets/difyassets/add.png" />
               <div className='data-source-item-info'>
                 <div className='data-source-item-title'>{t('datasetCreation.stepOne.emptyDatasetCreation')}</div>
-                <div className='data-source-item-discription'>标注</div>
+                <div className='data-source-item-discription'>以空数据创建数据集</div>
               </div>
             </div>
           </div>
           <FileUploader onFileUpdate={updateFile} file={file} />
-          <Button background="#181A24" disabled={!file} background="#181A24" className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
+          <Button background="#181A24" disabled={!file} borderRadius={1000} className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
           {/* {!datasetId && (
             <>
               <div className={s.dividerLine} />

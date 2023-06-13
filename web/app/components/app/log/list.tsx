@@ -30,6 +30,7 @@ import Tooltip from '@/app/components/base/tooltip'
 import { ToastContext } from '@/app/components/base/toast'
 import { fetchChatConversationDetail, fetchChatMessages, fetchCompletionConversationDetail, updateLogMessageAnnotations, updateLogMessageFeedbacks } from '@/service/log'
 import { TONE_LIST } from '@/config'
+import './style.css';
 
 type IConversationList = {
   logs?: ChatConversationsResponse | CompletionConversationsResponse
@@ -60,7 +61,7 @@ export const OpenAIIcon: FC<{ className?: string }> = ({ className }) => {
 const HandThumbIconWithCount: FC<{ count: number; iconType: 'up' | 'down' }> = ({ count, iconType }) => {
   const classname = iconType === 'up' ? 'text-primary-600 bg-primary-50' : 'text-red-600 bg-red-50'
   const Icon = iconType === 'up' ? HandThumbUpIcon : HandThumbDownIcon
-  return <div className={`inline-flex items-center w-fit rounded-md p-1 text-xs ${classname} mr-1 last:mr-0`}>
+  return <div style={iconType === 'up' ? { background: '#181A24', color: 'white' } : {}} className={`inline-flex items-center w-fit rounded-md p-1 text-xs ${classname} mr-1 last:mr-0`}>
     <Icon className={'h-3 w-3 mr-0.5 rounded-md'} />
     {count > 0 ? count : null}
   </div>
@@ -200,11 +201,12 @@ function DetailPanel<T extends ChatConversationFullDetailResponse | CompletionCo
       </div>
     </div>
     {/* Panel Body */}
-    <div className='bg-gray-50 border border-gray-100 px-4 py-3 mx-6 my-4 rounded-lg'>
-      <div className='text-gray-500 text-xs flex items-center'>
-        <SparklesIcon className='h-3 w-3 mr-1' />{isChatMode ? t('appLog.detail.promptTemplateBeforeChat') : t('appLog.detail.promptTemplate')}
+    <div className='bg-gray-50 border border-gray-100 px-4 py-3 mx-6 my-4 rounded-lg panel-body'>
+      <div className='text-gray-500 text-xs flex items-center panel-body-prompt-title'>
+        {/* <SparklesIcon className='h-3 w-3 mr-1' />{isChatMode ? t('appLog.detail.promptTemplateBeforeChat') : t('appLog.detail.promptTemplate')} */}
+        提示词预览
       </div>
-      <div className='text-gray-700 font-medium text-sm mt-2'>{detail.model_config?.pre_prompt || emptyText}</div>
+      <div className='text-gray-700 font-medium text-sm mt-2 panel-body-prompt-content'>{detail.model_config?.pre_prompt || emptyText}</div>
     </div>
     {!isChatMode
       ? <div className="px-2.5 py-4">
@@ -422,7 +424,7 @@ const ConversationList: FC<IConversationList> = ({ logs, appDetail, onRefresh })
                 setShowDrawer(true)
                 setCurrentConversation(log)
               }}>
-              <td className='text-center align-middle'>{!log.read_at && <span className='inline-block bg-[#3F83F8] h-1.5 w-1.5 rounded'></span>}</td>
+              <td className='text-center align-middle'>{!log.read_at && <span className='inline-block bg-[#19243B] h-1.5 w-1.5 rounded'></span>}</td>
               <td className='w-[160px]'>{dayjs.unix(log.created_at).format(t('appLog.dateTimeFormat'))}</td>
               <td>{renderTdValue(endUser || defaultValue, !endUser)}</td>
               <td style={{ maxWidth: isChatMode ? 300 : 200 }}>

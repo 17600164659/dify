@@ -104,11 +104,16 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
   }, apiParams => fetchDatasetRelatedApps(apiParams.datasetId))
 
   const navigation = [
-    { name: t('common.datasetMenus.documents'), href: `/datasets/${datasetId}/documents`, icon: DocumentTextIcon, selectedIcon: DocumentTextSolidIcon },
-    { name: t('common.datasetMenus.hitTesting'), href: `/datasets/${datasetId}/hitTesting`, icon: TargetIcon, selectedIcon: TargetSolidIcon },
-    // { name: 'api & webhook', href: `/datasets/${datasetId}/api`, icon: CommandLineIcon, selectedIcon: CommandLineSolidIcon },
-    { name: t('common.datasetMenus.settings'), href: `/datasets/${datasetId}/settings`, icon: Cog8ToothIcon, selectedIcon: Cog8ToothSolidIcon },
+    { name: '文档', href: `/datasets/${datasetId}/documents`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" /> },
+    { name: '命中测试', href: `/datasets/${datasetId}/hitTesting`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/wtxl.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/wtxl.png" /> },
+    { name: '设置', href: `/datasets/${datasetId}/settings`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
   ]
+  // const navigation = [
+  //   { name: t('common.datasetMenus.documents'), href: `/datasets/${datasetId}/documents`, icon: DocumentTextIcon, selectedIcon: DocumentTextSolidIcon },
+  //   { name: t('common.datasetMenus.hitTesting'), href: `/datasets/${datasetId}/hitTesting`, icon: TargetIcon, selectedIcon: TargetSolidIcon },
+  //   // { name: 'api & webhook', href: `/datasets/${datasetId}/api`, icon: CommandLineIcon, selectedIcon: CommandLineSolidIcon },
+  //   { name: t('common.datasetMenus.settings'), href: `/datasets/${datasetId}/settings`, icon: Cog8ToothIcon, selectedIcon: Cog8ToothSolidIcon },
+  // ]
 
   useEffect(() => {
     if (datasetRes) {
@@ -179,7 +184,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
         iconType='dataset'
       />}
       <DatasetDetailContext.Provider value={{ indexingTechnique: datasetRes?.indexing_technique }}>
-        <div className="bg-white grow">{children}</div>
+        <div className="bg-white grow" style={{ background: '#ebeef4' }}>{children}</div>
       </DatasetDetailContext.Provider>
     </div>
   )

@@ -1,0 +1,55 @@
+.app-info-strategy {
+    margin-top: 36px;
+    margin-bottom: 36px;
+}
+
+.app-info-strategy-title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: #19243B;
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.app-info-strategy-title img {
+    margin-right: 8px;
+}
+
+.app-info-strategy-list {
+    height: 146px;
+    background: #F1F3F9;
+    box-shadow: 0px 12px 24px rgba(241, 243, 249, 0.4);
+    border-radius: 16px;
+    padding: 24px 0;
+}
+
+.app-info-strategy-list-item {
+    width: 159px;
+    height: 44px;
+    background: #FFFFFF;
+    box-shadow: 0px 6px 15px rgba(90, 100, 120, 0.08);
+    border-radius: 12px;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12px;
+    margin-bottom: 12px;
+}
+
+.app-info-strategy-list-item-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 1000px;
+    margin-right: 7px;
+}
+
+.app-info-strategy-list-item-text {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #19243B;
+}

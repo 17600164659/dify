@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useSWRInfinite from 'swr/infinite'
 import { debounce } from 'lodash-es'
 import AppCard from './AppCard'
@@ -11,6 +11,8 @@ import { useSelector } from '@/context/app-context'
 import { NEED_REFRESH_APP_LIST_KEY } from '@/config'
 import { useTranslation } from 'react-i18next'
 import BasicSidebar from "@/app/components/basic-sidebar";
+import OverView from "@/app/components/overview/overview"
+import NewAppDialog from './NewAppDialog';
 
 const getKey = (pageIndex: number, previousPageData: AppListResponse) => {
   if (!pageIndex || previousPageData.has_more)
@@ -29,6 +31,7 @@ const Apps = () => {
   const loadingStateRef = useRef(false)
   const pageContainerRef = useSelector(state => state.pageContainerRef)
   const anchorRef = useRef<HTMLAnchorElement>(null)
+  const [showNewAppDialog, setShowNewAppDialog] = useState(false)
 
   useEffect(() => {
     document.title = `${t('app.title')} -  iPollo.ai`;
@@ -59,13 +62,58 @@ const Apps = () => {
   return (
     <div style={customStyle}>
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="apps" />
-      <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-4 grow shrink-0' style={{ flex: 1 }}>
-        {data?.map(({ data: apps }) => apps.map(app => (
-          <AppCard key={app.id} app={app} onDelete={mutate} />
-        )))}
-        <NewAppCard ref={anchorRef} onSuccess={mutate} />
-      </nav>
-    </div>
+      <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-2 grow shrink-0' style={{ flex: 1, paddingRight: 0, paddingTop: 130, position: 'relative' }}>
+        <div onClick={() => setShowNewAppDialog(true)} style={{
+          width: 176,
+          height: 76,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          top: 24,
+          left: 46,
+          background: 'white',
+          borderRadius: 16,
+          boxShadow: "0px 12px 26px rgba(90, 100, 120, 0.03)",
+          cursor: 'pointer',
+        }}>
+          <div style={{
+            width: 28,
+            height: 28,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: 12,
+            borderRadius: 4,
+            background: "#181A24",
+          }}>
+            <img
+              src="https://assets.metaio.cc/assets/difyassets/add-white.png"
+              style={{
+                width: 16,
+                height: 16,
+              }} />
+          </div>
+          <div style={{
+            fontFamily: 'PingFang SC',
+            fontStyle: "normal",
+            fontWeight: 600,
+            fontSize: 20,
+            color: "#19243B"
+          }}>创建应用</div>
+        </div>
+        {
+          data?.map(({ data: apps }) => apps.map(app => (
+            <AppCard key={app.id} app={app} onDelete={mutate} />
+          )))
+        }
+        <NewAppDialog show={showNewAppDialog} onSuccess={mutate} onClose={() => setShowNewAppDialog(false)} />
+        {/* <NewAppCard ref={anchorRef} onSuccess={mutate} /> */}
+      </nav >
+      <div style={{ width: 480, height: 'auto', padding: 24 }}>
+        <OverView />
+      </div>
+    </div >
   )
 }
 

@@ -2,6 +2,12 @@
   animation: 2s rotate linear infinite;
 }
 
+.overview-btn {
+  border-radius: 1000px !important;
+  border: none !important;
+  background-color: white !important;
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);

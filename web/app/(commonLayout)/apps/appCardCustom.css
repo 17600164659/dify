@@ -23,3 +23,77 @@
     height: 16px;
     margin-right: 4px;
 }
+
+.app-card-list-item-line {
+    margin: 0 16px;
+    /* margin-top: 20px; */
+    height: 1px;
+    background: #2a374c34;
+}
+
+.app-card-list-item-decoration {
+    width: 12px;
+    height: 52px;
+    background-color: #181A24;
+    border-radius: 1000px;
+    position: absolute;
+    top: 64px;
+    left: -6px;
+}
+
+.app-card-list-item-delete {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #19243B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px !important;
+    height: 28px !important;
+    background: white !important;
+    border-radius: 4px;
+}
+
+.app-card-list-item-delete:hover {
+    box-shadow: 0px 6px 15px rgba(90, 100, 120, 0.14);
+}
+
+.app-card-list-item-delete-icon {
+    width: 20px;
+    margin-right: 4px;
+}
+
+.app-gray-text {
+    color: #757C89;
+}
+
+.app-name-text {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    color: #19243B;
+    margin-bottom: 12px;
+}
+
+.dataset-info-title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #757C89;
+}
+
+.dataset-info-num {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #19243B;
+    margin-right: 16px;
+}

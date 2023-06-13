@@ -16,6 +16,15 @@ import ConfigVar from '@/app/components/app/configuration/config-var'
 import type { PromptVariable } from '@/models/debug'
 import { AppType } from '@/types/app'
 import { useBoolean } from 'ahooks'
+import "./style.css";
+
+const strategyConfigs = [
+  { text: '链上查询策略', color: '#E6C977' },
+  { text: '链上探询模型', color: '#D95356' },
+  { text: '趋势洞察策略', color: '#9DC174' },
+  { text: '指数聚焦统计', color: '#00A3FE' },
+  { text: '社踪探索策略', color: '#4152A4' },
+];
 
 const Config: FC = () => {
   const {
@@ -84,7 +93,7 @@ const Config: FC = () => {
   return (
     <>
       <div className="pb-[20px]">
-        <div className='flex justify-between items-center mb-4'>
+        <div className='flex justify-between items-center mb-4' style={{ position: 'absolute', top: 28 }}>
           <AddFeatureBtn onClick={showChooseFeatureTrue} />
           <div>
             {/* AutoMatic */}
@@ -107,6 +116,23 @@ const Config: FC = () => {
           promptVariables={promptVariables}
           onChange={handlePromptChange}
         />
+
+        <div className='app-info-strategy'>
+          <div className='app-info-strategy-title'>
+            <img src="https://assets.metaio.cc/assets/difyassets/cl.png" width={14} height={13} />
+            策略
+          </div>
+          <div className='app-info-strategy-list'>
+            {
+              strategyConfigs.map((item) => (
+                <div className='app-info-strategy-list-item'>
+                  <div style={{ background: item.color }} className='app-info-strategy-list-item-icon'></div>
+                  <div className='app-info-strategy-list-item-text'>{item.text}</div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
 
         {/* Variables */}
         <ConfigVar
