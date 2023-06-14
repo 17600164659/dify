@@ -1,0 +1,26 @@
+.custom-cansee-select {
+    width: 300px;
+    height: 76px;
+    background: #F1F3F9;
+    box-shadow: 0px 24px 32px rgba(90, 100, 120, 0.1);
+    border-radius: 16px;
+    padding: 14px 19px;
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
+}
+
+.custom-cansee-active {
+    border: 1px solid #5A6478;
+}
+
+.custom-cansee-select-icon {
+    margin-right: 19px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+}

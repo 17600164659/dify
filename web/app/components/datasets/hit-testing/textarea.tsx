@@ -99,6 +99,7 @@ const TextAreaWithButton: FC<Props> = ({
           >
             <div>
               <Button
+                borderRadius={1000}
                 background="#181A24"
                 onClick={onSubmit}
                 type="primary"

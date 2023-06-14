@@ -1,0 +1,7 @@
+.hover-SegmentCard {
+    border-radius: 16px !important;
+}
+
+.hover-SegmentCard:hover {
+    border: 1px solid #5A6478 !important;
+}

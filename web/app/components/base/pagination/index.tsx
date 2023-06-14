@@ -4,6 +4,7 @@ import { Pagination } from 'react-headless-pagination'
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'react-i18next'
 import s from './style.module.css'
+import './style.css';
 
 type Props = {
   current: number
@@ -34,7 +35,7 @@ const CustomizedPagination: FC<Props> = ({ current, onChange, total, limit = 10 
       </Pagination.PrevButton>
       <div className={`flex items-center justify-center flex-grow ${s.pagination}`}>
         <Pagination.PageButton
-          activeClassName="bg-primary-50 text-primary-600"
+          activeClassName="custom-pagination-page-btn"
           className="flex items-center justify-center h-8 w-8 rounded-lg cursor-pointer"
           inactiveClassName="text-gray-500"
         />

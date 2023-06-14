@@ -31,8 +31,9 @@ export const SegmentIndexTag: FC<{ positionId: string | number; className?: stri
     return positionIdStr.padStart(3, '0')
   }, [positionId])
   return (
-    <div className={`text-gray-500 border border-gray-200 box-border flex items-center rounded-md italic text-[11px] pl-1 pr-1.5 font-medium ${className ?? ''}`}>
-      <HashtagIcon className='w-3 h-3 text-gray-400 fill-current mr-1 stroke-current stroke-1' />
+    <div style={{ fontStyle: 'normal', paddingTop: 1, paddingBottom: 1, border: '1px solid #DFE1E7', borderRadius: 4 }} className={`text-gray-500 border border-gray-200 box-border flex items-center rounded-md italic text-[11px] pl-1 pr-1.5 font-medium ${className ?? ''}`}>
+      {/* <HashtagIcon className='w-3 h-3 text-gray-400 fill-current mr-1 stroke-current stroke-1' /> */}
+      <img src="https://assets.metaio.cc/assets/difyassets/fd-icon.png" style={{ width: 12, height: 12, marginRight: 2 }} />
       {localPositionId}
     </div>
   )

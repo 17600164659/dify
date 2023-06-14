@@ -5,6 +5,7 @@ import { Combobox, Listbox, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid'
 import { useTranslation } from 'react-i18next'
+import "./style.css";
 
 const defaultItems = [
   { value: 1, name: 'option1' },
@@ -172,7 +173,7 @@ const SimpleSelect: FC<ISelectProps> = ({
       }}
     >
       <div className={`relative h-9 ${wrapperClassName}`}>
-        <Listbox.Button style={{ background: '#1b2439', borderRadius: 10000, color: 'white', width: "130px !important" }} className={`w-full h-full rounded-lg border-0 bg-gray-100 py-1.5 pl-3 pr-10 shadow-sm sm:text-sm sm:leading-6 focus-visible:outline-none focus-visible:bg-gray-200 group-hover:bg-gray-200 cursor-pointer ${className}`}>
+        <Listbox.Button style={{ background: '#1b2439', borderRadius: 10000, color: 'white', width: "130px !important" }} className={`w-full h-full rounded-lg border-0 bg-gray-100 py-1.5 pl-3 pr-10 shadow-sm sm:text-sm sm:leading-6 focus-visible:outline-none focus-visible:bg-gray-200 group-hover:bg-gray-200 cursor-pointer segments-type`}>
           <span className={classNames("block truncate text-left", !selectedItem?.name && 'text-gray-400')}>{selectedItem?.name ?? localPlaceholder}</span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronDownIcon

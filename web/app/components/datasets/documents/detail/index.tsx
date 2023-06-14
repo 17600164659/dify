@@ -17,6 +17,7 @@ import Embedding from './embedding'
 import Metadata from './metadata'
 import s from '../style.module.css'
 import style from './style.module.css'
+import './style.css';
 
 export const BackCircleBtn: FC<{ onClick: () => void }> = ({ onClick }) => {
   return (
@@ -39,8 +40,9 @@ type DocumentTitleProps = {
 export const DocumentTitle: FC<DocumentTitleProps> = ({ extension, name, iconCls, textCls, wrapperCls }) => {
   const localExtension = extension?.toLowerCase() || name?.split('.')?.pop()?.toLowerCase()
   return <div className={cn('flex items-center justify-start flex-1', wrapperCls)}>
-    <div className={cn(s[`${localExtension || 'txt'}Icon`], style.titleIcon, iconCls)}></div>
-    <span className={cn('font-semibold text-lg text-gray-900 ml-1', textCls)}> {name || '--'}</span>
+    {/* <div className={cn(s[`${localExtension || 'txt'}Icon`], style.titleIcon, iconCls)}></div> */}
+    <img src="https://assets.metaio.cc/assets/difyassets/pdf.png" width={18} height={18} style={{ marginRight: 4 }} />
+    <span className={cn('font-semibold text-lg text-gray-900 ml-1', textCls, 'custom-document-title-fomt')}> {name || '--'}</span>
   </div>
 }
 
@@ -79,7 +81,7 @@ const DocumentDetail: FC<Props> = ({ datasetId, documentId }) => {
 
   return (
     <DocumentContext.Provider value={{ datasetId, documentId }}>
-      <div className='flex flex-col h-full'>
+      <div className='flex flex-col h-full' style={{ background: "white" }}>
         <div className='flex h-16 border-b-gray-100 border-b items-center p-4'>
           <BackCircleBtn onClick={backToPrev} />
           <Divider className='!h-4' type='vertical' />
@@ -107,11 +109,11 @@ const DocumentDetail: FC<Props> = ({ datasetId, documentId }) => {
               {embedding ? <Embedding detail={documentDetail} /> : <Completed />}
             </div>
           }
-          {showMetadata && <Metadata
+          {/* {showMetadata && <Metadata
             docDetail={{ ...documentDetail, ...documentMetadata } as any}
             loading={isMetadataLoading}
             onUpdate={metadataMutate}
-          />}
+          />} */}
         </div>
       </div>
     </DocumentContext.Provider>

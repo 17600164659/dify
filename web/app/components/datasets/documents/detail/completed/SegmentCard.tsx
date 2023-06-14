@@ -12,17 +12,26 @@ import s from "./style.module.css";
 import { SegmentIndexTag } from "./index";
 import { DocumentTitle } from '../index'
 import { useTranslation } from "react-i18next";
+import './style.css';
 
 const ProgressBar: FC<{ percent: number; loading: boolean }> = ({ percent, loading }) => {
   return (
     <div className={s.progressWrapper}>
-      <div className={cn(s.progress, loading ? s.progressLoading : '')}>
+      <div className={cn(s.progress, loading ? s.progressLoading : '')} style={{ borderRadius: 1000, border: '1px solid black' }}>
         <div
           className={s.progressInner}
           style={{ width: `${loading ? 0 : (percent * 100).toFixed(2)}%` }}
         />
       </div>
-      <div className={loading ? s.progressTextLoading : s.progressText}>{loading ? null : percent.toFixed(2)}</div>
+      <div
+        style={{
+          fontFamily: 'DIN Alternate',
+          fontStyle: 'normal',
+          fontWeight: 700,
+          fontSize: 14,
+          color: '#19243B'
+        }}
+        className={loading ? s.progressTextLoading : s.progressText}>{loading ? null : percent.toFixed(2)}</div>
     </div>
   )
 }
@@ -68,6 +77,7 @@ const SegmentCard: FC<ISegmentCardProps> = ({
         "group",
         !loading ? "pb-4" : "",
         className,
+        'hover-SegmentCard',
       )}
       onClick={() => onClick?.()}
     >
@@ -104,7 +114,8 @@ const SegmentCard: FC<ISegmentCardProps> = ({
             )}
           </div>
         </> : <div className={s.hitTitleWrapper}>
-          <div className={cn(s.commonIcon, s.targetIcon, loading ? '!bg-gray-300' : '', '!w-3.5 !h-3.5')} />
+          {/* <div className={cn(s.commonIcon, s.targetIcon, loading ? '!bg-gray-300' : '', '!w-3.5 !h-3.5')} /> */}
+          <img src="https://assets.metaio.cc/assets/difyassets/mz.png" width={20} height={20} style={{ marginRight: 4 }} />
           <ProgressBar percent={score ?? 0} loading={loading} />
         </div>}
       </div>

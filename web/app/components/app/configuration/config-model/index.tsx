@@ -188,6 +188,7 @@ const ConifgModel: FC<IConifgModelProps> = ({
       </div>
       {isShowConfig && (
         <Panel
+          styles={{ left: -170 }}
           className='absolute z-20 top-8 right-0 !w-[496px] bg-white'
           keepUnFold
           headerIcon={

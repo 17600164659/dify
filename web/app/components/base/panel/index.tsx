@@ -30,7 +30,8 @@ const Panel: FC<IPanelProps> = ({
   foldDisabled = false,
   onFoldChange,
   controlUnFold,
-  controlFold
+  controlFold,
+  styles
 }) => {
   const [fold, { setTrue: setFold, setFalse: setUnFold, toggle: toggleFold }] = useBoolean(keepUnFold ? false : true)
   useEffect(() => {
@@ -51,7 +52,7 @@ const Panel: FC<IPanelProps> = ({
 
   // overflow-hidden
   return (
-    <div className={cn(className, 'w-full rounded-xl border border-gray-100 overflow-hidden select-none')}>
+    <div style={styles ? styles : {}} className={cn(className, 'w-full rounded-xl border border-gray-100 overflow-hidden select-none')}>
       {/* Header */}
       <div
         onClick={() => (!foldDisabled && !keepUnFold) && toggleFold()}

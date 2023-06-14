@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import s from './index.module.css'
 import { DataSet } from '@/models/datasets'
+import './style.css';
 
 const itemClass = `
   w-[234px] p-3 rounded-xl bg-gray-25 border border-gray-100 cursor-pointer
@@ -48,22 +49,35 @@ const IndexMethodRadio = ({
           <div
             key={option.key}
             className={classNames(
-              option.key === value && s['item-active'],
+              option.key === value && s['custom-syfs-active'],
               s.item,
-              itemClass
+              itemClass,
+              'custom-syfs-select'
             )}
             onClick={() => onChange(option.key as DataSet['indexing_technique'])}
             style={option.key === value ? { border: "1px solid #181A24" } : {}}
           >
             <div className='flex items-center mb-1'>
               {/* <div className={classNames(s.icon, s[`${option.icon}-icon`])} /> */}
-              <div className='mr-3' style={{ width: 24, height: 24, display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
+              {/* <div className='mr-3' style={{ width: 24, height: 24, display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
                 <img src={option.icon} style={{ width: option.w, height: option.h }} />
+              </div> */}
+              <div className='custom-syfs-select-icon'>
+                <img src={option.icon} style={{ width: 24, height: 24 }} />
               </div>
-              <div className='grow text-sm text-gray-900'>{option.text}</div>
               {/* <div className={classNames(radioClass, s.radio)} /> */}
             </div>
-            <div className='pl-9 text-xs text-gray-500 leading-[18px]'>{option.desc}</div>
+            <div>
+              <div className='grow text-sm text-gray-900' style={{
+                fontFamily: 'PingFang SC',
+                fontStyle: 'normal',
+                fontWeight: 600,
+                fontSize: 20,
+                color: '#19243B',
+                marginBottom: 8,
+              }}>{option.text}</div>
+              <div style={{ paddingLeft: 0 }} className='pl-9 text-xs text-gray-500 leading-[18px]'>{option.desc}</div>
+            </div>
           </div>
         ))
       }

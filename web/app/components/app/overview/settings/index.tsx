@@ -85,7 +85,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     >
       <div className={`mt-6 font-medium ${s.settingTitle} text-gray-900`}>{t(`${prefixSettings}.webName`)}</div>
       <div className='flex mt-2'>
-        <AppIcon className='!mr-3 self-center' />
+        <AppIcon className='!mr-3 self-center' width={38} height={38} />
         <input className={`flex-grow rounded-lg h-10 box-border px-3 ${s.projectName} bg-gray-100`}
           value={inputInfo.title}
           onChange={onChange('title')} />

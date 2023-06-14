@@ -12,14 +12,21 @@ import { updateDatasetSetting, fetchDataDetail } from '@/service/datasets'
 import { DataSet } from '@/models/datasets'
 
 const rowClass = `
-  flex justify-between py-4
+  justify-between py-4
 `
 const labelClass = `
-  flex items-center w-[168px] h-9
+  items-center w-[168px] h-9
 `
 const inputClass = `
   w-[480px] px-3 bg-gray-100 text-sm text-gray-800 rounded-lg outline-none appearance-none
 `
+
+const inputStyle = {
+  background: '#F1F3F9',
+  boxShadow: '0px 12px 24px rgba(241, 243, 249, 0.4)',
+  borderRadius: 16,
+  padding: '12px 15px',
+}
 
 const useInitialValue = <T,>(depend: T, dispatch: Dispatch<SetStateAction<T>>) => {
   useEffect(() => {
@@ -81,6 +88,7 @@ const Form = ({
           <div>{t('datasetSettings.form.name')}</div>
         </div>
         <input
+          style={inputStyle}
           className={inputClass}
           value={name}
           onChange={e => setName(e.target.value)}
@@ -92,12 +100,13 @@ const Form = ({
         </div>
         <div>
           <textarea
+            style={inputStyle}
             className={`${inputClass} block mb-2 h-[120px] py-2 resize-none`}
             placeholder={t('datasetSettings.form.descPlaceholder') || ''}
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
-          <a className='flex items-center h-[18px] px-3 text-xs text-gray-500' href="https://ipollo.ai/advanced/datasets#how-to-write-a-good-dataset-description" target='_blank'>
+          <a className='items-center h-[18px] px-3 text-xs text-gray-500' href="https://ipollo.ai/advanced/datasets#how-to-write-a-good-dataset-description" target='_blank'>
             <BookOpenIcon className='w-3 h-[18px] mr-1' />
             {t('datasetSettings.form.descWrite')}
           </a>
@@ -107,7 +116,7 @@ const Form = ({
         <div className={labelClass}>
           <div>{t('datasetSettings.form.permissions')}</div>
         </div>
-        <div className='w-[480px]'>
+        <div>
           <PermissionsRadio
             value={permission}
             onChange={v => setPermission(v)}
@@ -119,7 +128,7 @@ const Form = ({
         <div className={labelClass}>
           <div>{t('datasetSettings.form.indexMethod')}</div>
         </div>
-        <div className='w-[480px]'>
+        <div>
           <IndexMethodRadio
             value={indexMethod}
             onChange={v => setIndexMethod(v)}
@@ -130,6 +139,7 @@ const Form = ({
         <div className={labelClass} />
         <div className='w-[480px]'>
           <Button
+            borderRadius={1000}
             background="#181A24"
             className='min-w-24 text-sm'
             type='primary'

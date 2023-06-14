@@ -20,6 +20,7 @@ export default function CustomPopover({
   btnElement,
   className,
   btnClassName,
+  styles,
 }: IPopover) {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const timeOutRef = useRef<NodeJS.Timeout | null>(null)
@@ -41,6 +42,7 @@ export default function CustomPopover({
         return (
           <>
             <div
+              style={styles || {}}
               {...(trigger !== 'hover'
                 ? {}
                 : {

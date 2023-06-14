@@ -25,6 +25,7 @@ import { formatNumber } from '@/utils/format'
 import { archiveDocument, deleteDocument, disableDocument, enableDocument } from '@/service/datasets'
 import type { DocumentDisplayStatus, DocumentListResponse } from '@/models/datasets'
 import type { CommonResponse } from '@/models/common'
+import "./style.css"
 
 export const SettingsIcon: FC<{ className?: string }> = ({ className }) => {
   return <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className={className ?? ''}>
@@ -135,9 +136,10 @@ export const OperationAction: FC<{
         </Tooltip>
         : <Switch defaultValue={enabled} onChange={v => onOperate(v ? 'enable' : 'disable')} size='md' />
       }
-      <Divider className='!ml-4 !mr-2 !h-3' type='vertical' />
+      {/* <Divider className='!ml-4 !mr-2 !h-3' type='vertical' /> */}
     </>}
     <Popover
+      styles={{ position: 'absolute', top: 107, right: 2 }}
       htmlContent={
         <div className='w-full py-1'>
           {!isListScene && <>
@@ -260,6 +262,53 @@ const DocumentList: FC<IDocumentListProps> = ({ documents = [], datasetId, onUpd
       setLocalDocs(documents)
     }
   }
+
+  return (
+    <div className='doc-list-container'>
+      {localDocs.map(doc => {
+        const suffix = doc.name.split('.').pop() || 'txt';
+        return (
+          <div className='doc-list-item' key={doc.id} onClick={() => router.push(`datasets/${datasetId}/documents/${doc.id}`)}>
+            <div className='doc-list-item-editor'>
+              <div className='doc-list-item-icon'>
+                <img />
+              </div>
+              <div className='doc-list-item-name'>
+                <span className='doc-list-item-name-pre'>
+                  {doc?.name?.replace(/\.[^/.]+$/, '')}
+                </span>
+                <span className='doc-list-item-name-suffix'>.{suffix}</span>
+                <br />
+                <div className='doc-list-item-usab'>
+                  <span className='doc-list-item-usab-mark'></span><span className='doc-list-item-usab-text'>可用</span>
+                </div>
+              </div>
+              <div>
+                <OperationAction
+                  datasetId={datasetId}
+                  detail={pick(doc, ['enabled', 'archived', 'id'])}
+                  onUpdate={onUpdate}
+                />
+              </div>
+            </div>
+            <div className='doc-list-item-info'>
+              <div className='doc-list-item-info-top'>
+                <div style={{ marginRight: 16 }}>
+                  <span className='doc-list-item-info-pre'>字符数:</span>{renderCount(doc.word_count)}
+                </div>
+                <div>
+                  <span className='doc-list-item-info-pre'>命中次数:</span>{doc.hit_count}
+                </div>
+              </div>
+              <div className='doc-list-item-info-tow'>
+                <span className='doc-list-item-info-pre'>上传时间:</span>{dayjs.unix(doc.created_at).format(t('datasetHitTesting.dateTimeFormat') as string)}
+              </div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  );
 
   return (
     <>

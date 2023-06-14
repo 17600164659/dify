@@ -50,7 +50,7 @@ const AppCard = ({
 
   return (
     <>
-      <Link href={`/app/${app.id}/overview`} className={style.listItem} style={{ width: 400, height: 297, position: 'relative', overflow: 'hidden' }}>
+      <Link href={`/app/${app.id}/overview`} className={style.listItem} style={{ width: "100%", height: 297, position: 'relative', overflow: 'hidden' }}>
         <div className='app-card-list-item-decoration'></div>
         <div
           className={style.listItemTitle}

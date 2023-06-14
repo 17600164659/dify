@@ -26,9 +26,10 @@ const Input: FC<InputProps> = ({ value, defaultValue, onChange, className = '', 
   const [localValue, setLocalValue] = useState(value ?? defaultValue)
   const { t } = useTranslation()
   return (
-    <div className={`relative inline-flex w-full ${wrapperClassName}`}>
+    <div className={`relative inline-flex w-full ${wrapperClassName}`} style={{ borderRadius: 1000 }}>
       {showPrefix && <span className={s.prefix}>{prefixIcon ?? <GlassIcon className='h-3.5 w-3.5 stroke-current text-gray-700 stroke-2' />}</span>}
       <input
+        style={{ borderRadius: 1000 }}
         type={type ?? 'text'}
         className={`${s.input} ${showPrefix ? '!pl-7' : ''} ${className}`}
         placeholder={placeholder ?? (showPrefix ? t('common.operation.search') : 'please input')}

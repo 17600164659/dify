@@ -62,6 +62,7 @@ const HitTesting: FC<Props> = ({ datasetId }: Props) => {
           <p className={s.desc}>{t('datasetHitTesting.desc')}</p>
         </div>
         <Textarea
+          styles={{ background: '#F1F3F9', borderRadius: 16, boxShadow: '0px 12px 24px rgba(241, 243, 249, 0.4)' }}
           datasetId={datasetId}
           setHitResult={setHitResult}
           onUpdateList={recordsMutate}
@@ -92,7 +93,8 @@ const HitTesting: FC<Props> = ({ datasetId }: Props) => {
                   >
                     <td className='w-24'>
                       <div className='flex items-center'>
-                        <div className={cn(s[`${record.source}_icon`], s.commonIcon, 'mr-1')} />
+                        {/* <div className={cn(s[`${record.source}_icon`], s.commonIcon, 'mr-1')} /> */}
+                        <img src="https://assets.metaio.cc/assets/difyassets/mz.png" width={20} height={20} style={{ marginRight: 8 }} />
                         <span className='capitalize'>{record.source.replace('_', ' ')}</span>
                       </div>
                     </td>
@@ -112,46 +114,48 @@ const HitTesting: FC<Props> = ({ datasetId }: Props) => {
           <RecordsEmpty />
         )}
       </div>
-      <div className={s.rightDiv}>
-        {submitLoading ?
-          <div className={s.cardWrapper}>
-            <SegmentCard
-              loading={true}
-              scene='hitTesting'
-              className='h-[216px]'
-            />
-            <SegmentCard
-              loading={true}
-              scene='hitTesting'
-              className='h-[216px]'
-            />
-          </div> : !hitResult?.records.length ? (
-            <div className='h-full flex flex-col justify-center items-center'>
-              <div className={cn(docStyle.commonIcon, docStyle.targetIcon, '!bg-gray-200 !h-14 !w-14')} />
-              <div className='text-gray-300 text-[13px] mt-3'>
-                {t('datasetHitTesting.hit.emptyTip')}
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className='text-gray-600 font-semibold mb-4'>{t('datasetHitTesting.hit.title')}</div>
-              <div className='overflow-auto flex-1'>
-                <div className={s.cardWrapper}>
-                  {hitResult?.records.map((record) => {
-                    return <SegmentCard
-                      loading={false}
-                      detail={record.segment as any}
-                      score={record.score}
-                      scene='hitTesting'
-                      className='h-[216px] mb-4'
-                      onClick={() => onClickCard(record as any)}
-                    />
-                  })}
+      <div className={s.rightDiv} style={{ paddingTop: 22, paddingBottom: 22 }}>
+        <div style={{ padding: 22, overflowY: 'scroll', width: "100%", height: "100%", background: 'white', boxShadow: '0px 0px 26px rgba(90, 100, 120, 0.12)', borderRadius: 16 }}>
+          {submitLoading ?
+            <div className={s.cardWrapper}>
+              <SegmentCard
+                loading={true}
+                scene='hitTesting'
+                className='h-[216px]'
+              />
+              <SegmentCard
+                loading={true}
+                scene='hitTesting'
+                className='h-[216px]'
+              />
+            </div> : !hitResult?.records.length ? (
+              <div className='h-full flex flex-col justify-center items-center'>
+                <div className={cn(docStyle.commonIcon, docStyle.targetIcon, '!bg-gray-200 !h-14 !w-14')} />
+                <div className='text-gray-300 text-[13px] mt-3'>
+                  {t('datasetHitTesting.hit.emptyTip')}
                 </div>
               </div>
-            </>
-          )
-        }
+            ) : (
+              <>
+                <div className='text-gray-600 font-semibold mb-4'>{t('datasetHitTesting.hit.title')}</div>
+                <div className='overflow-auto flex-1'>
+                  <div className={s.cardWrapper}>
+                    {hitResult?.records.map((record) => {
+                      return <SegmentCard
+                        loading={false}
+                        detail={record.segment as any}
+                        score={record.score}
+                        scene='hitTesting'
+                        className='h-[216px] mb-4'
+                        onClick={() => onClickCard(record as any)}
+                      />
+                    })}
+                  </div>
+                </div>
+              </>
+            )
+          }
+        </div>
       </div>
       <Modal
         className='!max-w-[960px] !p-0'
@@ -167,7 +171,7 @@ const HitTesting: FC<Props> = ({ datasetId }: Props) => {
           }}
         />}
       </Modal>
-    </div>
+    </div >
   )
 }
 

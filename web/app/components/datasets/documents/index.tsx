@@ -97,7 +97,7 @@ const Documents: FC<IDocumentsProps> = ({ datasetId }) => {
   const isLoading = !documentsRes && !error
 
   return (
-    <div className='flex flex-col h-full overflow-y-auto'>
+    <div className='flex flex-col h-full overflow-y-auto' style={{ background: 'white' }}>
       <div className='flex flex-col justify-center gap-1 px-6 pt-4'>
         <h1 className={s.title}>{t('datasetDocuments.list.title')}</h1>
         <p className={s.desc}>{t('datasetDocuments.list.desc')}</p>
@@ -111,7 +111,7 @@ const Documents: FC<IDocumentsProps> = ({ datasetId }) => {
             onChange={debounce(setSearchValue, 500)}
             value={searchValue}
           />
-          <Button background="#181A24" color="white" type='primary' onClick={routeToDocCreate} className='!h-8 !text-[13px]'>
+          <Button borderRadius={1000} background="#181A24" color="white" type='primary' onClick={routeToDocCreate} className='!h-8 !text-[13px]'>
             <PlusIcon className='h-4 w-4 mr-2 stroke-current' />
             {t('datasetDocuments.list.addFile')}
           </Button>
