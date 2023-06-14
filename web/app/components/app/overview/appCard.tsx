@@ -104,9 +104,9 @@ function AppCard({
       <div className={`px-6 py-4 ${customBgColor ?? bgColor} rounded-lg`} style={{ background: 'url(https://assets.metaio.cc/assets/difyassets/appoverviewbg.png)' }}>
         <div className="mb-2.5 flex flex-row items-start justify-between">
           <AppBasic
-            iconType={isApp ? 'app' : 'api'}
-            icon={appInfo.icon}
-            icon_background={appInfo.icon_background}
+            // iconType={isApp ? 'app' : 'api'}
+            // icon={appInfo.icon}
+            // icon_background={appInfo.icon_background}
             name={basicName}
             type={
               isApp

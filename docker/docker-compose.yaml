@@ -70,8 +70,8 @@ services:
       #
       # For **production** purposes, please set `SameSite=Lax, Secure=true, HttpOnly=true`.
       COOKIE_HTTPONLY: 'true'
-      COOKIE_SAMESITE: 'Lax'
-      COOKIE_SECURE: 'false'
+      COOKIE_SAMESITE: 'None'
+      COOKIE_SECURE: 'true'
       # The type of storage to use for storing user files. Supported values are `local` and `s3`, Default: `local`
       STORAGE_TYPE: local
       # The path to the local storage directory, the directory relative the root path of API service codes or absolute path. Default: `storage` or `/home/john/storage`.

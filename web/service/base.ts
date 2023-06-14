@@ -19,6 +19,9 @@ const baseOptions = {
     'Content-Type': ContentType.json,
   }),
   redirect: 'follow',
+  xhrFields: {
+    withCredentials: true,
+  },
 }
 
 export type IOnDataMoreInfo = {
