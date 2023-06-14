@@ -38,7 +38,7 @@ const PreviewItem: FC<IPreviewItemProps> = ({
         </div>
 
         <div className='custom-data-item-num'>
-          <div className='custom-data-item-title'>字符数</div>
+          <div className='custom-data-item-title'><img src="https://assets.metaio.cc/assets/difyassets/fd-icon.png" style={{ width: 12, height: 12, marginRight: 2 }} />字符数</div>
           <div className='custom-data-item-content'>{charNums}</div>
         </div>
       </div>

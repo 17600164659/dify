@@ -218,7 +218,7 @@ const EmbeddingDetail: FC<Props> = ({ detail, stopPosition = 'top', datasetId: d
         )}
       </div>
       {/* progress bar */}
-      <div style={{ padding: 1, border: '1px solid #757c89' }} className={s.progressContainer + ' custom-progress-container'}>
+      <div style={{ height: 46, background: '#fff', border: '1px solid #757c89' }} className={s.progressContainer}>
         {new Array(10).fill('').map((_, idx) => <div
           key={idx}
           className={cn('custom-progress-container ' + s.progressBgItem, isEmbedding ? 'bg-primary-50' : 'bg-gray-100')}
