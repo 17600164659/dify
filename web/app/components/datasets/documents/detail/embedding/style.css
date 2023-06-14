@@ -1,0 +1,18 @@
+.custom-progress-container {
+    height: 44px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #757C89 !important;
+}
+
+.custom-progress-item {
+    background: #181A24 !important;
+    height: 44px !important;
+}
+
+.custom-progress-data {
+    margin-bottom: 20px !important;
+}
+
+.custom-progress-status {
+    margin-bottom: 0 !important;
+}

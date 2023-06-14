@@ -87,10 +87,10 @@ const translation = {
     datasetSettingLink: '数据集设置。',
   },
   stepThree: {
-    creationTitle: '🎉 数据集已创建',
+    creationTitle: '数据集已创建',
     creationContent: '我们自动为该数据集起了个名称，您也可以随时修改',
     label: '数据集名称',
-    additionTitle: '🎉 文档已上传',
+    additionTitle: '文档已上传',
     additionP1: '文档已上传至数据集：',
     additionP2: '，你可以在数据集的文档列表中找到它。',
     stop: '停止处理',

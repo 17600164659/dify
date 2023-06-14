@@ -19,15 +19,15 @@ type IStepOneProps = {
 }
 
 const dataSourceConfig = [
-  { icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: '本地文件', deascription: '已经整理好的文件', dataType: 'FILE' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Notion', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Web单页', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: '网站', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'GitHub', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Google Sheet', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'WemoData', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Twitter', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/file.png', name: 'Airtable', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-file.png', name: '本地文件', deascription: '已经整理好的文件', dataType: 'FILE' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-web.png', name: 'Web单页', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-site.png', name: '网站', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-git.png', name: 'GitHub', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-google.png', name: 'Google Sheet', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-wemo.png', name: 'WemoData', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-twi.png', name: 'Twitter', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-airt.png', name: 'Airtable', deascription: '即将上线', dataType: 'COMMINGSOON' },
 ];
 
 const StepOne = ({
@@ -55,7 +55,7 @@ const StepOne = ({
                 <div
                   className={cn(s.dataSourceItem, config.disabled && s.disabled, dataSourceType === config.dataType && s.active) + ' data-source-item'}
                   onClick={() => config.disabled ? null : setDataSourceType(config.dataType)}
-                  style={dataSourceType === config.dataType ? { borderColor: "#181A24", color: "#181A24", float: 'left', marginBottom: 12 } : { float: 'left', marginBottom: 12 }}
+                  style={dataSourceType === config.dataType ? { border: "1px solid #5A6478", color: "#181A24", float: 'left', marginBottom: 12 } : { float: 'left', marginBottom: 12 }}
                 >
                   {/* <span className={cn(s.datasetIcon)} /> */}
                   <img className='data-source-item-icon' src={config.icon} />

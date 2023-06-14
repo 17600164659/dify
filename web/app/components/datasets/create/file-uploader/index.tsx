@@ -190,6 +190,7 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
         onChange={fileChangeHandle}
       />
       <div className={s.title}>{t('datasetCreation.stepOne.uploader.title')}</div>
+      <div className={s.tip}>{t('datasetCreation.stepOne.uploader.tip')}</div>
       <div ref={dropRef}>
         {!currentFile && !file && (
           <div className={cn(s.uploader, dragging && s.dragging)}>
@@ -259,7 +260,7 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
           </div>
         </div>
       )}
-      <div className={s.tip}>{t('datasetCreation.stepOne.uploader.tip')}</div>
+      {/* <div className={s.tip}>{t('datasetCreation.stepOne.uploader.tip')}</div> */}
     </div>
   )
 }

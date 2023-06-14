@@ -22,6 +22,7 @@ import { formatNumber } from '@/utils/format'
 import { fetchIndexingEstimate, fetchIndexingStatus, fetchProcessRule, pauseDocIndexing, resumeDocIndexing } from '@/service/datasets'
 import DatasetDetailContext from '@/context/dataset-detail'
 import StopEmbeddingModal from '@/app/components/datasets/create/stop-embedding-modal'
+import './style.css'
 
 type Props = {
   detail?: FullDocumentDetail
@@ -180,41 +181,25 @@ const EmbeddingDetail: FC<Props> = ({ detail, stopPosition = 'top', datasetId: d
 
   return (
     <>
-      <div className={s.embeddingStatus}>
+      <div className={s.embeddingStatus + ' custom-progress-status'}>
         {isEmbedding && t('datasetDocuments.embedding.processing')}
         {isEmbeddingCompleted && t('datasetDocuments.embedding.completed')}
         {isEmbeddingPaused && t('datasetDocuments.embedding.paused')}
         {isEmbeddingError && t('datasetDocuments.embedding.error')}
         {onTop && isEmbedding && (
-          <Button onClick={handleSwitch} className={s.opBtn}>
+          <Button borderRadius={1000} onClick={handleSwitch} className={s.opBtn}>
             <StopIcon className={s.opIcon} />
             {t('datasetDocuments.embedding.stop')}
           </Button>
         )}
         {onTop && isEmbeddingPaused && (
-          <Button onClick={handleSwitch} className={s.opBtn}>
+          <Button borderRadius={1000} onClick={handleSwitch} className={s.opBtn}>
             <ResumeIcon className={s.opIcon} />
             {t('datasetDocuments.embedding.resume')}
           </Button>
         )}
       </div>
-      {/* progress bar */}
-      <div className={s.progressContainer}>
-        {new Array(10).fill('').map((_, idx) => <div
-          key={idx}
-          className={cn(s.progressBgItem, isEmbedding ? 'bg-primary-50' : 'bg-gray-100')}
-        />)}
-        <div className={
-          cn('rounded-l-md',
-            s.progressBar,
-            (isEmbedding || isEmbeddingCompleted) && s.barProcessing,
-            (isEmbeddingPaused || isEmbeddingError) && s.barPaused,
-            indexingStatusDetail?.indexing_status === 'completed' && 'rounded-r-md')
-        }
-          style={{ width: `${percent}%` }}
-        />
-      </div>
-      <div className={s.progressData}>
+      <div className={s.progressData + ' custom-progress-data'}>
         <div>{t('datasetDocuments.embedding.segments')} {indexingStatusDetail?.completed_segments}/{indexingStatusDetail?.total_segments} · {percent}%</div>
         {localIndexingTechnique === 'high_quaility' && (
           <div className='flex items-center'>
@@ -232,20 +217,36 @@ const EmbeddingDetail: FC<Props> = ({ detail, stopPosition = 'top', datasetId: d
           </div>
         )}
       </div>
+      {/* progress bar */}
+      <div className={s.progressContainer + ' custom-progress-container'}>
+        {new Array(10).fill('').map((_, idx) => <div
+          key={idx}
+          className={cn('custom-progress-container ' + s.progressBgItem, isEmbedding ? 'bg-primary-50' : 'bg-gray-100')}
+        />)}
+        <div style={{ height: 44, background: '#181A24' }} className={
+          cn('rounded-l-md',
+            s.progressBar,
+            (isEmbedding || isEmbeddingCompleted) && s.barProcessing,
+            (isEmbeddingPaused || isEmbeddingError) && s.barPaused,
+            indexingStatusDetail?.indexing_status === 'completed' && 'rounded-r-md')
+        }
+          style={{ width: `${percent}%` }}
+        />
+      </div>
       <RuleDetail sourceData={ruleDetail} docName={detail?.name} />
       {!onTop && (
         <div className='flex items-center gap-2 mt-10'>
           {isEmbedding && (
-            <Button onClick={modalShowHandle} className='w-fit'>
+            <Button borderRadius={1000} onClick={modalShowHandle} className='w-fit'>
               {t('datasetCreation.stepThree.stop')}
             </Button>
           )}
           {isEmbeddingPaused && (
-            <Button onClick={handleSwitch} className='w-fit'>
+            <Button borderRadius={1000} onClick={handleSwitch} className='w-fit'>
               {t('datasetCreation.stepThree.resume')}
             </Button>
           )}
-          <Button className='w-fit' type='primary' background="#181A24" onClick={navToDocument}>
+          <Button borderRadius={1000} className='w-fit' type='primary' background="#181A24" onClick={navToDocument}>
             <span>{t('datasetCreation.stepThree.navTo')}</span>
             <ArrowRightIcon className='h-4 w-4 ml-2 stroke-current stroke-1' />
           </Button>

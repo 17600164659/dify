@@ -6,6 +6,7 @@ import EmbeddingDetail from '../../documents/detail/embedding'
 
 import cn from 'classnames'
 import s from './index.module.css'
+import './style.css';
 
 type StepThreeProps = {
   datasetId?: string,
@@ -27,9 +28,9 @@ const StepThree = ({ datasetId, datasetName, indexingType, creationCache }: Step
                 <div className={s.title}>{t('datasetCreation.stepThree.creationTitle')}</div>
                 <div className={s.content}>{t('datasetCreation.stepThree.creationContent')}</div>
                 <div className={s.label}>{t('datasetCreation.stepThree.label')}</div>
-                <div className={s.datasetName}>{datasetName || creationCache?.dataset?.name}</div>
+                <div className={s.datasetName + ' custom-dataset-name'}>{datasetName || creationCache?.dataset?.name}</div>
               </div>
-              <div className={s.dividerLine}/>
+              <div className={s.dividerLine} />
             </>
           )}
           {datasetId && (
@@ -47,13 +48,13 @@ const StepThree = ({ datasetId, datasetName, indexingType, creationCache }: Step
           />
         </div>
       </div>
-      <div className={cn(s.sideTip)}>
+      {/* <div className={cn(s.sideTip)}>
         <div className={s.tipCard}>
-          <span className={s.icon}/>
+          <span className={s.icon} />
           <div className={s.title}>{t('datasetCreation.stepThree.sideTipTitle')}</div>
           <div className={s.content}>{t('datasetCreation.stepThree.sideTipContent')}</div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

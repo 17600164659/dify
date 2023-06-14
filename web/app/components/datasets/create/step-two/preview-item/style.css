@@ -1,0 +1,46 @@
+.custom-data-list-item {
+    display: flex;
+    position: relative;
+}
+
+.custom-data-item-left {
+    margin-right: 25px;
+}
+
+.custom-data-item-index {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    text-align: right;
+    color: #757C89;
+    width: 44px;
+    height: 18px;
+    border: 1px solid #DFE1E7;
+    border-radius: 4px;
+    padding: 0 4px;
+}
+
+.custom-data-item-num {
+    position: absolute;
+    bottom: 16px;
+}
+
+.custom-data-item-title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #757C89;
+}
+
+.custom-data-item-content {
+    font-family: 'DIN Alternate';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0.04em;
+    color: #19243B;
+}
