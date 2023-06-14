@@ -1,6 +1,7 @@
 .custom-data-list-item {
     display: flex;
     position: relative;
+    min-height: 100px !important;
 }
 
 .custom-data-item-left {

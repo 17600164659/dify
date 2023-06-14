@@ -218,19 +218,19 @@ const EmbeddingDetail: FC<Props> = ({ detail, stopPosition = 'top', datasetId: d
         )}
       </div>
       {/* progress bar */}
-      <div className={s.progressContainer + ' custom-progress-container'}>
+      <div style={{ padding: 1, border: '1px solid #757c89' }} className={s.progressContainer + ' custom-progress-container'}>
         {new Array(10).fill('').map((_, idx) => <div
           key={idx}
           className={cn('custom-progress-container ' + s.progressBgItem, isEmbedding ? 'bg-primary-50' : 'bg-gray-100')}
         />)}
-        <div style={{ height: 44, background: '#181A24' }} className={
+        <div className={
           cn('rounded-l-md',
             s.progressBar,
             (isEmbedding || isEmbeddingCompleted) && s.barProcessing,
             (isEmbeddingPaused || isEmbeddingError) && s.barPaused,
             indexingStatusDetail?.indexing_status === 'completed' && 'rounded-r-md')
         }
-          style={{ width: `${percent}%` }}
+          style={{ width: `${percent}%`, height: 44, background: '#181A24' }}
         />
       </div>
       <RuleDetail sourceData={ruleDetail} docName={detail?.name} />
