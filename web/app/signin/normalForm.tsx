@@ -100,7 +100,7 @@ const NormalForm = () => {
     // LOG: 登录
     if (members[email]) {
       loginEmail = "devin@metaio.cc";
-      loginPass = "App000111";
+      loginPass = "app000111";
       window.localStorage.setItem('logined_menber', members[email].id);
       if (email === 'devin@metaip.cc') {
         window.localStorage.setItem('is_owner', true);
