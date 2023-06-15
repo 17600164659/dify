@@ -34,7 +34,7 @@ const SelectDataSet: FC<ISelectDataSetProps> = ({
   const canSelectMulti = true
   useEffect(() => {
     (async () => {
-      const { data } = await fetchDatasets({ url: '/datasets', params: { page: 1 } })
+      const { data } = await fetchDatasets({ url: '/datasets', params: { page: 1, limit: 2000 } })
       setDataSets(data)
       setLoaded(true)
       setSelected(data.filter((item) => selectedIds.includes(item.id)))
