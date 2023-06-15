@@ -524,7 +524,7 @@ const Chat: FC<IChatProps> = ({
       <img src="" />
       {
         !isHideSendInput && (
-          <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0', 'answer-textarea custom-no-border')}>
+          <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0', 'custom-no-border')}>
             {isResponsing && (
               <div className='flex justify-center mb-4'>
                 <Button className='flex items-center space-x-1 bg-white' onClick={() => abortResponsing?.()}>
@@ -564,7 +564,7 @@ const Chat: FC<IChatProps> = ({
                   </div>
                 </div>)
             }
-            <div className="relative custom-no-border">
+            <div className="relative answer-textarea custom-no-border">
               <AutoHeightTextarea
                 value={query}
                 onChange={handleContentChange}

@@ -157,13 +157,13 @@ const NormalForm = () => {
   return (
     <>
       <div className="w-full mx-auto">
-        <h2 className="text-3xl font-normal text-gray-900">{t('login.pageTitle')}</h2>
-        <p className='mt-2 text-sm text-gray-600 '>{t('login.welcome')}</p>
+        <h2 className="text-3xl font-normal text-gray-900">欢迎来到 iPollo.ai</h2>
+        <p className='mt-2 text-sm text-gray-600 '>登录以继续</p>
       </div>
 
       <div className="w-full mx-auto mt-8">
         <div className="bg-white ">
-          {!IS_CE_EDITION && (
+          {/* {!IS_CE_EDITION && (
             <div className="flex flex-col gap-3 mt-6">
               <div className='w-full'>
                 <a href={`${apiPrefix}/oauth/login/github`}>
@@ -204,7 +204,7 @@ const NormalForm = () => {
                 </a>
               </div>
             </div>
-          )}
+          )} */}
 
           {
             // IS_CE_EDITION && <>
@@ -225,6 +225,7 @@ const NormalForm = () => {
                   </label>
                   <div className="mt-1">
                     <input
+                      style={{ height: 50, borderRadius: 2000 }}
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       id="email"
@@ -256,6 +257,7 @@ const NormalForm = () => {
                   </label>
                   <div className="relative mt-1 rounded-md shadow-sm">
                     <input
+                      style={{ height: 50, borderRadius: 2000 }}
                       id="password"
                       value={password}
                       onChange={e => setPassword(e.target.value)}
@@ -280,6 +282,8 @@ const NormalForm = () => {
 
                 <div>
                   <Button
+                    width={150}
+                    borderRadius={1000}
                     type='primary'
                     background="#181A24"
                     onClick={handleEmailPasswordLogin}

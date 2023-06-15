@@ -119,8 +119,8 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
       title={t('app.newApp.startToCreate')}
       footer={
         <>
-          <Button background="#F5F6F6" onClick={onClose}>{t('app.newApp.Cancel')}</Button>
-          <Button background="#181A24" type="primary" onClick={onCreate}>{t('app.newApp.Create')}</Button>
+          <Button borderRadius={1000} background="#F5F6F6" onClick={onClose}>{t('app.newApp.Cancel')}</Button>
+          <Button borderRadius={1000} background="#181A24" type="primary" onClick={onCreate}>{t('app.newApp.Create')}</Button>
         </>
       }
     >
@@ -128,7 +128,7 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
 
       <div className='flex items-center justify-between gap-3 mb-8'>
         {/* <AppIcon size='large' onClick={() => { setShowEmojiPicker(true) }} className='cursor-pointer' icon={emoji.icon} background={emoji.icon_background} /> */}
-        <AppIcon size='large' className='cursor-pointer' icon={emoji.icon} styles={{ background: "#F5F6F7", borderRadis: 12 }} />
+        <AppIcon width={40} height={40} size='large' className='cursor-pointer' icon={emoji.icon} styles={{ background: "#F5F6F7", borderRadis: 12 }} />
         <input ref={nameInputRef} className='h-10 px-3 text-sm font-normal bg-gray-100 rounded-lg grow' />
       </div>
 

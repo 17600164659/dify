@@ -8,7 +8,9 @@
 }
 
 .answer-textarea {
-    width: 96%;
+    /* width: 96%; */
+    margin-left: 0;
+    margin-right: 0;
     border: 1px solid #19243B;
     border-radius: 16px;
     margin: 0 auto;

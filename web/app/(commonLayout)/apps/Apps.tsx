@@ -92,7 +92,7 @@ const Apps = () => {
   return (
     <div style={customStyle}>
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="apps" />
-      <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-2 grow shrink-0' style={{ flex: 1, paddingRight: 0, paddingTop: 130, position: 'relative' }}>
+      <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-2 grow shrink-0' style={{ flex: 1, paddingRight: 0, paddingTop: 130, position: 'relative', overflowY: 'scroll', paddingBottom: 20 }}>
         <div onClick={() => setShowNewAppDialog(true)} style={{
           width: 176,
           height: 76,

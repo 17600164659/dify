@@ -22,6 +22,7 @@ const Button: FC<IButtonProps> = ({
   background,
   border,
   borderRadius,
+  width,
 }) => {
   let style = 'cursor-pointer'
   switch (type) {
@@ -44,6 +45,7 @@ const Button: FC<IButtonProps> = ({
   if (background) styles.background = disabled ? background + '81' : background;
   if (border) styles.border = border;
   if (borderRadius) styles.borderRadius = borderRadius;
+  if (width) styles.width = width;
 
   return (
     <div

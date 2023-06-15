@@ -265,7 +265,7 @@ const Configuration: FC = () => {
                       setShowUseGPT4Confirm(true)
                     }}
                   />
-                  <div className={s.promptSubmitBtns}>
+                  <div className={s.promptSubmitBtns} style={{ height: 32 }}>
                     <Button type="nohover" border="none" color="white" onClick={() => setShowConfirm(true)}>{t('appDebug.operation.resetConfig')}</Button>
                     <div className='mx-3 w-[1px] h-[14px] bg-gray-200'></div>
                     <Button type="nohover" border="none" color="white" onClick={saveAppConfig}>{t('appDebug.operation.applyConfig')}</Button>
