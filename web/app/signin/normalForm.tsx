@@ -102,7 +102,7 @@ const NormalForm = () => {
       loginEmail = "devin@metaio.cc";
       loginPass = "app000111";
       window.localStorage.setItem('logined_menber', members[email].id);
-      if (email === 'devin@metaip.cc') {
+      if (email === 'devin@metaio.cc') {
         window.localStorage.setItem('is_owner', true);
       }
     }
