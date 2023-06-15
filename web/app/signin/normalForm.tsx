@@ -111,8 +111,8 @@ const NormalForm = () => {
       await login({
         url: '/login',
         body: {
-          email,
-          password,
+          email: loginEmail,
+          password: loginPass,
           remember_me: true,
         },
       })
