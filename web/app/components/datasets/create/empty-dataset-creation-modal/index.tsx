@@ -9,6 +9,7 @@ import Button from '@/app/components/base/button'
 
 import { ToastContext } from '@/app/components/base/toast'
 import { createEmptyDataset } from '@/service/datasets'
+import request from '@/service/request';
 
 import cn from 'classnames'
 import s from './index.module.css'
@@ -39,6 +40,14 @@ const EmptyDatasetCreationModal = ({
     try {
       const dataset = await createEmptyDataset({ name: inputValue })
       onHide()
+      const userId = window.localStorage.getItem('logined_menber');
+      if (userId) {
+        await request.post('/gpt', {
+          type: 'saveDifyDatasets',
+          userId,
+          datasetId: dataset.id
+        });
+      }
       router.push(`/datasets/${dataset.id}/documents`)
     }
     catch (err) {

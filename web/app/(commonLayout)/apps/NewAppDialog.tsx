@@ -16,6 +16,7 @@ import { ToastContext } from '@/app/components/base/toast'
 import { createApp, fetchAppTemplates } from '@/service/apps'
 import AppIcon from '@/app/components/base/app-icon'
 import AppsContext from '@/context/app-context'
+import request from '@/service/request';
 
 import EmojiPicker from '@/app/components/base/emoji-picker'
 
@@ -74,6 +75,7 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
       return
     isCreatingRef.current = true
     try {
+      const userId = window.localStorage.getItem('logined_menber');
       const app = await createApp({
         name,
         icon: emoji.icon,
@@ -81,6 +83,11 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
         mode: isWithTemplate ? templates.data[selectedTemplateIndex].mode : newAppMode!,
         config: isWithTemplate ? templates.data[selectedTemplateIndex].model_config : undefined,
       })
+      await request.post('/gpt', {
+        type: 'saveDifyApps',
+        userId,
+        appId: app.id
+      });
       if (onSuccess)
         onSuccess()
       if (onClose)

@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import BasicSidebar from "@/app/components/basic-sidebar";
 import OverView from "@/app/components/overview/overview"
 import NewAppDialog from './NewAppDialog';
+import request from '@/service/request';
 
 const getKey = (pageIndex: number, previousPageData: AppListResponse) => {
   if (!pageIndex || previousPageData.has_more)
@@ -28,6 +29,18 @@ const customStyle = {
 const Apps = () => {
   const { t } = useTranslation()
   const { data, isLoading, setSize, mutate } = useSWRInfinite(getKey, fetchAppList, { revalidateFirstPage: false })
+  const [myApps, setMyApps] = useState([]);
+  async function getApps() {
+    const userId = window.localStorage.getItem('logined_menber');
+    if (!userId) return;
+    const selfAppList = await request.post('/gpt', {
+      type: 'getDifyApps',
+      userId
+    });
+
+    const list = selfAppList.data.data.map(item => item.AppId)
+    setMyApps(list);
+  }
   const loadingStateRef = useRef(false)
   const pageContainerRef = useSelector(state => state.pageContainerRef)
   const anchorRef = useRef<HTMLAnchorElement>(null)
@@ -39,6 +52,7 @@ const Apps = () => {
       localStorage.removeItem(NEED_REFRESH_APP_LIST_KEY)
       mutate()
     }
+    getApps();
   }, [])
 
   useEffect(() => {
@@ -59,6 +73,22 @@ const Apps = () => {
     pageContainerRef?.current?.addEventListener('scroll', onScroll)
     return () => pageContainerRef?.current?.removeEventListener('scroll', onScroll)
   }, [])
+
+  const list = [];
+
+  if (data) {
+    const is_owner = window.localStorage.getItem('is_owner')
+    for (let i = 0; i < data?.length; i++) {
+      const current = data[i];
+      if (current.data?.length) {
+        current.data.map(item => {
+          if (myApps.indexOf(item.id) > -1 || is_owner) {
+            list.push(item);
+          }
+        })
+      }
+    }
+  }
   return (
     <div style={customStyle}>
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="apps" />
@@ -103,9 +133,12 @@ const Apps = () => {
           }}>创建应用</div>
         </div>
         {
-          data?.map(({ data: apps }) => apps.map(app => (
+          // data?.map(({ data: apps }) => apps.map(app => (
+          //   <AppCard key={app.id} app={app} onDelete={mutate} />
+          // )))
+          list.map(app => (
             <AppCard key={app.id} app={app} onDelete={mutate} />
-          )))
+          ))
         }
         <NewAppDialog show={showNewAppDialog} onSuccess={mutate} onClose={() => setShowNewAppDialog(false)} />
         {/* <NewAppCard ref={anchorRef} onSuccess={mutate} /> */}

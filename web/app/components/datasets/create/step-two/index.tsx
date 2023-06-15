@@ -20,6 +20,7 @@ import s from './index.module.css'
 import Link from 'next/link'
 import Toast from '@/app/components/base/toast'
 import { formatNumber } from '@/utils/format'
+import request from '@/service/request';
 import './style.css';
 
 type StepTwoProps = {
@@ -207,6 +208,14 @@ const StepTwo = ({
         })
         updateIndexingTypeCache(indexType)
         updateResultCache(res)
+        const userId = window.localStorage.getItem('logined_menber');
+        if (userId) {
+          await request.post('/gpt', {
+            type: 'saveDifyDatasets',
+            userId,
+            datasetId: res.dataset.id
+          });
+        }
       } else {
         res = await createDocument({
           datasetId,

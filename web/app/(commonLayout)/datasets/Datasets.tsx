@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useSWRInfinite from 'swr/infinite'
 import { debounce } from 'lodash-es';
 import { DataSetListResponse } from '@/models/datasets';
@@ -8,6 +8,7 @@ import NewDatasetCard from './NewDatasetCard'
 import DatasetCard from './DatasetCard';
 import { fetchDatasets } from '@/service/datasets';
 import { useSelector } from '@/context/app-context';
+import request from '@/service/request';
 
 const getKey = (pageIndex: number, previousPageData: DataSetListResponse) => {
   if (!pageIndex || previousPageData.has_more)
@@ -20,6 +21,18 @@ const Datasets = () => {
   const loadingStateRef = useRef(false)
   const pageContainerRef = useSelector(state => state.pageContainerRef)
   const anchorRef = useRef<HTMLAnchorElement>(null)
+  const [myDatasets, setMyDatasets] = useState([]);
+  async function getDatasets() {
+    const userId = window.localStorage.getItem('logined_menber');
+    if (!userId) return;
+    const selfAppList = await request.post('/gpt', {
+      type: 'getDifyDatasets',
+      userId
+    });
+
+    const list = selfAppList.data.data.map(item => item.DataqsetId)
+    setMyDatasets(list);
+  }
 
   useEffect(() => {
     loadingStateRef.current = isLoading
@@ -37,9 +50,25 @@ const Datasets = () => {
     }, 50)
 
     pageContainerRef?.current?.addEventListener('scroll', onScroll)
+    getDatasets();
     return () => pageContainerRef?.current?.removeEventListener('scroll', onScroll)
   }, [])
 
+  const list = [];
+
+  if (data) {
+    const is_owner = window.localStorage.getItem('is_owner')
+    for (let i = 0; i < data?.length; i++) {
+      const current = data[i];
+      if (current.data?.length) {
+        current.data.map(item => {
+          if (myDatasets.indexOf(item.id) > -1 || is_owner) {
+            list.push(item);
+          }
+        })
+      }
+    }
+  }
   return (
     <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-3 grow shrink-0' style={{ flex: 1, paddingRight: 0, paddingTop: 130, position: 'relative' }}>
       <a style={{
@@ -81,12 +110,12 @@ const Datasets = () => {
           color: "#19243B"
         }}>创建数据集</div>
       </a>
-      {data?.map(({ data: datasets }) => datasets.map(dataset => (
+      {list.map(dataset => (
         <DatasetCard key={dataset.id} dataset={dataset} onDelete={mutate} />)
-      ))}
-      {data?.map(({ data: datasets }) => datasets.map(dataset => (
+      )}
+      {/* {data?.map(({ data: datasets }) => datasets.map(dataset => (
         <DatasetCard key={dataset.id} dataset={dataset} onDelete={mutate} />)
-      ))}
+      ))} */}
       {/* <NewDatasetCard ref={anchorRef} /> */}
     </nav>
   )
