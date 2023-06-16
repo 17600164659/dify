@@ -119,7 +119,7 @@ const CardView: FC<ICardViewProps> = ({ appId }) => {
         </div>
       </div>
       {
-        window.location.search.indexOf('qc_xuyao_api_status') && (
+        window.location.search.indexOf('qc_xuyao_api_status') > -1 && (
           <AppCard
             className='ml-3 flex-1'
             cardType='api'
