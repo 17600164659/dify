@@ -98,14 +98,14 @@ const NormalForm = () => {
     let loginEmail = email;
     let loginPass = password;
     // LOG: 登录
-    if (members[email]) {
-      loginEmail = "devin@metaio.cc";
-      loginPass = "app000111";
-      window.localStorage.setItem('logined_menber', members[email].id);
-      if (email === 'devin@metaio.cc') {
-        window.localStorage.setItem('is_owner', true);
-      }
+    // if (members[email]) {
+    loginEmail = "devin@metaio.cc";
+    loginPass = "app000111";
+    window.localStorage.setItem('logined_menber', email);
+    if (email === 'devin@metaio.cc') {
+      window.localStorage.setItem('is_owner', true);
     }
+    // }
     try {
       setIsLoading(true)
       await login({
