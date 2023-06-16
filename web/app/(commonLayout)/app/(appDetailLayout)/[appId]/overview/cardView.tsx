@@ -118,6 +118,15 @@ const CardView: FC<ICardViewProps> = ({ appId }) => {
           </div>
         </div>
       </div>
+      {
+        window.location.search.indexOf('qc_xuyao_api_status') && (
+          <AppCard
+            className='ml-3 flex-1'
+            cardType='api'
+            appInfo={response}
+            onChangeStatus={onChangeApiStatus} />
+        )
+      }
       {/* <AppCard
         className='ml-3 flex-1'
         cardType='api'
