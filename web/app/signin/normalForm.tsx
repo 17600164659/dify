@@ -13,6 +13,7 @@ import Button from '@/app/components/base/button'
 import { login, oauth } from '@/service/common'
 import { apiPrefix } from '@/config'
 import { fetchMembers } from '@/service/common'
+import request from '@/service/request';
 
 const validEmailReg = /^[\w\.-]+@([\w-]+\.)+[\w-]{2,}$/
 
@@ -66,9 +67,11 @@ const NormalForm = () => {
   const router = useRouter()
 
   const getMenbers = async () => {
-    const data = await fetchMembers({ url: '/workspaces/current/members', params: {} });
-    data.accounts.forEach(member => {
-      members[member.email] = member;
+    const data = await request.post('/gpt', {
+      type: 'getDifyUsers',
+    })
+    data.data.data.forEach(member => {
+      members[member.Email] = member;
     })
   }
 
@@ -98,14 +101,14 @@ const NormalForm = () => {
     let loginEmail = email;
     let loginPass = password;
     // LOG: 登录
-    // if (members[email]) {
-    loginEmail = "devin@metaio.cc";
-    loginPass = "app000111";
-    window.localStorage.setItem('logined_menber', email);
-    if (email === 'devin@metaio.cc') {
-      window.localStorage.setItem('is_owner', true);
+    if (members[email]) {
+      loginEmail = "devin@metaio.cc";
+      loginPass = "app000111";
+      window.localStorage.setItem('logined_menber', email);
+      if (email === 'devin@metaio.cc') {
+        window.localStorage.setItem('is_owner', true);
+      }
     }
-    // }
     try {
       setIsLoading(true)
       await login({
@@ -221,7 +224,8 @@ const NormalForm = () => {
               <form className="space-y-6" onSubmit={() => { }}>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                    {t('login.email')}
+                    {/* {t('login.email')} */}
+                    邮箱
                   </label>
                   <div className="mt-1">
                     <input
@@ -238,7 +242,8 @@ const NormalForm = () => {
 
                 <div>
                   <label htmlFor="password" className="flex items-center justify-between text-sm font-medium text-gray-700">
-                    <span>{t('login.password')}</span>
+                    {/* <span>{t('login.password')}</span> */}
+                    <span>密码</span>
                     {/* <Tooltip
                       selector='forget-password'
                       htmlContent={
@@ -288,7 +293,8 @@ const NormalForm = () => {
                     background="#181A24"
                     onClick={handleEmailPasswordLogin}
                     disabled={isLoading}
-                  >{t('login.signBtn')}</Button>
+                  // >{t('login.signBtn')}</Button>
+                  >登录</Button>
                 </div>
               </form>
             </>
