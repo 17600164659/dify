@@ -5,6 +5,7 @@ import { roles } from './constants';
 
 export default () => {
     const [allConversations, setAllConversations] = useState([]);
+    const [contentType, setContentType] = useState('news');
     const toRole = (id) => {
         window.location.href = `${window.location.origin}/chat/${id}?is_share=true&is_new=true`;
     }
@@ -45,26 +46,56 @@ export default () => {
             <div className='main-header'>
                 <img className='main-logo' src='https://assets.metaio.cc/assets/difyassets/main-logo.png' />
                 {/* <img className='main-share' src='https://assets.metaio.cc/assets/difyassets/share.png' /> */}
+                <div className='main-menu'>
+                    <div onClick={() => setContentType('chat')}>对话</div>
+                    <div onClick={() => setContentType('news')}>要闻</div>
+                </div>
             </div>
-            <div className='main-app-list'>
-                {
-                    // sessionList.sort((a, b) => a.created_at - b.created_at).map(item => (
-                    allConversations.sort((a, b) => b.created_at - a.created_at).map(item => {
-                        const timer = new Date(parseInt(`${item.created_at}000`));
-                        return (
-                            <div className='main-chat' key={item.id} onClick={() => onSelect(item.appId, item.id)}>
-                                <img className='main-chat-head' src={item.icon} />
-                                <div className='main-chat-info'>
-                                    <p className='main-chat-info-title'>{item.name}</p>
-                                    <p className='main-chat-info-discrption'>
-                                        {`${timer.getFullYear()}-${timer.getMonth() + 1}-${timer.getDate()} ${timer.getHours()}:${timer.getMinutes()}`}
-                                    </p>
+            {
+                contentType === 'chat' ? (
+                    <div className='main-app-list'>
+                        {
+                            // sessionList.sort((a, b) => a.created_at - b.created_at).map(item => (
+                            allConversations.sort((a, b) => b.created_at - a.created_at).map(item => {
+                                const timer = new Date(parseInt(`${item.created_at}000`));
+                                return (
+                                    <div className='main-chat' key={item.id} onClick={() => onSelect(item.appId, item.id)}>
+                                        <img className='main-chat-head' src={item.icon} />
+                                        <div className='main-chat-info'>
+                                            <p className='main-chat-info-title'>{item.name}</p>
+                                            <p className='main-chat-info-discrption'>
+                                                {`${timer.getFullYear()}-${timer.getMonth() + 1}-${timer.getDate()} ${timer.getHours()}:${timer.getMinutes()}`}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                ) : (
+                    <div className='main-app-news'>
+                        {/* <div className='main-app-datas'>
+                            <div className='main-app-datas-content'>
+                                <div></div>
+                            </div>
+                        </div> */}
+                        <div className='main-app-news-list'>
+                            <div className='main-app-news-item'>
+                                <div className='main-app-news-item-head'>
+                                    <img src="https://assets.metaio.cc/assets/difyassets/logo.png" width={34} height={34} />
+                                    小耳朵
+                                </div>
+                                <div className='main-app-news-item-content'>比特币昨日整体波动不大，凌晨受消息面影响行情加速下跌，最低至24800一线支撑反弹。<br />
+                                    四小时级别空头发力加速下跌，macd放量运行双线死叉向下指引，ma均线向下指引，目前行情虽然止跌但反弹力度偏弱，预计短期将持续震荡修复。</div>
+                                <div className='main-app-news-item-links'></div>
+                                <div className='main-app-news-item-time'>
+                                    <img width={12} height={12} src="" />2023.06.06
                                 </div>
                             </div>
-                        )
-                    })
-                }
-            </div>
+                        </div>
+                    </div>
+                )
+            }
             <div className='main-footer'>
                 <div style={{ width: (98 * roles.length) + (8 * (roles.length - 1)) + 40 }}>
                     {

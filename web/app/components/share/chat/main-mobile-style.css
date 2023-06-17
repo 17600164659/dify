@@ -50,8 +50,22 @@
 .main-logo {
     width: 122px;
     float: left;
-    margin-top: 56px;
+    margin-top: 26px;
     margin-left: 24px;
+}
+
+.main-menu {
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+    height: 30px;
+    position: relative;
+    top: 18px;
+
+    background: linear-gradient(155.82deg, rgba(255, 255, 255, 0.5568) 0%, rgba(255, 255, 255, 0.4872) 99.04%);
+    box-shadow: 0px 3px 12px rgba(151, 156, 167, 0.16);
+    backdrop-filter: blur(6px);
+    border-radius: 6px;
 }
 
 .main-share {
@@ -59,6 +73,83 @@
     float: right;
     margin-top: 54px;
     margin-right: 20px;
+}
+
+.main-app-news {
+    height: calc(100vh - 194px);
+    position: absolute;
+    top: 106px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: white;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    padding: 32px 0;
+    padding-bottom: 20px;
+    overflow-y: scroll;
+}
+
+.main-app-news .main-app-datas {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.main-app-datas .main-app-datas-content {
+    width: auto;
+    overflow: hidden;
+    height: 84px;
+}
+
+.main-app-news-list {
+    width: 100%;
+    padding: 40px;
+    overflow-y: scroll;
+}
+
+.main-app-news-item {
+    background: #FFFFFF;
+    box-shadow: 0px 20px 38px rgba(151, 156, 167, 0.08);
+    border-radius: 8px;
+    padding: 0 16px;
+    padding-bottom: 14px;
+}
+
+.main-app-news-item-head {
+    display: flex;
+    align-items: flex-end;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #2A374C;
+    margin-bottom: 20px;
+}
+
+.main-app-news-item-head img {
+    margin-right: 8px;
+}
+
+.main-app-news-item-content {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #555F70;
+    margin-bottom: 24px;
+}
+
+.main-app-news-item-links {
+    margin-bottom: 14px;
+}
+
+.main-app-news-item-time {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #AAAFB7;
 }
 
 .main-app-list .main-chat {
