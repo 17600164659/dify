@@ -5,7 +5,7 @@ import { roles } from './constants';
 
 export default () => {
     const [allConversations, setAllConversations] = useState([]);
-    const [contentType, setContentType] = useState('news');
+    const [contentType, setContentType] = useState('chat');
     const toRole = (id) => {
         window.location.href = `${window.location.origin}/chat/${id}?is_share=true&is_new=true`;
     }
@@ -47,8 +47,9 @@ export default () => {
                 <img className='main-logo' src='https://assets.metaio.cc/assets/difyassets/main-logo.png' />
                 {/* <img className='main-share' src='https://assets.metaio.cc/assets/difyassets/share.png' /> */}
                 <div className='main-menu'>
-                    <div onClick={() => setContentType('chat')}>对话</div>
-                    <div onClick={() => setContentType('news')}>要闻</div>
+                    <div className='main-menu-item' onClick={() => setContentType('chat')}><img src="https://assets.metaio.cc/assets/difyassets/main-dh.png" />对话</div>
+                    <div className='main-menu-line'></div>
+                    <div className='main-menu-item' onClick={() => setContentType('news')}><img src="https://assets.metaio.cc/assets/difyassets/main-yw.png" />要闻</div>
                 </div>
             </div>
             {
@@ -87,9 +88,22 @@ export default () => {
                                 </div>
                                 <div className='main-app-news-item-content'>比特币昨日整体波动不大，凌晨受消息面影响行情加速下跌，最低至24800一线支撑反弹。<br />
                                     四小时级别空头发力加速下跌，macd放量运行双线死叉向下指引，ma均线向下指引，目前行情虽然止跌但反弹力度偏弱，预计短期将持续震荡修复。</div>
-                                <div className='main-app-news-item-links'></div>
+                                <div className='main-app-news-item-links'>
+                                    <div className='main-app-news-item-links-title'><img src="https://assets.metaio.cc/assets/difyassets/main-xwly.png" />新闻来源</div>
+                                    {/* <div className='main-app-news-item-links-content'> */}
+                                    <a className='main-app-news-item-links-item'>
+                                        ·Devin
+                                    </a>
+                                    <a className='main-app-news-item-links-item'>
+                                        ·Harriet
+                                    </a>
+                                    <a className='main-app-news-item-links-item'>
+                                        ·Andy
+                                    </a>
+                                    {/* </div> */}
+                                </div>
                                 <div className='main-app-news-item-time'>
-                                    <img width={12} height={12} src="" />2023.06.06
+                                    <img width={12} height={12} src="https://assets.metaio.cc/assets/difyassets/main-sj.png" />2023.06.06
                                 </div>
                             </div>
                         </div>
