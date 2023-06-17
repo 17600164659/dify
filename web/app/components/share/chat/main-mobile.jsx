@@ -39,7 +39,7 @@ export default () => {
         setAllConversations(result);
     }
 
-    const getNews = await() => {
+    const getNews = async () => {
         const result = await request.post('/gpt', {
             type: 'getDifyNews',
         });
