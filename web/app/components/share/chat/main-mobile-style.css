@@ -153,17 +153,19 @@
 
 .main-app-news-item-head {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     font-family: 'PingFang SC';
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     color: #2A374C;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
 }
 
 .main-app-news-item-head img {
     margin-right: 8px;
+    position: relative;
+    top: -16px;
 }
 
 .main-app-news-item-content {
@@ -181,7 +183,7 @@
     border-radius: 8px;
     height: 52px;
     position: relative;
-    padding-top: 24px;
+    padding-top: 19px;
     padding-left: 18px;
 }
 
@@ -209,7 +211,7 @@
     margin-right: 6px;
 }
 
-.main-app-news-item-links-items {
+.main-app-news-item-links-item {
     font-family: 'PingFang SC';
     font-style: normal;
     font-weight: 400;

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { fetchConversations } from '@/service/share'
 import './main-mobile-style.css'
 import { roles } from './constants';
+import request from '@/service/request';
 
 export default () => {
     const [allConversations, setAllConversations] = useState([]);
     const [contentType, setContentType] = useState('chat');
+    const [allNews, setAllNews] = useState([]);
     const toRole = (id) => {
         window.location.href = `${window.location.origin}/chat/${id}?is_share=true&is_new=true`;
     }
@@ -37,8 +39,16 @@ export default () => {
         setAllConversations(result);
     }
 
+    const getNews = await() => {
+        const result = await request.post('/gpt', {
+            type: 'getDifyNews',
+        });
+        setAllNews(result.data.data);
+    }
+
     useEffect(() => {
         getConversations();
+        getNews();
     }, [])
     return (
         <div className='main-container'>
@@ -81,31 +91,38 @@ export default () => {
                             </div>
                         </div> */}
                         <div className='main-app-news-list'>
-                            <div className='main-app-news-item'>
-                                <div className='main-app-news-item-head'>
-                                    <img src="https://assets.metaio.cc/assets/difyassets/logo.png" width={34} height={34} />
-                                    小耳朵
-                                </div>
-                                <div className='main-app-news-item-content'>比特币昨日整体波动不大，凌晨受消息面影响行情加速下跌，最低至24800一线支撑反弹。<br />
-                                    四小时级别空头发力加速下跌，macd放量运行双线死叉向下指引，ma均线向下指引，目前行情虽然止跌但反弹力度偏弱，预计短期将持续震荡修复。</div>
-                                <div className='main-app-news-item-links'>
-                                    <div className='main-app-news-item-links-title'><img src="https://assets.metaio.cc/assets/difyassets/main-xwly.png" />新闻来源</div>
-                                    {/* <div className='main-app-news-item-links-content'> */}
-                                    <a className='main-app-news-item-links-item'>
-                                        ·Devin
-                                    </a>
-                                    <a className='main-app-news-item-links-item'>
-                                        ·Harriet
-                                    </a>
-                                    <a className='main-app-news-item-links-item'>
-                                        ·Andy
-                                    </a>
-                                    {/* </div> */}
-                                </div>
-                                <div className='main-app-news-item-time'>
-                                    <img width={12} height={12} src="https://assets.metaio.cc/assets/difyassets/main-sj.png" />2023.06.06
-                                </div>
-                            </div>
+                            {allNews.map(item => {
+                                const { createAt } = item;
+                                const date = new Date(createAt);
+                                const year = `${date.getFullYear()}`;
+                                const month = `${date.getMonth() + 1}`;
+                                const day = `${date.getDate()}`;
+                                const timer = `${year}.${month.length === 1 ? '0' + month : month}.${getDate.length === 1 ? '0' + getDate : getDate}`
+                                return (
+                                    <div className='main-app-news-item'>
+                                        <div className='main-app-news-item-head'>
+                                            <img src="https://assets.metaio.cc/assets/difyassets/logo.png" width={34} height={34} />
+                                            小耳朵
+                                        </div>
+                                        <div className='main-app-news-item-content'>{item.answer}</div>
+                                        <div className='main-app-news-item-links'>
+                                            <div className='main-app-news-item-links-title'><img src="https://assets.metaio.cc/assets/difyassets/main-xwly.png" />新闻来源</div>
+                                            {/* <div className='main-app-news-item-links-content'> */}
+                                            {
+                                                JSON.parse(item.source).map(info => (
+                                                    <a href={info.href} className='main-app-news-item-links-item'>
+                                                        ·{info.source}
+                                                    </a>
+                                                ))
+                                            }
+                                            {/* </div> */}
+                                        </div>
+                                        <div className='main-app-news-item-time'>
+                                            <img width={12} height={12} src="https://assets.metaio.cc/assets/difyassets/main-sj.png" />2023.06.06
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 )
