@@ -219,6 +219,11 @@
     text-decoration-line: underline;
     color: #555F70;
     margin-right: 22px;
+    display: inline-block;
+    width: 44px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .main-app-news-item-time {
