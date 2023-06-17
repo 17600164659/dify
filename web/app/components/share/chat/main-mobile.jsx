@@ -97,7 +97,7 @@ export default () => {
                                 const year = `${date.getFullYear()}`;
                                 const month = `${date.getMonth() + 1}`;
                                 const day = `${date.getDate()}`;
-                                const timer = `${year}.${month.length === 1 ? '0' + month : month}.${getDate.length === 1 ? '0' + getDate : getDate}`
+                                const timer = `${year}.${month.length === 1 ? '0' + month : month}.${day.length === 1 ? '0' + day : day}`
                                 return (
                                     <div className='main-app-news-item'>
                                         <div className='main-app-news-item-head'>
