@@ -120,6 +120,7 @@ const Main: FC<IMainProps> = ({
   const conversationIntroduction = currConversationInfo?.introduction || ''
 
   const handleConversationSwitch = () => {
+    console.log(inited, appId, 23232323);
     if (!inited)
       return
     if (!appId) {
@@ -147,7 +148,6 @@ const Main: FC<IMainProps> = ({
     }
 
     // update chat list of current conversation
-    console.log(isNewConversation, conversationIdChangeBecauseOfNew, isResponsing);
     if (!isNewConversation && !conversationIdChangeBecauseOfNew && !isResponsing) {
       fetchChatList(currConversationId, isInstalledApp, installedAppInfo?.id).then((res: any) => {
         const { data } = res
