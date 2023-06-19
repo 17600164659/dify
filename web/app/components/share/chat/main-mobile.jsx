@@ -59,7 +59,7 @@ export default () => {
                 <div className='main-menu'>
                     <div className={'main-menu-item' + (contentType === 'chat' ? ' active' : '')} onClick={() => setContentType('chat')}><img src="https://assets.metaio.cc/assets/difyassets/main-dh.png" />对话</div>
                     <div className='main-menu-line'></div>
-                    <div className={'main-menu-item' + (contentType === 'news' ? ' active' : '')} onClick={() => setContentType('news')}><img src="https://assets.metaio.cc/assets/difyassets/main-yw.png" />要闻</div>
+                    <div className={'main-menu-item' + (contentType === 'news' ? ' active' : '')} onClick={() => setContentType('news')}><img src="https://assets.metaio.cc/assets/difyassets/main-yw.png" />AI简报</div>
                 </div>
             </div>
             {
