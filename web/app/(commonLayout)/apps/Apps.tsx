@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import useSWRInfinite from 'swr/infinite'
 import { debounce } from 'lodash-es'
-import { useTranslation } from 'react-i18next'
 import AppCard from './AppCard'
 import NewAppCard from './NewAppCard'
 import type { AppListResponse } from '@/models/app'

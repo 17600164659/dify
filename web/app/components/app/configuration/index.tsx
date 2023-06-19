@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { useContext } from 'use-context-selector'
 import { usePathname } from 'next/navigation'
 import produce from 'immer'
-import { useBoolean } from 'ahooks'
-import Button from '../../base/button'
 import Loading from '../../base/loading'
 import type { CompletionParams, Inputs, ModelConfig, MoreLikeThisConfig, PromptConfig, PromptVariable } from '@/models/debug'
 import type { DataSet } from '@/models/datasets'
@@ -25,7 +23,6 @@ import { fetchDatasets } from '@/service/datasets'
 import AccountSetting from '@/app/components/header/account-setting'
 import { useBoolean } from 'ahooks'
 import Button from '../../base/button'
-import Loading from '../../base/loading';
 import s from './style.module.css';
 
 const Configuration: FC = () => {

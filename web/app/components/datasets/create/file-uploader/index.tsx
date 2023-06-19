@@ -73,16 +73,6 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
 
     return isValidType && isValidSize
   }
-  const onProgress = useCallback((e: ProgressEvent) => {
-    if (e.lengthComputable) {
-      const percent = Math.floor(e.loaded / e.total * 100)
-      setPercent(percent)
-    }
-  }, [setPercent])
-  const abort = () => {
-    const currentXHR = uploadPromise.current
-    currentXHR.abort()
-  }
   const fileUpload = async (file?: File) => {
     if (!file)
       return
@@ -165,43 +155,6 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
     onFileUpdate()
     fileUpload(currentFile)
   }
-  const fileUpload = async (file?: File) => {
-    if (!file) {
-      return
-    }
-    if (!isValid(file)) {
-      return
-    }
-    setCurrentFile(file)
-    setUploading(true)
-    const formData = new FormData()
-    formData.append('file', file)
-    // store for abort
-    const currentXHR = new XMLHttpRequest()
-    uploadPromise.current = currentXHR
-    try {
-      const result = await upload({
-        xhr: currentXHR,
-        data: formData,
-        onprogress: onProgress,
-      }) as FileEntity;
-      onFileUpdate(result)
-      setUploading(false)
-    }
-    catch (xhr: any) {
-      setUploading(false)
-      // abort handle
-      if (xhr.readyState === 0 && xhr.status === 0) {
-        if (fileUploader.current) {
-          fileUploader.current.value = ''
-        }
-        setCurrentFile(undefined)
-        return
-      }
-      notify({ type: 'error', message: t('datasetCreation.stepOne.uploader.failed') })
-      return
-    }
-  }
   const onProgress = useCallback((e: ProgressEvent) => {
     if (e.lengthComputable) {
       const percent = Math.floor(e.loaded / e.total * 100)
@@ -214,36 +167,6 @@ const FileUploader = ({ file, onFileUpdate }: IFileUploaderProps) => {
   }
 
   // utils
-  const getFileType = (currentFile: File) => {
-    if (!currentFile) {
-      return ''
-    }
-    const arr = currentFile.name.split('.')
-    return arr[arr.length - 1]
-  }
-  const getFileName = (name: string) => {
-    const arr = name.split('.')
-    return arr.slice(0, -1).join()
-  }
-  const getFileSize = (size: number) => {
-    if (size / 1024 < 10) {
-      return `${(size / 1024).toFixed(2)}KB`
-    }
-    return `${(size / 1024 / 1024).toFixed(2)}MB`
-  }
-  const isValid = (file: File) => {
-    const { size } = file
-    const ext = `.${getFileType(file)}`
-    const isValidType = ACCEPTS.includes(ext)
-    if (!isValidType) {
-      notify({ type: 'error', message: t('datasetCreation.stepOne.uploader.validation.typeError') })
-    }
-    const isValidSize = size <= MAX_SIZE;
-    if (!isValidSize) {
-      notify({ type: 'error', message: t('datasetCreation.stepOne.uploader.validation.size') })
-    }
-    return isValidType && isValidSize;
-  }
 
   useEffect(() => {
     dropRef.current?.addEventListener('dragenter', handleDragEnter)
