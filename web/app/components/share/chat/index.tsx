@@ -325,6 +325,7 @@ const Main: FC<IMainProps> = ({
         setInited(true)
       }
       catch (e: any) {
+        console.error(e);
         if (e.status === 404) {
           setAppUnavailable(true)
         }
