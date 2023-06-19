@@ -6,7 +6,6 @@ import FilePreview from '../file-preview'
 import FileUploader from '../file-uploader'
 import NotionPagePreview from '../notion-page-preview'
 import EmptyDatasetCreationModal from '../empty-dataset-creation-modal'
-import Button from '@/app/components/base/button'
 
 import './customStyle.css';
 import cn from 'classnames'
