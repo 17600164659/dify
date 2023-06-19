@@ -240,6 +240,8 @@
 .main-app-news-item-links-item img {
     width: 18px;
     height: 18px;
+    margin-right: 6px;
+    border-radius: 100px;
 }
 
 .main-app-news-item-time {
