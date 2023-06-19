@@ -12,7 +12,6 @@ import AppInfo from '@/app/components/share/chat/sidebar/app-info'
 // import Card from './card'
 import type { ConversationItem, SiteInfo } from '@/models/share'
 import BasicSidebar from "@/app/components/basic-sidebar";
-import { useInfiniteScroll } from 'ahooks'
 import { fetchConversations } from '@/service/share'
 
 function classNames(...classes: any[]) {
