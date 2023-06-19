@@ -109,7 +109,7 @@ const Config: FC = () => {
       <div className="pb-[20px]">
         <div className='flex justify-between items-center mb-4' style={{ position: 'absolute', top: 28 }}>
           <AddFeatureBtn onClick={showChooseFeatureTrue} />
-          <AutomaticBtn onClick={showAutomaticTrue} />
+          {/* <AutomaticBtn onClick={showAutomaticTrue} /> */}
         </div>
 
         {showChooseFeature && (
