@@ -23,7 +23,7 @@ import './style.css';
 export type IAppCardProps = {
   className?: string
   appInfo: AppDetailResponse
-  cardType?: 'app' | 'api'
+  cardType?: 'app' | 'api' | 'webapp'
   customBgColor?: string
   onChangeStatus: (val: boolean) => Promise<any>
   onSaveSiteConfig?: (params: any) => Promise<any>
@@ -49,15 +49,16 @@ function AppCard({
   const { t } = useTranslation()
 
   const OPERATIONS_MAP = {
-    app: [
+    webapp: [
       { opName: t('appOverview.overview.appInfo.preview'), opIcon: RocketLaunchIcon },
       { opName: t('appOverview.overview.appInfo.share.entry'), opIcon: ShareIcon },
       { opName: t('appOverview.overview.appInfo.settings.entry'), opIcon: Cog8ToothIcon },
     ],
     api: [{ opName: t('appOverview.overview.apiInfo.doc'), opIcon: DocumentTextIcon }],
+    app: [],
   }
 
-  const isApp = cardType === 'app'
+  const isApp = cardType === 'app' || cardType === 'webapp'
   const basicName = isApp ? appInfo?.site?.title : t('appOverview.overview.apiInfo.title')
   const runningStatus = isApp ? appInfo.enable_site : appInfo.enable_api
   const { app_base_url, access_token } = appInfo.site ?? {}

@@ -7,11 +7,11 @@ import { Trans, useTranslation } from 'react-i18next'
 import s from './style.module.css'
 import Modal from '@/app/components/base/modal'
 import Button from '@/app/components/base/button'
-import Switch from '@/app/components/base/switch'
 import AppIcon from '@/app/components/base/app-icon'
 import { SimpleSelect } from '@/app/components/base/select'
 import type { AppDetailResponse } from '@/models/app'
 import type { Language } from '@/types/app'
+import EmojiPicker from '@/app/components/base/emoji-picker'
 
 export type ISettingsModalProps = {
   appInfo: AppDetailResponse
@@ -42,11 +42,14 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   onSave,
 }) => {
   const [isShowMore, setIsShowMore] = useState(false)
-  const { title, description, copyright, privacy_policy, default_language } = appInfo.site
+  const { title, description, copyright, privacy_policy, default_language, icon, icon_background } = appInfo.site
   const [inputInfo, setInputInfo] = useState({ title, desc: description, copyright, privacyPolicy: privacy_policy })
   const [language, setLanguage] = useState(default_language)
   const [saveLoading, setSaveLoading] = useState(false)
   const { t } = useTranslation()
+  // Emoji Picker
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [emoji, setEmoji] = useState({ icon, icon_background })
 
   const onHide = () => {
     onClose()
@@ -64,6 +67,8 @@ const SettingsModal: FC<ISettingsModalProps> = ({
       prompt_public: false,
       copyright: inputInfo.copyright,
       privacy_policy: inputInfo.privacyPolicy,
+      icon: emoji.icon,
+      icon_background: emoji.icon_background,
     }
     await onSave(params)
     setSaveLoading(false)

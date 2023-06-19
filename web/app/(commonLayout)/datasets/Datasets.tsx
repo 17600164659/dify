@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react'
 import useSWRInfinite from 'swr/infinite'
-import { debounce } from 'lodash-es';
-import { DataSetListResponse } from '@/models/datasets';
+import { debounce } from 'lodash-es'
 import NewDatasetCard from './NewDatasetCard'
 import DatasetCard from './DatasetCard';
+import type { DataSetListResponse } from '@/models/datasets'
 import { fetchDatasets } from '@/service/datasets';
 import { useSelector } from '@/context/app-context';
 import request from '@/service/request';
@@ -43,9 +43,8 @@ const Datasets = () => {
       if (!loadingStateRef.current) {
         const { scrollTop, clientHeight } = pageContainerRef?.current!
         const anchorOffset = anchorRef.current!.offsetTop
-        if (anchorOffset - scrollTop - clientHeight < 100) {
+        if (anchorOffset - scrollTop - clientHeight < 100)
           setSize(size => size + 1)
-        }
       }
     }, 50)
 
@@ -122,4 +121,3 @@ const Datasets = () => {
 }
 
 export default Datasets
-

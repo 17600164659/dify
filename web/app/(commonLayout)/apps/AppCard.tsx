@@ -22,7 +22,7 @@ export type AppCardProps = {
 
 const AppCard = ({
   app,
-  onDelete
+  onDelete,
 }: AppCardProps) => {
   const { t } = useTranslation()
   const { notify } = useContext(ToastContext)

@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   ChatBubbleOvalLeftEllipsisIcon,
-  PencilSquareIcon
+  PencilSquareIcon,
 } from '@heroicons/react/24/outline'
-import { ChatBubbleOvalLeftEllipsisIcon as ChatBubbleOvalLeftEllipsisSolidIcon, } from '@heroicons/react/24/solid'
+import { ChatBubbleOvalLeftEllipsisIcon as ChatBubbleOvalLeftEllipsisSolidIcon } from '@heroicons/react/24/solid'
+import { useInfiniteScroll } from 'ahooks'
 import Button from '../../../base/button'
 import AppInfo from '@/app/components/share/chat/sidebar/app-info'
 // import Card from './card'
@@ -58,7 +59,7 @@ const Sidebar: FC<ISidebarProps> = ({
       isNoMore: () => {
         return isNoMore
       },
-      reloadDeps: [isNoMore]
+      reloadDeps: [isNoMore],
     },
   )
 
@@ -67,7 +68,7 @@ const Sidebar: FC<ISidebarProps> = ({
       className={
         classNames(
           isInstalledApp ? 'tablet:h-[calc(100vh_-_74px)]' : 'tablet:h-[calc(100vh_-_3rem)]',
-          "shrink-0 flex flex-col bg-white pc:w-[244px] tablet:w-[192px] mobile:w-[240px]  border-r border-gray-200 mobile:h-screen"
+          'shrink-0 flex flex-col bg-white pc:w-[244px] tablet:w-[192px] mobile:w-[240px]  border-r border-gray-200 mobile:h-screen',
         )
       }
     >

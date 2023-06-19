@@ -1,7 +1,7 @@
 import type { IOnCompleted, IOnData, IOnError } from './base'
 import {
-  get as consoleGet, post as consolePost, del as consoleDel,
-  getPublic as get, postPublic as post, ssePost, delPublic as del
+  del as consoleDel, get as consoleGet, post as consolePost,
+  delPublic as del, getPublic as get, postPublic as post, ssePost,
 } from './base'
 import type { Feedbacktype } from '@/app/components/app/chat'
 
@@ -23,7 +23,7 @@ function getUrl(url: string, isInstalledApp: boolean, installedAppId: string) {
 export const sendChatMessage = async (body: Record<string, any>, { onData, onCompleted, onError, getAbortController }: {
   onData: IOnData
   onCompleted: IOnCompleted
-  onError: IOnError,
+  onError: IOnError
   getAbortController?: (abortController: AbortController) => void
 }, isInstalledApp: boolean, installedAppId = '', Authorization: string) => {
   return ssePost(getUrl('chat-messages', isInstalledApp, installedAppId), {
@@ -32,6 +32,10 @@ export const sendChatMessage = async (body: Record<string, any>, { onData, onCom
       response_mode: 'streaming',
     },
   }, { onData, onCompleted, isPublicAPI: !isInstalledApp, onError, getAbortController }, Authorization)
+}
+
+export const stopChatMessageResponding = async (appId: string, taskId: string, isInstalledApp: boolean, installedAppId = '') => {
+  return getAction('post', isInstalledApp)(getUrl(`chat-messages/${taskId}/stop`, isInstalledApp, installedAppId))
 }
 
 export const sendCompletionMessage = async (body: Record<string, any>, { onData, onCompleted, onError }: {
@@ -51,8 +55,10 @@ export const fetchAppInfo = async () => {
   return get('/site')
 }
 
-export const fetchConversations = async (isInstalledApp: boolean, installedAppId = '', last_id?: string, bearer?: string) => {
-  return getAction('get', isInstalledApp)(getUrl('conversations', isInstalledApp, installedAppId), { params: { ...{ limit: 100 }, ...(last_id ? { last_id } : {}) }, ...(bearer ? { bearer } : {}) })
+// export const fetchConversations = async (isInstalledApp: boolean, installedAppId = '', last_id?: string, bearer?: string) => {
+//   return getAction('get', isInstalledApp)(getUrl('conversations', isInstalledApp, installedAppId), { params: { ...{ limit: 100 }, ...(last_id ? { last_id } : {}) }, ...(bearer ? { bearer } : {}) })
+export const fetchConversations = async (isInstalledApp: boolean, installedAppId = '', last_id?: string) => {
+  return getAction('get', isInstalledApp)(getUrl('conversations', isInstalledApp, installedAppId), { params: { ...{ limit: 20 }, ...(last_id ? { last_id } : {}) }, ...(bearer ? { bearer } : {}) })
 }
 
 export const fetchChatList = async (conversationId: string, isInstalledApp: boolean, installedAppId = '') => {
@@ -77,7 +83,7 @@ export const fetchMoreLikeThis = async (messageId: string, isInstalledApp: boole
   return (getAction('get', isInstalledApp))(getUrl(`/messages/${messageId}/more-like-this`, isInstalledApp, installedAppId), {
     params: {
       response_mode: 'blocking',
-    }
+    },
   })
 }
 
@@ -86,7 +92,7 @@ export const saveMessage = (messageId: string, isInstalledApp: boolean, installe
 }
 
 export const fetchSavedMessage = async (isInstalledApp: boolean, installedAppId = '') => {
-  return (getAction('get', isInstalledApp))(getUrl(`/saved-messages`, isInstalledApp, installedAppId))
+  return (getAction('get', isInstalledApp))(getUrl('/saved-messages', isInstalledApp, installedAppId))
 }
 
 export const removeMessage = (messageId: string, isInstalledApp: boolean, installedAppId = '') => {

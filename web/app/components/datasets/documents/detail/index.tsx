@@ -8,16 +8,17 @@ import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/navigation'
 import { omit } from 'lodash-es'
 import cn from 'classnames'
-import Divider from '@/app/components/base/divider'
-import Loading from '@/app/components/base/loading'
-import { fetchDocumentDetail, MetadataType } from '@/service/datasets'
 import { OperationAction, StatusItem } from '../list'
+import s from '../style.module.css'
 import Completed from './completed'
 import Embedding from './embedding'
 import Metadata from './metadata'
-import s from '../style.module.css'
 import style from './style.module.css'
 import './style.css';
+import Divider from '@/app/components/base/divider'
+import Loading from '@/app/components/base/loading'
+import type { MetadataType } from '@/service/datasets'
+import { fetchDocumentDetail } from '@/service/datasets'
 
 export const BackCircleBtn: FC<{ onClick: () => void }> = ({ onClick }) => {
   return (
@@ -30,11 +31,11 @@ export const BackCircleBtn: FC<{ onClick: () => void }> = ({ onClick }) => {
 export const DocumentContext = createContext<{ datasetId?: string; documentId?: string }>({})
 
 type DocumentTitleProps = {
-  extension?: string;
-  name?: string;
-  iconCls?: string;
-  textCls?: string;
-  wrapperCls?: string;
+  extension?: string
+  name?: string
+  iconCls?: string
+  textCls?: string
+  wrapperCls?: string
 }
 
 export const DocumentTitle: FC<DocumentTitleProps> = ({ extension, name, iconCls, textCls, wrapperCls }) => {
@@ -60,15 +61,16 @@ const DocumentDetail: FC<Props> = ({ datasetId, documentId }) => {
     action: 'fetchDocumentDetail',
     datasetId,
     documentId,
-    params: { metadata: 'without' as MetadataType }
+    params: { metadata: 'without' as MetadataType },
   }, apiParams => fetchDocumentDetail(omit(apiParams, 'action')))
 
   const { data: documentMetadata, error: metadataErr, mutate: metadataMutate } = useSWR({
     action: 'fetchDocumentDetail',
     datasetId,
     documentId,
-    params: { metadata: 'only' as MetadataType }
-  }, apiParams => fetchDocumentDetail(omit(apiParams, 'action')))
+    params: { metadata: 'only' as MetadataType },
+  }, apiParams => fetchDocumentDetail(omit(apiParams, 'action')),
+  )
 
   const backToPrev = () => {
     router.push(`/datasets/${datasetId}/documents`)
@@ -78,6 +80,13 @@ const DocumentDetail: FC<Props> = ({ datasetId, documentId }) => {
   const isMetadataLoading = !documentMetadata && !metadataErr
 
   const embedding = ['queuing', 'indexing', 'paused'].includes((documentDetail?.display_status || '').toLowerCase())
+
+  const handleOperate = (operateName?: string) => {
+    if (operateName === 'delete')
+      backToPrev()
+    else
+      detailMutate()
+  }
 
   return (
     <DocumentContext.Provider value={{ datasetId, documentId }}>
@@ -92,10 +101,10 @@ const DocumentDetail: FC<Props> = ({ datasetId, documentId }) => {
             detail={{
               enabled: documentDetail?.enabled || false,
               archived: documentDetail?.archived || false,
-              id: documentId
+              id: documentId,
             }}
             datasetId={datasetId}
-            onUpdate={detailMutate}
+            onUpdate={handleOperate}
             className='!w-[216px]'
           />
           <button
@@ -104,8 +113,9 @@ const DocumentDetail: FC<Props> = ({ datasetId, documentId }) => {
           />
         </div>
         <div className='flex flex-row flex-1' style={{ height: 'calc(100% - 4rem)' }}>
-          {isDetailLoading ? <Loading type='app' /> :
-            <div className={`box-border h-full w-full overflow-y-scroll ${embedding ? 'py-12 px-16' : 'pb-[30px] pt-3 px-6'}`}>
+          {isDetailLoading
+            ? <Loading type='app' />
+            : <div className={`box-border h-full w-full overflow-y-scroll ${embedding ? 'py-12 px-16' : 'pb-[30px] pt-3 px-6'}`}>
               {embedding ? <Embedding detail={documentDetail} /> : <Completed />}
             </div>
           }

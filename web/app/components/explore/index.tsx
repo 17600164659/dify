@@ -1,18 +1,19 @@
 'use client'
-import React, { FC, useEffect, useState } from 'react'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import ExploreContext from '@/context/explore-context'
 import Sidebar from '@/app/components/explore/sidebar'
 import { useAppContext } from '@/context/app-context'
 import { fetchMembers } from '@/service/common'
-import { InstalledApp } from '@/models/explore'
-import { useTranslation } from 'react-i18next'
+import type { InstalledApp } from '@/models/explore'
 
-export interface IExploreProps {
+export type IExploreProps = {
   children: React.ReactNode
 }
 
 const Explore: FC<IExploreProps> = ({
-  children
+  children,
 }) => {
   const { t } = useTranslation()
   const [controlUpdateInstalledApps, setControlUpdateInstalledApps] = useState(0)
@@ -39,7 +40,7 @@ const Explore: FC<IExploreProps> = ({
             setControlUpdateInstalledApps,
             hasEditPermission,
             installedApps,
-            setInstalledApps
+            setInstalledApps,
           }
         }
       >

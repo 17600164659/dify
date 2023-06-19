@@ -54,7 +54,7 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
       setIsWithTemplate(false)
       setNewAppMode('chat');
     }
-  }, [show])
+  }, [mutateTemplates, show])
 
   const isCreatingRef = useRef(false)
   const onCreate: MouseEventHandler = useCallback(async () => {
@@ -105,7 +105,6 @@ const NewAppDialog = ({ show, onSuccess, onClose }: NewAppDialogProps) => {
   return <>
     {showEmojiPicker && <EmojiPicker
       onSelect={(icon, icon_background) => {
-        console.log(icon, icon_background)
         setEmoji({ icon, icon_background })
         setShowEmojiPicker(false)
       }}

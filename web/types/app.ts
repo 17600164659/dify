@@ -38,16 +38,16 @@ export type PromptVariable = {
 }
 
 export type TextTypeFormItem = {
-  label: string,
-  variable: string,
+  label: string
+  variable: string
   required: boolean
   max_length: number
 }
 
 export type SelectTypeFormItem = {
-  label: string,
-  variable: string,
-  required: boolean,
+  label: string
+  variable: string
+  required: boolean
   options: string[]
 }
 /**
@@ -58,7 +58,6 @@ export type UserInputFormItem = {
 } | {
   'select': SelectTypeFormItem
 }
-
 
 export type ToolItem = {
   dataset: {
@@ -180,6 +179,9 @@ export type SiteConfig = {
   copyright: string
   /** Privacy Policy */
   privacy_policy: string
+
+  icon: string
+  icon_background: string
 }
 
 /**
@@ -195,7 +197,7 @@ export type App = {
   icon: string
   /** Icon Background */
   icon_background: string
-  
+
   /** Mode */
   mode: AppMode
   /** Enable web app */

@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from 'react'
 import useSWRInfinite from 'swr/infinite'
 import { debounce } from 'lodash-es'
+import { useTranslation } from 'react-i18next'
 import AppCard from './AppCard'
 import NewAppCard from './NewAppCard'
-import { AppListResponse } from '@/models/app'
+import type { AppListResponse } from '@/models/app'
 import { fetchAppList } from '@/service/apps'
 import { useSelector } from '@/context/app-context'
 import { NEED_REFRESH_APP_LIST_KEY } from '@/config'
@@ -64,9 +65,8 @@ const Apps = () => {
       if (!loadingStateRef.current) {
         const { scrollTop, clientHeight } = pageContainerRef?.current!
         const anchorOffset = anchorRef.current!.offsetTop
-        if (anchorOffset - scrollTop - clientHeight < 100) {
+        if (anchorOffset - scrollTop - clientHeight < 100)
           setSize(size => size + 1)
-        }
       }
     }, 50)
 

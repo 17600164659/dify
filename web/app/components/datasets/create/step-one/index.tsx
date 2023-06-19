@@ -1,21 +1,52 @@
 'use client'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { File } from '@/models/datasets'
+import cn from 'classnames'
 import FilePreview from '../file-preview'
 import FileUploader from '../file-uploader'
+import NotionPagePreview from '../notion-page-preview'
 import EmptyDatasetCreationModal from '../empty-dataset-creation-modal'
 import Button from '@/app/components/base/button'
 
 import './customStyle.css';
 import cn from 'classnames'
 import s from './index.module.css'
+import type { File } from '@/models/datasets'
+import type { DataSourceNotionPage } from '@/models/common'
+import { DataSourceType } from '@/models/datasets'
+import Button from '@/app/components/base/button'
+import { NotionPageSelector } from '@/app/components/base/notion-page-selector'
 
 type IStepOneProps = {
-  datasetId?: string,
-  file?: File,
-  updateFile: (file?: File) => void,
-  onStepChange: () => void,
+  datasetId?: string
+  dataSourceType: DataSourceType
+  dataSourceTypeDisable: Boolean
+  hasConnection: boolean
+  onSetting: () => void
+  file?: File
+  updateFile: (file?: File) => void
+  notionPages?: any[]
+  updateNotionPages: (value: any[]) => void
+  onStepChange: () => void
+  changeType: (type: DataSourceType) => void
+}
+
+type Page = DataSourceNotionPage & { workspace_id: string }
+
+type NotionConnectorProps = {
+  onSetting: () => void
+}
+export const NotionConnector = ({ onSetting }: NotionConnectorProps) => {
+  const { t } = useTranslation()
+
+  return (
+    <div className={s.notionConnectionTip}>
+      <span className={s.notionIcon} />
+      <div className={s.title}>{t('datasetCreation.stepOne.notionSyncTitle')}</div>
+      <div className={s.tip}>{t('datasetCreation.stepOne.notionSyncTip')}</div>
+      <Button className='h-8' type='primary' onClick={onSetting}>{t('datasetCreation.stepOne.connect')}</Button>
+    </div>
+  )
 }
 
 const dataSourceConfig = [
@@ -32,17 +63,35 @@ const dataSourceConfig = [
 
 const StepOne = ({
   datasetId,
+  dataSourceType,
+  dataSourceTypeDisable,
+  changeType,
+  hasConnection,
+  onSetting,
   onStepChange,
   file,
   updateFile,
+  notionPages = [],
+  updateNotionPages,
 }: IStepOneProps) => {
-  const [dataSourceType, setDataSourceType] = useState('FILE')
   const [showModal, setShowModal] = useState(false)
+  const [showFilePreview, setShowFilePreview] = useState(true)
+  const [currentNotionPage, setCurrentNotionPage] = useState<Page | undefined>()
   const { t } = useTranslation()
+
+  const hidePreview = () => setShowFilePreview(false)
 
   const modalShowHandle = () => setShowModal(true)
 
   const modalCloseHandle = () => setShowModal(false)
+
+  const updateCurrentPage = (page: Page) => {
+    setCurrentNotionPage(page)
+  }
+
+  const hideNotionPagePreview = () => {
+    setCurrentNotionPage(undefined)
+  }
 
   return (
     <div className='flex w-full h-full'>
@@ -98,10 +147,11 @@ const StepOne = ({
               <div onClick={modalShowHandle} className={s.OtherCreationOption}>{t('datasetCreation.stepOne.emptyDatasetCreation')}</div>
             </>
           )} */}
-        </div>
+        </div >
         <EmptyDatasetCreationModal show={showModal} onHide={modalCloseHandle} />
-      </div>
+      </div >
       {file && <FilePreview file={file} />}
+      {currentNotionPage && <NotionPagePreview currentPage={currentNotionPage} hidePreview={hideNotionPagePreview} />}
     </div >
   )
 }

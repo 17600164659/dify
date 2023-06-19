@@ -1,13 +1,14 @@
 import type { Fetcher } from 'swr'
-import { get, post, del, put } from './base'
+import { del, get, patch, post, put } from './base'
 import type {
-  CommonResponse, LangGeniusVersionResponse, OauthResponse,
-  TenantInfoResponse, UserProfileOriginResponse, Member,
-  AccountIntegrate, Provider, ProviderAzureToken, IWorkspace
+  AccountIntegrate, CommonResponse, DataSourceNotion,
+  IWorkspace, LangGeniusVersionResponse, Member,
+  OauthResponse, Provider, ProviderAzureToken, TenantInfoResponse,
+  UserProfileOriginResponse,
 } from '@/models/common'
 import type {
+  UpdateOpenAIKeyResponse,
   ValidateOpenAIKeyResponse,
-  UpdateOpenAIKeyResponse
 } from '@/models/app'
 
 export const login: Fetcher<CommonResponse, { url: string; body: Record<string, any> }> = ({ url, body }) => {
@@ -73,7 +74,7 @@ export const updateMemberRole: Fetcher<CommonResponse, { url: string; body: Reco
   return put(url, { body }) as Promise<CommonResponse>
 }
 
-export const deleteMemberOrCancelInvitation: Fetcher<CommonResponse, { url: string; }> = ({ url }) => {
+export const deleteMemberOrCancelInvitation: Fetcher<CommonResponse, { url: string }> = ({ url }) => {
   return del(url) as Promise<CommonResponse>
 }
 
@@ -89,3 +90,14 @@ export const switchWorkspace: Fetcher<CommonResponse & { new_tenant: IWorkspace 
   return post(url, { body }) as Promise<CommonResponse & { new_tenant: IWorkspace }>
 }
 
+export const fetchDataSource: Fetcher<{ data: DataSourceNotion[] }, { url: string }> = ({ url }) => {
+  return get(url) as Promise<{ data: DataSourceNotion[] }>
+}
+
+export const syncDataSourceNotion: Fetcher<CommonResponse, { url: string }> = ({ url }) => {
+  return get(url) as Promise<CommonResponse>
+}
+
+export const updateDataSourceNotionAction: Fetcher<CommonResponse, { url: string }> = ({ url }) => {
+  return patch(url) as Promise<CommonResponse>
+}

@@ -73,6 +73,7 @@ const CardView: FC<ICardViewProps> = ({ appId }) => {
         styles={{ flex: 0.5 }}
         className='mr-3 flex-1'
         appInfo={response}
+        cardType='webapp'
         onChangeStatus={onChangeSiteStatus}
         onGenerateCode={onGenerateCode}
         onSaveSiteConfig={onSaveSiteConfig} />

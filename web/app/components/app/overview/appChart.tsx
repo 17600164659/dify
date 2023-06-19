@@ -60,9 +60,14 @@ const sum = (arr: number[]): number => {
   })
 }
 
+const defaultPeriod = {
+  start: dayjs().subtract(7, 'day').format(commonDateFormat),
+  end: dayjs().format(commonDateFormat),
+}
+
 export type PeriodParams = {
   name: string
-  query: {
+  query?: {
     start: string
     end: string
   }
@@ -264,7 +269,7 @@ export const ConversationsChart: FC<IBizChartProps> = ({ id, period }) => {
   return <Chart
     noHeader={true}
     basicInfo={{ title: t('appOverview.analysis.totalMessages.title'), explanation: t('appOverview.analysis.totalMessages.explanation'), timePeriod: period.name }}
-    chartData={!noDataFlag ? response : { data: getDefaultChartData(period.query) }}
+    chartData={!noDataFlag ? response : { data: getDefaultChartData(period.query ?? defaultPeriod) }}
     chartType='conversations'
     {...(noDataFlag && { yMax: 500 })}
   />
@@ -280,7 +285,7 @@ export const EndUsersChart: FC<IBizChartProps> = ({ id, period }) => {
   return <Chart
     noHeader={true}
     basicInfo={{ title: t('appOverview.analysis.activeUsers.title'), explanation: t('appOverview.analysis.activeUsers.explanation'), timePeriod: period.name }}
-    chartData={!noDataFlag ? response : { data: getDefaultChartData(period.query) }}
+    chartData={!noDataFlag ? response : { data: getDefaultChartData(period.query ?? defaultPeriod) }}
     chartType='endUsers'
     {...(noDataFlag && { yMax: 500 })}
   />
@@ -295,7 +300,7 @@ export const AvgSessionInteractions: FC<IBizChartProps> = ({ id, period }) => {
   return <Chart
     noHeader={true}
     basicInfo={{ title: t('appOverview.analysis.avgSessionInteractions.title'), explanation: t('appOverview.analysis.avgSessionInteractions.explanation'), timePeriod: period.name }}
-    chartData={!noDataFlag ? response : { data: getDefaultChartData({ ...period.query, key: 'interactions' }) } as any}
+    chartData={!noDataFlag ? response : { data: getDefaultChartData({ ...(period.query ?? defaultPeriod), key: 'interactions' }) } as any}
     chartType='conversations'
     valueKey='interactions'
     isAvg
@@ -312,7 +317,7 @@ export const AvgResponseTime: FC<IBizChartProps> = ({ id, period }) => {
   return <Chart
     noHeader={true}
     basicInfo={{ title: t('appOverview.analysis.avgResponseTime.title'), explanation: t('appOverview.analysis.avgResponseTime.explanation'), timePeriod: period.name }}
-    chartData={!noDataFlag ? response : { data: getDefaultChartData({ ...period.query, key: 'latency' }) } as any}
+    chartData={!noDataFlag ? response : { data: getDefaultChartData({ ...(period.query ?? defaultPeriod), key: 'latency' }) } as any}
     valueKey='latency'
     chartType='conversations'
     isAvg
@@ -330,7 +335,7 @@ export const UserSatisfactionRate: FC<IBizChartProps> = ({ id, period }) => {
   return <Chart
     noHeader={true}
     basicInfo={{ title: t('appOverview.analysis.userSatisfactionRate.title'), explanation: t('appOverview.analysis.userSatisfactionRate.explanation'), timePeriod: period.name }}
-    chartData={!noDataFlag ? response : { data: getDefaultChartData({ ...period.query, key: 'rate' }) } as any}
+    chartData={!noDataFlag ? response : { data: getDefaultChartData({ ...(period.query ?? defaultPeriod), key: 'rate' }) } as any}
     valueKey='rate'
     chartType='endUsers'
     isAvg
@@ -348,7 +353,7 @@ export const CostChart: FC<IBizChartProps> = ({ id, period }) => {
   return <Chart
     noHeader={true}
     basicInfo={{ title: t('appOverview.analysis.tokenUsage.title'), explanation: t('appOverview.analysis.tokenUsage.explanation'), timePeriod: period.name }}
-    chartData={!noDataFlag ? response : { data: getDefaultChartData(period.query) }}
+    chartData={!noDataFlag ? response : { data: getDefaultChartData(period.query ?? defaultPeriod) }}
     chartType='costs'
     {...(noDataFlag && { yMax: 100 })}
   />

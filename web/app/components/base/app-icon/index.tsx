@@ -1,10 +1,10 @@
 import type { FC } from 'react'
 import classNames from 'classnames'
-import style from './style.module.css'
 
 import data from '@emoji-mart/data'
 import { init } from 'emoji-mart'
 import { roles } from '@/app/components/share/chat/constants';
+import style from './style.module.css'
 
 init({ data })
 
@@ -60,7 +60,7 @@ const AppIcon: FC<AppIconProps> = ({
           height: height || 88,
           maxWidth: width || 88,
         }} />
-    </span>
+    </span >
   )
 }
 

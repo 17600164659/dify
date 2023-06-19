@@ -1,15 +1,15 @@
 'use client'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { useContext } from 'use-context-selector'
 import { BookOpenIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'react-i18next'
-import { ToastContext } from '@/app/components/base/toast'
 import PermissionsRadio from '../permissions-radio'
 import IndexMethodRadio from '../index-method-radio'
+import { ToastContext } from '@/app/components/base/toast'
 import Button from '@/app/components/base/button'
-import { updateDatasetSetting, fetchDataDetail } from '@/service/datasets'
-import { DataSet } from '@/models/datasets'
+import { fetchDataDetail, updateDatasetSetting } from '@/service/datasets'
+import type { DataSet } from '@/models/datasets'
 
 const rowClass = `
   justify-between py-4
@@ -28,7 +28,8 @@ const inputStyle = {
   padding: '12px 15px',
 }
 
-const useInitialValue = <T,>(depend: T, dispatch: Dispatch<SetStateAction<T>>) => {
+// const useInitialValue = <T,>(depend: T, dispatch: Dispatch<SetStateAction<T>>) => {
+const useInitialValue = (depend: any, dispatch: any) => {
   useEffect(() => {
     dispatch(depend)
   }, [depend])
@@ -39,7 +40,7 @@ type Props = {
 }
 
 const Form = ({
-  datasetId
+  datasetId,
 }: Props) => {
   const { t } = useTranslation()
   const { notify } = useContext(ToastContext)
@@ -51,7 +52,8 @@ const Form = ({
   const [indexMethod, setIndexMethod] = useState(currentDataset?.indexing_technique)
 
   const handleSave = async () => {
-    if (loading) return
+    if (loading)
+      return
     if (!name?.trim()) {
       notify({ type: 'error', message: t('datasetSettings.form.nameError') })
       return
@@ -64,14 +66,16 @@ const Form = ({
           name,
           description,
           permission,
-          indexing_technique: indexMethod
-        }
+          indexing_technique: indexMethod,
+        },
       })
       notify({ type: 'success', message: t('common.actionMsg.modifiedSuccessfully') })
       await mutateDatasets()
-    } catch (e) {
+    }
+    catch (e) {
       notify({ type: 'error', message: t('common.actionMsg.modificationFailed') })
-    } finally {
+    }
+    finally {
       setLoading(false)
     }
   }

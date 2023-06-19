@@ -2,19 +2,18 @@
 import React, { useState } from 'react'
 import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
+import s from './style.module.css'
 import Modal from '@/app/components/base/modal'
 import Button from '@/app/components/base/button'
 import Toast from '@/app/components/base/toast'
 import AppIcon from '@/app/components/base/app-icon'
 import EmojiPicker from '@/app/components/base/emoji-picker'
 
-import s from './style.module.css'
-
 type IProps = {
-  appName: string,
-  show: boolean,
-  onConfirm: (info: any) => void,
-  onHide: () => void,
+  appName: string
+  show: boolean
+  onConfirm: (info: any) => void
+  onHide: () => void
 }
 
 const CreateAppModal = ({
@@ -65,8 +64,8 @@ const CreateAppModal = ({
         <div className='flex flex-row-reverse'>
           <Button className='w-24 ml-2' type='primary' background="#181A24" onClick={submit}>{t('common.operation.create')}</Button>
           <Button className='w-24' onClick={onHide}>{t('common.operation.cancel')}</Button>
-        </div>
-      </Modal>
+        </div >
+      </Modal >
       {showEmojiPicker && <EmojiPicker
         onSelect={(icon, icon_background) => {
           console.log(icon, icon_background)
