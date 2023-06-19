@@ -49,7 +49,7 @@ export const NotionConnector = ({ onSetting }: NotionConnectorProps) => {
 
 const dataSourceConfig = [
   { icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-file.png', name: '本地文件', deascription: '已经整理好的文件', dataType: 'FILE' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  { icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '导入Notion文档', dataType: 'NOTION' },
   { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-web.png', name: 'Web单页', deascription: '即将上线', dataType: 'COMMINGSOON' },
   { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-site.png', name: '网站', deascription: '即将上线', dataType: 'COMMINGSOON' },
   { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-git.png', name: 'GitHub', deascription: '即将上线', dataType: 'COMMINGSOON' },
@@ -142,8 +142,29 @@ const StepOne = ({
               </div>
             </div>
           </div>
-          <FileUploader onFileUpdate={updateFile} file={file} />
-          <Button background="#181A24" disabled={!file} borderRadius={1000} className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
+          {
+            _dataSourceType === 'NOTION' && (
+              <>
+                {!hasConnection && <NotionConnector onSetting={onSetting} />}
+                {hasConnection && (
+                  <>
+                    <div className='mb-8 w-[640px]'>
+                      <NotionPageSelector value={notionPages.map(page => page.page_id)} onSelect={updateNotionPages} onPreview={updateCurrentPage} />
+                    </div>
+                    <Button disabled={!notionPages.length} className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
+                  </>
+                )}
+              </>
+            )
+          }
+          {
+            _dataSourceType === "FILE" && (
+              <>
+                <FileUploader onFileUpdate={updateFile} file={file} />
+                <Button background="#181A24" disabled={!file} borderRadius={1000} className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
+              </>
+            )
+          }
           {/* {!datasetId && (
             <>
               <div className={s.dividerLine} />
