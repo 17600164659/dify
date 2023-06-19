@@ -181,10 +181,17 @@
     margin-bottom: 14px;
     background: #F5F6F7;
     border-radius: 8px;
-    height: 52px;
+    /* overflow: hidden; */
+    /* height: 52px; */
     position: relative;
-    padding-top: 19px;
-    padding-left: 18px;
+    padding: 18px;
+    padding-bottom: 7px;
+    /* padding-top: 19px;
+    padding-left: 18px; */
+}
+
+.main-app-news-item-links-contents {
+    overflow: hidden;
 }
 
 .main-app-news-item-links-title {
@@ -219,11 +226,20 @@
     text-decoration-line: underline;
     color: #555F70;
     margin-right: 22px;
-    display: inline-block;
-    width: 44px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    margin-bottom: 12px;
+    /* width: 44px;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
+}
+
+.main-app-news-item-links-item img {
+    width: 18px;
+    height: 18px;
 }
 
 .main-app-news-item-time {

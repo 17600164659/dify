@@ -102,19 +102,21 @@ export default () => {
                                     <div className='main-app-news-item'>
                                         <div className='main-app-news-item-head'>
                                             <img src="https://assets.metaio.cc/assets/difyassets/logo.png" width={34} height={34} />
-                                            小耳朵
+                                            Web3助手
                                         </div>
                                         <div className='main-app-news-item-content'>{item.answer}</div>
                                         <div className='main-app-news-item-links'>
                                             <div className='main-app-news-item-links-title'><img src="https://assets.metaio.cc/assets/difyassets/main-xwly.png" />新闻来源</div>
                                             {/* <div className='main-app-news-item-links-content'> */}
-                                            {
-                                                JSON.parse(item.source).map(info => (
-                                                    <a href={info.href} className='main-app-news-item-links-item'>
-                                                        ·{info.source}
-                                                    </a>
-                                                ))
-                                            }
+                                            <div className='main-app-news-item-links-contents'>
+                                                {
+                                                    JSON.parse(item.source).map(info => (
+                                                        <a href={info.href} className='main-app-news-item-links-item'>
+                                                            <img src={info.img} />{info.source}
+                                                        </a>
+                                                    ))
+                                                }
+                                            </div>
                                             {/* </div> */}
                                         </div>
                                         <div className='main-app-news-item-time'>
