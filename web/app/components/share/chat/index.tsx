@@ -120,7 +120,6 @@ const Main: FC<IMainProps> = ({
   const conversationIntroduction = currConversationInfo?.introduction || ''
 
   const handleConversationSwitch = () => {
-    console.log(inited, appId, 23232323);
     if (!inited)
       return
     if (!appId) {
