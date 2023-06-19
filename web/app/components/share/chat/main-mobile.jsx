@@ -97,7 +97,10 @@ export default () => {
                                 const year = `${date.getFullYear()}`;
                                 const month = `${date.getMonth() + 1}`;
                                 const day = `${date.getDate()}`;
-                                const timer = `${year}.${month.length === 1 ? '0' + month : month}.${day.length === 1 ? '0' + day : day}`
+
+                                const hour = `${date.getHours()}`;
+                                const minutes = `${date.getMinutes()}`;
+                                const timer = `${year}.${month.length === 1 ? '0' + month : month}.${day.length === 1 ? '0' + day : day} ${hour.length === 1 ? '0' + hour : hour}:${minutes.length === 1 ? '0' + minutes : minutes}`;
                                 return (
                                     <div className='main-app-news-item'>
                                         <div className='main-app-news-item-head'>
@@ -120,7 +123,7 @@ export default () => {
                                             {/* </div> */}
                                         </div>
                                         <div className='main-app-news-item-time'>
-                                            <img width={12} height={12} src="https://assets.metaio.cc/assets/difyassets/main-sj.png" />2023.06.06
+                                            <img width={12} height={12} src="https://assets.metaio.cc/assets/difyassets/main-sj.png" />{timer}
                                         </div>
                                     </div>
                                 )
