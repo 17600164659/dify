@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import FilePreview from '../file-preview'
 import FileUploader from '../file-uploader'
@@ -72,6 +72,7 @@ const StepOne = ({
   notionPages = [],
   updateNotionPages,
 }: IStepOneProps) => {
+  const [dataSourceType, setDataSourceType] = useState('FILE')
   const [showModal, setShowModal] = useState(false)
   const [showFilePreview, setShowFilePreview] = useState(true)
   const [currentNotionPage, setCurrentNotionPage] = useState<Page | undefined>()
@@ -90,6 +91,10 @@ const StepOne = ({
   const hideNotionPagePreview = () => {
     setCurrentNotionPage(undefined)
   }
+
+  useEffect(() => {
+    console.log(dataSourceType, 23232323);
+  }, [dataSourceType])
 
   return (
     <div className='flex w-full h-full'>
