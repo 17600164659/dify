@@ -147,6 +147,7 @@ const Main: FC<IMainProps> = ({
     }
 
     // update chat list of current conversation
+    console.log(isNewConversation, conversationIdChangeBecauseOfNew, isResponsing);
     if (!isNewConversation && !conversationIdChangeBecauseOfNew && !isResponsing) {
       fetchChatList(currConversationId, isInstalledApp, installedAppInfo?.id).then((res: any) => {
         const { data } = res
