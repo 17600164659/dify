@@ -57,9 +57,9 @@ export default () => {
                 <img className='main-logo' src='https://assets.metaio.cc/assets/difyassets/main-logo.png' />
                 {/* <img className='main-share' src='https://assets.metaio.cc/assets/difyassets/share.png' /> */}
                 <div className='main-menu'>
-                    <div className='main-menu-item' onClick={() => setContentType('chat')}><img src="https://assets.metaio.cc/assets/difyassets/main-dh.png" />对话</div>
+                    <div className={'main-menu-item' + contentType === 'chat' ? ' active' : ''} onClick={() => setContentType('chat')}><img src="https://assets.metaio.cc/assets/difyassets/main-dh.png" />对话</div>
                     <div className='main-menu-line'></div>
-                    <div className='main-menu-item' onClick={() => setContentType('news')}><img src="https://assets.metaio.cc/assets/difyassets/main-yw.png" />要闻</div>
+                    <div className={'main-menu-item' + contentType === 'news' ? ' active' : ''} onClick={() => setContentType('news')}><img src="https://assets.metaio.cc/assets/difyassets/main-yw.png" />要闻</div>
                 </div>
             </div>
             {
@@ -132,7 +132,7 @@ export default () => {
                     </div>
                 )
             }
-            <div className='main-footer'>
+            {contentType === 'chat' && <div className='main-footer'>
                 <div style={{ width: (98 * roles.length) + (8 * (roles.length - 1)) + 40 }}>
                     {
                         roles.map((item, index) => (
@@ -143,7 +143,7 @@ export default () => {
                         ))
                     }
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }

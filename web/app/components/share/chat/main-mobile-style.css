@@ -111,7 +111,7 @@
 }
 
 .main-app-news {
-    height: calc(100vh - 194px);
+    height: 100vh;
     position: absolute;
     top: 106px;
     left: 0;
@@ -225,7 +225,7 @@
     font-size: 12px;
     text-decoration-line: underline;
     color: #555F70;
-    margin-right: 22px;
+    margin-right: 12px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
