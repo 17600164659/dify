@@ -34,7 +34,8 @@ const DataSourceNotion = ({
             )
           }
         </div>
-        {
+        {/* LOG: Notion绑定 */}
+        {/* {
           !connected
             ? (
               <Link
@@ -51,7 +52,7 @@ const DataSourceNotion = ({
                 {t('common.dataSource.notion.addWorkspace')}
               </Link>
             )
-        }
+        } */}
       </div>
       {
         connected && (
