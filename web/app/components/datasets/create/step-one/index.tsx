@@ -72,7 +72,7 @@ const StepOne = ({
   notionPages = [],
   updateNotionPages,
 }: IStepOneProps) => {
-  const [dataSourceType, setDataSourceType] = useState('FILE')
+  const [_dataSourceType, setDataSourceType] = useState('FILE')
   const [showModal, setShowModal] = useState(false)
   const [showFilePreview, setShowFilePreview] = useState(true)
   const [currentNotionPage, setCurrentNotionPage] = useState<Page | undefined>()
@@ -93,8 +93,8 @@ const StepOne = ({
   }
 
   useEffect(() => {
-    console.log(dataSourceType, 23232323);
-  }, [dataSourceType])
+    console.log(_dataSourceType, 23232323);
+  }, [_dataSourceType])
 
   return (
     <div className='flex w-full h-full'>
