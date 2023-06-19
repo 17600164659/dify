@@ -203,10 +203,12 @@ class Config:
         # set default LLM provider, default is 'openai', support `azure_openai`
         self.DEFAULT_LLM_PROVIDER = get_env("DEFAULT_LLM_PROVIDER")
         # notion import setting
-        self.NOTION_CLIENT_ID = get_env("NOTION_CLIENT_ID")
-        self.NOTION_CLIENT_SECRET = get_env("NOTION_CLIENT_SECRET")
-        self.NOTION_INTEGRATION_TYPE = "Internal"  # get_env("NOTION_INTEGRATION_TYPE")
-        self.NOTION_INTERNAL_SECRET = "secret_5X8TF9RRVktjM8FF0LEWqGfQRivp5PGgh6d40zZvHLm"  # get_env("NOTION_INTERNAL_SECRET")
+        self.NOTION_CLIENT_ID = (
+            "5f84e60b-ff87-407c-aa87-5629b0e68484"  # get_env("NOTION_CLIENT_ID")
+        )
+        self.NOTION_CLIENT_SECRET = "secret_71GQyPqIZCio56NLISEukcPY9AO6ptELpPxcqMQTjk1"  # get_env("NOTION_CLIENT_SECRET")
+        self.NOTION_INTEGRATION_TYPE = "Public"  # get_env("NOTION_INTEGRATION_TYPE")
+        self.NOTION_INTERNAL_SECRET = get_env("NOTION_INTERNAL_SECRET")
 
 
 class CloudEditionConfig(Config):
