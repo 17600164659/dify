@@ -23,6 +23,7 @@ const Button: FC<IButtonProps> = ({
   border,
   borderRadius,
   width,
+  styles,
 }) => {
   let style = 'cursor-pointer'
   switch (type) {
@@ -40,16 +41,16 @@ const Button: FC<IButtonProps> = ({
       break
   }
 
-  const styles = {};
-  if (color) styles.color = color;
-  if (background) styles.background = disabled ? background + '81' : background;
-  if (border) styles.border = border;
-  if (borderRadius) styles.borderRadius = borderRadius;
-  if (width) styles.width = width;
+  const custom_styles = { ...styles };
+  if (color) custom_styles.color = color;
+  if (background) custom_styles.background = disabled ? background + '81' : background;
+  if (border) custom_styles.border = border;
+  if (borderRadius) custom_styles.borderRadius = borderRadius;
+  if (width) custom_styles.width = width;
 
   return (
     <div
-      style={styles}
+      style={custom_styles}
       className={`inline-flex justify-center items-center content-center h-9 leading-5 rounded-lg px-4 py-2 text-base ${style} ${className && className}`}
       onClick={disabled ? undefined : onClick}
     >

@@ -31,8 +31,10 @@ export default function AppSelector({ userProfile, onLogout, langeniusVersionInf
   const { locale } = useContext(I18n)
   const { t } = useTranslation()
 
-  return (
-    <div className="" style={{ margin: "0 auto", position: "absolute", bottom: 37, marginLeft: 12, marginRigh: 16 }}>
+  const is_owner = window.localStorage.getItem('is_owner')
+
+  return !is_owner ? null : (
+    <div style={{ margin: "0 auto", position: "absolute", bottom: 37, marginLeft: 12, marginRigh: 16 }}>
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button
