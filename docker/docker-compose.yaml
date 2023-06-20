@@ -229,4 +229,4 @@ services:
       - api
       - web
     ports:
-      - "80:443"
+      - "80:80"
