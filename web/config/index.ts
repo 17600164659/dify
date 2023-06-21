@@ -21,8 +21,8 @@ else {
   if (isDevelopment) {
     // apiPrefix = 'https://cloud.dify.dev/console/api'
     // publicApiPrefix = 'https://dev.udify.app/api'
-    apiPrefix = 'https://gpt.metaio.cc/console/api';
-    publicApiPrefix = 'https://gpt.metaio.cc/api';
+    apiPrefix = 'https://ipollo.ai/console/api';
+    publicApiPrefix = 'https://ipollo.ai/api';
     // apiPrefix = 'http://localhost/console/api';
     // publicApiPrefix = `http://localhost/api`; // avoid browser private mode api cross origin
   } else {
@@ -38,7 +38,7 @@ export const API_PREFIX: string = apiPrefix
 export const PUBLIC_API_PREFIX: string = publicApiPrefix
 
 const EDITION = process.env.NEXT_PUBLIC_EDITION || globalThis.document?.body?.getAttribute('data-public-edition')
-export const IS_CE_EDITION = EDITION === 'SELF_HOSTED'
+export const IS_CE_EDITION = true;// EDITION === 'SELF_HOSTED'
 
 export const TONE_LIST = [
   {

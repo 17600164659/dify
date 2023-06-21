@@ -179,7 +179,7 @@ const NormalForm = () => {
     <>
       <div className="w-full mx-auto">
         <h2 className="text-3xl font-normal text-gray-900">欢迎来到 iPollo.ai</h2>
-        <p className='mt-2 text-sm text-gray-600 '>登录以继续</p>
+        <div className='mt-2 text-sm text-gray-600 '>登录以继续</div>
       </div>
 
       <div className="w-full mx-auto mt-8">
