@@ -140,7 +140,18 @@ const NormalForm = () => {
   }
 
   const changePasswordHandle = async () => {
-    setShowPassword(false);
+    const data = await request.post('/gpt', {
+      type: 'changeDifyUserPassword',
+      email,
+      oldPassword,
+      newPassword,
+    });
+    if (data.data.code === 200 && data.data.msg === "success") {
+      Toast.notify({ type: 'success', message: "密码修改成功!" })
+      setChangePassword(false);
+    } else {
+      Toast.notify({ type: 'error', message: data.data.msg })
+    }
   }
 
   const { data: github, error: github_error } = useSWR(state.github
@@ -368,7 +379,7 @@ const NormalForm = () => {
                         <input
                           style={{ height: 50, borderRadius: 2000 }}
                           id="password"
-                          value={password}
+                          value={newPassword}
                           onChange={e => setNewPassword(e.target.value)}
                           type={showNewPassword ? 'text' : 'password'}
                           autoComplete="current-password"
