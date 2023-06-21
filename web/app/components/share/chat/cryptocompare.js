@@ -9,7 +9,7 @@ const cryptocompare = {
 export const getData = (data, headers) => {
     const params = {
         method: 'get',
-        url: `http://chain.metaio.cc/decision`,
+        url: `https://chain.metaio.cc/decision`,
     }
     if (data) {
         params.params = data;
@@ -38,7 +38,7 @@ const getDataForCustomHost = (url, data, headers) => {
 const postData = (path, data, headers) => {
     const params = {
         method: 'post',
-        url: `http://${cryptocompare.host}${path}`,
+        url: `https://${cryptocompare.host}${path}`,
     }
     if (data) {
         params.data = data;
