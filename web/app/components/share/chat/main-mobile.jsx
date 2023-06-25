@@ -67,7 +67,7 @@ export default () => {
                     <div className='main-app-list'>
                         {
                             // sessionList.sort((a, b) => a.created_at - b.created_at).map(item => (
-                            allConversations.sort((a, b) => b.created_at - a.created_at).map(item => {
+                            allConversations.sort((a, b) => a.created_at - b.created_at).map(item => {
                                 const timer = new Date(parseInt(`${item.created_at}000`));
                                 return (
                                     <div className='main-chat' key={item.id} onClick={() => onSelect(item.appId, item.id)}>
