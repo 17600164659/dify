@@ -91,7 +91,7 @@ export default () => {
                             </div>
                         </div> */}
                         <div className='main-app-news-list'>
-                            {allNews.map(item => {
+                            {allNews.sort((a, b) => a.createAt - b.createAt).map(item => {
                                 const { createAt } = item;
                                 const date = new Date(createAt);
                                 const year = `${date.getFullYear()}`;
