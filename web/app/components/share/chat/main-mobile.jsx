@@ -67,7 +67,7 @@ export default () => {
                     <div className='main-app-list'>
                         {
                             // sessionList.sort((a, b) => a.created_at - b.created_at).map(item => (
-                            allConversations.sort((a, b) => a.created_at - b.created_at).map(item => {
+                            allConversations.sort((a, b) => b.created_at - a.created_at).map(item => {
                                 const timer = new Date(parseInt(`${item.created_at}000`));
                                 return (
                                     <div className='main-chat' key={item.id} onClick={() => onSelect(item.appId, item.id)}>
@@ -91,7 +91,7 @@ export default () => {
                             </div>
                         </div> */}
                         <div className='main-app-news-list'>
-                            {allNews.sort((a, b) => a.createAt - b.createAt).map(item => {
+                            {allNews.sort((a, b) => b.createAt - a.createAt).map(item => {
                                 const { createAt } = item;
                                 const date = new Date(createAt);
                                 const year = `${date.getFullYear()}`;
