@@ -39,16 +39,20 @@ const Datasets = () => {
   }, [isLoading])
 
   useEffect(() => {
+    const container = document.querySelector('#dataset-container');
+    const parentContainer = document.querySelector('#dataset-parent-container');
     const onScroll = debounce(() => {
+      // console.log(loadingStateRef, anchorRef, 23232323)
       if (!loadingStateRef.current) {
-        const { scrollTop, clientHeight } = pageContainerRef?.current!
-        const anchorOffset = anchorRef.current!.offsetTop
+        const { scrollTop, clientHeight } = container;// pageContainerRef?.current!
+        const anchorOffset = parentContainer.offsetTop// anchorRef.current!.offsetTop
         if (anchorOffset - scrollTop - clientHeight < 100)
           setSize(size => size + 1)
       }
     }, 50)
 
-    pageContainerRef?.current?.addEventListener('scroll', onScroll)
+    // pageContainerRef?.current?.addEventListener('scroll', onScroll)
+    container.addEventListener('scroll', onScroll)
     getDatasets();
     return () => pageContainerRef?.current?.removeEventListener('scroll', onScroll)
   }, [])

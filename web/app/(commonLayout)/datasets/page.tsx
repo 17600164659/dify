@@ -5,6 +5,7 @@ import Datasets from './Datasets'
 import DatasetFooter from './DatasetFooter'
 import BasicSidebar from "@/app/components/basic-sidebar";
 import { fetchDatasets } from '@/service/datasets'
+import { useState } from 'react'
 // import { useEffect, useState } from 'react'
 
 const customStyle = {
@@ -27,9 +28,9 @@ const AppList = async (props) => {
   const { t } = await useTranslation(locale, 'dataset')
 
   return (
-    <div style={customStyle}>
+    <div style={customStyle} id="dataset-parent-container">
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="datasets" />
-      <div style={{ width: "81vh" }} className='flex flex-col overflow-auto bg-gray-100 shrink-0 grow'>
+      <div id="dataset-container" style={{ width: "81vh" }} className='flex flex-col overflow-auto bg-gray-100 shrink-0 grow'>
         <Datasets />
         {/* <DatasetFooter /> */}
       </div >
