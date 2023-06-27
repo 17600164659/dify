@@ -66,7 +66,7 @@ const Main: FC<IMainProps> = ({
       if (plan !== 'basic')
         document.title = `${siteInfo.title}`
       else
-        document.title = `${siteInfo.title} - iPollo.AI`
+        document.title = `${siteInfo.title} - AI金亮医生`
     }
   }, [siteInfo?.title, plan])
 
