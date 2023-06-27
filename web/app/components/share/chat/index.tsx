@@ -417,14 +417,14 @@ const Main: FC<IMainProps> = ({
     setHasStopResponded(false)
     setResponsingTrue()
     setIsShowSuggestion(false)
-    try {
-      const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
-      const decisionJson = JSON.parse(decisionValue);
-      const executedPrompt = await execute(decisionJson);
-      data.query = data.query + executedPrompt;
-    } catch (e) {
-      console.error(e);
-    }
+    // try {
+    //   const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
+    //   const decisionJson = JSON.parse(decisionValue);
+    //   const executedPrompt = await execute(decisionJson);
+    //   data.query = data.query + executedPrompt;
+    // } catch (e) {
+    //   console.error(e);
+    // }
     sendChatMessage(data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)
