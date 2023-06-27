@@ -76,7 +76,7 @@ export default function AppBasic({ icon, icon_background, name, type, hoverTip, 
         </div>
 
       }
-      {!noHeader && <img className='overview-header' src="https://assets.metaio.cc/assets/difyassets/logo.png" />}
+      {!noHeader && <img className='overview-header' src="https://assets.metaio.cc/assets/difyassets/bisailogo.png" />}
       <div className="group">
         <div style={styleTop ? styleTop : {}} className={`flex flex-row items-center text-sm font-semibold text-gray-700 group-hover:text-gray-900 ${textStyle?.main}`}>
           {name}

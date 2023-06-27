@@ -54,7 +54,7 @@ export default () => {
         <div className='main-container'>
             <img className='main-bg' src="https://assets.metaio.cc/assets/difyassets/main-bg.png" />
             <div className='main-header'>
-                <img className='main-logo' src='https://assets.metaio.cc/assets/difyassets/main-logo.png' />
+                <img className='main-logo' src='https://assets.metaio.cc/assets/difyassets/bisailogo.png' />
                 {/* <img className='main-share' src='https://assets.metaio.cc/assets/difyassets/share.png' /> */}
                 <div className='main-menu'>
                     <div className={'main-menu-item' + (contentType === 'chat' ? ' active' : '')} onClick={() => setContentType('chat')}><img src="https://assets.metaio.cc/assets/difyassets/main-dh.png" />聊聊</div>
@@ -104,7 +104,7 @@ export default () => {
                                 return (
                                     <div className='main-app-news-item'>
                                         <div className='main-app-news-item-head'>
-                                            <img src="https://assets.metaio.cc/assets/difyassets/logo.png" width={34} height={34} />
+                                            <img src="https://assets.metaio.cc/assets/difyassets/bisailogo.png" width={34} height={34} />
                                             Web3助手
                                         </div>
                                         <div className='main-app-news-item-content'>{item.answer}</div>

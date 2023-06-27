@@ -9,7 +9,7 @@ export const roles = [
     {
         id: '4BFHbBYoeX7hfNGv',
         name: '通用AI助手',
-        icon: 'https://assets.metaio.cc/assets/difyassets/logo.png'
+        icon: 'https://assets.metaio.cc/assets/difyassets/bisailogo.png'
     },
     // {
     //     id: 'XswcKkbtD6VaAoVK',
@@ -19,6 +19,6 @@ export const roles = [
     // {
     //     id: 'XswcKkbtD6VaAoVK',
     //     name: '通用AI助手',
-    //     icon: 'https://assets.metaio.cc/assets/difyassets/logo.png'
+    //     icon: 'https://assets.metaio.cc/assets/difyassets/bisailogo.png'
     // },
 ];
