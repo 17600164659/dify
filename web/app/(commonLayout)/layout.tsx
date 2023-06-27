@@ -13,7 +13,7 @@ const Layout: FC<ICommonLayoutProps> = ({ children }) => {
 }
 
 export const metadata = {
-  title: 'iPollo.AI',
+  title: 'AI金亮医生',
 }
 
 export default Layout

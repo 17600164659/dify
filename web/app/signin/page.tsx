@@ -32,7 +32,7 @@ const SignIn = () => {
           {/* <Header /> */}
           <Forms />
           <div style={{ textAlign: 'right' }} className='px-8 py-6 text-sm font-normal text-gray-500'>
-            © {new Date().getFullYear()} iPollo.AI, Inc. All rights reserved.
+            © {new Date().getFullYear()} AI金亮医生, Inc. All rights reserved.
           </div>
         </div>
 

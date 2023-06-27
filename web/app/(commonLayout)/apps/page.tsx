@@ -30,7 +30,7 @@ const AppList = async () => {
 }
 
 export const metadata = {
-  title: 'Apps - iPollo.AI',
+  title: 'Apps - AI金亮医生',
 }
 
 export default AppList
