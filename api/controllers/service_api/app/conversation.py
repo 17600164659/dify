@@ -82,11 +82,11 @@ api.add_resource(
     endpoint="conversation_name",
 )  # TODO
 
-api.add_resource(
-    ConversationRenameApi,
-    "/sessions/<uuid:c_id>/name",
-    endpoint="conversation_name",
-)  # TODO DOWN
+# api.add_resource(
+#     ConversationRenameApi,
+#     "/sessions/<uuid:c_id>/name",
+#     endpoint="conversation_name",
+# )  # TODO DOWN
 
 api.add_resource(ConversationApi, "/conversations")  # TODO
-api.add_resource(ConversationApi, "/sessions")  # TODO DOWN
+# api.add_resource(ConversationApi, "/sessions")  # TODO DOWN

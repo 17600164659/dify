@@ -41,4 +41,4 @@ class AppParameterApi(AppApiResource):
 
 
 api.add_resource(AppParameterApi, "/parameters")
-api.add_resource(AppParameterApi, "/config")  # TODO DOWN
+# api.add_resource(AppParameterApi, "/config")  # TODO DOWN

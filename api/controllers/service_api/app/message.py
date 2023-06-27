@@ -94,5 +94,5 @@ api.add_resource(MessageListApi, "/messages")  # TODO
 api.add_resource(MessageFeedbackApi, "/messages/<uuid:message_id>/feedbacks")  # TODO
 
 
-api.add_resource(MessageListApi, "/chat")  # TODO DOWN
-api.add_resource(MessageFeedbackApi, "/chat/<uuid:message_id>/feedbacks")  # TODO DOWN
+# api.add_resource(MessageListApi, "/chat")  # TODO DOWN
+# api.add_resource(MessageFeedbackApi, "/chat/<uuid:message_id>/feedbacks")  # TODO DOWN
