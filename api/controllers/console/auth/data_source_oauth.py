@@ -19,10 +19,11 @@ def get_oauth_providers():
         notion_oauth = NotionOAuth(
             client_id=current_app.config.get("NOTION_CLIENT_ID"),
             client_secret=current_app.config.get("NOTION_CLIENT_SECRET"),
-            redirect_uri="https://ipollo.ai/console/api/oauth/data-source/callback/notion",
+            # redirect_uri="https://ipollo.ai/console/api/oauth/data-source/callback/notion",
+            # )
+            redirect_uri=current_app.config.get("CONSOLE_URL")
+            + "/console/api/oauth/data-source/callback/notion",
         )
-        #    redirect_uri=current_app.config.get(
-        #        'CONSOLE_URL') + '/console/api/oauth/data-source/callback/notion')
 
         OAUTH_PROVIDERS = {"notion": notion_oauth}
         return OAUTH_PROVIDERS
