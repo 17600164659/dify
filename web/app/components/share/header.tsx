@@ -49,7 +49,8 @@ const Header: FC<IHeaderProps> = ({
             <img src="https://assets.metaio.cc/assets/difyassets/newchat.png" style={{ width: 20, height: 20 }} />
           </div>) : <div></div>}
       </div>
-      )
+    </div>
+  )
 }
 
-      export default React.memo(Header)
+export default React.memo(Header)
