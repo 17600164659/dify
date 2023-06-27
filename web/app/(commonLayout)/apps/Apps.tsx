@@ -47,7 +47,7 @@ const Apps = () => {
   const [showNewAppDialog, setShowNewAppDialog] = useState(false)
 
   useEffect(() => {
-    document.title = `${t('app.title')} -  AI金亮医生
+    document.title = `${t('app.title')} -  AI金亮医生`
     if (localStorage.getItem(NEED_REFRESH_APP_LIST_KEY) === '1') {
       localStorage.removeItem(NEED_REFRESH_APP_LIST_KEY)
       mutate()

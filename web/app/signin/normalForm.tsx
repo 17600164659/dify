@@ -190,7 +190,7 @@ const NormalForm = () => {
       // },
     })
     : null, oauth)
-  AI金亮医生
+
   useEffect(() => {
     if (github_error !== undefined)
       dispatch({ type: 'github_login_failed', payload: null })
