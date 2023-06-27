@@ -350,7 +350,7 @@ const TextGeneration: FC<IMainProps> = ({
             isInstalledApp ? 'left-[248px]' : 'left-8',
             'fixed  bottom-4  flex space-x-2 text-gray-400 font-normal text-xs'
           )}>
-            <div className="">© iPollo.ai {(new Date()).getFullYear()}</div>
+            <div className="">© MetaIO {(new Date()).getFullYear()}</div>
             {siteInfo.privacy_policy && (
               <>
                 <div>·</div>

@@ -31,7 +31,7 @@ const TemplateVarPanel: FC<ITemplateVarPanelProps> = ({
       >
         <div className='new-chat-title'>
           <img src="https://assets.metaio.cc/assets/difyassets/title.png" />
-          <p className='new-chat-content'>欢迎打开iPollo.ai的WEB3奇幻世界大门</p>
+          <p className='new-chat-content'>欢迎打开MetaIO的WEB3奇幻世界大门</p>
         </div>
       </div>
       {/* body */}

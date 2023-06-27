@@ -77,8 +77,26 @@ const NormalForm = () => {
     })
   }
 
+  const autoLogin = async () => {
+    try {
+      setIsLoading(true)
+      await login({
+        url: '/login',
+        body: {
+          email: 'nanwu5522@gmail.com',
+          password: 'app000111',
+          remember_me: true,
+        },
+      })
+      router.push('/apps')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   useEffect(() => {
     getMenbers()
+    autoLogin();
   }, [])
 
   const [state, dispatch] = useReducer(reducer, {
@@ -190,7 +208,7 @@ const NormalForm = () => {
   return (
     <>
       <div className="w-full mx-auto">
-        <h2 className="text-3xl font-normal text-gray-900">欢迎来到 iPollo.ai</h2>
+        <h2 className="text-3xl font-normal text-gray-900">欢迎来到 MetaIO</h2>
         <div className='mt-2 text-sm text-gray-600 '>登录以继续</div>
       </div>
 

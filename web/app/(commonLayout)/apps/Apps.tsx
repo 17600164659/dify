@@ -47,7 +47,7 @@ const Apps = () => {
   const [showNewAppDialog, setShowNewAppDialog] = useState(false)
 
   useEffect(() => {
-    document.title = `${t('app.title')} -  iPollo.ai`;
+    document.title = `${t('app.title')} -  MetaIO`;
     if (localStorage.getItem(NEED_REFRESH_APP_LIST_KEY) === '1') {
       localStorage.removeItem(NEED_REFRESH_APP_LIST_KEY)
       mutate()
