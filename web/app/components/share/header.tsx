@@ -39,17 +39,17 @@ const Header: FC<IHeaderProps> = ({
       ) : <div></div>}
       <div className='flex items-center space-x-2'>
         <AppIcon size="small" icon={icon} background={icon_background} width={30} height={30} />
-        <div className=" text-sm text-gray-800 font-bold">MetaIO</div>
+        <div className=" text-sm text-gray-800 font-bold">AI金亮医生iv>
+        </div>
+        {isMobile ? (
+          <div className='flex items-center justify-center h-8 w-8 cursor-pointer'
+            onClick={() => onCreateNewChat?.()}
+          >
+            {/* <PencilSquareIcon className="h-4 w-4 text-gray-500" /> */}
+            <img src="https://assets.metaio.cc/assets/difyassets/newchat.png" style={{ width: 20, height: 20 }} />
+          </div>) : <div></div>}
       </div>
-      {isMobile ? (
-        <div className='flex items-center justify-center h-8 w-8 cursor-pointer'
-          onClick={() => onCreateNewChat?.()}
-        >
-          {/* <PencilSquareIcon className="h-4 w-4 text-gray-500" /> */}
-          <img src="https://assets.metaio.cc/assets/difyassets/newchat.png" style={{ width: 20, height: 20 }} />
-        </div>) : <div></div>}
-    </div>
-  )
+      )
 }
 
-export default React.memo(Header)
+      export default React.memo(Header)

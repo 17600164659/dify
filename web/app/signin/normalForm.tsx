@@ -190,7 +190,7 @@ const NormalForm = () => {
       // },
     })
     : null, oauth)
-
+  AI金亮医生
   useEffect(() => {
     if (github_error !== undefined)
       dispatch({ type: 'github_login_failed', payload: null })
@@ -208,7 +208,7 @@ const NormalForm = () => {
   return (
     <>
       <div className="w-full mx-auto">
-        <h2 className="text-3xl font-normal text-gray-900">欢迎来到 MetaIO</h2>
+        <h2 className="text-3xl font-normal text-gray-900">欢迎来到 AI金亮医生</h2>
         <div className='mt-2 text-sm text-gray-600 '>登录以继续</div>
       </div>
 

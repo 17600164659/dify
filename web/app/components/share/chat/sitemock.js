@@ -3,7 +3,7 @@ export default {
     "end_user_id": "5a36e501-94ba-4fdc-bbbf-5f7821125751",
     "enable_site": true,
     "site": {
-        "title": "MetaIO",
+        "title": "AI金亮医生
         "icon": null,
         "icon_background": null,
         "description": null,
