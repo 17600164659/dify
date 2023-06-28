@@ -252,7 +252,7 @@ api.add_resource(
     CompletionMessageStopApi,
     "/apps/<uuid:app_id>/completion-messages/<string:task_id>/stop",
 )
-api.add_resource(ChatMessageApi, "/apps/<uuid:app_id>/send-messages")
+api.add_resource(ChatMessageApi, "/apps/<uuid:app_id>/chat-messages")
 api.add_resource(
-    ChatMessageStopApi, "/apps/<uuid:app_id>/send-messages/<string:task_id>/stop"
+    ChatMessageStopApi, "/apps/<uuid:app_id>/chat-messages/<string:task_id>/stop"
 )
