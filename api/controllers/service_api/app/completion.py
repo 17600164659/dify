@@ -236,6 +236,6 @@ def compact_response(response: Union[dict | Generator]) -> Response:
 
 api.add_resource(CompletionApi, "/completion-messages")
 api.add_resource(CompletionStopApi, "/completion-messages/<string:task_id>/stop")
-api.add_resource(ChatApi, "/chat-messages")
+api.add_resource(ChatApi, "/send-messages")
 # api.add_resource(ChatApi, "/send-messages")  # TODO DOWN
-api.add_resource(ChatStopApi, "/chat-messages/<string:task_id>/stop")
+api.add_resource(ChatStopApi, "/send-messages/<string:task_id>/stop")
