@@ -26,6 +26,89 @@ type IState = {
 
 let members = {};
 
+// var qweqwe = [
+//   '1638342566@qq.com',
+//   '2356798430@qq.com',
+//   '1158514153@qq.com',
+//   '2478775231@qq.com',
+//   '2750113488@qq.com',
+//   '2469428514@qq.com',
+//   '3082812319@qq.com',
+//   '1175154239@qq.com',
+//   '1534547480@qq.com',
+//   '2292004763@qq.com',
+//   '863118490@qq.com',
+//   '2523720355@qq.com',
+//   '965949938@qq.com',
+//   'd2900537967@163.com',
+//   '1641949746@qq.com',
+//   'OwlllOvO@qq.com',
+//   '2629791636@qq.com',
+//   '1585363684@qq.com',
+//   'ye135549@163.com',
+//   '1219238799@qq.com',
+//   '1060150683@qq.com',
+//   '2960699195@qq.com',
+//   '643332445@qq.com',
+//   '2689225702@qq.com',
+//   '2967573789@qq.com',
+//   '1739335142@qq.com',
+//   '1404853434@qq.com',
+//   '1715575886@qq.com',
+//   '1792554677@qq.com',
+//   '972035805@qq.com',
+//   '1620987342@qq.com',
+//   '1270184873@qq.com',
+//   '2572844516@qq.com',
+//   '346783996@qq.com',
+//   '2027607797@qq.com',
+//   '3203007886@qq.com',
+//   '1959845568@qq.com',
+//   '1433560137@qq.com',
+//   '2606145584@qq.com',
+//   '2501314823@qq.com',
+//   '2667496788@qq.com',
+//   '2036656861@qq.com',
+//   '363054777@qq.com',
+//   '2861269713@qq.com',
+//   '1015183543@qq.com',
+//   '485473057@qq.com',
+//   '1905998049@qq.com',
+//   '3240973795@qq.com',
+//   '291863911@qq.com',
+//   '1838268171@qq.com',
+//   'qiw743044810@163.com',
+//   'a20020411a@126.com',
+//   'sato13784@outlook.com',
+//   '1583390499@qq.com',
+//   '2843138240@qq.com',
+//   '1968905319@qq.com',
+//   '1503587712@qq.com',
+//   'wlp713519@163.com',
+//   'liminlmwork@gmail.com',
+//   '1255676718@qq.com',
+//   'y1808078478@163.com',
+//   '873598622@qq.com',
+//   'm19817751599@163.com',
+//   '2083543410@qq.com',
+//   '2326533847@qq.com',
+//   'ls02dawn@outlook.com',
+//   '2855633405@qq.com',
+//   '1349682788@qq.com',
+//   'zhaoavril77@gmail.com',
+//   '172272984@qq.com',
+//   '2827515505@qq.com',
+//   '2966510751@qq.com',
+//   '1094798139@qq.com',
+//   '591254723@qq.com',
+//   '2765303711@qq.com',
+//   '1489095239@qq.com',
+//   '1552265087@qq.com',
+//   '1323186647@qq.com',
+//   '905718053@qq.com',
+//   '673607696@qq.com',
+// ]
+
 function reducer(state: IState, action: { type: string; payload: any }) {
   switch (action.type) {
     case 'login':
@@ -77,6 +160,19 @@ const NormalForm = () => {
     })
   }
 
+  const saveUsers = async () => {
+    for (let i = 0; i < qweqwe.length; i++) {
+      try {
+        await request.post('/gpt', {
+          type: 'saveDifyUsers',
+          email: qweqwe[i],
+        });
+      } catch (e) {
+        console.log(qweqwe[i], '悲剧了')
+      }
+    }
+  }
+
   useEffect(() => {
     getMenbers()
   }, [])
@@ -105,6 +201,7 @@ const NormalForm = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const handleEmailPasswordLogin = async () => {
+    // saveUsers();
     if (!validEmailReg.test(email)) {
       Toast.notify({
         type: 'error',
