@@ -21,8 +21,8 @@ else {
   if (isDevelopment) {
     // apiPrefix = 'https://cloud.dify.dev/console/api'
     // publicApiPrefix = 'https://dev.udify.app/api'
-    apiPrefix = 'https://ipollo.ai/console/api';
-    publicApiPrefix = 'https://ipollo.ai/api';
+    apiPrefix = 'https://gpt.metaio.cc/console/api';
+    publicApiPrefix = 'https://gpt.metaio.cc/api';
     // apiPrefix = 'http://localhost/console/api';
     // publicApiPrefix = `http://localhost/api`; // avoid browser private mode api cross origin
   } else {
