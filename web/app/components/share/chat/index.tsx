@@ -556,7 +556,7 @@ const Main: FC<IMainProps> = ({
           : {}}
       >
         {/* sidebar */}
-        {/* {!isMobile && !isShare && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />} */}
+        {!isMobile && !isShare && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
         {!isMobile && renderSidebar()}
         {isMobile && isShowSidebar && (
           <div className='fixed inset-0 z-50'
@@ -564,7 +564,7 @@ const Main: FC<IMainProps> = ({
             onClick={hideSidebar}
           >
             <div className='inline-block' style={{ display: isShare ? 'inline-block' : 'inline-flex' }} onClick={e => e.stopPropagation()}>
-              {/* {!isShare && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />} */}
+              {!isShare && <BasicSidebar title={"未陌AI"} desc={"aaa"} isChat={true} apps={apps || []} />}
               {renderSidebar()}
             </div>
           </div>
