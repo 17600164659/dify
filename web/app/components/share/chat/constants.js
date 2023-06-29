@@ -1,5 +1,6 @@
 const pathnames = window.location.pathname.split('/')
 const id = pathnames[pathnames.length - 1];
+console.log(id, 23232323)
 export const decisionAppId = id === 'vEJdIfCYoHvn9peR' ? 'r3svUVKo2HJy6ncr' : 'HsvT57j5bktvP4sw';
 
 export const roles = [
