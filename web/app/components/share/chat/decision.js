@@ -4,6 +4,7 @@ import { decisionAppId, appId } from './constants';
 
 export function decision(data, isInstalledApp, installedAppInfo) {
     if (appId === '39ks4DBEUoLibDUd' || appId === 'mv1Wjowbvz51kLWH') return Promise.resolve(JSON.stringify({ type: 'Unanswerable' }));
+    if (!decisionAppId) return Promise.resolve(JSON.stringify({ type: 'Null' }))
     return new Promise((resolve, reject) => {
         let content = '';
         sendChatMessage({
