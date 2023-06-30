@@ -28,11 +28,11 @@ if (window.location.hostname === 'localhost') {
         name: 'GPT3.5',
         icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
     });
-    roles.push({
-        id: 'mv1Wjowbvz51kLWH',
-        name: '联网AI助手',
-        icon: 'https://assets.metaio.cc/assets/difyassets/lwaizs.png'
-    })
+    // roles.push({
+    //     id: 'mv1Wjowbvz51kLWH',
+    //     name: '联网AI助手',
+    //     icon: 'https://assets.metaio.cc/assets/difyassets/lwaizs.png'
+    // })
     if (appId !== 'vEJdIfCYoHvn9peR' || appId !== '4BFHbBYoeX7hfNGv' || appId != 'mv1Wjowbvz51kLWH') {
         roles.push({
             id: appId,
