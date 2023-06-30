@@ -3,7 +3,7 @@ import { getData } from './cryptocompare';
 import { decisionAppId, appId } from './constants';
 
 export function decision(data, isInstalledApp, installedAppInfo) {
-    if (appId === '39ks4DBEUoLibDUd' || 'mv1Wjowbvz51kLWH') return Promise.resolve(JSON.stringify({ type: 'Unanswerable' }));
+    if (appId === '39ks4DBEUoLibDUd' || appId === 'mv1Wjowbvz51kLWH') return Promise.resolve(JSON.stringify({ type: 'Unanswerable' }));
     return new Promise((resolve, reject) => {
         let content = '';
         sendChatMessage({
