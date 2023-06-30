@@ -1,18 +1,18 @@
 const pathnames = window.location.pathname.split('/')
-const id = pathnames[pathnames.length - 1];
-export const decisionAppId = id !== 'vEJdIfCYoHvn9peR' ? 'r3svUVKo2HJy6ncr' : 'HsvT57j5bktvP4sw';
+export const appId = pathnames[pathnames.length - 1];
+export const decisionAppId = appId !== 'vEJdIfCYoHvn9peR' ? 'r3svUVKo2HJy6ncr' : 'HsvT57j5bktvP4sw';
 
 export const roles = [];
 
 if (window.location.hostname === 'localhost') {
     roles.push({
-        id,
+        id: appId,
         name: '测试AI',
         icon: 'https://assets.metaio.cc/assets/difyassets/web3zs.png'
     });
 } else if (window.location.hostname === 'gpt.metaio.cc') {
     roles.push({
-        id,
+        id: appId,
         name: '测试AI',
         icon: 'https://assets.metaio.cc/assets/difyassets/web3zs.png'
     });
@@ -24,12 +24,17 @@ if (window.location.hostname === 'localhost') {
     });
     roles.push({
         id: '4BFHbBYoeX7hfNGv',
-        name: '通用AI助手',
-        icon: 'https://assets.metaio.cc/assets/difyassets/logo.png'
+        name: 'GPT3.5',
+        icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
     });
-    if (id !== 'vEJdIfCYoHvn9peR') {
+    roles.push({
+        id: 'mv1Wjowbvz51kLWH',
+        name: '联网AI助手',
+        icon: 'https://assets.metaio.cc/assets/difyassets/lwaizs.png'
+    })
+    if (appId !== 'vEJdIfCYoHvn9peR' || appId !== '4BFHbBYoeX7hfNGv' || appId != 'mv1Wjowbvz51kLWH') {
         roles.push({
-            id,
+            id: appId,
             name: '测试AI',
             icon: 'https://assets.metaio.cc/assets/difyassets/web3zs.png'
         });

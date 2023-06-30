@@ -420,7 +420,7 @@ const Main: FC<IMainProps> = ({
     try {
       const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
       const decisionJson = JSON.parse(decisionValue);
-      const executedPrompt = await execute(decisionJson);
+      const executedPrompt = await execute(decisionJson, data);
       data.query = data.query + executedPrompt;
     } catch (e) {
       console.error(e);
