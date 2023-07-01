@@ -156,7 +156,7 @@ const ConfigVar: FC<IConfigVarProps> = ({ promptVariables, readonly, onPromptVar
             <thead className="border-b  border-gray-200 text-gray-500 text-xs font-medium">
               <tr className='uppercase'>
                 <td>{t('appDebug.variableTable.key')}</td>
-                <td>{t('appDebug.variableTable.name')}</td>
+                <td style={{ width: 100 }}>{t('appDebug.variableTable.name')}</td>
                 {!readonly && (
                   <>
                     <td>{t('appDebug.variableTable.optional')}</td>
