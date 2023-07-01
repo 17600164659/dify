@@ -11,6 +11,11 @@ if (window.location.hostname === 'localhost') {
         name: '测试AI',
         icon: 'https://assets.metaio.cc/assets/difyassets/web3zs.png'
     });
+    roles.push({
+        id: "EltAnP38Jx3RnzQG",
+        name: '金亮',
+        icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
+    });
 } else if (window.location.hostname === 'gpt.metaio.cc') {
     roles.push({
         id: appId,
