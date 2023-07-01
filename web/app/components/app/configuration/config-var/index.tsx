@@ -197,7 +197,7 @@ const ConfigVar: FC<IConfigVarProps> = ({ promptVariables, readonly, onPromptVar
                       className="h-6 leading-6 block w-full rounded-md border-0 py-1.5 text-gray-900  placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-gray-200"
                     />
                   </td>
-                  <td className='w-[84px] border-b border-gray-100'>
+                  {/* <td className='w-[84px] border-b border-gray-100'>
                     <div className='flex items-center h-full'>
                       <Switch defaultValue={!required} size='md' onChange={(value) => updatePromptVariable(key, 'required', !value)} />
                     </div>
@@ -211,7 +211,7 @@ const ConfigVar: FC<IConfigVarProps> = ({ promptVariables, readonly, onPromptVar
                         <TrashIcon width={16} height={16} />
                       </div>
                     </div>
-                  </td>
+                  </td> */}
                   {!readonly && (
                     <>
                       <td className='w-[84px] border-b border-gray-100'>
