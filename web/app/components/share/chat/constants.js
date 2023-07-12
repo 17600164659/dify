@@ -1,6 +1,6 @@
 const pathnames = window.location.pathname.split('/')
 export const appId = pathnames[pathnames.length - 1];
-const isDev = window.location.hostname === 'localhost' || window.location.hostname === 'gpt.metaio.cc';
+const isDev = window.location.hostname === 'localhost' || window.location.hostname === 'gpt.metaio.cc' || appId !== 'X7WjOV07v3WdJVTH';
 export const decisionAppId = appId === 'vEJdIfCYoHvn9peR' ? 'HsvT57j5bktvP4sw' : isDev ? 'r3svUVKo2HJy6ncr' : '';
 
 export const roles = [];
