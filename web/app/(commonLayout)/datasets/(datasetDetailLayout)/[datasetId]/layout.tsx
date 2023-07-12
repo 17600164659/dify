@@ -118,7 +118,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
 
   useEffect(() => {
     if (datasetRes) {
-      document.title = `${datasetRes.name || 'Dataset'} - AI金亮医生`
+      document.title = `${datasetRes.name || 'Dataset'} - MetaIO`
     }
   }, [datasetRes])
 

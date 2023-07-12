@@ -32,7 +32,7 @@ const SignIn = () => {
           {/* <Header /> */}
           <Forms />
           <div style={{ textAlign: 'right' }} className='px-8 py-6 text-sm font-normal text-gray-500'>
-            © {new Date().getFullYear()} AI金亮医生, Inc. All rights reserved.
+            <span style={{ float: 'left' }}>V1 Beta</span>© {new Date().getFullYear()} MetaIO, Inc. All rights reserved.
           </div>
         </div>
 

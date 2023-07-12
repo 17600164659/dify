@@ -47,7 +47,7 @@ const Apps = () => {
   const [showNewAppDialog, setShowNewAppDialog] = useState(false)
 
   useEffect(() => {
-    document.title = `${t('app.title')} -  AI金亮医生`
+    document.title = `${t('app.title')} -  MetaIO`
     if (localStorage.getItem(NEED_REFRESH_APP_LIST_KEY) === '1') {
       localStorage.removeItem(NEED_REFRESH_APP_LIST_KEY)
       mutate()
@@ -60,17 +60,36 @@ const Apps = () => {
   }, [isLoading])
 
   useEffect(() => {
+
+    const container = document.querySelector('#apps-container');
+    const parentContainer = document.querySelector('#apps-parent-container');
     const onScroll = debounce(() => {
+      console.log(1, 23232323)
+      // console.log(loadingStateRef, anchorRef, 23232323)
       if (!loadingStateRef.current) {
-        const { scrollTop, clientHeight } = pageContainerRef?.current!
-        const anchorOffset = anchorRef.current!.offsetTop
-        if (anchorOffset - scrollTop - clientHeight < 100)
+        const { scrollTop, clientHeight } = container;// pageContainerRef?.current!
+        const anchorOffset = parentContainer.offsetTop// anchorRef.current!.offsetTop
+        if (anchorOffset - scrollTop - clientHeight < 100) {
           setSize(size => size + 1)
+        }
       }
     }, 50)
 
-    pageContainerRef?.current?.addEventListener('scroll', onScroll)
-    return () => pageContainerRef?.current?.removeEventListener('scroll', onScroll)
+    // const onScroll = debounce(() => {
+    //   if (!loadingStateRef.current) {
+    //     const { scrollTop, clientHeight } = pageContainerRef?.current!
+    //     const anchorOffset = anchorRef.current!.offsetTop
+    //     if (anchorOffset - scrollTop - clientHeight < 100)
+    //       setSize(size => size + 1)
+    //   }
+    // }, 50)
+
+    container.addEventListener('scroll', onScroll)
+    // getDatasets();
+    return () => container.removeEventListener('scroll', onScroll)
+
+    // pageContainerRef?.current?.addEventListener('scroll', onScroll)
+    // return () => pageContainerRef?.current?.removeEventListener('scroll', onScroll)
   }, [])
 
   const list = [];
@@ -89,9 +108,9 @@ const Apps = () => {
     }
   }
   return (
-    <div style={customStyle}>
+    <div style={customStyle} id="apps-parent-container">
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="apps" />
-      <nav className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-2 grow shrink-0' style={{ flex: 1, paddingRight: 0, paddingTop: 130, position: 'relative', overflowY: 'scroll', paddingBottom: 20 }}>
+      <nav id="apps-container" className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-2 lg:grid-cols-2 grow shrink-0' style={{ flex: 1, paddingRight: 0, paddingTop: 130, position: 'relative', overflowY: 'scroll', paddingBottom: 20 }}>
         <div onClick={() => setShowNewAppDialog(true)} style={{
           width: 176,
           height: 76,

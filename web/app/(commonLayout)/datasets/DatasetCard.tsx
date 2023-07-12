@@ -89,7 +89,7 @@ const DatasetCard = ({
             {dataset.app_count}{t('dataset.appCount')}
           </span>
         </div> */}
-        <div className={style.listItemDescription} style={{ padding: '0 34px', fontFamily: 'PingFang SC', fontStyle: 'normal', fontWeight: 400, fontSize: 16, color: '#19243B' }}>{dataset.description}</div>
+        <div className={style.listItemDescription} style={{ overflow: 'initial', padding: '0 34px', fontFamily: 'PingFang SC', fontStyle: 'normal', fontWeight: 400, fontSize: 16, color: '#19243B' }}>{dataset.description}</div>
         <div onClick={onDeleteClick} className={style.deleteAppIcon + ' app-card-list-item-delete'}>
           <img src="https://assets.metaio.cc/assets/difyassets/newdelete.png" className='app-card-list-item-delete-icon' />
           删除

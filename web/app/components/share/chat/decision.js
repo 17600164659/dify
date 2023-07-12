@@ -1,8 +1,10 @@
 import { sendChatMessage } from '@/service/share'
 import { getData } from './cryptocompare';
-import { decisionAppId } from './constants';
+import { decisionAppId, appId } from './constants';
 
 export function decision(data, isInstalledApp, installedAppInfo) {
+    if (appId === '39ks4DBEUoLibDUd' || appId === 'mv1Wjowbvz51kLWH') return Promise.resolve(JSON.stringify({ type: 'Unanswerable' }));
+    if (!decisionAppId) return Promise.resolve(JSON.stringify({ type: 'Null' }))
     return new Promise((resolve, reject) => {
         let content = '';
         sendChatMessage({
@@ -22,16 +24,17 @@ export function decision(data, isInstalledApp, installedAppInfo) {
     })
 }
 
-export async function execute(decisionJson) {
+export async function execute(decisionJson, data) {
     const { type } = decisionJson;
     if (type === 'Null') return '';
     try {
-        const data = await getData(decisionJson);
-        if (data.status === 200 && data.data && data.data.code === 200) {
-            return data.data.data.text;
+        const result = await getData({ ...decisionJson, ...data });
+        if (result.status === 200 && result.data && result.data.code === 200) {
+            return result.data.data.text;
         }
         return '';
     } catch (e) {
+        console.log(e, 23232323)
         return '';
     }
 }

@@ -3,10 +3,10 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
 
 # 对话型应用 API
 
-可用于大部分场景的对话型应用，采用一问一答模式与用户持续对话。要开始一个对话请调用 chat-messages 接口，通过继续传入返回的 conversation_id 可持续保持该会话。
+可用于大部分场景的对话型应用，采用一问一答模式与用户持续对话。要开始一个对话请调用 send-messages 接口，通过继续传入返回的 conversation_id 可持续保持该会话。
 
 <Heading
-  url='/chat-messages'
+  url='/send-messages'
   method='POST'
   title='发送对话消息'
   name='#Create-Chat-Message'
@@ -45,49 +45,12 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
       </Property>
     </Properties>
   </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/chat-messages" targetCode={`curl --location --request POST '${props.appDetail.api_base_url}/chat-messages' \\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    "inputs": ${JSON.stringify(props.inputs)},\n    "query": "eh",\n    "response_mode": "streaming",\n    "conversation_id": "1c7e55fb-1ba2-4e10-81b5-30addcea2276",\n    "user": "abc-123"\n}'\n`}>
-
-    ```bash {{ title: 'cURL' }}
-    curl --location --request POST 'https://cloud.langgenius.dev/api/chat-messages' \
-    --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-        "inputs": {},
-        "query": "eh",
-        "response_mode": "streaming",
-        "conversation_id": "1c7e55fb-1ba2-4e10-81b5-30addcea2276",
-        "user": "abc-123"
-    }'
-    ```
-
-    </CodeGroup>
-    ### blocking
-    <CodeGroup title="Response">
-    ```json {{ title: 'Response' }}
-    {
-      "answer": "Hi, is there anything I can help you?",
-      "conversation_id": "45701982-8118-4bc5-8e9b-64562b4555f2",
-      "created_at": 1679587005,
-      "id": "059f87d9-15c0-473a-870c-fde95cdcc1e4"
-    }
-    ```
-    </CodeGroup>
-    ### streaming
-    <CodeGroup title="Response">
-    ```streaming {{ title: 'Response' }}
-      data: {"id": "5ad4cb98-f0c7-4085-b384-88c403be6290", "answer": " I", "created_at": 1679586595}
-      data: {"id": "5ad4cb98-f0c7-4085-b384-88c403be6290", "answer": " I", "created_at": 1679586595}
-    ```
-    </CodeGroup>
-  </Col>
 </Row>
 
 ---
 
 <Heading
-  url='/messages/{message_id}/feedbacks'
+  url='/chats/{message_id}/feedbacks'
   method='POST'
   title='消息反馈（点赞）'
   name='#feedbacks'
@@ -114,52 +77,12 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
       </Property>
     </Properties>
   </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/messages/{message_id}/feedbacks" targetCode={`curl --location --request POST '${props.appDetail.api_base_url}/messages/{message_id}/feedbacks \\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    "rating": "like",\n    "user": "abc-123"\n}'`}>
-
-    ```bash {{ title: 'cURL' }}
-    curl --location --request POST 'https://cloud.langgenius.dev/api/messages/{message_id}/feedbacks' \
-    --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-        "rating": "like",
-        "user": "abc-123"
-    }'
-    ```
-
-    </CodeGroup>
-
-    <CodeGroup title="Response">
-    ```json {{ title: 'Response' }}
-    {
-      "has_more": false,
-      "data": [
-        {
-          "id": "WAz8eIbvDR60rouK",
-          "username": "FrankMcCallister",
-          "phone_number": "1-800-759-3000",
-          "avatar_url": "https://assets.protocol.chat/avatars/frank.jpg",
-          "display_name": null,
-          "conversation_id": "xgQQXg3hrtjh7AvZ",
-          "last_active_at": 705103200,
-          "created_at": 692233200
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ]
-    }
-    ```
-    </CodeGroup>
-  </Col>
 </Row>
 
 ---
 
 <Heading
-  url='/messages'
+  url='/chats'
   method='GET'
   title='获取会话历史消息'
   name='#messages'
@@ -185,50 +108,15 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
       </Property>
     </Properties>
   </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/messages" targetCode={`curl --location --request GET '${props.appDetail.api_base_url}/messages?user=abc-123&conversation_id=' \\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY'`}>
-
-    ```bash {{ title: 'cURL' }}
-    curl --location --request GET 'https://cloud.langgenius.dev/api/messages?user=abc-123&conversation_id='
-    --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY'
-    ```
-
-    </CodeGroup>
-
-    <CodeGroup title="Response">
-    ```json {{ title: 'Response' }}
-    {
-      "has_more": false,
-      "data": [
-        {
-          "id": "WAz8eIbvDR60rouK",
-          "username": "FrankMcCallister",
-          "phone_number": "1-800-759-3000",
-          "avatar_url": "https://assets.protocol.chat/avatars/frank.jpg",
-          "display_name": null,
-          "conversation_id": "xgQQXg3hrtjh7AvZ",
-          "last_active_at": 705103200,
-          "created_at": 692233200
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ]
-    }
-    ```
-    </CodeGroup>
-  </Col>
 </Row>
 
 ---
 
 <Heading
-  url='/conversations'
+  url='/sessions'
   method='GET'
   title='获取会话列表'
-  name='#conversations'
+  name='#sessions'
 />
 <Row>
   <Col>
@@ -248,48 +136,12 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
       </Property>
     </Properties>
   </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/conversations" targetCode={`curl --location --request GET '${props.appDetail.api_base_url}/conversations?user=abc-123&last_id=&limit=20'\\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY'`}>
-
-    ```bash {{ title: 'cURL' }}
-    curl --location --request GET 'https://cloud.langgenius.dev/api/conversations?user=abc-123&last_id=&limit=20' \
-    --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY'
-    ```
-
-    </CodeGroup>
-
-    <CodeGroup title="Response">
-    ```json {{ title: 'Response' }}
-    {
-      "limit": 20,
-      "has_more": false,
-      "data": [
-        {
-          "id": "10799fb8-64f7-4296-bbf7-b42bfbe0ae54",
-          "name": "New chat",
-          "inputs": {
-              "book": "book",
-              "myName": "Lucy"
-          },
-          "status": "normal",
-          "created_at": 1679667915
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ]
-    }
-    ```
-    </CodeGroup>
-  </Col>
 </Row>
 
 ---
 
 <Heading
-  url='/conversations/{converation_id}/name'
+  url='/sessions/{converation_id}/name'
   method='POST'
   title='会话重命名'
   name='#rename'
@@ -309,37 +161,13 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
       </Property>
     </Properties>
   </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/conversations/{converation_id}/name" targetCode={`curl --location --request POST '${props.appDetail.api_base_url}/conversations/name' \\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{ \n "name": "", \n "user": "abc-123"\n}'`}>
-
-    ```bash {{ title: 'cURL' }}
-    curl --location --request POST 'https://cloud.langgenius.dev/api/conversations/name' \
-    --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-        "name": "",
-        "user": "abc-123"
-    }'
-    ```
-
-    </CodeGroup>
-
-    <CodeGroup title="Response">
-    ```json {{ title: 'Response' }}
-    {
-      "result": "success"
-    }
-    ```
-    </CodeGroup>
-  </Col>
 </Row>
 
 
 ---
 
 <Heading
-  url='/parameters'
+  url='/config'
   method='GET'
   title='获取应用配置信息'
   name='#rename'
@@ -355,37 +183,5 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
         用户标识，由开发者定义规则，需保证用户标识在应用内唯一。
       </Property>
     </Properties>
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/parameters" targetCode={` curl --location --request GET '${props.appDetail.api_base_url}/parameters'\\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY'`}>
-
-    ```bash {{ title: 'cURL' }}
-    curl --location --request GET 'https://cloud.langgenius.dev/api/parameters?user=abc-123' \
-    --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY'
-    ```
-
-    </CodeGroup>
-
-    <CodeGroup title="Response">
-    ```json {{ title: 'Response' }}
-    {
-      "introduction": "nice to meet you",
-      "variables": [
-        {
-          "key": "book",
-          "name": "book",
-          "description": null,
-          "type": "string",
-          "default": null,
-          "options": null
-        },
-        {
-          // ...
-        }
-      ]
-    }
-    ```
-    </CodeGroup>
   </Col>
 </Row>

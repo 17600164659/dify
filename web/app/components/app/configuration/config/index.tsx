@@ -22,11 +22,11 @@ import { useBoolean } from 'ahooks'
 import "./style.css";
 
 const strategyConfigs = [
-  { text: '链上查询策略', color: '#E6C977' },
-  { text: '链上探询模型', color: '#D95356' },
-  { text: '趋势洞察策略', color: '#9DC174' },
-  { text: '指数聚焦统计', color: '#00A3FE' },
-  { text: '社踪探索策略', color: '#4152A4' },
+  { text: '链上查询策略', icon: 'https://assets.metaio.cc/assets/difyassets/cl/cx.png', color: '#E6C977' },
+  { text: '链上探询模型', icon: 'https://assets.metaio.cc/assets/difyassets/cl/tx.png', color: '#D95356' },
+  { text: '趋势洞察策略', icon: 'https://assets.metaio.cc/assets/difyassets/cl/dc.png', color: '#9DC174' },
+  { text: '指数聚焦统计', icon: 'https://assets.metaio.cc/assets/difyassets/cl/jj.png', color: '#00A3FE' },
+  { text: '社踪探索策略', icon: 'https://assets.metaio.cc/assets/difyassets/cl/ts.png', color: '#4152A4' },
 ];
 
 const Config: FC = () => {
@@ -146,7 +146,7 @@ const Config: FC = () => {
             {
               strategyConfigs.map((item) => (
                 <div className='app-info-strategy-list-item'>
-                  <div style={{ background: item.color }} className='app-info-strategy-list-item-icon'></div>
+                  <img className='app-info-strategy-list-item-icon' src={item.icon} />
                   <div className='app-info-strategy-list-item-text'>{item.text}</div>
                 </div>
               ))

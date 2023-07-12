@@ -38,7 +38,7 @@ const nextConfig = {
       // },
       {
         source: '/',
-        destination: '/chat/vEJdIfCYoHvn9peR?is_share=true',
+        destination: process.env.NODE_ENV === 'development' ? '/chat/39ks4DBEUoLibDUd?is_share=true' : '/chat/vEJdIfCYoHvn9peR?is_share=true',
         permanent: false,
       },
     ]

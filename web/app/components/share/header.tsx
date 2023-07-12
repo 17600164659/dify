@@ -39,7 +39,7 @@ const Header: FC<IHeaderProps> = ({
       ) : <div></div>}
       <div className='flex items-center space-x-2'>
         <AppIcon size="small" icon={icon} background={icon_background} width={30} height={30} />
-        <div className=" text-sm text-gray-800 font-bold">AI金亮医生</div>
+        <div className=" text-sm text-gray-800 font-bold">MetaIO</div>
       </div>
       {isMobile ? (
         <div className='flex items-center justify-center h-8 w-8 cursor-pointer'

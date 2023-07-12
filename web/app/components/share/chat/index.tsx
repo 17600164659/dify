@@ -37,6 +37,8 @@ import { decision, execute } from './decision';
 import { roles } from './constants';
 import MainMobile from './main-mobile';
 
+let qqq = 1;
+
 const Main: FC<IMainProps> = ({
   isInstalledApp = false,
   installedAppInfo,
@@ -66,7 +68,7 @@ const Main: FC<IMainProps> = ({
       if (plan !== 'basic')
         document.title = `${siteInfo.title}`
       else
-        document.title = `${siteInfo.title} - AI金亮医生`
+        document.title = `${siteInfo.title} - MetaIO`
     }
   }, [siteInfo?.title, plan])
 
@@ -417,14 +419,23 @@ const Main: FC<IMainProps> = ({
     setHasStopResponded(false)
     setResponsingTrue()
     setIsShowSuggestion(false)
-    // try {
-    //   const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
-    //   const decisionJson = JSON.parse(decisionValue);
-    //   const executedPrompt = await execute(decisionJson);
-    //   data.query = data.query + executedPrompt;
-    // } catch (e) {
-    //   console.error(e);
-    // }
+    try {
+      const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
+      const decisionJson = JSON.parse(decisionValue);
+      if (decisionJson.type === 'NoAnswer') {
+        let noAnswerList = getChatList();
+        noAnswerList[noAnswerList.length - 1] = {
+          content: "我不参与讨论此内容。", id: `${Date.now()}`, isAnswer: true
+        }
+        setChatList(noAnswerList)
+        setResponsingFalse()
+        return;
+      }
+      const executedPrompt = await execute(decisionJson, data);
+      data.query = data.query + executedPrompt;
+    } catch (e) {
+      console.error(e);
+    }
     sendChatMessage(data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)
@@ -445,6 +456,7 @@ const Main: FC<IMainProps> = ({
 
             draft.push({ ...responseItem })
           })
+        // console.log(newListWithAnswer, 23232323)
         setChatList(newListWithAnswer)
       },
       async onCompleted(hasError?: boolean) {

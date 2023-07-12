@@ -49,7 +49,8 @@ export const NotionConnector = ({ onSetting }: NotionConnectorProps) => {
 
 const dataSourceConfig = [
   { icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-file.png', name: '本地文件', deascription: '已经整理好的文件', dataType: 'FILE' },
-  { icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '导入Notion文档', dataType: 'NOTION' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '导入Notion文档', dataType: 'NOTION' },
+  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '升级中...', dataType: 'COMMINGSOON' },
   { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-web.png', name: 'Web单页', deascription: '即将上线', dataType: 'COMMINGSOON' },
   { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-site.png', name: '网站', deascription: '即将上线', dataType: 'COMMINGSOON' },
   { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-git.png', name: 'GitHub', deascription: '即将上线', dataType: 'COMMINGSOON' },

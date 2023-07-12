@@ -49,7 +49,7 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
   const appModeName = response?.mode?.toUpperCase() === 'COMPLETION' ? t('common.appModes.completionApp') : t('common.appModes.chatApp')
   useEffect(() => {
     if (response?.name)
-      document.title = `${(response.name || 'App')} - AI金亮医生`
+      document.title = `${(response.name || 'App')} - MetaIO`
   }, [response])
   if (!response)
     return null

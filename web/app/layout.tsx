@@ -5,7 +5,7 @@ import './styles/globals.css'
 import './styles/markdown.scss'
 
 export const metadata = {
-  title: 'AI金亮医生',
+  title: 'MetaIO',
 }
 
 const LocaleLayout = ({

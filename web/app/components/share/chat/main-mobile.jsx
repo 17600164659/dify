@@ -27,16 +27,22 @@ export default () => {
         });
 
         const conversations = await Promise.all(requests.map(item => item.promise));
-        let result = [];
+        let result = {};
         requests.map((request, index) => {
             const conver = conversations[index];
             conver.data.map(item => {
                 item.appId = request.appId;
                 item.icon = request.icon;
             })
-            result = result.concat(conver.data);
+            result[request.appId] = conver.data;
+            // result = result.concat(conver.data);
         })
-        setAllConversations(result);
+        // console.log(result, conversations, 23232323)
+        let newAllConversations = []
+        Object.keys(result).map(key => {
+            newAllConversations = [...newAllConversations, ...result[key]];
+        })
+        setAllConversations(newAllConversations);
     }
 
     const getNews = async () => {
