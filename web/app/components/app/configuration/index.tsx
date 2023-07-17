@@ -16,6 +16,7 @@ import ConfigModel from '@/app/components/app/configuration/config-model'
 import Config from '@/app/components/app/configuration/config'
 import Debug from '@/app/components/app/configuration/debug'
 import Confirm from '@/app/components/base/confirm'
+import { ProviderType } from '@/types/app'
 import type { AppDetailResponse } from '@/models/app'
 import { ToastContext } from '@/app/components/base/toast'
 import { fetchTenantInfo } from '@/service/common'
@@ -57,6 +58,9 @@ const Configuration: FC = () => {
   const [suggestedQuestionsAfterAnswerConfig, setSuggestedQuestionsAfterAnswerConfig] = useState<MoreLikeThisConfig>({
     enabled: false,
   })
+  const [speechToTextConfig, setSpeechToTextConfig] = useState<MoreLikeThisConfig>({
+    enabled: false,
+  })
   const [formattingChanged, setFormattingChanged] = useState(false)
   const [inputs, setInputs] = useState<Inputs>({})
   const [query, setQuery] = useState('')
@@ -68,7 +72,7 @@ const Configuration: FC = () => {
     frequency_penalty: 1, // -2-2
   })
   const [modelConfig, doSetModelConfig] = useState<ModelConfig>({
-    provider: 'openai',
+    provider: ProviderType.openai,
     model_id: 'gpt-3.5-turbo',
     configs: {
       prompt_template: '',
@@ -77,6 +81,7 @@ const Configuration: FC = () => {
     opening_statement: '',
     more_like_this: null,
     suggested_questions_after_answer: null,
+    speech_to_text: null,
     dataSets: [],
   })
 
@@ -84,8 +89,9 @@ const Configuration: FC = () => {
     doSetModelConfig(newModelConfig)
   }
 
-  const setModelId = (modelId: string) => {
+  const setModelId = (modelId: string, provider: ProviderType) => {
     const newModelConfig = produce(modelConfig, (draft: any) => {
+      draft.provider = provider
       draft.model_id = modelId
     })
     setModelConfig(newModelConfig)
@@ -104,6 +110,9 @@ const Configuration: FC = () => {
       enabled: false,
     })
     setSuggestedQuestionsAfterAnswerConfig(modelConfig.suggested_questions_after_answer || {
+      enabled: false,
+    })
+    setSpeechToTextConfig(modelConfig.speech_to_text || {
       enabled: false,
     })
   }
@@ -150,6 +159,9 @@ const Configuration: FC = () => {
       if (modelConfig.suggested_questions_after_answer)
         setSuggestedQuestionsAfterAnswerConfig(modelConfig.suggested_questions_after_answer)
 
+      if (modelConfig.speech_to_text)
+        setSpeechToTextConfig(modelConfig.speech_to_text)
+
       const config = {
         modelConfig: {
           provider: model.provider,
@@ -161,6 +173,7 @@ const Configuration: FC = () => {
           opening_statement: modelConfig.opening_statement,
           more_like_this: modelConfig.more_like_this,
           suggested_questions_after_answer: modelConfig.suggested_questions_after_answer,
+          speech_to_text: modelConfig.speech_to_text,
           dataSets: datasets || [],
         },
         completionParams: model.completion_params,
@@ -191,6 +204,7 @@ const Configuration: FC = () => {
       opening_statement: introduction || '',
       more_like_this: moreLikeThisConfig,
       suggested_questions_after_answer: suggestedQuestionsAfterAnswerConfig,
+      speech_to_text: speechToTextConfig,
       agent_mode: {
         enabled: true,
         tools: [...postDatasets],
@@ -207,6 +221,7 @@ const Configuration: FC = () => {
       draft.opening_statement = introduction
       draft.more_like_this = moreLikeThisConfig
       draft.suggested_questions_after_answer = suggestedQuestionsAfterAnswerConfig
+      draft.speech_to_text = speechToTextConfig
       draft.dataSets = dataSets
     })
     setPublishedConfig({
@@ -249,6 +264,8 @@ const Configuration: FC = () => {
       setMoreLikeThisConfig,
       suggestedQuestionsAfterAnswerConfig,
       setSuggestedQuestionsAfterAnswerConfig,
+      speechToTextConfig,
+      setSpeechToTextConfig,
       formattingChanged,
       setFormattingChanged,
       inputs,

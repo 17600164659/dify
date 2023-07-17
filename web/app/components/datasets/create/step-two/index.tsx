@@ -26,6 +26,7 @@ import './style.css';
 import type { DataSourceNotionPage } from '@/models/common'
 import { DataSourceType } from '@/models/datasets'
 import NotionIcon from '@/app/components/base/notion-icon'
+import { useDatasetDetailContext } from '@/context/dataset-detail'
 
 type Page = DataSourceNotionPage & { workspace_id: string }
 
@@ -37,7 +38,7 @@ type StepTwoProps = {
   datasetId?: string
   indexingType?: string
   dataSourceType: DataSourceType
-  file?: File
+  files: File[]
   notionPages?: Page[]
   onStepChange?: (delta: number) => void
   updateIndexingTypeCache?: (type: string) => void
@@ -63,7 +64,7 @@ const StepTwo = ({
   datasetId,
   indexingType,
   dataSourceType,
-  file,
+  files,
   notionPages = [],
   onStepChange,
   updateIndexingTypeCache,
@@ -72,6 +73,7 @@ const StepTwo = ({
   onCancel,
 }: StepTwoProps) => {
   const { t } = useTranslation()
+  const { mutateDatasetRes } = useDatasetDetailContext()
   const scrollRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const previewScrollRef = useRef<HTMLDivElement>(null)
@@ -212,8 +214,7 @@ const StepTwo = ({
         info_list: {
           data_source_type: dataSourceType,
           file_info_list: {
-            // TODO multi files
-            file_ids: [file?.id || ''],
+            file_ids: files.map(file => file.id),
           },
         },
         indexing_technique: getIndexing_technique(),
@@ -254,8 +255,7 @@ const StepTwo = ({
       } as CreateDocumentReq
       if (dataSourceType === DataSourceType.FILE) {
         params.data_source.info_list.file_info_list = {
-          // TODO multi files
-          file_ids: [file?.id || ''],
+          file_ids: files.map(file => file.id),
         }
       }
       if (dataSourceType === DataSourceType.NOTION)
@@ -321,6 +321,8 @@ const StepTwo = ({
         updateIndexingTypeCache && updateIndexingTypeCache(indexType)
         updateResultCache && updateResultCache(res)
       }
+      if (mutateDatasetRes)
+        mutateDatasetRes()
       onStepChange && onStepChange(+1)
       isSetting && onSave && onSave()
     }

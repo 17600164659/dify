@@ -38,7 +38,9 @@ class Account(UserMixin, db.Model):
     created_at = db.Column(db.DateTime, nullable=False, server_default=db.text('CURRENT_TIMESTAMP(0)'))
     updated_at = db.Column(db.DateTime, nullable=False, server_default=db.text('CURRENT_TIMESTAMP(0)'))
 
-    _current_tenant: db.Model = None
+    @property
+    def is_password_set(self):
+        return self.password is not None
 
     @property
     def current_tenant(self):

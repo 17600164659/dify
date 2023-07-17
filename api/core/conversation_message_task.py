@@ -10,7 +10,7 @@ from core.constant import llm_constant
 from core.llm.llm_builder import LLMBuilder
 from core.llm.provider.llm_provider_service import LLMProviderService
 from core.prompt.prompt_builder import PromptBuilder
-from core.prompt.prompt_template import OutLinePromptTemplate
+from core.prompt.prompt_template import JinjaPromptTemplate
 from events.message_event import message_was_created
 from extensions.ext_database import db
 from extensions.ext_redis import redis_client
@@ -56,7 +56,7 @@ class ConversationMessageTask:
         )
 
     def init(self):
-        provider_name = LLMBuilder.get_default_provider(self.app.tenant_id)
+        provider_name = LLMBuilder.get_default_provider(self.app.tenant_id, self.model_name)
         self.model_dict['provider'] = provider_name
 
         override_model_configs = None
@@ -78,7 +78,7 @@ class ConversationMessageTask:
         if self.mode == 'chat':
             introduction = self.app_model_config.opening_statement
             if introduction:
-                prompt_template = OutLinePromptTemplate.from_template(template=PromptBuilder.process_template(introduction))
+                prompt_template = JinjaPromptTemplate.from_template(template=introduction)
                 prompt_inputs = {k: self.inputs[k] for k in prompt_template.input_variables if k in self.inputs}
                 try:
                     introduction = prompt_template.format(**prompt_inputs)
@@ -86,11 +86,10 @@ class ConversationMessageTask:
                     pass
 
             if self.app_model_config.pre_prompt:
-                pre_prompt = PromptBuilder.process_template(self.app_model_config.pre_prompt)
-                system_message = PromptBuilder.to_system_message(pre_prompt, self.inputs)
+                system_message = PromptBuilder.to_system_message(self.app_model_config.pre_prompt, self.inputs)
                 system_instruction = system_message.content
                 llm = LLMBuilder.to_llm(self.tenant_id, self.model_name)
-                system_instruction_tokens = llm.get_messages_tokens([system_message])
+                system_instruction_tokens = llm.get_num_tokens_from_messages([system_message])
 
         if not self.conversation:
             self.is_new_conversation = True
@@ -157,7 +156,7 @@ class ConversationMessageTask:
         self.message.message = llm_message.prompt
         self.message.message_tokens = message_tokens
         self.message.message_unit_price = message_unit_price
-        self.message.answer = llm_message.completion.strip() if llm_message.completion else ''
+        self.message.answer = PromptBuilder.process_template(llm_message.completion.strip()) if llm_message.completion else ''
         self.message.answer_tokens = answer_tokens
         self.message.answer_unit_price = answer_unit_price
         self.message.provider_response_latency = llm_message.latency
@@ -186,6 +185,7 @@ class ConversationMessageTask:
         if provider and provider.provider_type == ProviderType.SYSTEM.value:
             db.session.query(Provider).filter(
                 Provider.tenant_id == self.app.tenant_id,
+                Provider.provider_name == provider.provider_name,
                 Provider.quota_limit > Provider.quota_used
             ).update({'quota_used': Provider.quota_used + 1})
 
@@ -293,12 +293,12 @@ class PubHandler:
         if not user:
             raise ValueError("user is required")
 
-        user_str = 'account-' + user.id if isinstance(user, Account) else 'end-user-' + user.id
+        user_str = 'account-' + str(user.id) if isinstance(user, Account) else 'end-user-' + str(user.id)
         return "generate_result:{}-{}".format(user_str, task_id)
 
     @classmethod
     def generate_stopped_cache_key(cls, user: Union[Account | EndUser], task_id: str):
-        user_str = 'account-' + user.id if isinstance(user, Account) else 'end-user-' + user.id
+        user_str = 'account-' + str(user.id) if isinstance(user, Account) else 'end-user-' + str(user.id)
         return "generate_result_stopped:{}-{}".format(user_str, task_id)
 
     def pub_text(self, text: str):
@@ -306,10 +306,10 @@ class PubHandler:
             'event': 'message',
             'data': {
                 'task_id': self._task_id,
-                'message_id': self._message.id,
+                'message_id': str(self._message.id),
                 'text': text,
                 'mode': self._conversation.mode,
-                'conversation_id': self._conversation.id
+                'conversation_id': str(self._conversation.id)
             }
         }
 

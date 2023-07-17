@@ -4,6 +4,7 @@ import React from 'react'
 import { useContext } from 'use-context-selector'
 import produce from 'immer'
 import { useBoolean } from 'ahooks'
+import useSWR from 'swr'
 import DatasetConfig from '../dataset-config'
 import ChatGroup from '../features/chat-group'
 import ExperienceEnchanceGroup from '../features/experience-enchance-group'
@@ -17,6 +18,7 @@ import useFeature from './feature/use-feature'
 import ConfigContext from '@/context/debug-configuration'
 import ConfigPrompt from '@/app/components/app/configuration/config-prompt'
 import ConfigVar from '@/app/components/app/configuration/config-var'
+import { fetchTenantInfo } from '@/service/common'
 import type { PromptVariable } from '@/models/debug'
 import { AppType } from '@/types/app'
 import { useBoolean } from 'ahooks'
@@ -43,8 +45,12 @@ const Config: FC = () => {
     setMoreLikeThisConfig,
     suggestedQuestionsAfterAnswerConfig,
     setSuggestedQuestionsAfterAnswerConfig,
+    speechToTextConfig,
+    setSpeechToTextConfig,
   } = useContext(ConfigContext)
   const isChatApp = mode === AppType.chat
+  const { data: userInfo } = useSWR({ url: '/info' }, fetchTenantInfo)
+  const targetProvider = userInfo?.providers?.find(({ token_is_set, is_valid }) => token_is_set && is_valid)
 
   const promptTemplate = modelConfig.configs.prompt_template
   const promptVariables = modelConfig.configs.prompt_variables
@@ -88,9 +94,15 @@ const Config: FC = () => {
         draft.enabled = value
       }))
     },
+    speechToText: speechToTextConfig.enabled,
+    setSpeechToText: (value) => {
+      setSpeechToTextConfig(produce(speechToTextConfig, (draft) => {
+        draft.enabled = value
+      }))
+    },
   })
 
-  const hasChatConfig = isChatApp && (featureConfig.openingStatement || featureConfig.suggestedQuestionsAfterAnswer)
+  const hasChatConfig = isChatApp && (featureConfig.openingStatement || featureConfig.suggestedQuestionsAfterAnswer || (featureConfig.speechToText && targetProvider?.provider_name === 'openai'))
   const hasToolbox = false
 
   const [showAutomatic, { setTrue: showAutomaticTrue, setFalse: showAutomaticFalse }] = useBoolean(false)
@@ -120,6 +132,7 @@ const Config: FC = () => {
             isChatApp={isChatApp}
             config={featureConfig}
             onChange={handleFeatureChange}
+            showSpeechToTextItem={targetProvider?.provider_name === 'openai'}
           />
         )}
         {showAutomatic && (
@@ -176,6 +189,7 @@ const Config: FC = () => {
                 }
               }
               isShowSuggestedQuestionsAfterAnswer={featureConfig.suggestedQuestionsAfterAnswer}
+              isShowSpeechText={featureConfig.speechToText}
             />
           )
         }

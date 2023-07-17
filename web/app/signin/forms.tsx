@@ -2,9 +2,9 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
 
+import cn from 'classnames'
 import NormalForm from './normalForm'
 import OneMoreStep from './oneMoreStep'
-import classNames from 'classnames'
 
 const Forms = () => {
   const searchParams = useSearchParams()

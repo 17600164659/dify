@@ -1,17 +1,13 @@
 import type { FC } from 'react'
 import React from 'react'
 import AppIcon from '@/app/components/base/app-icon'
-import {
-  Bars3Icon,
-  PencilSquareIcon,
-} from '@heroicons/react/24/solid'
 export type IHeaderProps = {
   title: string
+  customerIcon?: React.ReactNode
   icon: string
   icon_background: string
   isMobile?: boolean
-  onShowSideBar?: () => void
-  onCreateNewChat?: () => void
+  isEmbedScene?: boolean
 }
 
 const newBgStyle = {
@@ -21,10 +17,10 @@ const newBgStyle = {
 const Header: FC<IHeaderProps> = ({
   title,
   isMobile,
+  customerIcon,
   icon,
   icon_background,
-  onShowSideBar,
-  onCreateNewChat,
+  isEmbedScene = false,
 }) => {
   return (
     <div className="shrink-0 flex items-center justify-between h-12 px-3 bg-gray-100" style={newBgStyle}>
@@ -38,7 +34,8 @@ const Header: FC<IHeaderProps> = ({
         </div>
       ) : <div></div>}
       <div className='flex items-center space-x-2'>
-        <AppIcon size="small" icon={icon} background={icon_background} width={30} height={30} />
+        {customerIcon || <AppIcon size="small" icon={icon} background={icon_background} width={30} height={30} />}
+        {/* <AppIcon size="small" icon={icon} background={icon_background} width={30} height={30} /> */}
         <div className=" text-sm text-gray-800 font-bold">iPollo.ai</div>
       </div>
       {isMobile ? (
