@@ -21,7 +21,7 @@ const Forms = () => {
   return <div style={{
     position: 'relative',
   }} className={
-    classNames(
+    cn(
       'flex flex-col items-center w-full grow items-center justify-center',
       'px-6',
       'md:px-[108px]',

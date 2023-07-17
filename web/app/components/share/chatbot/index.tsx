@@ -564,7 +564,7 @@ const Main: FC<IMainProps> = ({
 
   return (
     <div>
-      <Header
+      {/* <Header
         title={siteInfo.title}
         icon=''
         customerIcon={difyIcon}
@@ -573,7 +573,7 @@ const Main: FC<IMainProps> = ({
         isMobile={isMobile}
       // onShowSideBar={showSidebar}
       // onCreateNewChat={() => handleConversationIdChange('-1')}
-      />
+      /> */}
 
       <div className={'flex bg-white overflow-hidden'}>
         {/* sidebar */}

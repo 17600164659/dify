@@ -648,14 +648,14 @@ const Chat: FC<IChatProps> = ({
                     </Tooltip>
                   )}
               </div>
-              {
+              {/* {
                 voiceInputShow && (
                   <VoiceInput
                     onCancel={() => setVoiceInputShow(false)}
                     onConverted={text => setQuery(text)}
                   />
                 )
-              }
+              } */}
             </div>
           </div>
         )

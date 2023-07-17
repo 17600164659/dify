@@ -18,7 +18,7 @@ const Result: FC<IResultProps> = ({
 }) => {
   return (
     <div className='basis-3/4 h-max'>
-      <Header result={content} showFeedback={showFeedback} feedback={feedback} onFeedback={onFeedback} />
+      {/* <Header result={content} showFeedback={showFeedback} feedback={feedback} onFeedback={onFeedback} /> */}
       <div
         className='mt-4 w-full flex text-sm leading-5 overflow-scroll font-normal text-gray-900'
         style={{

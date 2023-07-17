@@ -86,7 +86,7 @@ const Header = () => {
             }
             {t('common.menus.explore')}
           </Link>
-          <AppNav />
+          {/* <AppNav /> */}
           <Link href="/plugins-coming-soon" className={classNames(
             navClassName, 'group',
             isPluginsComingSoon && 'bg-white shadow-[0_2px_5px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)]',
@@ -99,7 +99,7 @@ const Header = () => {
             }
             {t('common.menus.plugins')}
           </Link>
-          <DatasetNav />
+          {/* <DatasetNav /> */}
         </div>
         <div className='flex items-center flex-shrink-0'>
           {

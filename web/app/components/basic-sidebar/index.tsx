@@ -45,9 +45,9 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
   let onLogout;
   let langeniusVersionInfo;
   if (!isChat && !noHeader) {
-    userProfile = window.APP.userProfile;
-    onLogout = window.APP.onLogout;
-    langeniusVersionInfo = window.APP.langeniusVersionInfo;
+    userProfile = window.APP?.userProfile;
+    onLogout = window.APP?.onLogout;
+    langeniusVersionInfo = window.APP?.langeniusVersionInfo;
   }
 
   const getAppInfoAndGo = async (appInfo) => {
@@ -113,13 +113,16 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
             ) : null
           }
 
-          {
+          <WorkspaceProvider>
+            <AccountDropdown userProfile={userProfile || {}} onLogout={onLogout} langeniusVersionInfo={langeniusVersionInfo} />
+          </WorkspaceProvider>
+          {/* {
             !isChat && !noHeader ? (
               <WorkspaceProvider>
-                <AccountDropdown userProfile={userProfile} onLogout={onLogout} langeniusVersionInfo={langeniusVersionInfo} />
+                <AccountDropdown userProfile={userProfile || {}} onLogout={onLogout} langeniusVersionInfo={langeniusVersionInfo} />
               </WorkspaceProvider>
             ) : null
-          }
+          } */}
         </div>
       </div>
     </div>

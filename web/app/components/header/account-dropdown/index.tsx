@@ -52,7 +52,7 @@ export default function AppSelector({ userProfile, langeniusVersionInfo }: IAppS
               text-gray-800
             "
           >
-            <Avatar name={userProfile.name} className='mt-4' />
+            <Avatar name={"我"} className='mt-4' />
             {/* {userProfile.name}
             <ChevronDownIcon
               className="w-3 h-3 ml-1"
@@ -79,7 +79,7 @@ export default function AppSelector({ userProfile, langeniusVersionInfo }: IAppS
           >
             <Menu.Item>
               <div className='flex flex-nowrap items-center px-4 py-[13px]'>
-                <Avatar name={userProfile.name} size={36} className='mr-3' />
+                {/* <Avatar name={userProfile.name} size={36} className='mr-3' /> */}
                 <div className='grow'>
                   <div className='leading-5 font-normal text-[14px] text-gray-800 break-all'>{userProfile.name}</div>
                   <div className='leading-[18px] text-xs font-normal text-gray-500 break-all'>{userProfile.email}</div>

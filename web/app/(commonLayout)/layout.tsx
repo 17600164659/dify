@@ -11,7 +11,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <GA gaType={GaType.admin} />
       <SwrInitor>
         <AppContextProvider>
-          <Header />
+          {/* <Header /> */}
           {children}
         </AppContextProvider>
       </SwrInitor>

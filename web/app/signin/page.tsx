@@ -8,7 +8,7 @@ const SignIn = () => {
   return (
     <>
       <div
-        className={classNames(
+        className={cn(
           style.background,
           'flex w-full min-h-screen',
           'sm:p-4 lg:p-8',
@@ -23,7 +23,7 @@ const SignIn = () => {
           boxShadow: '0px 24px 32px rgba(90, 100, 120, 0.1)',
           borderRadius: 16,
         }} className={
-          classNames(
+          cn(
             'flex w-full flex-col bg-white shadow rounded-2xl shrink-0',
             'space-between',
           )

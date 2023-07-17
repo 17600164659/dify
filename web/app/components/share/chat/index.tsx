@@ -635,7 +635,7 @@ const Main: FC<IMainProps> = ({
       {
         (isMobile && showMainMobile) ? <MainMobile onSelect={onSelectConversation} sessionList={conversationList} /> : null
       }
-      {!isInstalledApp && (
+      {/* {!isInstalledApp && (
         <Header
           title={siteInfo.title}
           icon={siteInfo.icon || ''}
@@ -645,7 +645,7 @@ const Main: FC<IMainProps> = ({
           onShowSideBar={() => window.history.go(-1)}
           onCreateNewChat={() => handleConversationIdChange('-1')}
         />
-      )}
+      )} */}
 
       <div
         className={cn(

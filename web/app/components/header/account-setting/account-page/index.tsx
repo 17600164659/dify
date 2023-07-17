@@ -123,7 +123,7 @@ export default function AccountPage() {
     <>
       <div className='mb-8'>
         <div className={titleClassName}>{t('common.account.avatar')}</div>
-        <Avatar name={userProfile.name} size={64} className='mt-2' />
+        {/* <Avatar name={userProfile.name} size={64} className='mt-2' /> */}
       </div>
       <div className='mb-8'>
         <div className={titleClassName}>{t('common.account.name')}</div>
