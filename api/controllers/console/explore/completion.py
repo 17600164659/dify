@@ -72,8 +72,8 @@ class CompletionApi(InstalledAppResource):
         except services.errors.app_model_config.AppModelConfigBrokenError:
             logging.exception("App model config broken.")
             raise AppUnavailableError()
-        except ProviderTokenNotInitError:
-            raise ProviderNotInitializeError()
+        except ProviderTokenNotInitError as ex:
+            raise ProviderNotInitializeError(ex.description)
         except QuotaExceededError:
             raise ProviderQuotaExceededError()
         except ModelCurrentlyNotSupportError:
@@ -141,8 +141,8 @@ class ChatApi(InstalledAppResource):
         except services.errors.app_model_config.AppModelConfigBrokenError:
             logging.exception("App model config broken.")
             raise AppUnavailableError()
-        except ProviderTokenNotInitError:
-            raise ProviderNotInitializeError()
+        except ProviderTokenNotInitError as ex:
+            raise ProviderNotInitializeError(ex.description)
         except QuotaExceededError:
             raise ProviderQuotaExceededError()
         except ModelCurrentlyNotSupportError:
@@ -197,9 +197,11 @@ def compact_response(response: Union[dict | Generator]) -> Response:
                 yield "data: " + json.dumps(
                     api.handle_error(AppUnavailableError()).get_json()
                 ) + "\n\n"
-            except ProviderTokenNotInitError:
+            except ProviderTokenNotInitError as ex:
                 yield "data: " + json.dumps(
-                    api.handle_error(ProviderNotInitializeError()).get_json()
+                    api.handle_error(
+                        ProviderNotInitializeError(ex.description)
+                    ).get_json()
                 ) + "\n\n"
             except QuotaExceededError:
                 yield "data: " + json.dumps(

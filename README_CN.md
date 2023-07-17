@@ -22,9 +22,14 @@
 
 iPolloai 兼容 Langchain，这意味着我们将逐步支持多种 LLMs ，目前已支持：
 
-- GPT 3 (text-davinci-003)
-- GPT 3.5 Turbo(ChatGPT)
-- GPT-4
+* **OpenAI**：GPT4、GPT3.5-turbo、GPT3.5-turbo-16k、text-davinci-003 
+
+* **Azure OpenAI Service**
+* **Anthropic**：Claude2、Claude-instant
+
+> 我们为所有注册云端版的用户免费提供了 1000 次 Claude 模型的消息调用额度，登录 [dify.ai](https://cloud.dify.ai) 即可使用。
+
+* **Hugging Face Hub**（即将推出）
 
 ## 使用云服务
 
@@ -52,7 +57,7 @@ docker compose up -d
 
 ### Helm Chart
 
-非常感谢 @BorisPolonsky 为我们提供了一个 [Helm Chart](https://helm.sh/) 版本，可以在 Kubernetes 上部署 Dify。
+非常感谢 @BorisPolonsky 为我们提供了一个 [Helm Chart](https://helm.sh/) 版本，可以在 Kubernetes 上部署 iPolloai
 您可以前往 https://github.com/BorisPolonsky/dify-helm 来获取部署信息。
 
 ### 配置
@@ -95,7 +100,7 @@ A: 现已支持英文与中文，你可以为我们贡献语言包。
 
 ## 贡献
 
-我们欢迎你为 Dify 作出贡献帮助 Dify 变得更好。我们欢迎各种方式的贡献，提交代码、问题、新想法、或者分享你基于 Dify 创建出的各种有趣有用的 AI 应用。同时，我们也欢迎你在不同的活动、研讨会、社交媒体上分享 Dify。
+我们欢迎你为 Dify 作出贡献帮助 Dify 变得更好。我们欢迎各种方式的贡献，提交代码、问题、新想法、或者分享你基于 Dify 创建出的各种有趣有用的 AI 应用。同时，我们也欢迎你在不同的活动、研讨会、社交媒体上分享 iPolloai
 
 ### 贡献代码
 为了确保正确审查，所有代码贡献 - 包括来自具有直接提交更改权限的贡献者 - 都必须提交 PR 请求并在合并分支之前得到核心开发人员的批准。

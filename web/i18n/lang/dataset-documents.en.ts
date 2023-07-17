@@ -31,7 +31,7 @@ const translation = {
     status: {
       queuing: 'Queuing',
       indexing: 'Indexing',
-      parsed: 'Parsed',
+      paused: 'Paused',
       error: 'Error',
       available: 'Available',
       enabled: 'Enabled',

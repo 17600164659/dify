@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import FilePreview from '../file-preview'
 import FileUploader from '../file-uploader'
@@ -14,15 +14,17 @@ import type { DataSourceNotionPage } from '@/models/common'
 import { DataSourceType } from '@/models/datasets'
 import Button from '@/app/components/base/button'
 import { NotionPageSelector } from '@/app/components/base/notion-page-selector'
+import { useDatasetDetailContext } from '@/context/dataset-detail'
 
 type IStepOneProps = {
   datasetId?: string
-  dataSourceType: DataSourceType
+  dataSourceType?: DataSourceType
   dataSourceTypeDisable: Boolean
   hasConnection: boolean
   onSetting: () => void
-  file?: File
-  updateFile: (file?: File) => void
+  files: any[]
+  updateFileList: (files: any[]) => void
+  updateFile: (fileItem: any, progress: number, list: any[]) => void
   notionPages?: any[]
   updateNotionPages: (value: any[]) => void
   onStepChange: () => void
@@ -68,22 +70,28 @@ const StepOne = ({
   hasConnection,
   onSetting,
   onStepChange,
-  file,
+  files,
+  updateFileList,
   updateFile,
   notionPages = [],
   updateNotionPages,
 }: IStepOneProps) => {
   const [_dataSourceType, setDataSourceType] = useState('FILE')
+  const { dataset } = useDatasetDetailContext()
   const [showModal, setShowModal] = useState(false)
-  const [showFilePreview, setShowFilePreview] = useState(true)
+  const [currentFile, setCurrentFile] = useState<File | undefined>()
   const [currentNotionPage, setCurrentNotionPage] = useState<Page | undefined>()
   const { t } = useTranslation()
 
-  const hidePreview = () => setShowFilePreview(false)
-
   const modalShowHandle = () => setShowModal(true)
-
   const modalCloseHandle = () => setShowModal(false)
+
+  const updateCurrentFile = (file: File) => {
+    setCurrentFile(file)
+  }
+  const hideFilePreview = () => {
+    setCurrentFile(undefined)
+  }
 
   const updateCurrentPage = (page: Page) => {
     setCurrentNotionPage(page)
@@ -93,10 +101,15 @@ const StepOne = ({
     setCurrentNotionPage(undefined)
   }
 
-  useEffect(() => {
-    console.log(_dataSourceType, 23232323);
-  }, [_dataSourceType])
+  const shouldShowDataSourceTypeList = !datasetId || (datasetId && !dataset?.data_source_type)
 
+  const nextDisabled = useMemo(() => {
+    if (!files.length)
+      return true
+    if (files.some(file => !file.file.id))
+      return true
+    return false
+  }, [files])
   return (
     <div className='flex w-full h-full'>
       <div className='grow overflow-y-auto relative'>

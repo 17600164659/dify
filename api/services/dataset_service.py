@@ -4,10 +4,12 @@ import datetime
 import time
 import random
 from typing import Optional, List
+
+from flask import current_app
+
 from extensions.ext_redis import redis_client
 from flask_login import current_user
 
-from core.index.index_builder import IndexBuilder
 from events.dataset_event import dataset_was_deleted
 from events.document_event import document_was_deleted
 from extensions.ext_database import db
@@ -36,6 +38,7 @@ class DatasetService:
             permission_filter = Dataset.permission == 'all_team_members'
         datasets = Dataset.query.filter(
             db.and_(Dataset.provider == provider, Dataset.tenant_id == tenant_id, permission_filter)) \
+            .order_by(Dataset.created_at.desc()) \
             .paginate(
             page=page,
             per_page=per_page,
@@ -78,7 +81,7 @@ class DatasetService:
             raise DatasetNameDuplicateError(
                 f'Dataset with name {name} already exists.')
 
-        dataset = Dataset(name=name, indexing_technique=indexing_technique, data_source_type='upload_file')
+        dataset = Dataset(name=name, indexing_technique=indexing_technique)
         # dataset = Dataset(name=name, provider=provider, config=config)
         dataset.created_by = account.id
         dataset.updated_by = account.id
@@ -374,6 +377,17 @@ class DocumentService:
     def save_document_with_dataset_id(dataset: Dataset, document_data: dict,
                                       account: Account, dataset_process_rule: Optional[DatasetProcessRule] = None,
                                       created_from: str = 'web'):
+        # check document limit
+        if current_app.config['EDITION'] == 'CLOUD':
+            documents_count = DocumentService.get_tenant_documents_count()
+            tenant_document_count = int(current_app.config['TENANT_DOCUMENT_COUNT'])
+            if documents_count > tenant_document_count:
+                raise ValueError(f"over document limit {tenant_document_count}.")
+        # if dataset is empty, update dataset data_source_type
+        if not dataset.data_source_type:
+            dataset.data_source_type = document_data["data_source"]["type"]
+            db.session.commit()
+
         if not dataset.indexing_technique:
             if 'indexing_technique' not in document_data \
                     or document_data['indexing_technique'] not in Dataset.INDEXING_TECHNIQUE_LIST:
@@ -381,8 +395,6 @@ class DocumentService:
 
             dataset.indexing_technique = document_data["indexing_technique"]
 
-        if dataset.indexing_technique == 'high_quality':
-            IndexBuilder.get_default_service_context(dataset.tenant_id)
         documents = []
         batch = time.strftime('%Y%m%d%H%M%S') + str(random.randint(100000, 999999))
         if 'original_document_id' in document_data and document_data["original_document_id"]:
@@ -519,6 +531,14 @@ class DocumentService:
         return document
 
     @staticmethod
+    def get_tenant_documents_count():
+        documents_count = Document.query.filter(Document.completed_at.isnot(None),
+                                                Document.enabled == True,
+                                                Document.archived == False,
+                                                Document.tenant_id == current_user.current_tenant_id).count()
+        return documents_count
+
+    @staticmethod
     def update_document_with_dataset_id(dataset: Dataset, document_data: dict,
                                         account: Account, dataset_process_rule: Optional[DatasetProcessRule] = None,
                                         created_from: str = 'web'):
@@ -613,6 +633,12 @@ class DocumentService:
 
     @staticmethod
     def save_document_without_dataset_id(tenant_id: str, document_data: dict, account: Account):
+        # check document limit
+        if current_app.config['EDITION'] == 'CLOUD':
+            documents_count = DocumentService.get_tenant_documents_count()
+            tenant_document_count = int(current_app.config['TENANT_DOCUMENT_COUNT'])
+            if documents_count > tenant_document_count:
+                raise ValueError(f"over document limit {tenant_document_count}.")
         # save dataset
         dataset = Dataset(
             tenant_id=tenant_id,

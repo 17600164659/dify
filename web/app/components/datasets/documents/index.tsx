@@ -140,8 +140,6 @@ const Documents: FC<IDocumentsProps> = ({ datasetId }) => {
     router.push(`/datasets/${datasetId}/documents/create`)
   }
 
-  router.prefetch(`/datasets/${datasetId}/documents/create`)
-
   const isLoading = !documentsRes && !error
 
   const handleSaveNotionPageSelected = async (selectedPages: (DataSourceNotionPage & { workspace_id: string })[]) => {
@@ -220,7 +218,7 @@ const Documents: FC<IDocumentsProps> = ({ datasetId }) => {
           ? <Loading type='app' />
           : total > 0
             ? <List documents={documentsList || []} datasetId={datasetId} onUpdate={mutate} />
-            : <EmptyElement onClick={routeToDocCreate} />
+            : <EmptyElement onClick={routeToDocCreate} type={isDataSourceNotion ? 'sync' : 'upload'} />
         }
         {/* Show Pagination only if the total is more than the limit */}
         {(total && total > limit)

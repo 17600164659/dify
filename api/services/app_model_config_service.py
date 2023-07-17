@@ -4,8 +4,32 @@ import uuid
 from core.constant import llm_constant
 from models.account import Account
 from services.dataset_service import DatasetService
-from services.errors.account import NoPermissionError
+from core.llm.llm_builder import LLMBuilder
 
+MODEL_PROVIDERS = [
+    'openai',
+    'anthropic',
+]
+
+MODELS_BY_APP_MODE = {
+    'chat': [
+        'claude-instant-1',
+        'claude-2',
+        'gpt-4',
+        'gpt-4-32k',
+        'gpt-3.5-turbo',
+        'gpt-3.5-turbo-16k',
+    ],
+    'completion': [
+        'claude-instant-1',
+        'claude-2',
+        'gpt-4',
+        'gpt-4-32k',
+        'gpt-3.5-turbo',
+        'gpt-3.5-turbo-16k',
+        'text-davinci-003',
+    ]
+}
 
 class AppModelConfigService:
     @staticmethod
@@ -110,6 +134,26 @@ class AppModelConfigService:
         if not isinstance(config["suggested_questions_after_answer"]["enabled"], bool):
             raise ValueError("enabled in suggested_questions_after_answer must be of boolean type")
 
+        # speech_to_text
+        if 'speech_to_text' not in config or not config["speech_to_text"]:
+            config["speech_to_text"] = {
+                "enabled": False
+            }
+
+        if not isinstance(config["speech_to_text"], dict):
+            raise ValueError("speech_to_text must be of dict type")
+
+        if "enabled" not in config["speech_to_text"] or not config["speech_to_text"]["enabled"]:
+            config["speech_to_text"]["enabled"] = False
+
+        if not isinstance(config["speech_to_text"]["enabled"], bool):
+            raise ValueError("enabled in speech_to_text must be of boolean type")
+        
+        provider_name = LLMBuilder.get_default_provider(account.current_tenant_id, 'whisper-1')
+
+        if config["speech_to_text"]["enabled"] and provider_name != 'openai':
+            raise ValueError("provider not support speech to text")
+
         # more_like_this
         if 'more_like_this' not in config or not config["more_like_this"]:
             config["more_like_this"] = {
@@ -133,14 +177,14 @@ class AppModelConfigService:
             raise ValueError("model must be of object type")
 
         # model.provider
-        if 'provider' not in config["model"] or config["model"]["provider"] != "openai":
-            raise ValueError("model.provider must be 'openai'")
+        if 'provider' not in config["model"] or config["model"]["provider"] not in MODEL_PROVIDERS:
+            raise ValueError(f"model.provider is required and must be in {str(MODEL_PROVIDERS)}")
 
         # model.name
         if 'name' not in config["model"]:
             raise ValueError("model.name is required")
 
-        if config["model"]["name"] not in llm_constant.models_by_mode[mode]:
+        if config["model"]["name"] not in MODELS_BY_APP_MODE[mode]:
             raise ValueError("model.name must be in the specified model list")
 
         # model.completion_params
@@ -278,6 +322,7 @@ class AppModelConfigService:
             "opening_statement": config["opening_statement"],
             "suggested_questions": config["suggested_questions"],
             "suggested_questions_after_answer": config["suggested_questions_after_answer"],
+            "speech_to_text": config["speech_to_text"],
             "more_like_this": config["more_like_this"],
             "model": {
                 "provider": config["model"]["provider"],

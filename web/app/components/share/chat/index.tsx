@@ -8,13 +8,26 @@ import { useContext } from 'use-context-selector'
 import produce from 'immer'
 import { useBoolean, useGetState } from 'ahooks'
 import AppUnavailable from '../../base/app-unavailable'
+import { checkOrSetAccessToken } from '../utils'
 import useConversation from './hooks/use-conversation'
 import s from './style.module.css'
 import { ToastContext } from '@/app/components/base/toast'
 import Sidebar from '@/app/components/share/chat/sidebar'
 import ConfigSence from '@/app/components/share/chat/config-scence'
 import Header from '@/app/components/share/header'
-import { fetchAppInfo, fetchAppParams, fetchChatList, fetchConversations, fetchSuggestedQuestions, sendChatMessage, stopChatMessageResponding, updateFeedback } from '@/service/share'
+import {
+  delConversation,
+  fetchAppInfo,
+  fetchAppParams,
+  fetchChatList,
+  fetchConversations,
+  fetchSuggestedQuestions,
+  pinConversation,
+  sendChatMessage,
+  stopChatMessageResponding,
+  unpinConversation,
+  updateFeedback,
+} from '@/service/share'
 import type { ConversationItem, SiteInfo } from '@/models/share'
 import type { PromptConfig, SuggestedQuestionsAfterAnswerConfig } from '@/models/debug'
 import type { Feedbacktype, IChatItem } from '@/app/components/app/chat'
@@ -28,6 +41,8 @@ import { SuggestedQuestionsAfterAnswerConfig } from '@/models/debug'
 import BasicSidebar from "@/app/components/basic-sidebar";
 import { fetchAppList } from '@/service/apps';
 import type { InstalledApp } from '@/models/explore'
+import Confirm from '@/app/components/base/confirm'
+
 export type IMainProps = {
   isInstalledApp?: boolean
   installedAppInfo?: InstalledApp
@@ -75,9 +90,14 @@ const Main: FC<IMainProps> = ({
   /*
   * conversation info
   */
+  const [allConversationList, setAllConversationList] = useState<ConversationItem[]>([])
+  const [isClearConversationList, { setTrue: clearConversationListTrue, setFalse: clearConversationListFalse }] = useBoolean(false)
+  const [isClearPinnedConversationList, { setTrue: clearPinnedConversationListTrue, setFalse: clearPinnedConversationListFalse }] = useBoolean(false)
   const {
     conversationList,
     setConversationList,
+    pinnedConversationList,
+    setPinnedConversationList,
     currConversationId,
     setCurrConversationId,
     getConversationIdFromStorage,
@@ -91,13 +111,69 @@ const Main: FC<IMainProps> = ({
     setNewConversationInfo,
     setExistConversationInfo,
   } = useConversation()
-  const [hasMore, setHasMore] = useState<boolean>(false)
+  const [hasMore, setHasMore] = useState<boolean>(true)
+  const [hasPinnedMore, setHasPinnedMore] = useState<boolean>(true)
   const onMoreLoaded = ({ data: conversations, has_more }: any) => {
     setHasMore(has_more)
-    setConversationList([...conversationList, ...conversations])
+    if (isClearConversationList) {
+      setConversationList(conversations)
+      clearConversationListFalse()
+    }
+    else {
+      setConversationList([...conversationList, ...conversations])
+    }
+  }
+  const onPinnedMoreLoaded = ({ data: conversations, has_more }: any) => {
+    setHasPinnedMore(has_more)
+    if (isClearPinnedConversationList) {
+      setPinnedConversationList(conversations)
+      clearPinnedConversationListFalse()
+    }
+    else {
+      setPinnedConversationList([...pinnedConversationList, ...conversations])
+    }
+  }
+  const [controlUpdateConversationList, setControlUpdateConversationList] = useState(0)
+  const noticeUpdateList = () => {
+    setHasMore(true)
+    clearConversationListTrue()
+
+    setHasPinnedMore(true)
+    clearPinnedConversationListTrue()
+
+    setControlUpdateConversationList(Date.now())
+  }
+  const handlePin = async (id: string) => {
+    await pinConversation(isInstalledApp, installedAppInfo?.id, id)
+    notify({ type: 'success', message: t('common.api.success') })
+    noticeUpdateList()
+  }
+
+  const handleUnpin = async (id: string) => {
+    await unpinConversation(isInstalledApp, installedAppInfo?.id, id)
+    notify({ type: 'success', message: t('common.api.success') })
+    noticeUpdateList()
+  }
+  const [isShowConfirm, { setTrue: showConfirm, setFalse: hideConfirm }] = useBoolean(false)
+  const [toDeleteConversationId, setToDeleteConversationId] = useState('')
+  const handleDelete = (id: string) => {
+    setToDeleteConversationId(id)
+    hideSidebar() // mobile
+    showConfirm()
+  }
+
+  const didDelete = async () => {
+    await delConversation(isInstalledApp, installedAppInfo?.id, toDeleteConversationId)
+    notify({ type: 'success', message: t('common.api.success') })
+    hideConfirm()
+    if (currConversationId === toDeleteConversationId)
+      handleConversationIdChange('-1')
+
+    noticeUpdateList()
   }
 
   const [suggestedQuestionsAfterAnswerConfig, setSuggestedQuestionsAfterAnswerConfig] = useState<SuggestedQuestionsAfterAnswerConfig | null>(null)
+  const [speechToTextConfig, setSpeechToTextConfig] = useState<SuggestedQuestionsAfterAnswerConfig | null>(null)
 
   const [conversationIdChangeBecauseOfNew, setConversationIdChangeBecauseOfNew, getConversationIdChangeBecauseOfNew] = useGetState(false)
   const [isChatStarted, { setTrue: setChatStarted, setFalse: setChatNotStarted }] = useBoolean(false)
@@ -134,7 +210,7 @@ const Main: FC<IMainProps> = ({
     let notSyncToStateIntroduction = ''
     let notSyncToStateInputs: Record<string, any> | undefined | null = {}
     if (!isNewConversation) {
-      const item = conversationList.find(item => item.id === currConversationId)
+      const item = allConversationList.find(item => item.id === currConversationId)
       notSyncToStateInputs = item?.inputs || {}
       setCurrInputs(notSyncToStateInputs)
       notSyncToStateIntroduction = item?.introduction || ''
@@ -242,7 +318,14 @@ const Main: FC<IMainProps> = ({
     return []
   }
 
-  const fetchInitData = () => {
+  const fetchAllConversations = () => {
+    return fetchConversations(isInstalledApp, installedAppInfo?.id, undefined, undefined, 100)
+  }
+
+  const fetchInitData = async () => {
+    if (!isInstalledApp)
+      await checkOrSetAccessToken()
+
     return Promise.all([isInstalledApp
       ? {
         app_id: installedAppInfo?.id,
@@ -253,7 +336,7 @@ const Main: FC<IMainProps> = ({
         },
         plan: 'basic',
       }
-      : fetchAppInfo(), fetchConversations(isInstalledApp, installedAppInfo?.id), fetchAppParams(isInstalledApp, installedAppInfo?.id)])
+      : fetchAppInfo(), fetchAllConversations(), fetchAppParams(isInstalledApp, installedAppInfo?.id)])
   }
 
   // fetchConversations(isInstalledApp, installedAppInfo?.id, '', 'x8qCJ8rWwj4WtYtn')
@@ -297,12 +380,12 @@ const Main: FC<IMainProps> = ({
         setIsPublicVersion(tempIsPublicVersion)
         const prompt_template = ''
         // handle current conversation id
-        const { data: conversations, has_more } = conversationData as { data: ConversationItem[]; has_more: boolean }
+        const { data: allConversations } = conversationData as { data: ConversationItem[]; has_more: boolean }
         const _conversationId = getConversationIdFromStorage(appId)
-        const isNotNewConversation = conversations.some(item => item.id === _conversationId)
-        setHasMore(has_more)
+        const isNotNewConversation = allConversations.some(item => item.id === _conversationId)
+        setAllConversationList(allConversations)
         // fetch new conversation info
-        const { user_input_form, opening_statement: introduction, suggested_questions_after_answer }: any = appParams
+        const { user_input_form, opening_statement: introduction, suggested_questions_after_answer, speech_to_text }: any = appParams
         const prompt_variables = userInputsFormToPromptVariables(user_input_form)
         if (siteInfo.default_language)
           changeLanguage(siteInfo.default_language)
@@ -317,8 +400,9 @@ const Main: FC<IMainProps> = ({
           prompt_variables,
         } as PromptConfig)
         setSuggestedQuestionsAfterAnswerConfig(suggested_questions_after_answer)
+        setSpeechToTextConfig(speech_to_text)
 
-        setConversationList(conversations as ConversationItem[])
+        // setConversationList(conversations as ConversationItem[])
 
         if (isNotNewConversation && !is_new)
           setCurrConversationId(preConversation || _conversationId, appId, false)
@@ -346,6 +430,9 @@ const Main: FC<IMainProps> = ({
   }
 
   const checkCanSend = () => {
+    if (currConversationId !== '-1')
+      return true
+
     const prompt_variables = promptConfig?.prompt_variables
     const inputs = currInputs
     if (!inputs || !prompt_variables || prompt_variables?.length === 0)
@@ -464,12 +551,10 @@ const Main: FC<IMainProps> = ({
         if (hasError)
           return
 
-        let currChatList = conversationList
         if (getConversationIdChangeBecauseOfNew()) {
-          const { data: conversations, has_more }: any = await fetchConversations(isInstalledApp, installedAppInfo?.id)
-          setHasMore(has_more)
-          setConversationList(conversations as ConversationItem[])
-          currChatList = conversations
+          const { data: allConversations }: any = await fetchAllConversations()
+          setAllConversationList(allConversations)
+          noticeUpdateList()
         }
         setConversationIdChangeBecauseOfNew(false)
         resetNewConversationInputs()
@@ -512,14 +597,23 @@ const Main: FC<IMainProps> = ({
     return (
       <Sidebar
         list={conversationList}
+        isClearConversationList={isClearConversationList}
+        pinnedList={pinnedConversationList}
+        isClearPinnedConversationList={isClearPinnedConversationList}
         onMoreLoaded={onMoreLoaded}
+        onPinnedMoreLoaded={onPinnedMoreLoaded}
         isNoMore={!hasMore}
+        isPinnedNoMore={!hasPinnedMore}
         onCurrentIdChange={handleConversationIdChange}
         currentId={currConversationId}
         copyRight={siteInfo.copyright || siteInfo.title}
         isInstalledApp={isInstalledApp}
         installedAppId={installedAppInfo?.id}
         siteInfo={siteInfo}
+        onPin={handlePin}
+        onUnpin={handleUnpin}
+        controlUpdateList={controlUpdateConversationList}
+        onDelete={handleDelete}
       />
     )
   }
@@ -553,9 +647,6 @@ const Main: FC<IMainProps> = ({
         />
       )}
 
-      {/* {isNewConversation ? 'new' : 'exist'}
-        {JSON.stringify(newConversationInputs ? newConversationInputs : {})}
-        {JSON.stringify(existConversationInputs ? existConversationInputs : {})} */}
       <div
         className={cn(
           'flex rounded-t-2xl bg-white overflow-hidden',
@@ -602,7 +693,7 @@ const Main: FC<IMainProps> = ({
 
           {
             hasSetInputs && (
-              <div className={cn(doShowSuggestion ? 'pb-[140px]' : (isResponsing ? 'pb-[113px]' : 'pb-[66px]'), 'relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full mx-auto mb-3.5 overflow-hidden')}>
+              <div className={cn(doShowSuggestion ? 'pb-[140px]' : (isResponsing ? 'pb-[113px]' : 'pb-[76px]'), 'relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full mx-auto mb-3.5 overflow-hidden')}>
                 <div className='h-full overflow-y-auto' ref={chatListDomRef}>
                   <Chat
                     chatList={chatList}
@@ -620,10 +711,22 @@ const Main: FC<IMainProps> = ({
                     controlFocus={controlFocus}
                     isShowSuggestion={doShowSuggestion}
                     suggestionList={suggestQuestions}
+                    isShowSpeechToText={speechToTextConfig?.enabled}
                   />
                 </div>
               </div>)
           }
+
+          {isShowConfirm && (
+            <Confirm
+              title={t('share.chat.deleteConversation.title')}
+              content={t('share.chat.deleteConversation.content')}
+              isShow={isShowConfirm}
+              onClose={hideConfirm}
+              onConfirm={didDelete}
+              onCancel={hideConfirm}
+            />
+          )}
         </div>
       </div>
     </div>

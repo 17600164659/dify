@@ -1,6 +1,7 @@
 'use client'
 import { useTranslation } from 'react-i18next'
 import { Fragment, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useContext } from 'use-context-selector'
 import classNames from 'classnames'
 import Link from 'next/link'
@@ -13,18 +14,19 @@ import WorkplaceSelector from './workplace-selector'
 import type { LangGeniusVersionResponse, UserProfileResponse } from '@/models/common'
 import I18n from '@/context/i18n'
 import Avatar from '@/app/components/base/avatar'
+import { logout } from '@/service/common'
 
 type IAppSelectorProps = {
   userProfile: UserProfileResponse
-  onLogout: () => void
   langeniusVersionInfo: LangGeniusVersionResponse
 }
 
-export default function AppSelector({ userProfile, onLogout, langeniusVersionInfo }: IAppSelectorProps) {
+export default function AppSelector({ userProfile, langeniusVersionInfo }: IAppSelectorProps) {
   const itemClassName = `
     flex items-center w-full h-10 px-3 text-gray-700 text-[14px]
     rounded-lg font-normal hover:bg-gray-100 cursor-pointer
   `
+  const router = useRouter()
   const [settingVisible, setSettingVisible] = useState(false)
   const [aboutVisible, setAboutVisible] = useState(false)
 
@@ -32,7 +34,13 @@ export default function AppSelector({ userProfile, onLogout, langeniusVersionInf
   const { t } = useTranslation()
 
   const is_owner = window.localStorage.getItem('is_owner')
-
+  const handleLogout = async () => {
+    await logout({
+      url: '/logout',
+      params: {},
+    })
+    router.push('/signin')
+  }
   return !is_owner ? null : (
     <div style={{ margin: "0 auto", position: "absolute", bottom: 37, marginLeft: 12, marginRigh: 16 }}>
       <Menu as="div" className="relative inline-block text-left">
@@ -110,7 +118,7 @@ export default function AppSelector({ userProfile, onLogout, langeniusVersionInf
               </Menu.Item> */}
             </div>
             <Menu.Item>
-              <div className='p-1' onClick={() => onLogout()}>
+              <div className='p-1' onClick={() => handleLogout()}>
                 <div
                   className='flex items-center justify-between h-12 px-3 rounded-lg cursor-pointer group hover:bg-gray-100'
                 >

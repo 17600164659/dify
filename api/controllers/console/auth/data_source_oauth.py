@@ -43,7 +43,7 @@ class OAuthDataSource(Resource):
             internal_secret = current_app.config.get("NOTION_INTERNAL_SECRET")
             oauth_provider.save_internal_access_token(internal_secret)
             return redirect(
-                f'{current_app.config.get("CONSOLE_URL")}?oauth_data_source=success'
+                f'{current_app.config.get("CONSOLE_WEB_URL")}?oauth_data_source=success'
             )
         else:
             auth_url = oauth_provider.get_authorization_url()
@@ -68,16 +68,16 @@ class OAuthDataSourceCallback(Resource):
                 return {"error": "OAuth data source process failed"}, 400
 
             return redirect(
-                f'{current_app.config.get("CONSOLE_URL")}?oauth_data_source=success'
+                f'{current_app.config.get("CONSOLE_WEB_URL")}?oauth_data_source=success'
             )
         elif "error" in request.args:
             error = request.args.get("error")
             return redirect(
-                f'{current_app.config.get("CONSOLE_URL")}?oauth_data_source={error}'
+                f'{current_app.config.get("CONSOLE_WEB_URL")}?oauth_data_source={error}'
             )
         else:
             return redirect(
-                f'{current_app.config.get("CONSOLE_URL")}?oauth_data_source=access_denied'
+                f'{current_app.config.get("CONSOLE_WEB_URL")}?oauth_data_source=access_denied'
             )
 
 

@@ -19,18 +19,16 @@ def get_oauth_providers():
         github_oauth = GitHubOAuth(
             client_id=current_app.config.get("GITHUB_CLIENT_ID"),
             client_secret=current_app.config.get("GITHUB_CLIENT_SECRET"),
-            redirect_uri="http://ipollo.ai/console/api/oauth/authorize/github",
+            redirect_uri=current_app.config.get("CONSOLE_API_URL")
+            + "/console/api/oauth/authorize/github",
         )
-        #    redirect_uri=current_app.config.get(
-        #        'CONSOLE_URL') + '/console/api/oauth/authorize/github')
 
         google_oauth = GoogleOAuth(
             client_id=current_app.config.get("GOOGLE_CLIENT_ID"),
             client_secret=current_app.config.get("GOOGLE_CLIENT_SECRET"),
-            redirect_uri="http://ipollo.ai/console/api/oauth/authorize/google",
+            redirect_uri=current_app.config.get("CONSOLE_API_URL")
+            + "/console/api/oauth/authorize/google",
         )
-        #    redirect_uri=current_app.config.get(
-        #        'CONSOLE_URL') + '/console/api/oauth/authorize/google')
 
         OAUTH_PROVIDERS = {"github": github_oauth, "google": google_oauth}
         return OAUTH_PROVIDERS
@@ -85,7 +83,9 @@ class OAuthCallback(Resource):
         flask_login.login_user(account, remember=True)
         AccountService.update_last_login(account, request)
 
-        return redirect(f'{current_app.config.get("CONSOLE_URL")}?oauth_login=success')
+        return redirect(
+            f'{current_app.config.get("CONSOLE_WEB_URL")}?oauth_login=success'
+        )
 
 
 def _get_account_by_openid_or_email(

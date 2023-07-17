@@ -77,6 +77,45 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
       </Property>
     </Properties>
   </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/chats/{message_id}/feedbacks" targetCode={`curl --location --request POST '${props.appDetail.api_base_url}/chats/{message_id}/feedbacks \\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    "rating": "like",\n    "user": "abc-123"\n}'`}>
+
+    ```bash {{ title: 'cURL' }}
+    curl --location --request POST 'https://ipollo.ai/api/chats/{message_id}/feedbacks' \
+    --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "rating": "like",
+        "user": "abc-123"
+    }'
+    ```
+
+    </CodeGroup>
+
+    <CodeGroup title="Response">
+    ```json {{ title: 'Response' }}
+    {
+      "has_more": false,
+      "data": [
+        {
+          "id": "WAz8eIbvDR60rouK",
+          "username": "FrankMcCallister",
+          "phone_number": "1-800-759-3000",
+          "avatar_url": "https://assets.protocol.chat/avatars/frank.jpg",
+          "display_name": null,
+          "conversation_id": "xgQQXg3hrtjh7AvZ",
+          "created_at": 692233200
+        },
+        {
+          "id": "hSIhXBhNe8X1d8Et"
+          // ...
+        }
+      ]
+    }
+    ```
+    </CodeGroup>
+  </Col>
 </Row>
 
 ---
@@ -107,6 +146,40 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
         用户标识，由开发者定义规则，需保证用户标识在应用内唯一。
       </Property>
     </Properties>
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/chats" targetCode={`curl --location --request GET '${props.appDetail.api_base_url}/chats?user=abc-123&conversation_id=' \\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY'`}>
+
+    ```bash {{ title: 'cURL' }}
+    curl --location --request GET 'https://ipollo.ai/api/chats?user=abc-123&conversation_id='
+    --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY'
+    ```
+
+    </CodeGroup>
+
+    <CodeGroup title="Response">
+    ```json {{ title: 'Response' }}
+    {
+      "has_more": false,
+      "data": [
+        {
+          "id": "WAz8eIbvDR60rouK",
+          "conversation_id": "xgQQXg3hrtjh7AvZ",
+          "inputs": {},
+          "query": "...",
+          "answer": "...",
+          "feedback": "like",
+          "created_at": 692233200
+        },
+        {
+          "id": "hSIhXBhNe8X1d8Et"
+          // ...
+        }
+      ]
+    }
+    ```
+    </CodeGroup>
   </Col>
 </Row>
 
@@ -160,6 +233,52 @@ import { Row, Col, Properties, Property, Heading, SubProperty } from '../md.tsx'
         用户标识，由开发者定义规则，需保证用户标识在应用内唯一。
       </Property>
     </Properties>
+  </Col>
+</Row>
+
+---
+
+<Heading
+  url='/conversations/{converation_id}'
+  method='DELETE'
+  title='删除会话'
+  name='#delete'
+/>
+<Row>
+  <Col>
+    删除会话。
+
+    ### Request Body
+
+    <Properties>
+      <Property name='user' type='string' key='user'>
+        用户标识，由开发者定义规则，需保证用户标识在应用内唯一。
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="DELETE" label="/conversations/{converation_id}" targetCode={`curl --location --request DELETE '${props.appDetail.api_base_url}/conversations/{conversation_id}' \\\n--header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{ \n "user": "abc-123"\n}'`}>
+
+    ```bash {{ title: 'cURL' }}
+        curl --location --request DELETE 'https://ipollo.ai/api/conversations/{convsation_id}' \
+        --header 'Content-Type: application/json' \
+        --header 'Accept: application/json' \
+        --header 'Authorization: Bearer ENTER-YOUR-SECRET-KEY' \
+        --data '{
+            "user": "abc-123"
+        }'
+      ```
+
+    </CodeGroup>
+
+    <CodeGroup title="Response">
+    ```json {{ title: 'Response' }}
+    {
+      "result": "success"
+    }
+    ```
+    </CodeGroup>
   </Col>
 </Row>
 
