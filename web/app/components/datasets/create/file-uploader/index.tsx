@@ -264,8 +264,9 @@ const FileUploader = ({
               )}
             </div>
           </div>
-        ))}
-          {/* {currentFile && (
+        </div>
+      )}
+      {/* {currentFile && (
           <div
             // onClick={() => onPreview(currentFile)}
             className={cn(
@@ -326,8 +327,8 @@ const FileUploader = ({
         </div>
       )}
       {/* <div className={s.tip}>{t('datasetCreation.stepOne.uploader.tip')}</div> */}
-        </div>
-      )
-      }
+    </div>
+  )
+}
 
-      export default FileUploader
+export default FileUploader

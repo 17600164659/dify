@@ -11,7 +11,6 @@ import style from './page.module.css'
 import { IS_CE_EDITION, apiPrefix } from '@/config'
 import Button from '@/app/components/base/button'
 import { login, oauth } from '@/service/common'
-import { apiPrefix } from '@/config'
 import { fetchMembers } from '@/service/common'
 import request from '@/service/request';
 import "./style.css";
