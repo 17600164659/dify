@@ -42,7 +42,7 @@ const MembersPage = () => {
       <div>
         <div className='flex items-center mb-4 p-3 bg-gray-50 rounded-2xl'>
           {/* <div className={cn(s['logo-icon'], 'shrink-0')}></div> */}
-          <img src="https://assets.metaio.cc/assets/difyassets/logo.png" class="basic-sidebar-header" style={{ margin: 0 }} />
+          <img src="https://assets.metaio.cc/assets/difyassets/bisailogo.png" class="basic-sidebar-header" style={{ margin: 0, borderRad: 10 }} />
           <div className='grow mx-2'>
             <div className='text-sm font-medium text-gray-900'>{currentWrokspace?.name}</div>
             <div className='text-xs text-gray-500'>{t('common.userProfile.workspace')}</div>

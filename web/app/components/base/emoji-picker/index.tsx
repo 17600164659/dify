@@ -20,8 +20,8 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface IntrinsicElements {
       'em-emoji': React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLElement>,
-      HTMLElement
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
       >
     }
   }
@@ -126,7 +126,7 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({
               >
                 <div className='cursor-pointer w-8 h-8 p-1 flex items-center justify-center rounded-lg hover:ring-1 ring-offset-1 ring-gray-300'>
                   {/* <em-emoji id={emoji} /> */}
-                  <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />
+                  <img src="https://assets.metaio.cc/assets/difyassets/bisailogo.png" style={{ borderRad: 10 }} />
                 </div>
               </div>
             })}
@@ -148,7 +148,7 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({
               >
                 <div className='cursor-pointer w-8 h-8 p-1 flex items-center justify-center rounded-lg hover:ring-1 ring-offset-1 ring-gray-300'>
                   {/* <em-emoji id={emoji} /> */}
-                  <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />
+                  <img src="https://assets.metaio.cc/assets/difyassets/bisailogo.png" style={{ borderRad: 10 }} />
                 </div>
               </div>
             })}
@@ -181,7 +181,7 @@ const EmojiPicker: FC<IEmojiPickerProps> = ({
             )
             } style={{ background: color }}>
               {/* {selectedEmoji !== '' && <em-emoji id={selectedEmoji} />} */}
-              {selectedEmoji !== '' && <img src="https://assets.metaio.cc/assets/difyassets/logo.png" />}
+              {selectedEmoji !== '' && <img src="https://assets.metaio.cc/assets/difyassets/bisailogo.png" style={{ borderRad: 10 }} />}
             </div>
           </div>
         })}

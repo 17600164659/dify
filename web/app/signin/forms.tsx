@@ -27,7 +27,7 @@ const Forms = () => {
       'md:px-[108px]',
     )
   }>
-    <img src="https://assets.metaio.cc/assets/difyassets/signin-logo.png" width={136} height={30} style={{ position: 'absolute', left: 40, top: 32 }} />
+    {/* <img src="https://assets.metaio.cc/assets/difyassets/signin-logo.png" width={136} height={30} style={{ position: 'absolute', left: 40, top: 32 }} /> */}
     <div className='flex flex-col md:w-[695px]'>
       {getForm()}
     </div>
