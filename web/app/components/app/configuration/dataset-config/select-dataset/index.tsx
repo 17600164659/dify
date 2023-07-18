@@ -1,6 +1,6 @@
 'use client'
 import type { FC } from 'react'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { useGetState, useInfiniteScroll } from 'ahooks'
 import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
