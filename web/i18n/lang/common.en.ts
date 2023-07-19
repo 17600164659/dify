@@ -128,7 +128,7 @@ const translation = {
     emailPlaceholder: 'Input Email',
     sendInvite: 'Add',
     invitationSent: 'Invitation sent',
-    invitationSentTip: 'Invitation sent, and they can sign in to Dify to access your team data.',
+    invitationSentTip: 'Invitation sent, and they can sign in to 元宇未来 to access your team data.',
     invitationLink: 'Invitation Link',
     ok: 'OK',
     removeFromTeam: 'Remove from team',
