@@ -1,17 +1,19 @@
 'use client'
-import type { FC, ReactNode } from 'react'
-import React from 'react'
+import React, { FC, ReactNode } from 'react'
 import cn from 'classnames'
-import { useTranslation } from 'react-i18next'
-import s from './style.module.css'
-import { StarIcon } from '@/app/components/share/chatbot/welcome/massive-component'
+import { StarIcon } from '@/app/components/share/chat/welcome/massive-component'
 import Button from '@/app/components/base/button'
+import { useTranslation } from 'react-i18next'
 
-export type ITemplateVarPanelProps = {
+import './styles.css';
+import s from './style.module.css'
+
+export interface ITemplateVarPanelProps {
   className?: string
   header: ReactNode
   children?: ReactNode | null
   isFold: boolean
+  onClick: any
 }
 
 const TemplateVarPanel: FC<ITemplateVarPanelProps> = ({
@@ -19,28 +21,34 @@ const TemplateVarPanel: FC<ITemplateVarPanelProps> = ({
   header,
   children,
   isFold,
+  onClick
 }) => {
   return (
     <div className={cn(isFold ? 'border border-indigo-100' : s.boxShodow, className, 'rounded-xl ')}>
       {/* header */}
       <div
-        className={cn(isFold && 'rounded-b-xl', 'rounded-t-xl px-6 py-4 bg-indigo-25 text-xs')}
+        className={cn(isFold && 'rounded-b-xl', 'rounded-t-xl px-6 py-4 text-xs')}
       >
-        {header}
+        <div className='new-chat-title'>
+          {/* <img src="https://assets.metaio.cc/assets/difyassets/title.png" /> */}
+          <p className='new-chat-content'>欢迎打开元宇未来的奇幻世界大门</p>
+        </div>
       </div>
       {/* body */}
-      {!isFold && children && (
+      {!isFold && (
         <div className='rounded-b-xl p-6'>
-          {children}
+          <div className='new-chat-button' onClick={onClick}>
+            开启新对话
+          </div>
         </div>
       )}
     </div>
   )
 }
 
-export const PanelTitle: FC<{ title: string; className?: string }> = ({
+export const PanelTitle: FC<{ title: string, className?: string }> = ({
   title,
-  className,
+  className
 }) => {
   return (
     <div className={cn(className, 'flex items-center space-x-1 text-indigo-600')}>
@@ -50,10 +58,10 @@ export const PanelTitle: FC<{ title: string; className?: string }> = ({
   )
 }
 
-export const VarOpBtnGroup: FC<{ className?: string; onConfirm: () => void; onCancel: () => void }> = ({
+export const VarOpBtnGroup: FC<{ className?: string, onConfirm: () => void, onCancel: () => void }> = ({
   className,
   onConfirm,
-  onCancel,
+  onCancel
 }) => {
   const { t } = useTranslation()
 
@@ -63,6 +71,7 @@ export const VarOpBtnGroup: FC<{ className?: string; onConfirm: () => void; onCa
         className='text-sm'
         type='primary'
         onClick={onConfirm}
+        background="#181A24"
       >
         {t('common.operation.save')}
       </Button>
