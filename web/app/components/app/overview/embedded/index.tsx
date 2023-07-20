@@ -19,6 +19,7 @@ type Props = {
 
 const OPTION_MAP = {
   iframe: {
+    icon: 'https://assets.metaio.cc/assets/difyassets/qr1.png',
     getContent: (url: string, token: string) =>
       `<iframe
  src="${url}/chatbot/${token}"
@@ -28,9 +29,10 @@ const OPTION_MAP = {
 </iframe>`,
   },
   scripts: {
+    icon: 'https://assets.metaio.cc/assets/difyassets/qr2.png',
     getContent: (url: string, token: string, isTestEnv?: boolean) =>
       `<script>
- window.difyChatbotConfig = { token: '${token}'${isTestEnv ? ', isDev: true' : ''} }
+ window.wemoChatbotConfig = { token: '${token}'${isTestEnv ? ', isDev: true' : ''} }
 </script>
 <script
  src="${url}/embed.min.js"
@@ -70,15 +72,24 @@ const Embedded = ({ isShow, onClose, appBaseUrl, accessToken }: Props) => {
       <div className="flex gap-4 items-center">
         {Object.keys(OPTION_MAP).map((v, index) => {
           return (
-            <div
+            <img
               key={index}
               className={cn(
                 style.option,
-                style[`${v}Icon`],
                 option === v && style.active,
               )}
+              src={OPTION_MAP[v].icon}
               onClick={() => setOption(v as Option)}
-            ></div>
+            />
+            // <div
+            //   key={index}
+            //   className={cn(
+            //     style.option,
+            //     style[`${v}Icon`],
+            //     option === v && style.active,
+            //   )}
+            //   onClick={() => setOption(v as Option)}
+            // ></div>
           )
         })}
       </div>

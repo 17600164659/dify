@@ -112,7 +112,7 @@ export default function AccountPage() {
     return (
       <div className='flex px-3 py-1'>
         <div className='mr-3'>
-          <AppIcon size='tiny' />
+          <AppIcon width={30} height={30} size='tiny' />
         </div>
         <div className='mt-[3px] text-xs font-medium text-gray-700 leading-[18px]'>{item.name}</div>
       </div>

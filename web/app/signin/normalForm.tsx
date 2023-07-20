@@ -208,24 +208,18 @@ const NormalForm = () => {
       })
       return
     }
-    let loginEmail = email;
-    let loginPass = password;
     // LOG: 登录
-    if (members[email] && members[email].password === loginPass) {
-      loginEmail = "devin@metaio.cc";
-      loginPass = "app000111";
-      window.localStorage.setItem('logined_menber', email);
-      if (email === 'devin@metaio.cc') {
-        window.localStorage.setItem('is_owner', true);
-      }
+    window.localStorage.setItem('logined_menber', email);
+    if (email === 'devin@metaio.cc') {
+      window.localStorage.setItem('is_owner', true);
     }
     try {
       setIsLoading(true)
       await login({
         url: '/login',
         body: {
-          email: loginEmail,
-          password: loginPass,
+          email,
+          password,
           remember_me: true,
         },
       })

@@ -383,10 +383,10 @@ const StepTwo = ({
   }, [segmentationType, indexType])
 
   return (
-    <div className='flex w-full h-full'>
+    <div className='flex w-full h-full' >
       <div ref={scrollRef} className='relative h-full w-full overflow-y-scroll'>
-        <div className={cn(s.pageHeader, scrolled && s.fixed)}>{t('datasetCreation.steps.two')}</div>
-        <div className={cn(s.form)} style={{ paddingRight: 0 }}>
+        <div className={cn(s.pageHeader, scrolled && s.fixed), 'max-w-[640px]'}>{t('datasetCreation.steps.two')}</div>
+        <div className={cn(s.form, 'max-w-[640px]')} style={{ paddingRight: 0, float: 'left' }}>
           <div className={s.label}>{t('datasetCreation.stepTwo.segmentation')}</div>
           <div className='max-w-[640px]'>
             <div
@@ -563,7 +563,7 @@ const StepTwo = ({
                   <div className='fdqx-icon' style={{ position: 'inherit', marginRight: 25 }}>
                     <img className={cn(s.auto)} src="https://assets.metaio.cc/assets/difyassets/jjfd.png" />
                   </div>
-                  {getFileName(file?.name || '')}
+                  {getFileName(files[0].name || '')}
                   {dataSourceType === DataSourceType.NOTION && (
                     <>
                       <div className='mb-2 text-xs font-medium text-gray-500'>{t('datasetCreation.stepTwo.notionSource')}</div>
@@ -623,7 +623,7 @@ const StepTwo = ({
         </div >
         {(showPreview)
           ? (
-            <div ref={previewScrollRef} className={cn(s.previewWrap, 'relativeh-full overflow-y-scroll border-l border-[#F2F4F7]')}>
+            <div style={{ float: 'left' }} ref={previewScrollRef} className={cn(s.previewWrap, 'relativeh-full overflow-y-scroll border-l border-[#F2F4F7]')}>
               <div className={cn(s.previewHeader, previewScrolled && `${s.fixed} pb-3`, ' flex items-center justify-between px-8')}>
                 <span>{t('datasetCreation.stepTwo.previewTitle')}</span>
                 <div className='flex items-center justify-center w-6 h-6 cursor-pointer' onClick={hidePreview}>

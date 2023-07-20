@@ -3,12 +3,17 @@
   height: 128px;
   @apply box-border cursor-pointer bg-auto bg-no-repeat bg-center rounded-md;
 }
+
 .active {
-  @apply border-[1.5px] border-[#2970FF];
+  @apply border-[1.5px] border-[#181A24];
 }
+
 .iframeIcon {
-  background-image: url(../assets/iframe-option.svg);
+  /* background-image: url(../assets/iframe-option.svg); */
+  background-image: url(https://assets.metaio.cc/assets/difyassets/qr1.png);
 }
+
 .scriptsIcon {
-  background-image: url(../assets/scripts-option.svg);
+  /* background-image: url(../assets/scripts-option.svg); */
+  background-image: url(https://assets.metaio.cc/assets/difyassets/qr2.png);
 }

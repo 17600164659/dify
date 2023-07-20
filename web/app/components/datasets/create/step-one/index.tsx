@@ -174,8 +174,8 @@ const StepOne = ({
           {
             _dataSourceType === "FILE" && (
               <>
-                <FileUploader onFileUpdate={updateFile} file={file} />
-                <Button background="#181A24" disabled={!file} borderRadius={1000} className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
+                <FileUploader prepareFileList={updateFileList} onFileUpdate={updateFile} fileList={files} />
+                <Button background="#181A24" disabled={!files.length} borderRadius={1000} className={s.submitButton} type='primary' onClick={onStepChange}>{t('datasetCreation.stepOne.button')}</Button>
               </>
             )
           }
@@ -188,7 +188,7 @@ const StepOne = ({
         </div >
         <EmptyDatasetCreationModal show={showModal} onHide={modalCloseHandle} />
       </div >
-      {file && <FilePreview file={file} />}
+      {/* {file && <FilePreview file={file} />} */}
       {currentNotionPage && <NotionPagePreview currentPage={currentNotionPage} hidePreview={hideNotionPagePreview} />}
     </div >
   )

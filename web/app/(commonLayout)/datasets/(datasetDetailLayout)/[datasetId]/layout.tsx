@@ -145,7 +145,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
                   <PuzzlePieceIcon className='w-3 h-3 text-gray-500' />
                 </div>
               </div>
-              <div className='text-xs text-gray-500 mt-2' style={{ position: 'relative', left: 10 }}>{t('common.datasetMenus.emptyTip')}</div>
+              {/* <div className='text-xs text-gray-500 mt-2' style={{ position: 'relative', left: 10 }}>{t('common.datasetMenus.emptyTip')}</div> */}
               {/* <a
                 className='inline-flex items-center text-xs text-primary-600 mt-2 cursor-pointer'
                 href={`https://ipollo.ai/${locale === 'en' ? '' : 'v/zh-hans'}/application/prompt-engineering`}

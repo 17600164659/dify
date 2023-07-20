@@ -40,7 +40,7 @@ const Apps = () => {
       type: 'getDifyApps',
       userId
     });
-
+    console.log(selfAppList, 23232323)
     const list = selfAppList.data.data.map(item => item.AppId)
     setMyApps(list);
   }
