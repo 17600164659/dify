@@ -19,7 +19,7 @@ type Props = {
 
 const OPTION_MAP = {
   iframe: {
-    icon: 'https://assets.metaio.cc/assets/difyassets/qr1.png',
+    icon: 'https://assets.metaio.cc/assets/difyassets/qr2.png',
     getContent: (url: string, token: string) =>
       `<iframe
  src="${url}/chatbot/${token}"
@@ -29,7 +29,7 @@ const OPTION_MAP = {
 </iframe>`,
   },
   //   scripts: {
-  //     icon: 'https://assets.metaio.cc/assets/difyassets/qr2.png',
+  //     icon: 'https://assets.metaio.cc/assets/difyassets/qr1.png',
   //     getContent: (url: string, token: string, isTestEnv?: boolean) =>
   //       `<script>
   //  window.wemoChatbotConfig = { token: '${token}'${isTestEnv ? ', isDev: true' : ''} }
