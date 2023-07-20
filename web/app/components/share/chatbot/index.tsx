@@ -563,7 +563,7 @@ const Main: FC<IMainProps> = ({
     return <Loading type='app' />
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       {/* <Header
         title={siteInfo.title}
         icon=''
@@ -575,7 +575,7 @@ const Main: FC<IMainProps> = ({
       // onCreateNewChat={() => handleConversationIdChange('-1')}
       /> */}
 
-      <div className={'flex bg-white overflow-hidden'}>
+      <div className={'flex bg-white overflow-hidden'} style={{ height: '100%' }}>
         {/* sidebar */}
         {/* {!isMobile && renderSidebar()} */}
         {/* {isMobile && isShowSidebar && (
@@ -590,7 +590,7 @@ const Main: FC<IMainProps> = ({
         )} */}
         {/* main */}
         <div className={cn(
-          isInstalledApp ? s.installedApp : 'h-[calc(100vh_-_3rem)]',
+          isInstalledApp ? s.installedApp : 'h-[calc(100vh)]',
           'flex-grow flex flex-col overflow-y-auto',
         )
         }>
