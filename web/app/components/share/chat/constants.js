@@ -26,7 +26,8 @@ if (window.location.hostname === 'localhost') {
     roles.push({
         id: 'vEJdIfCYoHvn9peR',
         name: 'iPollo.ai',
-        icon: 'https://assets.metaio.cc/assets/difyassets/web3zs.png'
+        // icon: 'https://assets.metaio.cc/assets/difyassets/web3zs.png'
+        icon: 'https://assets.metaio.cc/assets/difyassets/logo.png',
     });
     roles.push({
         id: '4BFHbBYoeX7hfNGv',
