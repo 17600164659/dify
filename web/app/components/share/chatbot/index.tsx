@@ -361,6 +361,7 @@ const Main: FC<IMainProps> = ({
           setCurrConversationId(_conversationId, appId, false)
 
         setInited(true)
+        handleStartChat([])
       }
       catch (e: any) {
         if (e.status === 404) {
