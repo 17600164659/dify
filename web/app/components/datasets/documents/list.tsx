@@ -290,7 +290,7 @@ const DocumentList: FC<IDocumentListProps> = ({ documents = [], datasetId, onUpd
       {localDocs.map(doc => {
         const suffix = doc.name.split('.').pop() || 'txt';
         return (
-          <div className='doc-list-item' key={doc.id} onClick={() => router.push(`documents/${doc.id}`)}>
+          <div className='doc-list-item' key={doc.id} onClick={() => router.push(`/datasets/${datasetId}/documents/${doc.id}`)}>
             <div className='doc-list-item-editor'>
               <div className='doc-list-item-icon'>
                 <img />

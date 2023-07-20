@@ -385,7 +385,11 @@ const StepTwo = ({
   return (
     <div className='flex w-full h-full' >
       <div ref={scrollRef} className='relative h-full w-full overflow-y-scroll'>
-        <div className={cn(s.pageHeader, scrolled && s.fixed), 'max-w-[640px]'}>{t('datasetCreation.steps.two')}</div>
+        <div style={{
+          paddingLeft: 62,
+          fontSize: 20,
+          marginTop: 20,
+        }} className={cn(s.pageHeader, scrolled && s.fixed), 'max-w-[640px]'}>{t('datasetCreation.steps.two')}</div>
         <div className={cn(s.form, 'max-w-[640px]')} style={{ paddingRight: 0, float: 'left' }}>
           <div className={s.label}>{t('datasetCreation.stepTwo.segmentation')}</div>
           <div className='max-w-[640px]'>
@@ -613,8 +617,8 @@ const StepTwo = ({
                   </div>
                 ) : (
                   <div className='flex items-center mt-8 py-2'>
-                    <Button type='primary' onClick={createHandle}>{t('datasetCreation.stepTwo.save')}</Button>
-                    <Button className='ml-2' onClick={onCancel}>{t('datasetCreation.stepTwo.cancel')}</Button>
+                    <Button borderRadius={1000} background="#181A24" type="primary" onClick={createHandle}>{t('datasetCreation.stepTwo.save')}</Button>
+                    <Button borderRadius={1000} className='ml-2' onClick={onCancel}>{t('datasetCreation.stepTwo.cancel')}</Button>
                   </div>
                 )
               }
@@ -623,7 +627,7 @@ const StepTwo = ({
         </div >
         {(showPreview)
           ? (
-            <div style={{ float: 'left' }} ref={previewScrollRef} className={cn(s.previewWrap, 'relativeh-full overflow-y-scroll border-l border-[#F2F4F7]')}>
+            <div style={{ float: 'right' }} ref={previewScrollRef} className={cn(s.previewWrap, 'relativeh-full overflow-y-scroll border-l border-[#F2F4F7]')}>
               <div className={cn(s.previewHeader, previewScrolled && `${s.fixed} pb-3`, ' flex items-center justify-between px-8')}>
                 <span>{t('datasetCreation.stepTwo.previewTitle')}</span>
                 <div className='flex items-center justify-center w-6 h-6 cursor-pointer' onClick={hidePreview}>
@@ -644,18 +648,20 @@ const StepTwo = ({
               </div>
             </div>
           )
-          : (<div className={cn(s.sideTip)}>
-            <div className={s.tipCard}>
-              <span className={s.icon} />
-              <div className={s.title}>{t('datasetCreation.stepTwo.sideTipTitle')}</div>
-              <div className={s.content}>
-                <p className='mb-3'>{t('datasetCreation.stepTwo.sideTipP1')}</p>
-                <p className='mb-3'>{t('datasetCreation.stepTwo.sideTipP2')}</p>
-                <p className='mb-3'>{t('datasetCreation.stepTwo.sideTipP3')}</p>
-                <p>{t('datasetCreation.stepTwo.sideTipP4')}</p>
-              </div>
-            </div>
-          </div>)}
+          : null
+          // (<div className={cn(s.sideTip)}>
+          //   <div className={s.tipCard}>
+          //     <span className={s.icon} />
+          //     <div className={s.title}>{t('datasetCreation.stepTwo.sideTipTitle')}</div>
+          //     <div className={s.content}>
+          //       <p className='mb-3'>{t('datasetCreation.stepTwo.sideTipP1')}</p>
+          //       <p className='mb-3'>{t('datasetCreation.stepTwo.sideTipP2')}</p>
+          //       <p className='mb-3'>{t('datasetCreation.stepTwo.sideTipP3')}</p>
+          //       <p>{t('datasetCreation.stepTwo.sideTipP4')}</p>
+          //     </div>
+          //   </div>
+          // </div>)
+        }
       </div >
     </div>
   )
