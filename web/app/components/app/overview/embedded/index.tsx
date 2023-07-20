@@ -28,18 +28,18 @@ const OPTION_MAP = {
  allow="microphone">
 </iframe>`,
   },
-  scripts: {
-    icon: 'https://assets.metaio.cc/assets/difyassets/qr2.png',
-    getContent: (url: string, token: string, isTestEnv?: boolean) =>
-      `<script>
- window.wemoChatbotConfig = { token: '${token}'${isTestEnv ? ', isDev: true' : ''} }
-</script>
-<script
- src="${url}/embed.min.js"
- id="${token}"
- defer>
-</script>`,
-  },
+  //   scripts: {
+  //     icon: 'https://assets.metaio.cc/assets/difyassets/qr2.png',
+  //     getContent: (url: string, token: string, isTestEnv?: boolean) =>
+  //       `<script>
+  //  window.wemoChatbotConfig = { token: '${token}'${isTestEnv ? ', isDev: true' : ''} }
+  // </script>
+  // <script
+  //  src="${url}/embed.min.js"
+  //  id="${token}"
+  //  defer>
+  // </script>`,
+  //   },
 }
 const prefixEmbedded = 'appOverview.overview.appInfo.embedded'
 
