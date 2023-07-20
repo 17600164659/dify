@@ -558,7 +558,7 @@ const Chat: FC<IChatProps> = ({
       <img src="" />
       {
         !isHideSendInput && (
-          <div onClick={() => console.log(1, 23232323)} className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0', 'custom-no-border')}>
+          <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0', 'custom-no-border')}>
             {isResponsing && (
               <div className='flex justify-center mb-4'>
                 <Button className='flex items-center space-x-1 bg-white' onClick={() => abortResponsing?.()}>
