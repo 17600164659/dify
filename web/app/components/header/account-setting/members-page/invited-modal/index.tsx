@@ -32,7 +32,7 @@ const InvitedModal = ({
         <div className='mb-5 text-sm text-gray-500'>{t('common.members.invitationSentTip')}</div>
         <div className='mb-9'>
           <div className='py-2 text-sm font-Medium text-gray-900'>{t('common.members.invitationLink')}</div>
-          <InvitationLink value={invitationLink} />
+          <InvitationLink value={`${window.location.origin}${invitationLink}`} />
         </div>
         <div className='flex justify-end'>
           <Button

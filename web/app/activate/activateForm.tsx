@@ -40,7 +40,7 @@ const ActivateForm = () => {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [timezone, setTimezone] = useState('Asia/Shanghai')
-  const [language, setLanguage] = useState('en-US')
+  const [language, setLanguage] = useState('zh-Hans')
   const [showSuccess, setShowSuccess] = useState(false)
 
   const showErrorMessage = (message: string) => {
@@ -95,34 +95,35 @@ const ActivateForm = () => {
         'md:px-[108px]',
       )
     }>
-      {!checkRes && <Loading/>}
+      {!checkRes && <Loading />}
       {checkRes && !checkRes.is_valid && (
-        <div className="flex flex-col md:w-[400px]">
+        <div className="flex flex-col md:w-[800px]">
           <div className="w-full mx-auto">
-            <div className="mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold">🤷‍♂️</div>
-            <h2 className="text-[32px] font-bold text-gray-900">{t('login.invalid')}</h2>
+            {/* <div className="mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold">🤷‍♂️</div> */}
+            <h2 style={{ textAlign: 'center' }} className="text-[32px] font-bold text-gray-900">{t('login.invalid')}</h2>
           </div>
-          <div className="w-full mx-auto mt-6">
-            <Button type='primary' className='w-full !fone-medium !text-sm'>
-              <a href="https://dify.ai">{t('login.explore')}</a>
+          <div className="w-full mx-auto mt-6 md:w-[500px]" style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button borderRadius={1000} background="#181A24" type="primary" style={{ width: 200 }}>
+              <a href={`${window.location.origin}/apps`}>{t('login.explore')}</a>
             </Button>
           </div>
         </div>
       )}
       {checkRes && checkRes.is_valid && !showSuccess && (
-        <div className='flex flex-col md:w-[400px]'>
+        <div className='flex flex-col md:w-[800px]'>
           <div className="w-full mx-auto">
-            <div className={`mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold ${style.logo}`}>
-            </div>
-            <h2 className="text-[32px] font-bold text-gray-900">
-              {`${t('login.join')} ${checkRes.workspace_name}`}
+            {/* <div className={`mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold ${style.logo}`}>
+            </div> */}
+            <h2 className="text-[32px] font-bold text-gray-900" style={{ textAlign: 'center' }}>
+              {/* {`${t('login.join')} ${checkRes.workspace_name}`} */}
+              设置账号密码
             </h2>
-            <p className='mt-1 text-sm text-gray-600 '>
+            {/* <p className='mt-1 text-sm text-gray-600 '>
               {`${t('login.joinTipStart')} ${checkRes.workspace_name} ${t('login.joinTipEnd')}`}
-            </p>
+            </p> */}
           </div>
 
-          <div className="w-full mx-auto mt-6">
+          <div className="w-full mx-auto mt-6 md:w-[500px]">
             <div className="bg-white">
               {/* username */}
               <div className='mb-5'>
@@ -158,7 +159,7 @@ const ActivateForm = () => {
                 <div className='mt-1 text-xs text-gray-500'>{t('login.error.passwordInvalid')}</div>
               </div>
               {/* language */}
-              <div className='mb-5'>
+              {/* <div className='mb-5'>
                 <label htmlFor="name" className="my-2 flex items-center justify-between text-sm font-medium text-gray-900">
                   {t('login.interfaceLanguage')}
                 </label>
@@ -167,13 +168,15 @@ const ActivateForm = () => {
                     defaultValue={languageMaps.en}
                     items={languages}
                     onSelect={(item) => {
-                      setLanguage(item.value as string)
+                      // console.log(item.value, 23232323);
+                      // setLanguage(item.value as string)
+                      setLanguage('zh-Hans');
                     }}
                   />
                 </div>
-              </div>
+              </div> */}
               {/* timezone */}
-              <div className='mb-4'>
+              {/* <div className='mb-4'>
                 <label htmlFor="timezone" className="block text-sm font-medium text-gray-700">
                   {t('login.timezone')}
                 </label>
@@ -182,21 +185,26 @@ const ActivateForm = () => {
                     defaultValue={timezone}
                     items={timezones}
                     onSelect={(item) => {
-                      setTimezone(item.value as string)
+                      // console.log(item.value, 23232323)
+                      // setTimezone(item.value as string)
+                      setTimezone('Asia/Shanghai');
                     }}
                   />
                 </div>
-              </div>
-              <div>
+              </div> */}
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Button
-                  type='primary'
+                  // type='primary'
+                  borderRadius={1000} background="#181A24" type="primary"
                   className='w-full !fone-medium !text-sm'
                   onClick={handleActivate}
+                  styles={{ width: 200 }}
                 >
-                  {`${t('login.join')} ${checkRes.workspace_name}`}
+                  {/* {`${t('login.join')} ${checkRes.workspace_name}`} */}
+                  确认
                 </Button>
               </div>
-              <div className="block w-hull mt-2 text-xs text-gray-600">
+              {/* <div className="block w-hull mt-2 text-xs text-gray-600">
                 {t('login.license.tip')}
                 &nbsp;
                 <Link
@@ -204,23 +212,25 @@ const ActivateForm = () => {
                   target={'_blank'}
                   href='https://docs.dify.ai/community/open-source'
                 >{t('login.license.link')}</Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       )}
       {checkRes && checkRes.is_valid && showSuccess && (
-        <div className="flex flex-col md:w-[400px]">
+        <div className="flex flex-col md:w-[800px]">
           <div className="w-full mx-auto">
-            <div className="mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold">
+            {/* <div className="mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold">
               <CheckCircleIcon className='w-10 h-10 text-[#039855]' />
-            </div>
-            <h2 className="text-[32px] font-bold text-gray-900">
-              {`${t('login.activatedTipStart')} ${checkRes.workspace_name} ${t('login.activatedTipEnd')}`}
+            </div> */}
+            <h2 className="text-[32px] font-bold text-gray-900" style={{ textAlign: 'center' }}>
+              {/* {`${t('login.activatedTipStart')} ${checkRes.workspace_name} ${t('login.activatedTipEnd')}`} */}
+              欢迎加入元宇未来
             </h2>
           </div>
-          <div className="w-full mx-auto mt-6">
-            <Button type='primary' className='w-full !fone-medium !text-sm'>
+          <div className="w-full mx-auto mt-6 md:w-[500px]">
+            <Button borderRadius={1000} background="#181A24" type="primary" className='w-full !fone-medium !text-sm'>
+              {/* <Button type='primary' className='w-full !fone-medium !text-sm'> */}
               <a href="/signin">{t('login.activated')}</a>
             </Button>
           </div>

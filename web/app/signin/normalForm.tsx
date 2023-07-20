@@ -211,7 +211,6 @@ const NormalForm = () => {
     let loginEmail = email;
     let loginPass = password;
     // LOG: 登录
-    console.log(members, email, members[email], loginPass, 23232323)
     if (members[email] && members[email].password === loginPass) {
       loginEmail = "devin@metaio.cc";
       loginPass = "app000111";
