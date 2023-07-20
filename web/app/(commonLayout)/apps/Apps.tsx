@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import useSWRInfinite from 'swr/infinite'
-import { debounce } from 'lodash-es'
+import { debounce, size } from 'lodash-es'
 import AppCard from './AppCard'
 import NewAppCard from './NewAppCard'
 import type { AppListResponse } from '@/models/app'
@@ -16,8 +16,10 @@ import NewAppDialog from './NewAppDialog';
 import request from '@/service/request';
 
 const getKey = (pageIndex: number, previousPageData: AppListResponse) => {
-  if (!pageIndex || previousPageData.has_more)
-    return { url: 'apps', params: { page: pageIndex + 1, limit: 30 } }
+  if (!pageIndex || previousPageData.has_more) {
+    const newPage = pageIndex + 1;
+    return { url: 'apps', params: { page: newPage, limit: 30 } }
+  }
   return null
 }
 
@@ -29,6 +31,7 @@ const customStyle = {
 const Apps = () => {
   const { t } = useTranslation()
   const { data, isLoading, setSize, mutate } = useSWRInfinite(getKey, fetchAppList, { revalidateFirstPage: false })
+  const [renderList, setRenderList] = useState([]);
   const [myApps, setMyApps] = useState([]);
   async function getApps() {
     const userId = window.localStorage.getItem('logined_menber');
@@ -64,7 +67,6 @@ const Apps = () => {
     const container = document.querySelector('#apps-container');
     const parentContainer = document.querySelector('#apps-parent-container');
     const onScroll = debounce(() => {
-      console.log(1, 23232323)
       // console.log(loadingStateRef, anchorRef, 23232323)
       if (!loadingStateRef.current) {
         const { scrollTop, clientHeight } = container;// pageContainerRef?.current!
@@ -92,21 +94,37 @@ const Apps = () => {
     // return () => pageContainerRef?.current?.removeEventListener('scroll', onScroll)
   }, [])
 
-  const list = [];
-
-  if (data) {
-    const is_owner = window.localStorage.getItem('is_owner')
-    for (let i = 0; i < data?.length; i++) {
-      const current = data[i];
-      if (current.data?.length) {
-        current.data.map(item => {
-          if (myApps.indexOf(item.id) > -1 || is_owner) {
-            list.push(item);
-          }
-        })
+  useEffect(() => {
+    const newApps = []
+    if (data) {
+      const loadStatusApps = [...myApps];
+      const is_owner = window.localStorage.getItem('is_owner')
+      for (let i = 0; i < data?.length; i++) {
+        const current = data[i];
+        if (current.data?.length) {
+          current.data.map(item => {
+            const myAppsIndex = loadStatusApps.indexOf(item.id);
+            if (myAppsIndex > -1 || is_owner) {
+              newApps.push(item);
+              loadStatusApps.splice(myAppsIndex, 1)
+            }
+          })
+        }
+      }
+      if (is_owner) {
+        setRenderList(newApps)
+        return;
+      };
+      if (loadStatusApps.length) {
+        setSize(size => size + 1)
+        setRenderList(newApps);
+      } else {
+        setRenderList(newApps);
       }
     }
-  }
+  }, [data, myApps]);
+
+
   return (
     <div style={customStyle} id="apps-parent-container">
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="apps" />
@@ -154,7 +172,7 @@ const Apps = () => {
           // data?.map(({ data: apps }) => apps.map(app => (
           //   <AppCard key={app.id} app={app} onDelete={mutate} />
           // )))
-          list.map(app => (
+          renderList.map(app => (
             <AppCard key={app.id} app={app} onDelete={mutate} />
           ))
         }
