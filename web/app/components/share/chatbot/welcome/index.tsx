@@ -1,52 +1,52 @@
 'use client'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useContext } from 'use-context-selector'
-import TemplateVarPanel, { PanelTitle, VarOpBtnGroup } from '../value-panel'
 import s from './style.module.css'
-import { AppInfo, ChatBtn, EditBtn, FootLogo, PromptTemplate } from './massive-component'
 import type { SiteInfo } from '@/models/share'
 import type { PromptConfig } from '@/models/debug'
 import { ToastContext } from '@/app/components/base/toast'
 import Select from '@/app/components/base/select'
 import { DEFAULT_VALUE_MAX_LEN } from '@/config'
+import TemplateVarPanel, { PanelTitle, VarOpBtnGroup } from '../value-panel'
+import { AppInfo, PromptTemplate, ChatBtn, EditBtn, FootLogo } from './massive-component'
 
 // regex to match the {{}} and replace it with a span
 const regex = /\{\{([^}]+)\}\}/g
 
 export type IWelcomeProps = {
-  // conversationName: string
+  conversationName: string
   hasSetInputs: boolean
   isPublicVersion: boolean
   siteInfo: SiteInfo
   promptConfig: PromptConfig
   onStartChat: (inputs: Record<string, any>) => void
-  canEditInputs: boolean
+  canEidtInpus: boolean
   savedInputs: Record<string, any>
   onInputsChange: (inputs: Record<string, any>) => void
   plan: string
 }
 
 const Welcome: FC<IWelcomeProps> = ({
-  // conversationName,
+  conversationName,
   hasSetInputs,
   isPublicVersion,
   siteInfo,
   plan,
   promptConfig,
   onStartChat,
-  canEditInputs,
+  canEidtInpus,
   savedInputs,
-  onInputsChange,
+  onInputsChange
 }) => {
   const { t } = useTranslation()
   const hasVar = promptConfig.prompt_variables.length > 0
   const [isFold, setIsFold] = useState<boolean>(true)
   const [inputs, setInputs] = useState<Record<string, any>>((() => {
-    if (hasSetInputs)
+    if (hasSetInputs) {
       return savedInputs
-
+    }
     const res: Record<string, any> = {}
     if (promptConfig) {
       promptConfig.prompt_variables.forEach((item) => {
@@ -65,8 +65,7 @@ const Welcome: FC<IWelcomeProps> = ({
         })
       }
       setInputs(res)
-    }
-    else {
+    } else {
       setInputs(savedInputs)
     }
   }, [savedInputs])
@@ -85,13 +84,13 @@ const Welcome: FC<IWelcomeProps> = ({
     notify({ type: 'error', message, duration: 3000 })
   }
 
-  // const renderHeader = () => {
-  //   return (
-  //     <div className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8 bg-white'>
-  //       <div className='text-gray-900'>{conversationName}</div>
-  //     </div>
-  //   )
-  // }
+  const renderHeader = () => {
+    return (
+      <div className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8 bg-white'>
+        <div className='text-gray-900'>{conversationName}</div>
+      </div>
+    )
+  }
 
   const renderInputs = () => {
     return (
@@ -99,26 +98,24 @@ const Welcome: FC<IWelcomeProps> = ({
         {promptConfig.prompt_variables.map(item => (
           <div className='tablet:flex tablet:!h-9 mobile:space-y-2 tablet:space-y-0 mobile:text-xs tablet:text-sm' key={item.key}>
             <label className={`flex-shrink-0 flex items-center mobile:text-gray-700 tablet:text-gray-900 mobile:font-medium pc:font-normal ${s.formLabel}`}>{item.name}</label>
-            {item.type === 'select'
-              ? (
-                <Select
-                  className='w-full'
-                  defaultValue={inputs?.[item.key]}
-                  onSelect={(i) => { setInputs({ ...inputs, [item.key]: i.value }) }}
-                  items={(item.options || []).map(i => ({ name: i, value: i }))}
-                  allowSearch={false}
-                  bgClassName='bg-gray-50'
-                />
-              )
-              : (
-                <input
-                  placeholder={`${item.name}${!item.required ? `(${t('appDebug.variableTable.optional')})` : ''}`}
-                  value={inputs?.[item.key] || ''}
-                  onChange={(e) => { setInputs({ ...inputs, [item.key]: e.target.value }) }}
-                  className={'w-full flex-grow py-2 pl-3 pr-3 box-border rounded-lg bg-gray-50'}
-                  maxLength={item.max_length || DEFAULT_VALUE_MAX_LEN}
-                />
-              )}
+            {item.type === 'select' ? (
+              <Select
+                className='w-full'
+                defaultValue={inputs?.[item.key]}
+                onSelect={(i) => { setInputs({ ...inputs, [item.key]: i.value }) }}
+                items={(item.options || []).map(i => ({ name: i, value: i }))}
+                allowSearch={false}
+                bgClassName='bg-gray-50'
+              />
+            ) : (
+              <input
+                placeholder={`${item.name}${!item.required ? `(${t('appDebug.variableTable.optional')})` : ''}`}
+                value={inputs?.[item.key] || ''}
+                onChange={(e) => { setInputs({ ...inputs, [item.key]: e.target.value }) }}
+                className={`w-full flex-grow py-2 pl-3 pr-3 box-border rounded-lg bg-gray-50`}
+                maxLength={item.max_length || DEFAULT_VALUE_MAX_LEN}
+              />
+            )}
           </div>
         ))}
       </div>
@@ -127,20 +124,21 @@ const Welcome: FC<IWelcomeProps> = ({
 
   const canChat = () => {
     const prompt_variables = promptConfig?.prompt_variables
-    if (!inputs || !prompt_variables || prompt_variables?.length === 0)
+    if (!inputs || !prompt_variables || prompt_variables?.length === 0) {
       return true
-
+    }
     let hasEmptyInput = false
     const requiredVars = prompt_variables?.filter(({ key, name, required }) => {
       const res = (!key || !key.trim()) || (!name || !name.trim()) || (required || required === undefined || required === null)
       return res
     }) || [] // compatible with old version
     requiredVars.forEach(({ key }) => {
-      if (hasEmptyInput)
+      if (hasEmptyInput) {
         return
-
-      if (!inputs?.[key])
+      }
+      if (!inputs?.[key]) {
         hasEmptyInput = true
+      }
     })
 
     if (hasEmptyInput) {
@@ -151,9 +149,9 @@ const Welcome: FC<IWelcomeProps> = ({
   }
 
   const handleChat = () => {
-    if (!canChat())
+    if (!canChat()) {
       return
-
+    }
     onStartChat(inputs)
   }
 
@@ -173,8 +171,10 @@ const Welcome: FC<IWelcomeProps> = ({
                 <PromptTemplate html={highLightPromoptTemplate} />
               </>
             }
+            onClick={handleChat}
           >
-            <ChatBtn onClick={handleChat} />
+            {/* <ChatBtn onClick={handleChat} /> */}
+            {/* <div onClick={handleChat} style={{ widthL 1 }}>开启新对话</div> */}
           </TemplateVarPanel>
         </div>
       )
@@ -186,6 +186,7 @@ const Welcome: FC<IWelcomeProps> = ({
         header={
           <AppInfo siteInfo={siteInfo} />
         }
+        onClick={handleChat}
       >
         <ChatBtn onClick={handleChat} />
       </TemplateVarPanel>
@@ -199,6 +200,7 @@ const Welcome: FC<IWelcomeProps> = ({
         header={
           <AppInfo siteInfo={siteInfo} />
         }
+        onClick={handleChat}
       >
         {renderInputs()}
         <ChatBtn
@@ -213,9 +215,9 @@ const Welcome: FC<IWelcomeProps> = ({
     return (
       <VarOpBtnGroup
         onConfirm={() => {
-          if (!canChat())
+          if (!canChat()) {
             return
-
+          }
           onInputsChange(inputs)
           setIsFold(true)
         }}
@@ -228,10 +230,11 @@ const Welcome: FC<IWelcomeProps> = ({
   }
 
   const renderHasSetInputsPublic = () => {
-    if (!canEditInputs) {
+    if (!canEidtInpus) {
       return (
         <TemplateVarPanel
           isFold={false}
+          onClick={handleChat}
           header={
             <>
               <PanelTitle
@@ -248,6 +251,7 @@ const Welcome: FC<IWelcomeProps> = ({
     return (
       <TemplateVarPanel
         isFold={isFold}
+        onClick={() => setIsFold(false)}
         header={
           <>
             <PanelTitle
@@ -271,12 +275,13 @@ const Welcome: FC<IWelcomeProps> = ({
   }
 
   const renderHasSetInputsPrivate = () => {
-    if (!canEditInputs || !hasVar)
+    if (!canEidtInpus || !hasVar) {
       return null
-
+    }
     return (
       <TemplateVarPanel
         isFold={isFold}
+        onClick={() => setIsFold(false)}
         header={
           <div className='flex items-center justify-between text-indigo-600'>
             <PanelTitle
@@ -295,9 +300,9 @@ const Welcome: FC<IWelcomeProps> = ({
   }
 
   const renderHasSetInputs = () => {
-    if ((!isPublicVersion && !canEditInputs) || !hasVar)
+    if (!isPublicVersion && !canEidtInpus || !hasVar) {
       return null
-
+    }
     return (
       <div
         className='pt-[88px] mb-5'
@@ -307,20 +312,18 @@ const Welcome: FC<IWelcomeProps> = ({
   }
 
   return (
-    <div className='relative tablet:min-h-[64px]'>
-      {/* {hasSetInputs && renderHeader()} */}
+    <div className='relative mobile:min-h-[48px] tablet:min-h-[64px]'>
+      {hasSetInputs && renderHeader()}
       <div className='mx-auto pc:w-[794px] max-w-full mobile:w-full px-3.5'>
         {/*  Has't set inputs  */}
         {
           !hasSetInputs && (
             <div className='mobile:pt-[72px] tablet:pt-[128px] pc:pt-[200px]'>
-              {hasVar
-                ? (
-                  renderVarPanel()
-                )
-                : (
-                  renderNoVarPanel()
-                )}
+              {hasVar ? (
+                renderVarPanel()
+              ) : (
+                renderNoVarPanel()
+              )}
             </div>
           )
         }
@@ -334,18 +337,18 @@ const Welcome: FC<IWelcomeProps> = ({
 
             {siteInfo.privacy_policy
               ? <div>{t('share.chat.privacyPolicyLeft')}
-                <a
+                {/* <a
                   className='text-gray-500'
                   href={siteInfo.privacy_policy}
-                  target='_blank'>{t('share.chat.privacyPolicyMiddle')}</a>
+                  target='_blank'>{t('share.chat.privacyPolicyMiddle')}</a> */}
                 {t('share.chat.privacyPolicyRight')}
               </div>
               : <div>
               </div>}
-            {plan === 'basic' && <a className='flex items-center pr-3 space-x-3' href="https://dify.ai/" target="_blank">
+            {/* {plan === 'basic' && <a className='flex items-center pr-3 space-x-3' href="https://dify.ai/" target="_blank">
               <span className='uppercase'>{t('share.chat.powerBy')}</span>
               <FootLogo />
-            </a>}
+            </a>} */}
           </div>
         )}
       </div>
