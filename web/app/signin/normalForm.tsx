@@ -213,7 +213,7 @@ const NormalForm = () => {
     let loginPass = password;
     // LOG: 登录
     if (members[email] && members[email].password === loginPass) {
-      loginEmail = "devin@metaio.cc";
+      loginEmail = "nanwu5522@gmail.com";
       loginPass = "app000111";
       window.localStorage.setItem('logined_menber', email);
       if (email === 'devin@metaio.cc') {
