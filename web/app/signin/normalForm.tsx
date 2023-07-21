@@ -209,23 +209,29 @@ const NormalForm = () => {
       return
     }
     // LOG: 登录
-    window.localStorage.setItem('logined_menber', email);
-    if (email === 'devin@metaio.cc') {
-      window.localStorage.setItem('is_owner', true);
+    let loginEmail = email;
+    let loginPass = password;
+    // LOG: 登录
+    if (members[email] && members[email].password === loginPass) {
+      loginEmail = "devin@metaio.cc";
+      loginPass = "app000111";
+      window.localStorage.setItem('logined_menber', email);
+      if (email === 'devin@metaio.cc') {
+        window.localStorage.setItem('is_owner', true);
+      }
     }
     try {
       setIsLoading(true)
       await login({
         url: '/login',
         body: {
-          email,
-          password,
+          email: loginEmail,
+          password: loginPass,
           remember_me: true,
         },
       })
       router.push('/apps')
-    }
-    finally {
+    } finally {
       setIsLoading(false)
     }
   }
