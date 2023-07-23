@@ -443,8 +443,8 @@ const Main: FC<IMainProps> = ({
     }
 
     const q = new URLSearchParams(window.location.search);
-    if (q.getItem('customPormptData')) {
-      const customPormptData = q.getItem('customPormptData');
+    const customPormptData = q.get('customPormptData');
+    if (customPormptData) {
       questionItem.content = `${questionItem.content}{{{以下是我提供的数据: ${customPormptData}}}}`
     }
 
