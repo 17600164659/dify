@@ -483,7 +483,6 @@ const Main: FC<IMainProps> = ({
       content: message,
       isAnswer: false,
     }
-    console.log('chat', 23232323)
 
     const placeholderAnswerId = `answer-placeholder-${Date.now()}`
     const placeholderAnswerItem = {

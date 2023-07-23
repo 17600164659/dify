@@ -442,13 +442,6 @@ const Main: FC<IMainProps> = ({
       isAnswer: false,
     }
 
-    const q = new URLSearchParams(window.location.search);
-    const customPormptData = q.get('customPormptData');
-    console.log(customPormptData, 23232323);
-    if (customPormptData) {
-      questionItem.content = `${questionItem.content}{{{以下是我提供的数据: ${customPormptData}}}}`
-    }
-
     const placeholderAnswerId = `answer-placeholder-${Date.now()}`
     const placeholderAnswerItem = {
       id: placeholderAnswerId,
@@ -488,6 +481,13 @@ const Main: FC<IMainProps> = ({
     } catch (e) {
       console.error(e);
     }
+
+    const q = new URLSearchParams(window.location.search);
+    const customPormptData = q.get('customPormptData');
+    if (customPormptData) {
+      data.query = `${data.query}{{{以下是我提供的数据: ${customPormptData}}}}`
+    }
+    console.log(data, 23232323);
     sendChatMessage(data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)
