@@ -26,6 +26,11 @@ import Loading from '@/app/components/base/loading'
 import { replaceStringWithValues } from '@/app/components/app/configuration/prompt-value-panel'
 import { userInputsFormToPromptVariables } from '@/utils/model-config'
 import type { InstalledApp } from '@/models/explore'
+import axios from 'axios';
+import { decision, execute } from './decision';
+import { roles } from './constants';
+import MainMobile from './main-mobile';
+
 // import Confirm from '@/app/components/base/confirm'
 
 export type IMainProps = {
@@ -437,6 +442,12 @@ const Main: FC<IMainProps> = ({
       isAnswer: false,
     }
 
+    const q = new URLSearchParams(window.location.search);
+    if (q.getItem('customPormptData')) {
+      const customPormptData = q.getItem('customPormptData');
+      questionItem.content = `${questionItem.content}{{{以下是我提供的数据: ${customPormptData}}}}`
+    }
+
     const placeholderAnswerId = `answer-placeholder-${Date.now()}`
     const placeholderAnswerItem = {
       id: placeholderAnswerId,
@@ -459,6 +470,23 @@ const Main: FC<IMainProps> = ({
     setHasStopResponded(false)
     setResponsingTrue()
     setIsShowSuggestion(false)
+    try {
+      const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
+      const decisionJson = JSON.parse(decisionValue);
+      if (decisionJson.type === 'NoAnswer') {
+        let noAnswerList = getChatList();
+        noAnswerList[noAnswerList.length - 1] = {
+          content: "我不参与讨论此内容。", id: `${Date.now()}`, isAnswer: true
+        }
+        setChatList(noAnswerList)
+        setResponsingFalse()
+        return;
+      }
+      const executedPrompt = await execute(decisionJson, data);
+      data.query = data.query + executedPrompt;
+    } catch (e) {
+      console.error(e);
+    }
     sendChatMessage(data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)

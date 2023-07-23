@@ -1,0 +1,328 @@
+.main-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 1000;
+}
+
+.main-container .main-bg {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.main-app-list {
+    height: calc(100vh - 194px);
+    position: absolute;
+    top: 106px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: white;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    padding: 56px 40px;
+    padding-bottom: 20px;
+    overflow-y: scroll;
+}
+
+.main-footer {
+    height: 88px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0px -16px 40px rgba(151, 156, 167, 0.08);
+    background-color: white;
+    z-index: 11;
+    padding-top: 10px;
+    overflow-x: scroll;
+}
+
+.main-header {
+    position: relative;
+}
+
+.main-logo {
+    width: 122px;
+    float: left;
+    margin-top: 26px;
+    margin-left: 24px;
+}
+
+.main-menu {
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+    height: 30px;
+    position: relative;
+    top: 18px;
+
+    background: linear-gradient(155.82deg, rgba(255, 255, 255, 0.5568) 0%, rgba(255, 255, 255, 0.4872) 99.04%);
+    box-shadow: 0px 3px 12px rgba(151, 156, 167, 0.16);
+    backdrop-filter: blur(6px);
+    border-radius: 6px;
+
+    align-items: center;
+}
+
+.main-menu-item {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #555F70;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.main-menu-line {
+    height: 16px;
+    width: 0;
+    border: 1px solid #555F70;
+    opacity: 0.2;
+}
+
+.main-menu-item.active {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #2A374C;
+}
+
+.main-menu-item img {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+.main-share {
+    width: 31px;
+    float: right;
+    margin-top: 54px;
+    margin-right: 20px;
+}
+
+.main-app-news {
+    height: 100vh;
+    position: absolute;
+    top: 106px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: white;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    padding: 32px 0;
+    padding-bottom: 60px;
+    overflow-y: scroll;
+}
+
+.main-app-news .main-app-datas {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.main-app-datas .main-app-datas-content {
+    width: auto;
+    overflow: hidden;
+    height: 84px;
+}
+
+.main-app-news-list {
+    width: 100%;
+    padding: 40px;
+    overflow-y: scroll;
+}
+
+.main-app-news-item {
+    background: #FFFFFF;
+    box-shadow: 0px 20px 38px rgba(151, 156, 167, 0.08);
+    border-radius: 8px;
+    padding: 0 16px;
+    padding-bottom: 14px;
+    margin-bottom: 28px;
+}
+
+.main-app-news-item-head {
+    display: flex;
+    align-items: flex-start;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #2A374C;
+    margin-bottom: 4px;
+}
+
+.main-app-news-item-head img {
+    margin-right: 8px;
+    position: relative;
+    top: -16px;
+}
+
+.main-app-news-item-content {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #555F70;
+    margin-bottom: 24px;
+}
+
+.main-app-news-item-links {
+    margin-bottom: 14px;
+    background: #F5F6F7;
+    border-radius: 8px;
+    /* overflow: hidden; */
+    /* height: 52px; */
+    position: relative;
+    padding: 18px;
+    padding-bottom: 7px;
+    /* padding-top: 19px;
+    padding-left: 18px; */
+}
+
+.main-app-news-item-links-contents {
+    overflow: hidden;
+}
+
+.main-app-news-item-links-title {
+    width: 98px;
+    height: 24px;
+    background: linear-gradient(155.82deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.84) 99.04%);
+    box-shadow: 0px 8px 20px rgba(151, 156, 167, 0.14);
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    color: #2A374C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: -16px;
+    top: -12px;
+}
+
+.main-app-news-item-links-title img {
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+}
+
+.main-app-news-item-links-item {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    text-decoration-line: underline;
+    color: #555F70;
+    margin-right: 12px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    margin-bottom: 12px;
+    /* width: 44px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
+}
+
+.main-app-news-item-links-item img {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    border-radius: 100px;
+}
+
+.main-app-news-item-time {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #AAAFB7;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main-app-news-item-time img {
+    margin-right: 4px;
+    height: 12px;
+    width: 12px;
+}
+
+.main-app-list .main-chat {
+    height: 42px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.main-chat-head {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+.main-chat-info {}
+
+.main-chat-info-title {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 15px;
+    color: #2A374C;
+    margin-bottom: 10px;
+}
+
+.main-chat-info-discrption {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #7F8794;
+}
+
+.main-roles {
+    width: 98px;
+    height: 31px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #F5F6F7;
+    border-radius: 8px;
+    margin-right: 8px;
+    float: left;
+}
+
+.main-roles-header {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    border-radius: 1000px;
+}
+
+.main-roles-name {
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    text-align: center;
+    color: #2A374C;
+}
