@@ -444,6 +444,7 @@ const Main: FC<IMainProps> = ({
 
     const q = new URLSearchParams(window.location.search);
     const customPormptData = q.get('customPormptData');
+    console.log(customPormptData, 23232323);
     if (customPormptData) {
       questionItem.content = `${questionItem.content}{{{以下是我提供的数据: ${customPormptData}}}}`
     }
