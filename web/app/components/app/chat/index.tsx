@@ -417,7 +417,6 @@ const Question: FC<IQuestionProps> = ({ id, content, more, useCurrentUserAvatar,
             style={{ background: "#181A24" }}
             className={'mr-2 py-3 px-4 bg-blue-500 rounded-tl-2xl rounded-b-2xl'}
           >
-            {console.log(content, 23232323)}
             <Markdown isAnswer={isAnswer} content={content.replace(/\{\{\{[\s\S]+\}\}\}/g, "")} />
           </div>
         </div>
