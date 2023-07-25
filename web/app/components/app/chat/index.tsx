@@ -409,6 +409,8 @@ type IQuestionProps = Pick<IChatItem, 'id' | 'content' | 'more' | 'useCurrentUse
 const Question: FC<IQuestionProps> = ({ id, content, more, useCurrentUserAvatar, isAnswer }) => {
   const { userProfile } = useContext(AppContext)
   const userName = userProfile?.name
+  let newContent = content.replaceAll(/\{\{\{[\s\S]+\}\}\}/g, "");
+  newContent = newContent.replaceAll(/\<[\s\S]+\>[\s\S]+\<\/[\s\S]+\>/g, "")
   return (
     <div className='flex items-start justify-end' key={id}>
       <div className={s.questionWrapWrap}>
@@ -417,7 +419,7 @@ const Question: FC<IQuestionProps> = ({ id, content, more, useCurrentUserAvatar,
             style={{ background: "#181A24" }}
             className={'mr-2 py-3 px-4 bg-blue-500 rounded-tl-2xl rounded-b-2xl'}
           >
-            <Markdown isAnswer={isAnswer} content={content.replace(/\{\{\{[\s\S]+\}\}\}/g, "")} />
+            <Markdown isAnswer={isAnswer} content={newContent} />
           </div>
         </div>
         {more && <MoreInfo more={more} isQuestion={true} />}

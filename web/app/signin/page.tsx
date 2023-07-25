@@ -8,6 +8,10 @@ const SignIn = () => {
   return (
     <>
       <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
         className={cn(
           style.background,
           'flex w-full min-h-screen',

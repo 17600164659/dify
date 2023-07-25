@@ -110,13 +110,13 @@ const Form = ({
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
-          <a className='items-center h-[18px] px-3 text-xs text-gray-500' href="https://ipollo.ai/advanced/datasets#how-to-write-a-good-dataset-description" target='_blank'>
+          {/* <a className='items-center h-[18px] px-3 text-xs text-gray-500' href="https://ipollo.ai/advanced/datasets#how-to-write-a-good-dataset-description" target='_blank'>
             <BookOpenIcon className='w-3 h-[18px] mr-1' />
             {t('datasetSettings.form.descWrite')}
-          </a>
+          </a> */}
         </div>
       </div>
-      <div className={rowClass}>
+      {/* <div className={rowClass}>
         <div className={labelClass}>
           <div>{t('datasetSettings.form.permissions')}</div>
         </div>
@@ -126,7 +126,7 @@ const Form = ({
             onChange={v => setPermission(v)}
           />
         </div>
-      </div>
+      </div> */}
       <div className='w-full h-0 border-b-[0.5px] border-b-gray-200 my-2' />
       <div className={rowClass}>
         <div className={labelClass}>

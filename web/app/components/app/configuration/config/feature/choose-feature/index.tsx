@@ -59,7 +59,7 @@ const ChooseFeature: FC<IChooseFeatureProps> = ({
             <>
               <FeatureItem
                 icon={OpeningStatementIcon}
-                previewImgClassName='openingStatementPreview'
+                // previewImgClassName='openingStatementPreview'
                 title={t('appDebug.feature.conversationOpener.title')}
                 description={t('appDebug.feature.conversationOpener.description')}
                 value={config.openingStatement}
@@ -67,7 +67,7 @@ const ChooseFeature: FC<IChooseFeatureProps> = ({
               />
               <FeatureItem
                 icon={<SuggestedQuestionsAfterAnswerIcon />}
-                previewImgClassName='suggestedQuestionsAfterAnswerPreview'
+                // previewImgClassName='suggestedQuestionsAfterAnswerPreview'
                 title={t('appDebug.feature.suggestedQuestionsAfterAnswer.title')}
                 description={t('appDebug.feature.suggestedQuestionsAfterAnswer.description')}
                 value={config.suggestedQuestionsAfterAnswer}

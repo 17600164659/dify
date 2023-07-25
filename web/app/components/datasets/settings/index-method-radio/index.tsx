@@ -72,7 +72,7 @@ const IndexMethodRadio = ({
                 fontFamily: 'PingFang SC',
                 fontStyle: 'normal',
                 fontWeight: 600,
-                fontSize: 20,
+                fontSize: 16,
                 color: '#19243B',
                 marginBottom: 8,
               }}>{option.text}</div>

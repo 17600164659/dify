@@ -674,7 +674,7 @@ const Main: FC<IMainProps> = ({
         )}
         {/* main */}
         <div className={cn(
-          isInstalledApp ? s.installedApp : 'h-[calc(100vh_-_3rem)]',
+          isInstalledApp ? s.installedApp : 'h-[calc(100vh)]',
           'flex-grow flex flex-col overflow-y-auto',
         )
         }>

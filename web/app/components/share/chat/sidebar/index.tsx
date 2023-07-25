@@ -75,6 +75,7 @@ const Sidebar: FC<ISidebarProps> = ({
 
   return (
     <div
+      style={{ height: '100vh' }}
       className={
         cn(
           isInstalledApp ? 'tablet:h-[calc(100vh_-_74px)]' : 'tablet:h-[calc(100vh_-_3rem)]',

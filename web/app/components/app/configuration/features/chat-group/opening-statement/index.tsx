@@ -161,8 +161,8 @@ const OpeningStatement: FC<IOpeningStatementProps> = ({
                 <div className='text-xs text-gray-500'>{t('appDebug.openingStatement.varTip')}</div>
 
                 <div className='flex gap-2'>
-                  <Button className='!h-8 text-sm' onClick={handleCancel}>{t('common.operation.cancel')}</Button>
-                  <Button background="181A24" className='!h-8 text-sm' onClick={handleConfirm} type="primary">{t('common.operation.save')}</Button>
+                  <Button className='!h-8 text-sm' onClick={handleCancel} borderRadius={1000} background="#F5F6F6">{t('common.operation.cancel')}</Button>
+                  <Button background="181A24" className='!h-8 text-sm' onClick={handleConfirm} borderRadius={1000} background="#181A24" type="primary">{t('common.operation.save')}</Button>
                 </div>
               </div>
             )}
