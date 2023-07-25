@@ -410,6 +410,7 @@ const Question: FC<IQuestionProps> = ({ id, content, more, useCurrentUserAvatar,
   const { userProfile } = useContext(AppContext)
   const userName = userProfile?.name
   let newContent = content.replaceAll(/\{\{\{[\s\S]+\}\}\}/g, "");
+  newContent = content.replaceAll(/\{\{[\s\S]+\}\}\}/g, "");
   newContent = newContent.replaceAll(/\<[\s\S]+\>[\s\S]+\<\/[\s\S]+\>/g, "")
   return (
     <div className='flex items-start justify-end' key={id}>
