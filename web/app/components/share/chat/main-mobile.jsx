@@ -25,8 +25,9 @@ export default () => {
                 icon: item.icon,
             });
         });
-
+        console.log(roles, 23232323)
         const conversations = await Promise.all(requests.map(item => item.promise));
+        console.log(conversations, 23232323)
         let result = {};
         requests.map((request, index) => {
             const conver = conversations[index];
