@@ -24,12 +24,12 @@ if (window.location.hostname === 'localhost') {
     });
 } else {
     roles.push({
-        id: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIzOGVhY2EzNy03ZTYzLTQ2ZjItODUyYy1hZDI1OWM5MWUyNDIiLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiMzhlYWNhMzctN2U2My00NmYyLTg1MmMtYWQyNTljOTFlMjQyIiwiZW5kX3VzZXJfaWQiOiJiOTM2YWYyYS1mZTY2LTQyYzEtYjA4MC0yNzEyNTJmZTEyMTMifQ.xVv6jD66y4k6NsSInSmJAt5HTaOf_qu2OLANimPqEQM',
+        id: 'vEJdIfCYoHvn9peR',
         name: 'Web3助手',
         icon: 'https://assets.metaio.cc/assets/difyassets/logo.png'
     });
     roles.push({
-        id: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlM2Q5Y2Q0YS1kNzAxLTQ2YjAtYTg5OC02MmZmMTkwZDkxY2UiLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiZTNkOWNkNGEtZDcwMS00NmIwLWE4OTgtNjJmZjE5MGQ5MWNlIiwiZW5kX3VzZXJfaWQiOiIxYzNlNmU3Yy01NzYwLTQyMmUtODhlNy03MDQ4MTNjMGRiZDAifQ.cKxPLYqsYF1BJufs3FbnJwxhltiy4euh_wDpbgVyyNM',
+        id: '4BFHbBYoeX7hfNGv',
         name: 'GPT3.5',
         icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
     });
