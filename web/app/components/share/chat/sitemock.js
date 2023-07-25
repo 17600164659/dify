@@ -3,11 +3,11 @@ export default {
     "end_user_id": "5a36e501-94ba-4fdc-bbbf-5f7821125751",
     "enable_site": true,
     "site": {
-        "title": "元宇未来",
+        "title": "iPollo.AI",
         "icon": null,
         "icon_background": null,
         "description": null,
-        "copyright": "元宇未来",
+        "copyright": "iPollo.AI",
         "privacy_policy": null,
         "default_language": "zh-Hans",
         "prompt_public": false

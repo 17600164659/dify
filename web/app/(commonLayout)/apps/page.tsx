@@ -30,7 +30,7 @@ const AppList = async () => {
 }
 
 export const metadata = {
-  title: 'Apps - 元宇未来',
+  title: 'Apps - iPollo.AI',
 }
 
 export default AppList

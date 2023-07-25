@@ -14,7 +14,7 @@ const translation = {
     },
   },
   apps: {
-    title: 'Explore Apps by 元宇未来',
+    title: 'Explore Apps by iPollo.AI',
     description: 'Use these template apps instantly or customize your own apps based on the templates.',
     allCategories: 'All Categories',
   },

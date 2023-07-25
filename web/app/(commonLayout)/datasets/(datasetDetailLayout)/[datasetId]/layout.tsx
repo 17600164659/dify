@@ -118,7 +118,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
 
   useEffect(() => {
     if (datasetRes) {
-      document.title = `${datasetRes.name || 'Dataset'} - 元宇未来`
+      document.title = `${datasetRes.name || 'Dataset'} - iPollo.AI`
     }
   }, [datasetRes])
 

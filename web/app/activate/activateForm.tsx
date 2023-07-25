@@ -225,7 +225,7 @@ const ActivateForm = () => {
             </div> */}
             <h2 className="text-[32px] font-bold text-gray-900" style={{ textAlign: 'center' }}>
               {/* {`${t('login.activatedTipStart')} ${checkRes.workspace_name} ${t('login.activatedTipEnd')}`} */}
-              欢迎加入元宇未来
+              欢迎加入iPollo.AI
             </h2>
           </div>
           <div className="w-full mx-auto mt-6 md:w-[500px]">

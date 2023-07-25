@@ -14,7 +14,7 @@ const translation = {
     },
   },
   apps: {
-    title: '探索 元宇未来 的应用',
+    title: '探索 iPollo.AI 的应用',
     description: '使用这些模板应用程序，或根据模板自定义您自己的应用程序。',
     allCategories: '所有类别',
   },

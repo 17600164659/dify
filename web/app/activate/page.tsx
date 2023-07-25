@@ -22,10 +22,10 @@ const Activate = () => {
         {/* <Header /> */}
         <ActivateForm />
         <div style={{ textAlign: 'right' }} className='px-8 py-6 text-sm font-normal text-gray-500'>
-          <span style={{ float: 'left' }}>V1 Beta</span>© {new Date().getFullYear()} 元宇未来, Inc. All rights reserved.
+          <span style={{ float: 'left' }}>V1.1.0</span>© {new Date().getFullYear()} iPollo.AI, Inc. All rights reserved.
         </div>
         {/* <div className='px-8 py-6 text-sm font-normal text-gray-500'>
-          © {new Date().getFullYear()} 元宇未来, Inc. All rights reserved.
+          © {new Date().getFullYear()} iPollo.AI, Inc. All rights reserved.
         </div> */}
       </div>
     </div>
