@@ -12,7 +12,7 @@ if (window.location.hostname === 'localhost') {
         icon: 'https://assets.metaio.cc/assets/difyassets/logo.png'
     });
     roles.push({
-        id: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI4YmMxMTQxOS1kNmE5LTQ3YWUtOTVhYi1lZWNhNmE4ZDFiNDAiLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiOGJjMTE0MTktZDZhOS00N2FlLTk1YWItZWVjYTZhOGQxYjQwIiwiZW5kX3VzZXJfaWQiOiIzNzUxNTczYy0zZGM2LTRiZDMtOGMzMy1mOTliNTVkYmNkMTgifQ.pn_ceXUZ4DvyLLkoPoqqsr2zE-8zIQXGQxjcy4lkNWM",
+        id: "ixusPoGgrhhD2g4a",
         name: '金亮',
         icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
     });

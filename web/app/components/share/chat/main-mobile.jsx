@@ -20,7 +20,7 @@ export default () => {
         const requests = [];
         roles.forEach(item => {
             requests.push({
-                promise: fetchConversations(false, undefined, '', item.id),
+                promise: fetchConversations(false, undefined, ''),
                 appId: item.id,
                 icon: item.icon,
             });
