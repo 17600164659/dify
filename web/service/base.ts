@@ -153,7 +153,11 @@ const baseFetch = (
     catch (e) {
 
     }
-    options.headers.set('Authorization', `Bearer ${accessTokenJson[sharedToken]}`)
+    if (fetchOptions.params && fetchOptions.params.bearer) {
+      options.headers.set('Authorization', `bearer ${fetchOptions.params.bearer}`)
+    } else {
+      options.headers.set('Authorization', `bearer ${accessTokenJson[sharedToken]}`)
+    }
   }
 
   if (deleteContentType) {
