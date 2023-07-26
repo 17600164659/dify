@@ -411,7 +411,9 @@ const Question: FC<IQuestionProps> = ({ id, content, more, useCurrentUserAvatar,
   const userName = userProfile?.name
   let newContent = content.replaceAll(/\{\{\{[\s\S]+\}\}\}/g, "");
   newContent = content.replaceAll(/\{\{[\s\S]+\}\}\}/g, "");
-  newContent = newContent.replaceAll(/\<[\s\S]+\>[\s\S]+\<\/[\s\S]+\>/g, "")
+  newContent = newContent.replaceAll(/\<histories>\>[\s\S]+\<\/histories>+\>/g, "")
+  newContent = newContent.replaceAll(/\<user>\>[\s\S]+\<\/user>+\>/g, "")
+  newContent = newContent.replaceAll(/\<assistant>>\>[\s\S]+\<\/assistant>>+\>/g, "")
   return (
     <div className='flex items-start justify-end' key={id}>
       <div className={s.questionWrapWrap}>
