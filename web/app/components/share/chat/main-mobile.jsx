@@ -72,17 +72,16 @@ export default () => {
                     <div className='main-app-list'>
                         {
                             // sessionList.sort((a, b) => a.created_at - b.created_at).map(item => (
-                            // allConversations.sort((a, b) => b.created_at - a.created_at).map(item => {
-                            roles.map(item => {
-                                // const timer = new Date(parseInt(`${item.created_at}000`));
+                            allConversations.sort((a, b) => b.created_at - a.created_at).map(item => {
+                                const timer = new Date(parseInt(`${item.created_at}000`));
                                 return (
-                                    <div className='main-chat' key={item.id} onClick={() => toRole(item.id)} key={item.id}>
+                                    <div className='main-chat' key={item.id} onClick={() => onSelect(item.appId, item.id)}>
                                         <img className='main-chat-head' src={item.icon} />
                                         <div className='main-chat-info'>
                                             <p className='main-chat-info-title'>{item.name}</p>
-                                            {/* <p className='main-chat-info-discrption'>
+                                            <p className='main-chat-info-discrption'>
                                                 {`${timer.getFullYear()}-${timer.getMonth() + 1}-${timer.getDate()} ${timer.getHours()}:${timer.getMinutes()}`}
-                                            </p> */}
+                                            </p>
                                         </div>
                                     </div>
                                 )
@@ -110,8 +109,8 @@ export default () => {
                                 return (
                                     <div className='main-app-news-item'>
                                         <div className='main-app-news-item-head'>
-                                            <img src="https://assets.metaio.cc/assets/difyassets/bisailogo.png" width={34} height={34} style={{ borderRad: 10 }} />
-                                            Web3助手
+                                            <img src="https://assets.metaio.cc/assets/difyassets/logo.png" width={34} height={34} />
+                                            iPollo.ai
                                         </div>
                                         <div className='main-app-news-item-content'>{item.answer}</div>
                                         <div className='main-app-news-item-links'>
@@ -138,7 +137,7 @@ export default () => {
                     </div>
                 )
             }
-            {/* {contentType === 'chat' && <div className='main-footer'>
+            {contentType === 'chat' && <div className='main-footer'>
                 <div style={{ width: (98 * roles.length) + (8 * (roles.length - 1)) + 40 }}>
                     {
                         roles.map((item, index) => (
@@ -149,7 +148,7 @@ export default () => {
                         ))
                     }
                 </div>
-            </div>} */}
+            </div>}
         </div>
     )
 }
