@@ -20,7 +20,11 @@ export default () => {
         const requests = [];
         roles.forEach(item => {
             requests.push({
+<<<<<<< Updated upstream
                 promise: fetchConversations(false, undefined, ''),
+=======
+                promise: fetchConversations(false, undefined, '', undefined, 100, item.bearer),
+>>>>>>> Stashed changes
                 appId: item.id,
                 icon: item.icon,
             });
