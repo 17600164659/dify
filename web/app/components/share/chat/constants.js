@@ -41,7 +41,7 @@ if (window.location.hostname === 'localhost') {
     //     name: '联网AI助手',
     //     icon: 'https://assets.metaio.cc/assets/difyassets/lwaizs.png'
     // })
-    if (appId !== 'vEJdIfCYoHvn9peR' || appId !== '4BFHbBYoeX7hfNGv' || appId != 'mv1Wjowbvz51kLWH') {
+    if (appId !== 'vEJdIfCYoHvn9peR' && appId !== '4BFHbBYoeX7hfNGv' && appId != 'mv1Wjowbvz51kLWH') {
         roles.push({
             id: appId,
             name: '测试AI',
