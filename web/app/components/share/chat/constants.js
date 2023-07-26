@@ -12,10 +12,7 @@ if (window.location.hostname === 'localhost') {
         icon: 'https://assets.metaio.cc/assets/difyassets/logo.png'
     });
     roles.push({
-<<<<<<< Updated upstream
-=======
         bearer: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTVhNTgzYy04ZTA0LTQ4NmYtODExZC00ODE2N2M1NjVlMTciLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiMTE1YTU4M2MtOGUwNC00ODZmLTgxMWQtNDgxNjdjNTY1ZTE3IiwiZW5kX3VzZXJfaWQiOiJjZDVhYzllNC03YWMxLTQ5ZmItYTY2Ny00ZmE5ZTI4ZGM5NmEifQ.4c4hb3gTYBe5vaFl0iJBTw5e4yTg0Bh6gyhf7h5j_ow",
->>>>>>> Stashed changes
         id: "ixusPoGgrhhD2g4a",
         name: '金亮',
         icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
