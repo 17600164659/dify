@@ -1,0 +1,109 @@
+.UserList {
+    width: calc(100%);
+    height: calc(100%);
+    background-color: white;
+    padding: 48px;
+}
+
+.UserList-main-title {
+    font-family: PingFang SC;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    margin-bottom: 64px;
+}
+
+.UserList-sub-title {
+    font-family: PingFang SC;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 12px;
+    margin-top: 8px;
+}
+
+.UserList-content {
+    width: 100%;
+}
+
+.UserList-row-title {
+    font-family: PingFang SC;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+    height: 20px;
+}
+
+.UserList-row-title div {
+    float: left;
+    width: 20%;
+}
+
+.UserList-row {
+    height: 33px;
+    font-family: PingFang SC;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 33px;
+    margin-top: 30px;
+}
+
+.UserList-row div {
+    float: left;
+    width: 20%;
+}
+
+.UserList-row div .tag {
+    width: 108px;
+    height: 33px;
+    border-radius: 7px;
+    background: #F5F6F7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.UserList-row div.btn {
+    cursor: pointer;
+}
+
+.UserList-detail-btn {
+    padding: 9px 22px;
+    border-radius: 7px;
+    background-color: #f2f2f2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #5A6478;
+    margin-right: 24px;
+}
+
+.UserList-detail-btn.active {
+    background: #181A24;
+    color: white;
+}
+
+.UserList-detail {
+    margin-top: 33px;
+}
+
+.UserList-detail-row {
+    margin-bottom: 40px;
+}
+
+.UserList-detail-row .UserList-detail-title {
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+}
+
+.UserList-detail-row .UserList-detail-value {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    margin-top: 8px;
+    color: #00000040;
+}

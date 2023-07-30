@@ -39,11 +39,13 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
     { name: '浏览', href: `/app/${appId}/overview`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" /> },
     { name: '微调训练', href: `/app/${appId}/configuration`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/wtxl.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/wtxl.png" /> },
     { name: '日志标记', href: `/app/${appId}/logs`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
+    { name: '用户', href: `/app/${appId}/userlist`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
+    { name: '文章', href: `/app/${appId}/article`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
   ]
   // const navigation = [
   //   { name: t('common.appMenus.overview'), href: `/app/${appId}/overview`, icon: ChartBarSquareIcon, selectedIcon: ChartBarSquareSolidIcon },
   //   { name: t('common.appMenus.promptEng'), href: `/app/${appId}/configuration`, icon: Cog8ToothIcon, selectedIcon: Cog8ToothSolidIcon },
-  //   // { name: t('common.appMenus.apiAccess'), href: `/app/${appId}/develop`, icon: CommandLineIcon, selectedIcon: CommandLineSolidIcon },
+  //   { name: t('common.appMenus.apiAccess'), href: `/app/${appId}/develop`, icon: CommandLineIcon, selectedIcon: CommandLineSolidIcon },
   //   { name: t('common.appMenus.logAndAnn'), href: `/app/${appId}/logs`, icon: DocumentTextIcon, selectedIcon: DocumentTextSolidIcon },
   // ]
   const appModeName = response?.mode?.toUpperCase() === 'COMPLETION' ? t('common.appModes.completionApp') : t('common.appModes.chatApp')

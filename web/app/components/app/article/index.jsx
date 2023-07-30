@@ -1,0 +1,190 @@
+'use client'
+import React, { useEffect, useState } from 'react';
+import { Empty, Upload, Button, message, Drawer, Input } from 'antd';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import UploadProps from './uploadHelper';
+import './index.css';
+import r from '@/utils/request';
+
+const request = r('chain.metaio.cc');
+const { TextArea } = Input;
+
+export default ({ appId }) => {
+    // ========================= STATE =========================
+    const [visible, setVisible] = useState(false);
+    const [imageUrl, setImageUrl] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [currentArticle, setCurrentArticle] = useState({});
+    const [articles, setArticles] = useState([]);
+
+
+    // ========================= HANDLE =========================
+    const getArticle = async () => {
+        try {
+            const result = await request.post('/wobi/article/all');
+            if (result.data.code === 200 && result.data.data) {
+                result.data.data.forEach(item => {
+                    if (item.paragraph) {
+                        item.paragraph = JSON.parse(item.paragraph);
+                    }
+                    item.aid = item.ArticleId;
+                })
+                setArticles(result.data.data);
+            }
+        } catch (e) {
+            messageApi.open({
+                type: 'error',
+                content: e.message,
+            });
+        }
+    }
+
+    const showDetail = (article) => {
+        setCurrentArticle(article)
+        setVisible(true)
+    }
+    const newArticle = () => {
+        setCurrentArticle({});
+        setVisible(true)
+    }
+
+    const addParagraph = () => {
+        const newCurrentArticle = { ...currentArticle };
+        const newParagraph = [...(currentArticle.paragraph || []), {}];
+        newCurrentArticle.paragraph = newParagraph;
+        setCurrentArticle(newCurrentArticle);
+    }
+
+    const paragraphItemChange = (item, v, key) => {
+        item[key] = v.target.value;
+        setCurrentArticle({ ...currentArticle });
+    }
+
+    const articleTitleChange = (v) => {
+        setCurrentArticle({ ...currentArticle, articleTitle: v.target.value });
+    }
+
+    const onUploadedPic = (v) => {
+        currentArticle.imageUrl = v.url;
+        setCurrentArticle({ ...currentArticle });
+    }
+
+    const onUploadedItemPic = (index) => (v) => {
+        const currentParagraph = currentArticle.paragraph[index];
+        currentParagraph.pic = v.url;
+        setCurrentArticle({ ...currentArticle });
+    }
+
+    const submitArticle = async () => {
+        try {
+            const result = await request.post('/wobi/article/save', { ...currentArticle, paragraph: JSON.stringify((currentArticle.paragraph || [])) })
+            if (result.data.code === 200) {
+                setVisible(false);
+            } else {
+                throw new Error(result.data.msg)
+            }
+        } catch (e) {
+            messageApi.open({
+                type: 'error',
+                content: e.message,
+            });
+        }
+    }
+
+    // ========================= EFFECT =========================
+    useEffect(() => {
+        getArticle();
+    }, [])
+
+    // ========================= COMPONENT =========================
+    const uploadButton = (
+        <div>
+            {loading ? <LoadingOutlined /> : <PlusOutlined />}
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
+
+    // ========================= RENDER =========================
+    return (
+        <>
+            <div className='Article'>
+                <div className='Article-main-title'>
+                    用户列表
+                    <Button onClick={newArticle} style={{ borderRadius: 1000, background: 'black', color: 'white', float: 'right', marginRight: 20 }}>添加文章</Button>
+                </div>
+                <div className='Article-content'>
+                    {
+                        articles.length ? articles.map(item => (
+                            <div className='Article-item' onClick={() => showDetail(item)}>
+                                <div className='Article-pic-container'>
+                                    <img className='Article-pic' src={item.imageUrl} />
+                                </div>
+                                <div className='Article-detail'>
+                                    <div className="Article-title">{item.articleTitle}</div>
+                                    <div className='Article-summary'>&nbsp;&nbsp;&nbsp;&nbsp;{(item.paragraph[0] || {}).content}</div>
+                                    <div className='Article-edit'>
+                                        <div className='Article-edit-item Article-edit-up'><img src="http://wobi.metaio.cc/wobi-up.png" />置顶</div>
+                                        <div className='Article-edit-item Article-edit-delete'><img src="http://wobi.metaio.cc/wobi-delete.png" />删除</div>
+                                    </div>
+                                </div>
+                            </div>
+                        )) : <Empty style={{ marginTop: 160 }} description="暂无文章" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                    }
+                </div>
+            </div>
+            <Drawer width={800} visible={visible} onClose={() => setVisible(false)}>
+                <div className='Article-writer'>
+                    <div className='Article-main-title'>
+                        文章编辑
+                        <Button onClick={submitArticle} style={{ borderRadius: 1000, background: 'black', color: 'white', float: 'right', marginRight: 20 }}>发布</Button>
+                    </div>
+                    <div className='Article-writer-item'>
+                        <div className='Article-writer-item-title'><span style={{ color: 'red' }}>*</span>文章标题</div>
+                        <Input placeholder='文章标题' value={currentArticle.articleTitle} onChange={articleTitleChange} />
+                    </div>
+                    <div className='Article-writer-item' style={{ display: 'flex' }} >
+                        <div style={{ width: 100 }} className='Article-writer-item-title'><span style={{ color: 'red' }}>*</span>文章封面</div>
+                        <Upload
+                            className="avatar-uploader"
+                            listType="picture-card"
+                            showUploadList={false}
+                            {...UploadProps(onUploadedPic)}
+                            accept="image/*"
+                        >
+                            {currentArticle.imageUrl ? "✅" : uploadButton}
+                        </Upload>
+                    </div>
+                    {
+                        (currentArticle.paragraph || []).map((item, index) => (
+                            <div className='Article-writer-item-paragraph'>
+                                <div className='Article-writer-item-editor'>
+                                    <div className='Article-writer-item-editor-item Article-writer-item-editor-up'><img src="http://wobi.metaio.cc/wobi-up.png" />编辑</div>
+                                    <div className='Article-writer-item-editor-item Article-writer-item-editor-delete'><img src="http://wobi.metaio.cc/wobi-delete.png" />删除</div>
+                                </div>
+                                <Input placeholder='嘉宾简介:' value={item.title} onChange={v => paragraphItemChange(item, v, 'title')} />
+                                <TextArea placeholder='这是一段内容描述，以下省略1000字' value={item.content} onChange={v => paragraphItemChange(item, v, 'content')} />
+                                <Upload
+                                    className="avatar-uploader"
+                                    listType="picture-card"
+                                    showUploadList={false}
+                                    {...UploadProps(onUploadedItemPic(index))}
+                                    accept="image/*,video/mp4"
+                                >
+                                    {item.pic ? "✅" : uploadButton}
+                                </Upload>
+                            </div>
+                        ))
+                    }
+                    <div style={{ paddingBottom: 30 }}>
+                        <Button
+                            style={{ marginBottom: 20, borderRadius: 1000, background: 'black', color: 'white', float: 'left', marginRight: 20 }}
+                            onClick={addParagraph}
+                        >
+                            添加段落
+                        </Button>
+                    </div>
+                </div>
+            </Drawer>
+        </>
+    )
+}
