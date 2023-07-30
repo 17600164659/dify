@@ -14,7 +14,7 @@ const translation = {
     },
   },
   apps: {
-    title: 'Explore Apps by wemoai.com',
+    title: 'Explore Apps by 卒息常谈',
     description: 'Use these template apps instantly or customize your own apps based on the templates.',
     allCategories: 'All Categories',
   },

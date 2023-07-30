@@ -1,7 +1,7 @@
 const translation = {
   list: {
     title: "Documents",
-    desc: "All files of the dataset are shown here, and the entire dataset can be linked to wemoai.com citations or indexed via the Chat plugin.",
+    desc: "All files of the dataset are shown here, and the entire dataset can be linked to 卒息常谈 citations or indexed via the Chat plugin.",
     addFile: "add file",
     table: {
       header: {
@@ -44,7 +44,7 @@ const translation = {
         tip: 'You can upload files, sync from the website, or from webb apps like Notion, GitHub, etc.',
       },
       sync: {
-        tip: "wemoai.com will periodically download files from your Notion and complete processing.",
+        tip: "卒息常谈 will periodically download files from your Notion and complete processing.",
       },
     },
     delete: {

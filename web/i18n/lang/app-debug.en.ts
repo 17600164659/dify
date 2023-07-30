@@ -65,7 +65,7 @@ const translation = {
   },
   automatic: {
     title: 'Automated application orchestration',
-    description: 'Describe your scenario, wemoai.com will orchestrate an application for you.',
+    description: 'Describe your scenario, 卒息常谈 will orchestrate an application for you.',
     intendedAudience: 'Who is the intended audience?',
     intendedAudiencePlaceHolder: 'e.g. Student',
     solveProblem: 'What problems do they hope AI can solve for them?',

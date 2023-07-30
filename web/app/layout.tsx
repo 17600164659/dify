@@ -6,7 +6,7 @@ import './styles/globals.css'
 import './styles/markdown.scss'
 
 export const metadata = {
-  title: 'wemoai.com',
+  title: '卒息常谈',
 }
 
 const LocaleLayout = ({

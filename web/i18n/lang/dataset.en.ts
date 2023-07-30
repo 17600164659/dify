@@ -10,7 +10,7 @@ const translation = {
   datasetDeleted: 'Dataset deleted',
   datasetDeleteFailed: 'Failed to delete dataset',
   didYouKnow: 'Did you know?',
-  intro1: 'The dataset can be integrated into the wemoai.com application ',
+  intro1: 'The dataset can be integrated into the 卒息常谈 application ',
   intro2: 'as a context',
   intro3: ',',
   intro4: 'or it ',

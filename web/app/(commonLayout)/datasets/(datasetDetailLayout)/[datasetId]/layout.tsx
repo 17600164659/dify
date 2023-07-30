@@ -118,7 +118,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
 
   useEffect(() => {
     if (datasetRes) {
-      document.title = `${datasetRes.name || 'Dataset'} - wemoai.com`
+      document.title = `${datasetRes.name || 'Dataset'} - 卒息常谈`
     }
   }, [datasetRes])
 

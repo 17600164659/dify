@@ -30,7 +30,7 @@ const AppList = async () => {
 }
 
 export const metadata = {
-  title: 'Apps - wemoai.com',
+  title: 'Apps - 卒息常谈',
 }
 
 export default AppList
