@@ -6,7 +6,7 @@ import './styles/globals.css'
 import './styles/markdown.scss'
 
 export const metadata = {
-  title: 'iPollo.AI',
+  title: '沃比医疗',
 }
 
 const LocaleLayout = ({

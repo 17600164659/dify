@@ -14,7 +14,7 @@ const translation = {
     },
   },
   apps: {
-    title: 'Explore Apps by iPollo.AI',
+    title: 'Explore Apps by 沃比医疗',
     description: 'Use these template apps instantly or customize your own apps based on the templates.',
     allCategories: 'All Categories',
   },

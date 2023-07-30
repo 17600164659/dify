@@ -65,7 +65,7 @@ const translation = {
   },
   automatic: {
     title: 'Automated application orchestration',
-    description: 'Describe your scenario, iPollo.AI will orchestrate an application for you.',
+    description: 'Describe your scenario, 沃比医疗 will orchestrate an application for you.',
     intendedAudience: 'Who is the intended audience?',
     intendedAudiencePlaceHolder: 'e.g. Student',
     solveProblem: 'What problems do they hope AI can solve for them?',

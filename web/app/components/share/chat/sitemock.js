@@ -3,11 +3,11 @@ export default {
     "end_user_id": "5a36e501-94ba-4fdc-bbbf-5f7821125751",
     "enable_site": true,
     "site": {
-        "title": "iPollo.AI",
+        "title": "沃比医疗",
         "icon": null,
         "icon_background": null,
         "description": null,
-        "copyright": "iPollo.AI",
+        "copyright": "沃比医疗",
         "privacy_policy": null,
         "default_language": "zh-Hans",
         "prompt_public": false
