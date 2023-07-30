@@ -24,10 +24,10 @@ const SignIn = () => {
           {/* <Header /> */}
           <InstallForm />
           {/* <div className='px-8 py-6 text-sm font-normal text-gray-500'>
-            © {new Date().getFullYear()} 沃比医疗, Inc. All rights reserved.
+            © {new Date().getFullYear()} wemoai.com, Inc. All rights reserved.
           </div> */}
           <div style={{ textAlign: 'right' }} className='px-8 py-6 text-sm font-normal text-gray-500'>
-            <span style={{ float: 'left' }}>V1.1.0</span>© {new Date().getFullYear()} 沃比医疗, Inc. All rights reserved.
+            <span style={{ float: 'left' }}>V1.1.0</span>© {new Date().getFullYear()} wemoai.com, Inc. All rights reserved.
           </div>
         </div>
       </div>

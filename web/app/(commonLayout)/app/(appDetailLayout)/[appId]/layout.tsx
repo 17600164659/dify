@@ -51,7 +51,7 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
   const appModeName = response?.mode?.toUpperCase() === 'COMPLETION' ? t('common.appModes.completionApp') : t('common.appModes.chatApp')
   useEffect(() => {
     if (response?.name)
-      document.title = `${(response.name || 'App')} - 沃比医疗`
+      document.title = `${(response.name || 'App')} - wemoai.com`
   }, [response])
   if (!response)
     return null

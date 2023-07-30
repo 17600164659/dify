@@ -50,7 +50,7 @@ const Apps = () => {
   const [showNewAppDialog, setShowNewAppDialog] = useState(false)
 
   useEffect(() => {
-    document.title = `${t('app.title')} -  沃比医疗`;
+    document.title = `${t('app.title')} -  wemoai.com`;
     if (localStorage.getItem(NEED_REFRESH_APP_LIST_KEY) === '1') {
       localStorage.removeItem(NEED_REFRESH_APP_LIST_KEY)
       mutate()

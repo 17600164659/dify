@@ -280,7 +280,7 @@ const NormalForm = () => {
   return (
     <>
       <div className="w-full mx-auto">
-        <h2 className="text-3xl font-normal text-gray-900">欢迎来到 沃比医疗</h2>
+        <h2 className="text-3xl font-normal text-gray-900">欢迎来到 wemoai.com</h2>
         <div className='mt-2 text-sm text-gray-600 '>登录以继续</div>
       </div>
 

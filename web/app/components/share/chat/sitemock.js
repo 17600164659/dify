@@ -3,11 +3,11 @@ export default {
     "end_user_id": "5a36e501-94ba-4fdc-bbbf-5f7821125751",
     "enable_site": true,
     "site": {
-        "title": "沃比医疗",
+        "title": "wemoai.com",
         "icon": null,
         "icon_background": null,
         "description": null,
-        "copyright": "沃比医疗",
+        "copyright": "wemoai.com",
         "privacy_policy": null,
         "default_language": "zh-Hans",
         "prompt_public": false

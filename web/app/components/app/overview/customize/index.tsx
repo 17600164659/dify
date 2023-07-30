@@ -71,7 +71,7 @@ const CustomizeModal: FC<IShareLinkProps> = ({
           <div className='text-gray-500 text-xs mt-1 mb-2'>{t(`${prefixCustomize}.way1.step2Tip`)}</div>
           <pre className='box-border py-3 px-4 bg-gray-100 text-xs font-medium rounded-lg select-text'>
             export const APP_ID = '{appId}'<br />
-            export const API_KEY = {`'<Web API Key From 沃比医疗>'`}
+            export const API_KEY = {`'<Web API Key From wemoai.com>'`}
           </pre>
         </div>
       </div>

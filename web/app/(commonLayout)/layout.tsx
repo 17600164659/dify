@@ -20,7 +20,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 }
 
 export const metadata = {
-  title: '沃比医疗',
+  title: 'wemoai.com',
 }
 
 export default Layout
