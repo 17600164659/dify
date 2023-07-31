@@ -42,7 +42,7 @@ const AppNav = () => {
         navs={appItems.map(item => ({
           id: item.id,
           name: item.name,
-          link: `/app/${item.id}/overview`,
+          link: `/app/${item.id}/configuration`,
           icon: item.icon,
           icon_background: item.icon_background,
         }))}

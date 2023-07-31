@@ -174,8 +174,8 @@ function DetailPanel<T extends ChatConversationFullDetailResponse | CompletionCo
         <span className='text-gray-500 text-[10px]'>{isChatMode ? t('appLog.detail.conversationId') : t('appLog.detail.time')}</span>
         <div className='text-gray-800 text-sm'>{isChatMode ? detail.id : dayjs.unix(detail.created_at).format(t('appLog.dateTimeFormat'))}</div>
       </div>
-      <div className='mr-2 bg-gray-50 py-1.5 px-2.5 rounded-lg flex items-center text-[13px]'><OpenAIIcon className='mr-2' />{detail.model_config.model_id}</div>
-      <Popover
+      {/* <div className='mr-2 bg-gray-50 py-1.5 px-2.5 rounded-lg flex items-center text-[13px]'><OpenAIIcon className='mr-2' />{detail.model_config.model_id}</div> */}
+      {/* <Popover
         position='br'
         className='!w-[280px]'
         btnClassName='mr-4 !bg-gray-50 !py-1.5 !px-2.5 border-none font-normal'
@@ -195,7 +195,7 @@ function DetailPanel<T extends ChatConversationFullDetailResponse | CompletionCo
             </div>
           })}
         </div>}
-      />
+      /> */}
       <div className='w-6 h-6 rounded-lg flex items-center justify-center hover:cursor-pointer hover:bg-gray-100'>
         <XMarkIcon className='w-4 h-4 text-gray-500' onClick={onClose} />
       </div>

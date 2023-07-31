@@ -44,7 +44,7 @@ const LikedItem: FC<{ type?: 'plugin' | 'app'; appStatus?: boolean; detail: Rela
   detail,
 }) => {
   return (
-    <Link className={s.itemWrapper} href={`/app/${detail?.id}/overview`}>
+    <Link className={s.itemWrapper} href={`/app/${detail?.id}/configuration`}>
       <div className={s.iconWrapper}>
         <AppIcon width={24} height={24} size='tiny' />
         {type === 'app' && (
@@ -124,7 +124,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
 
   const ExtraInfo: FC = () => {
     const locale = getLocaleOnClient()
-
+    return null
     return <div className='w-full'>
       <Divider className='mt-5' />
       {relatedApps?.data?.length

@@ -199,11 +199,11 @@ const EmbeddingProcess: FC<Props> = ({ datasetId, batchId, documents = [], index
             indexingStatusDetail.indexing_status === 'completed' && s.success,
           )}>
             {isSourceEmbedding(indexingStatusDetail) && (
-              <div className={s.progressbar} style={{ width: `${getSourcePercent(indexingStatusDetail)}%` }}/>
+              <div className={s.progressbar} style={{ width: `${getSourcePercent(indexingStatusDetail)}%` }} />
             )}
             <div className={s.info}>
               {getSourceType(indexingStatusDetail.id) === DataSourceType.FILE && (
-                <div className={cn(s.fileIcon, s[getFileType(getSourceName(indexingStatusDetail.id))])}/>
+                <div className={cn(s.fileIcon, s[getFileType(getSourceName(indexingStatusDetail.id))])} />
               )}
               {getSourceType(indexingStatusDetail.id) === DataSourceType.NOTION && (
                 <NotionIcon
@@ -230,7 +230,7 @@ const EmbeddingProcess: FC<Props> = ({ datasetId, batchId, documents = [], index
       </div>
       <RuleDetail sourceData={ruleDetail} />
       <div className='flex items-center gap-2 mt-10'>
-        <Button className='w-fit' type='primary' onClick={navToDocumentList}>
+        <Button borderRadius={1000} className='w-fit' type='primary' background="#181A24" onClick={navToDocumentList}>
           <span>{t('datasetCreation.stepThree.navTo')}</span>
           <ArrowRightIcon className='h-4 w-4 ml-2 stroke-current stroke-1' />
         </Button>

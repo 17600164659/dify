@@ -109,7 +109,7 @@ export default () => {
                                 return (
                                     <div className='main-app-news-item'>
                                         <div className='main-app-news-item-head'>
-                                            <img src="https://assets.metaio.cc/assets/difyassets/logo.png" width={34} height={34} />
+                                            <img src="https://assets.metaio.cc/assets/difyassets/cxctlogo.png" width={34} height={34} />
                                             iPollo.ai
                                         </div>
                                         <div className='main-app-news-item-content'>{item.answer}</div>

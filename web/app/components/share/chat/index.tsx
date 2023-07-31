@@ -523,6 +523,12 @@ const Main: FC<IMainProps> = ({
     } catch (e) {
       console.error(e);
     }
+
+    const q = new URLSearchParams(window.location.search);
+    const customPormptData = q.get('customPormptData');
+    if (customPormptData) {
+      data.query = `${data.query}{{{以下是我提供的数据: ${customPormptData}}}}`
+    }
     sendChatMessage(data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)
@@ -693,8 +699,8 @@ const Main: FC<IMainProps> = ({
 
           {
             hasSetInputs && (
-              <div className={cn(doShowSuggestion ? 'pb-[140px]' : (isResponsing ? 'pb-[113px]' : 'pb-[76px]'), 'relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full mx-auto mb-3.5 overflow-hidden')}>
-                <div className='h-full overflow-y-auto' ref={chatListDomRef}>
+              <div style={{ background: 'white', borderTopLeftRadius: 20, borderTopRightRadius: 20, position: 'relative', zIndex: 10 }} className={cn(doShowSuggestion ? 'pb-[140px]' : (isResponsing ? 'pb-[113px]' : 'pb-[76px]'), 'relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full mx-auto mb-3.5 overflow-hidden')}>
+                <div className='h-full overflow-y-auto' ref={chatListDomRef} >
                   <Chat
                     chatList={chatList}
                     onSend={handleSend}

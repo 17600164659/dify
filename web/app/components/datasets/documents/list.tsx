@@ -198,10 +198,10 @@ export const OperationAction: FC<{
               <Divider className='my-1' />
             </>
           )}
-          {!archived && <div className={s.actionItem} onClick={() => onOperate('archive')}>
+          {/* {!archived && <div className={s.actionItem} onClick={() => onOperate('archive')}>
             <ArchiveIcon />
             <span className={s.actionName}>{t('datasetDocuments.list.action.archive')}</span>
-          </div>}
+          </div>} */}
           <div className={cn(s.actionItem, s.deleteActionItem, 'group')} onClick={() => setShowModal(true)}>
             <TrashIcon className={'w-4 h-4 stroke-current text-gray-500 stroke-2 group-hover:text-red-500'} />
             <span className={cn(s.actionName, 'group-hover:text-red-500')}>{t('datasetDocuments.list.action.delete')}</span>

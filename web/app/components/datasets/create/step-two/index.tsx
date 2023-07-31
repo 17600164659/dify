@@ -475,9 +475,9 @@ const StepTwo = ({
               )}
             </div>
           </div>
-          <div className={s.label}>{t('datasetCreation.stepTwo.indexMode')}</div>
+          <div style={{ display: 'none' }} className={s.label}>{t('datasetCreation.stepTwo.indexMode')}</div>
           <div className='max-w-[640px]'>
-            <div className='flex items-center gap-3'>
+            <div style={{ display: 'none' }} className='flex items-center gap-3'>
               {(!hasSetIndexType || (hasSetIndexType && indexingType === IndexingType.QUALIFIED)) && (
                 <div
                   className={cn(
@@ -560,7 +560,7 @@ const StepTwo = ({
               </div>
             )}
             <div className={s.file + ' custom-file'}>
-              <div className={'custom-file-content'} style={{ width: 480 }}>
+              <div className={'custom-file-content'} style={{ width: 480, display: 'none' }}>
                 <div className='mb-2 text-xs font-medium text-gray-500'>{t('datasetCreation.stepTwo.fileName')}</div>
                 <div className='flex items-center text-sm leading-6 font-medium text-gray-800'>
                   {/* <span className={cn(s.fileIcon, file && s[file.extension])} /> */}

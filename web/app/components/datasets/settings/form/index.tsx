@@ -128,7 +128,7 @@ const Form = ({
         </div>
       </div> */}
       <div className='w-full h-0 border-b-[0.5px] border-b-gray-200 my-2' />
-      <div className={rowClass}>
+      {/* <div className={rowClass}>
         <div className={labelClass}>
           <div>{t('datasetSettings.form.indexMethod')}</div>
         </div>
@@ -138,7 +138,7 @@ const Form = ({
             onChange={v => setIndexMethod(v)}
           />
         </div>
-      </div>
+      </div> */}
       <div className={rowClass}>
         <div className={labelClass} />
         <div className='w-[480px]'>

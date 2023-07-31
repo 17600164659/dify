@@ -409,9 +409,9 @@ const NormalForm = () => {
                         disabled={isLoading}
                       // >{t('login.signBtn')}</Button>
                       >登录</Button>
-                      <div className='change-password-btn' onClick={() => setChangePassword(true)}>
+                      {/* <div className='change-password-btn' onClick={() => setChangePassword(true)}>
                         修改密码
-                      </div>
+                      </div> */}
                     </div>
                   </form>
                 ) : (

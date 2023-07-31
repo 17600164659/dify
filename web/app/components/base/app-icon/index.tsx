@@ -54,7 +54,7 @@ const AppIcon: FC<AppIconProps> = ({
     >
       {/* {innerIcon ? innerIcon : icon && icon !== '' ? <em-emoji id={icon} /> : <em-emoji id='🤖' />} */}
       <img
-        src={appIcon || "https://assets.metaio.cc/assets/difyassets/bisailogo.png"}
+        src={appIcon || "https://assets.metaio.cc/assets/difyassets/cxctlogo.png"}
         style={{
           width: width || 88,
           height: height || 88,

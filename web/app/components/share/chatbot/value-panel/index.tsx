@@ -30,8 +30,8 @@ const TemplateVarPanel: FC<ITemplateVarPanelProps> = ({
         className={cn(isFold && 'rounded-b-xl', 'rounded-t-xl px-6 py-4 text-xs')}
       >
         <div className='new-chat-title'>
-          <img src="https://assets.metaio.cc/assets/difyassets/title.png" />
-          <p className='new-chat-content'>欢迎打开iPollo.ai的奇幻世界大门</p>
+          {/* <img src="https://assets.metaio.cc/assets/difyassets/title.png" /> */}
+          <p className='new-chat-content'>欢迎使用卒息常谈</p>
         </div>
       </div>
       {/* body */}

@@ -11,6 +11,9 @@ import Select from '@/app/components/base/select'
 import { DEFAULT_VALUE_MAX_LEN } from '@/config'
 import TemplateVarPanel, { PanelTitle, VarOpBtnGroup } from '../value-panel'
 import { AppInfo, PromptTemplate, ChatBtn, EditBtn, FootLogo } from './massive-component'
+import bg from './assets/bg.png';
+import back from './assets/back.png';
+import './style.css';
 
 // regex to match the {{}} and replace it with a span
 const regex = /\{\{([^}]+)\}\}/g
@@ -84,10 +87,17 @@ const Welcome: FC<IWelcomeProps> = ({
     notify({ type: 'error', message, duration: 3000 })
   }
 
+  const backToApp = () => {
+    window.location.back();
+  }
+
   const renderHeader = () => {
     return (
-      <div className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8 bg-white'>
-        <div className='text-gray-900'>{conversationName}</div>
+      <div style={{ position: 'relative', height: 91 }} className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8 bg-white cxct-title'>
+        <img src={bg.src} className='title-bg' />
+        <img src={back.src} className='title-back' onClick={backToApp} />
+        <span style={{ position: 'relative', zIndex: 10 }}>卒息常谈</span>
+        {/* <div className='text-gray-900'>{conversationName}</div> */}
       </div>
     )
   }

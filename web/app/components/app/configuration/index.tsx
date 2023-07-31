@@ -285,7 +285,7 @@ const Configuration: FC = () => {
                 {/* <div className='text-xl text-gray-900'>{t('appDebug.pageTitle')}</div> */}
                 <div className='flex items-center'>
                   {/* Model and Parameters */}
-                  <ConfigModel
+                  {/* <ConfigModel
                     mode={mode}
                     completionParams={completionParams}
                     modelId={modelConfig.model_id}
@@ -298,7 +298,7 @@ const Configuration: FC = () => {
                     onShowUseGPT4Confirm={() => {
                       setShowUseGPT4Confirm(true)
                     }}
-                  />
+                  /> */}
                   <div className={s.promptSubmitBtns} style={{ height: 32 }}>
                     <Button type="nohover" border="none" color="white" onClick={() => setShowConfirm(true)}>{t('appDebug.operation.resetConfig')}</Button>
                     <div className='mx-3 w-[1px] h-[14px] bg-gray-200'></div>

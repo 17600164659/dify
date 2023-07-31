@@ -151,10 +151,10 @@ export default ({ appId }) => {
                 <div className='UserList-content'>
                     <div className='UserList-row-title'>
                         {/* <div>用户标签</div> */}
-                        <div>用户名</div>
+                        <div>用户姓名</div>
                         <div>性别</div>
                         <div>手机号</div>
-                        <div>标签</div>
+                        {/* <div>标签</div> */}
                         <div>病例查询</div>
                     </div>
                     {
@@ -164,7 +164,7 @@ export default ({ appId }) => {
                                 <div>{item.name}</div>
                                 <div>{item.gender}</div>
                                 <div>{item.phone}</div>
-                                <div><div className='tag'>全部</div></div>
+                                {/* <div><div className='tag'>全部</div></div> */}
                                 <div onClick={() => showDetail(item)} className='btn'>病例查询</div>
                             </div>
                         ))

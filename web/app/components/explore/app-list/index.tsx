@@ -67,7 +67,7 @@ const Apps: FC = () => {
         message: t('app.newApp.appCreated'),
       })
       localStorage.setItem(NEED_REFRESH_APP_LIST_KEY, '1')
-      router.push(`/app/${app.id}/overview`)
+      router.push(`/app/${app.id}/configuration`)
     }
     catch (e) {
       Toast.notify({ type: 'error', message: t('app.newApp.appCreateFailed') })

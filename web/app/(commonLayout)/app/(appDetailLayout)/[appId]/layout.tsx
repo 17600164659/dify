@@ -21,6 +21,9 @@ import AppSideBar from '@/app/components/app-sidebar'
 import BasicSideBar from '@/app/components/basic-sidebar'
 import { fetchAppDetail } from '@/service/apps'
 
+import user from "./assets/user.png";
+import article from "./assets/article.png";
+
 export type IAppDetailLayoutProps = {
   children: React.ReactNode
   params: { appId: string }
@@ -36,11 +39,11 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
   const { data: response } = useSWR(detailParams, fetchAppDetail)
 
   const navigation = [
-    { name: '浏览', href: `/app/${appId}/overview`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" /> },
+    // { name: '浏览', href: `/app/${appId}/overview`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/ll.png" /> },
     { name: '微调训练', href: `/app/${appId}/configuration`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/wtxl.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/wtxl.png" /> },
-    { name: '日志标记', href: `/app/${appId}/logs`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
-    { name: '用户', href: `/app/${appId}/userlist`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
-    { name: '文章', href: `/app/${appId}/article`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
+    { name: '对话记录', href: `/app/${appId}/logs`, icon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" />, selectedIcon: <img width={24} height={24} src="https://assets.metaio.cc/assets/difyassets/rzbj.png" /> },
+    { name: '内容管理', href: `/app/${appId}/article`, icon: <img width={24} height={24} src={article.src} />, selectedIcon: <img width={24} height={24} src={article.src} /> },
+    { name: '用户管理', href: `/app/${appId}/userlist`, icon: <img width={24} height={24} src={user.src} />, selectedIcon: <img width={24} height={24} src={user.src} /> },
   ]
   // const navigation = [
   //   { name: t('common.appMenus.overview'), href: `/app/${appId}/overview`, icon: ChartBarSquareIcon, selectedIcon: ChartBarSquareSolidIcon },

@@ -15,6 +15,9 @@ import { languageMaps, languages } from '@/utils/language'
 import { activateMember, invitationCheck } from '@/service/common'
 import Toast from '@/app/components/base/toast'
 import Loading from '@/app/components/base/loading'
+import logo from './assets/cxctlogo.png';
+import "./style.css";
+// console.log(logo, 23232323)
 
 const validPassword = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/
 
@@ -98,6 +101,10 @@ const ActivateForm = () => {
       {!checkRes && <Loading />}
       {checkRes && !checkRes.is_valid && (
         <div className="flex flex-col md:w-[800px]">
+          <div className='logo-container'>
+            <img src={logo.src} />
+            卒息常谈
+          </div>
           <div className="w-full mx-auto">
             {/* <div className="mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold">🤷‍♂️</div> */}
             <h2 style={{ textAlign: 'center' }} className="text-[32px] font-bold text-gray-900">{t('login.invalid')}</h2>
@@ -110,11 +117,15 @@ const ActivateForm = () => {
         </div>
       )}
       {checkRes && checkRes.is_valid && !showSuccess && (
-        <div className='flex flex-col md:w-[800px]'>
+        <div className='flex flex-col md:w-[500px]'>
+          <div className='logo-container'>
+            <img src={logo.src} />
+            卒息常谈
+          </div>
           <div className="w-full mx-auto">
             {/* <div className={`mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold ${style.logo}`}>
             </div> */}
-            <h2 className="text-[32px] font-bold text-gray-900" style={{ textAlign: 'center' }}>
+            <h2 className="text-[32px] font-bold text-gray-900" style={{ textAlign: 'left' }}>
               {/* {`${t('login.join')} ${checkRes.workspace_name}`} */}
               设置账号密码
             </h2>
@@ -123,7 +134,7 @@ const ActivateForm = () => {
             </p> */}
           </div>
 
-          <div className="w-full mx-auto mt-6 md:w-[500px]">
+          <div className="w-full mx-auto mt-6">
             <div className="bg-white">
               {/* username */}
               <div className='mb-5'>
@@ -192,13 +203,13 @@ const ActivateForm = () => {
                   />
                 </div>
               </div> */}
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                 <Button
                   // type='primary'
                   borderRadius={1000} background="#181A24" type="primary"
                   className='w-full !fone-medium !text-sm'
                   onClick={handleActivate}
-                  styles={{ width: 200 }}
+                  styles={{ width: 200, marginTop: 56 }}
                 >
                   {/* {`${t('login.join')} ${checkRes.workspace_name}`} */}
                   确认
@@ -219,6 +230,10 @@ const ActivateForm = () => {
       )}
       {checkRes && checkRes.is_valid && showSuccess && (
         <div className="flex flex-col md:w-[800px]">
+          <div className='logo-container'>
+            <img src={logo.src} />
+            卒息常谈
+          </div>
           <div className="w-full mx-auto">
             {/* <div className="mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold">
               <CheckCircleIcon className='w-10 h-10 text-[#039855]' />

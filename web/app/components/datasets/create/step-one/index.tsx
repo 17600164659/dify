@@ -52,14 +52,14 @@ export const NotionConnector = ({ onSetting }: NotionConnectorProps) => {
 const dataSourceConfig = [
   { icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-file.png', name: '本地文件', deascription: '已经整理好的文件', dataType: 'FILE' },
   // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '导入Notion文档', dataType: 'NOTION' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '升级中...', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-web.png', name: 'Web单页', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-site.png', name: '网站', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-git.png', name: 'GitHub', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-google.png', name: 'Google Sheet', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-wemo.png', name: 'WemoData', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-twi.png', name: 'Twitter', deascription: '即将上线', dataType: 'COMMINGSOON' },
-  { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-airt.png', name: 'Airtable', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-notion.png', name: 'Notion', deascription: '升级中...', dataType: 'COMMINGSOON' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-web.png', name: 'Web单页', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-site.png', name: '网站', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-git.png', name: 'GitHub', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-google.png', name: 'Google Sheet', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-wemo.png', name: 'WemoData', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-twi.png', name: 'Twitter', deascription: '即将上线', dataType: 'COMMINGSOON' },
+  // { disabled: true, icon: 'https://assets.metaio.cc/assets/difyassets/ds-icons/ds-airt.png', name: 'Airtable', deascription: '即将上线', dataType: 'COMMINGSOON' },
 ];
 
 const StepOne = ({
@@ -143,18 +143,18 @@ const StepOne = ({
                 <div className='data-source-item-discription'>标注</div>
               </div>
             </div> */}
-            <div
+            {/* <div
               className={cn(s.dataSourceItem, s.disabled, dataSourceType === 'web' && s.active) + ' data-source-item'}
               onClick={modalShowHandle}
               style={{ cursor: "pointer" }}
             >
-              {/* <span className={cn(s.datasetIcon, s.web)} /> */}
+              <span className={cn(s.datasetIcon, s.web)} />
               <img className='data-source-item-icon' src="https://assets.metaio.cc/assets/difyassets/add.png" />
               <div className='data-source-item-info'>
                 <div className='data-source-item-title'>{t('datasetCreation.stepOne.emptyDatasetCreation')}</div>
                 <div className='data-source-item-discription'>以空数据创建数据集</div>
               </div>
-            </div>
+            </div> */}
           </div>
           {
             _dataSourceType === 'NOTION' && (

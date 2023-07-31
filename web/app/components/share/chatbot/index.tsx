@@ -487,7 +487,6 @@ const Main: FC<IMainProps> = ({
     if (customPormptData) {
       data.query = `${data.query}{{{以下是我提供的数据: ${customPormptData}}}}`
     }
-    console.log(data, 23232323);
     sendChatMessage(data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)

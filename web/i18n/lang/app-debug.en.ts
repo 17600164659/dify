@@ -5,7 +5,7 @@ const translation = {
     resetConfig: 'Reset',
     addFeature: 'Add Feature',
     automatic: 'Automatic',
-    stopResponding: 'Stop responding',
+    stopResponding: '停止回答',
     agree: 'like',
     disagree: 'dislike',
     cancelAgree: 'Cancel like',

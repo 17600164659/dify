@@ -26,7 +26,7 @@ export type IAppDetailNavProps = {
 const sampleAppIconUrl = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
 const databaseUrl = 'https://assets.metaio.cc/assets/difyassets/datas.png';
 const appUrl = 'https://assets.metaio.cc/assets/difyassets/apps.png';
-const logoUrl = 'https://assets.metaio.cc/assets/difyassets/biglogo.png';
+const logoUrl = 'https://assets.metaio.cc/assets/difyassets/cxctlogo.png';
 
 const headerPreUrl = 'https://assets.metaio.cc/assets/difyassets/dify-header-';
 

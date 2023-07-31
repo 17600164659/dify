@@ -1,0 +1,20 @@
+.title-bg {
+    position: absolute;
+    left: 0;
+}
+
+.title-back {
+    width: 31px;
+    height: 31px;
+    position: absolute;
+    left: 20px;
+    top: 30px;
+}
+
+.cxct-title {
+    font-family: PingFang SC;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+}

@@ -24,15 +24,12 @@ export default ({ appId }) => {
             const result = await request.post('/wobi/article/all');
             if (result.data.code === 200 && result.data.data) {
                 result.data.data.forEach(item => {
-                    if (item.paragraph) {
-                        item.paragraph = JSON.parse(item.paragraph);
-                    }
                     item.aid = item.ArticleId;
                 })
                 setArticles(result.data.data);
             }
         } catch (e) {
-            messageApi.open({
+            message.open({
                 type: 'error',
                 content: e.message,
             });
@@ -64,6 +61,14 @@ export default ({ appId }) => {
         setCurrentArticle({ ...currentArticle, articleTitle: v.target.value });
     }
 
+    const articleInfoChange = (v) => {
+        setCurrentArticle({ ...currentArticle, articleInfo: v.target.value });
+    }
+
+    const linkChange = v => {
+        setCurrentArticle({ ...currentArticle, link: v.target.value });
+    }
+
     const onUploadedPic = (v) => {
         currentArticle.imageUrl = v.url;
         setCurrentArticle({ ...currentArticle });
@@ -77,14 +82,15 @@ export default ({ appId }) => {
 
     const submitArticle = async () => {
         try {
-            const result = await request.post('/wobi/article/save', { ...currentArticle, paragraph: JSON.stringify((currentArticle.paragraph || [])) })
+            const result = await request.post('/wobi/article/save', { ...currentArticle })
             if (result.data.code === 200) {
                 setVisible(false);
+                getArticle();
             } else {
                 throw new Error(result.data.msg)
             }
         } catch (e) {
-            messageApi.open({
+            message.open({
                 type: 'error',
                 content: e.message,
             });
@@ -109,8 +115,8 @@ export default ({ appId }) => {
         <>
             <div className='Article'>
                 <div className='Article-main-title'>
-                    用户列表
-                    <Button onClick={newArticle} style={{ borderRadius: 1000, background: 'black', color: 'white', float: 'right', marginRight: 20 }}>添加文章</Button>
+                    内容列表
+                    <Button onClick={newArticle} style={{ borderRadius: 1000, background: 'black', color: 'white', float: 'right', marginRight: 20 }}>添加内容</Button>
                 </div>
                 <div className='Article-content'>
                     {
@@ -121,29 +127,33 @@ export default ({ appId }) => {
                                 </div>
                                 <div className='Article-detail'>
                                     <div className="Article-title">{item.articleTitle}</div>
-                                    <div className='Article-summary'>&nbsp;&nbsp;&nbsp;&nbsp;{(item.paragraph[0] || {}).content}</div>
+                                    <div className='Article-summary'>&nbsp;&nbsp;&nbsp;&nbsp;{item.articleInfo}</div>
                                     <div className='Article-edit'>
-                                        <div className='Article-edit-item Article-edit-up'><img src="http://wobi.metaio.cc/wobi-up.png" />置顶</div>
+                                        {/* <div className='Article-edit-item Article-edit-up'><img src="http://wobi.metaio.cc/wobi-up.png" />置顶</div> */}
                                         <div className='Article-edit-item Article-edit-delete'><img src="http://wobi.metaio.cc/wobi-delete.png" />删除</div>
                                     </div>
                                 </div>
                             </div>
-                        )) : <Empty style={{ marginTop: 160 }} description="暂无文章" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                        )) : <Empty style={{ marginTop: 160 }} description="暂无内容" image={Empty.PRESENTED_IMAGE_SIMPLE} />
                     }
                 </div>
             </div>
             <Drawer width={800} visible={visible} onClose={() => setVisible(false)}>
                 <div className='Article-writer'>
                     <div className='Article-main-title'>
-                        文章编辑
-                        <Button onClick={submitArticle} style={{ borderRadius: 1000, background: 'black', color: 'white', float: 'right', marginRight: 20 }}>发布</Button>
+                        内容编辑
+                        {/* <Button onClick={submitArticle} style={{ borderRadius: 1000, background: 'black', color: 'white', float: 'right', marginRight: 20 }}>发布</Button> */}
                     </div>
                     <div className='Article-writer-item'>
-                        <div className='Article-writer-item-title'><span style={{ color: 'red' }}>*</span>文章标题</div>
-                        <Input placeholder='文章标题' value={currentArticle.articleTitle} onChange={articleTitleChange} />
+                        <div className='Article-writer-item-title'><span style={{ color: 'red' }}>*</span>内容标题</div>
+                        <Input placeholder='内容标题' value={currentArticle.articleTitle} onChange={articleTitleChange} />
+                    </div>
+                    <div className='Article-writer-item'>
+                        <div className='Article-writer-item-title'><span style={{ color: 'red' }}>*</span>内容简介</div>
+                        <Input.TextArea placeholder='内容简介' value={currentArticle.articleInfo} onChange={articleInfoChange} />
                     </div>
                     <div className='Article-writer-item' style={{ display: 'flex' }} >
-                        <div style={{ width: 100 }} className='Article-writer-item-title'><span style={{ color: 'red' }}>*</span>文章封面</div>
+                        <div style={{ width: 100 }} className='Article-writer-item-title'><span style={{ color: 'red' }}>*</span>内容封面</div>
                         <Upload
                             className="avatar-uploader"
                             listType="picture-card"
@@ -154,11 +164,15 @@ export default ({ appId }) => {
                             {currentArticle.imageUrl ? "✅" : uploadButton}
                         </Upload>
                     </div>
+                    <div className='Article-writer-item'>
+                        <div className='Article-writer-item-title'><span style={{ color: 'red' }}>*</span>公众号文章链接</div>
+                        <Input placeholder='公众号文章链接' value={currentArticle.link} onChange={linkChange} />
+                    </div>
                     {
-                        (currentArticle.paragraph || []).map((item, index) => (
+                        false && (currentArticle.paragraph || []).map((item, index) => (
                             <div className='Article-writer-item-paragraph'>
                                 <div className='Article-writer-item-editor'>
-                                    <div className='Article-writer-item-editor-item Article-writer-item-editor-up'><img src="http://wobi.metaio.cc/wobi-up.png" />编辑</div>
+                                    {/* <div className='Article-writer-item-editor-item Article-writer-item-editor-up'><img src="http://wobi.metaio.cc/wobi-up.png" />编辑</div> */}
                                     <div className='Article-writer-item-editor-item Article-writer-item-editor-delete'><img src="http://wobi.metaio.cc/wobi-delete.png" />删除</div>
                                 </div>
                                 <Input placeholder='嘉宾简介:' value={item.title} onChange={v => paragraphItemChange(item, v, 'title')} />
@@ -178,9 +192,10 @@ export default ({ appId }) => {
                     <div style={{ paddingBottom: 30 }}>
                         <Button
                             style={{ marginBottom: 20, borderRadius: 1000, background: 'black', color: 'white', float: 'left', marginRight: 20 }}
-                            onClick={addParagraph}
+                            // onClick={addParagraph}
+                            onClick={submitArticle}
                         >
-                            添加段落
+                            发布
                         </Button>
                     </div>
                 </div>

@@ -150,7 +150,7 @@ const Config: FC = () => {
           onChange={handlePromptChange}
         />
 
-        <div className='app-info-strategy'>
+        {/* <div className='app-info-strategy'>
           <div className='app-info-strategy-title'>
             <img src="https://assets.metaio.cc/assets/difyassets/cl.png" width={14} height={14} style={{ height: 14, position: 'relative', top: 7 }} />
             策略
@@ -165,7 +165,7 @@ const Config: FC = () => {
               ))
             }
           </div>
-        </div>
+        </div> */}
 
         {/* Variables */}
         <ConfigVar
