@@ -88,7 +88,7 @@ const Welcome: FC<IWelcomeProps> = ({
   }
 
   const backToApp = () => {
-    window.location.back();
+    window.history.go(-1);
   }
 
   const renderHeader = () => {
