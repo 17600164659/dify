@@ -129,8 +129,8 @@ export default ({ appId }) => {
                                     <div className="Article-title">{item.articleTitle}</div>
                                     <div className='Article-summary'>&nbsp;&nbsp;&nbsp;&nbsp;{item.articleInfo}</div>
                                     <div className='Article-edit'>
-                                        {/* <div className='Article-edit-item Article-edit-up'><img src="http://wobi.metaio.cc/wobi-up.png" />置顶</div> */}
-                                        <div className='Article-edit-item Article-edit-delete'><img src="http://wobi.metaio.cc/wobi-delete.png" />删除</div>
+                                        {/* <div className='Article-edit-item Article-edit-up'><img src="https://assets.metaio.cc/assets/difyassets/wobi-up.png" />置顶</div> */}
+                                        <div className='Article-edit-item Article-edit-delete'><img src="https://assets.metaio.cc/assets/difyassets/wobi-delete.png" />删除</div>
                                     </div>
                                 </div>
                             </div>
@@ -172,8 +172,8 @@ export default ({ appId }) => {
                         false && (currentArticle.paragraph || []).map((item, index) => (
                             <div className='Article-writer-item-paragraph'>
                                 <div className='Article-writer-item-editor'>
-                                    {/* <div className='Article-writer-item-editor-item Article-writer-item-editor-up'><img src="http://wobi.metaio.cc/wobi-up.png" />编辑</div> */}
-                                    <div className='Article-writer-item-editor-item Article-writer-item-editor-delete'><img src="http://wobi.metaio.cc/wobi-delete.png" />删除</div>
+                                    {/* <div className='Article-writer-item-editor-item Article-writer-item-editor-up'><img src="https://assets.metaio.cc/assets/difyassets/wobi-up.png" />编辑</div> */}
+                                    <div className='Article-writer-item-editor-item Article-writer-item-editor-delete'><img src="https://assets.metaio.cc/assets/difyassets/wobi-delete.png" />删除</div>
                                 </div>
                                 <Input placeholder='嘉宾简介:' value={item.title} onChange={v => paragraphItemChange(item, v, 'title')} />
                                 <TextArea placeholder='这是一段内容描述，以下省略1000字' value={item.content} onChange={v => paragraphItemChange(item, v, 'content')} />
