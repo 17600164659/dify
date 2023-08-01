@@ -44,6 +44,13 @@ export default function AccountSetting({
       icon: <UsersIcon className={iconClassName} />,
       activeIcon: <UsersIconSolid className={iconClassName} />,
     })
+
+    customItems.push({
+      key: 'provider',
+      name: t('common.settings.provider'),
+      icon: <CubeTransparentIcon className={iconClassName} />,
+      activeIcon: <CubeTransparentIcon className={iconClassName} />,
+    },)
   }
 
   const menuItems = [

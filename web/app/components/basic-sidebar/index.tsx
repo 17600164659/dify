@@ -74,7 +74,7 @@ const AppDetailNav: FC<IAppDetailNavProps> = ({
     >
       <div style={{ position: 'fixed', left: 0, top: 0, padding: '0 20px', background: 'white' }}>
         <div className='basic-sidebar' style={{ width: 70 }}>
-          <img src={logoUrl} className='basic-sidebar-header' />
+          <img src={logoUrl} className='basic-sidebar-header' style={{ top: 0 }} />
           {
             !isChat ? (
               <div className='basic-sidebar-menu'>
