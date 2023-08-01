@@ -141,7 +141,7 @@ export default function AccountPage() {
         <div className='mb-2 text-xs text-gray-500'>{t('common.account.passwordTip')}</div>
         <Button className='font-medium !text-gray-700 !px-3 !py-[7px] !text-[13px]' onClick={() => setEditPasswordModalVisible(true)}>{userProfile.is_password_set ? t('common.account.resetPassword') : t('common.account.setPassword')}</Button>
       </div>
-      {!!apps.length && (
+      {/* {!!apps.length && (
         <>
           <div className='mb-6 border-[0.5px] border-gray-100' />
           <div className='mb-8'>
@@ -155,7 +155,7 @@ export default function AccountPage() {
             />
           </div>
         </>
-      )}
+      )} */}
       {editNameModalVisible && (
         <Modal
           isShow
