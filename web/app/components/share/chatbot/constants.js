@@ -1,6 +1,6 @@
 const pathnames = window.location.pathname.split('/')
 export const appId = pathnames[pathnames.length - 1];
-const isDev = window.location.hostname === 'localhost' || window.location.hostname === 'gpt.metaio.cc';
+const isDev = window.location.hostname === 'localhost' || window.location.hostname === 'cxctadmin.metaio.cc';
 export const decisionAppId = appId === 'vEJdIfCYoHvn9peR' ? 'HsvT57j5bktvP4sw' : isDev ? '' : '';
 
 export const roles = [];
@@ -16,7 +16,7 @@ if (window.location.hostname === 'localhost') {
         name: '金亮',
         icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
     });
-} else if (window.location.hostname === 'gpt.metaio.cc') {
+} else if (window.location.hostname === 'cxctadmin.metaio.cc') {
     roles.push({
         id: appId,
         name: '测试AI',
