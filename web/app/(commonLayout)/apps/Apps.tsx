@@ -124,12 +124,12 @@ const Apps = () => {
     }
   }, [data, myApps]);
 
-
+  const is_owner = window.localStorage.getItem('is_owner')
   return (
     <div style={customStyle} id="apps-parent-container">
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="apps" />
-      <nav id="apps-container" className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-3 lg:grid-cols-3 grow shrink-0' style={{ flex: 1, paddingRight: 20, paddingTop: 20, position: 'relative', overflowY: 'scroll', paddingBottom: 20 }}>
-        {/* <div onClick={() => setShowNewAppDialog(true)} style={{
+      <nav id="apps-container" className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-3 lg:grid-cols-3 grow shrink-0' style={{ flex: 1, paddingRight: 20, paddingTop: is_owner ? 130 : 20, position: 'relative', overflowY: 'scroll', paddingBottom: 20 }}>
+        {is_owner && <div onClick={() => setShowNewAppDialog(true)} style={{
           width: 176,
           height: 76,
           display: 'flex',
@@ -167,7 +167,7 @@ const Apps = () => {
             fontSize: 20,
             color: "#19243B"
           }}>创建应用</div>
-        </div> */}
+        </div>}
         {
           // data?.map(({ data: apps }) => apps.map(app => (
           //   <AppCard key={app.id} app={app} onDelete={mutate} />
