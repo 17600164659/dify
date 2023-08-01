@@ -144,9 +144,6 @@ export default ({ appId }) => {
             <div className='UserList'>
                 <div className='UserList-main-title'>
                     用户列表
-                    <div className='UserList-sub-title'>
-                        查看APP使用情况
-                    </div>
                 </div>
                 <div className='UserList-content'>
                     <div className='UserList-row-title'>
