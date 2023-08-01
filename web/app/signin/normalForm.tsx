@@ -339,7 +339,7 @@ const NormalForm = () => {
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                         {/* {t('login.email')} */}
-                        邮箱
+                        用户名
                       </label>
                       <div className="mt-1">
                         <input
@@ -418,7 +418,7 @@ const NormalForm = () => {
                   <form className="space-y-6" onSubmit={() => { }}>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                        邮箱
+                        用户名
                       </label>
                       <div className="mt-1">
                         <input
