@@ -15,13 +15,13 @@ if (window.location.hostname === 'localhost') {
         bearer: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMTVhNTgzYy04ZTA0LTQ4NmYtODExZC00ODE2N2M1NjVlMTciLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiMTE1YTU4M2MtOGUwNC00ODZmLTgxMWQtNDgxNjdjNTY1ZTE3IiwiZW5kX3VzZXJfaWQiOiJjZDVhYzllNC03YWMxLTQ5ZmItYTY2Ny00ZmE5ZTI4ZGM5NmEifQ.4c4hb3gTYBe5vaFl0iJBTw5e4yTg0Bh6gyhf7h5j_ow",
         id: "ixusPoGgrhhD2g4a",
         name: '金亮',
-        icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
+        icon: 'https://assets.metaio.cc/assets/difyassets/cxctlogo.png'
     });
 } else if (window.location.hostname === 'gpt.metaio.cc') {
     roles.push({
         id: appId,
         name: '测试AI',
-        icon: 'https://assets.metaio.cc/assets/difyassets/web3zs.png'
+        icon: 'https://assets.metaio.cc/assets/difyassets/cxctlogo.png'
     });
 } else {
     roles.push({
@@ -34,18 +34,18 @@ if (window.location.hostname === 'localhost') {
         bearer: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlM2Q5Y2Q0YS1kNzAxLTQ2YjAtYTg5OC02MmZmMTkwZDkxY2UiLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiZTNkOWNkNGEtZDcwMS00NmIwLWE4OTgtNjJmZjE5MGQ5MWNlIiwiZW5kX3VzZXJfaWQiOiIxYzNlNmU3Yy01NzYwLTQyMmUtODhlNy03MDQ4MTNjMGRiZDAifQ.cKxPLYqsYF1BJufs3FbnJwxhltiy4euh_wDpbgVyyNM',
         id: '4BFHbBYoeX7hfNGv',
         name: 'GPT3.5',
-        icon: 'https://assets.metaio.cc/assets/difyassets/gpt.png'
+        icon: 'https://assets.metaio.cc/assets/difyassets/cxctlogo.png'
     });
     // roles.push({
     //     id: 'mv1Wjowbvz51kLWH',
     //     name: '联网AI助手',
-    //     icon: 'https://assets.metaio.cc/assets/difyassets/lwaizs.png'
+    //     icon: 'https://assets.metaio.cc/assets/difyassets/cxctlogo.png'
     // })
     if (appId !== 'vEJdIfCYoHvn9peR' && appId !== '4BFHbBYoeX7hfNGv' && appId != 'mv1Wjowbvz51kLWH') {
         roles.push({
             id: appId,
             name: '测试AI',
-            icon: 'https://assets.metaio.cc/assets/difyassets/web3zs.png'
+            icon: 'https://assets.metaio.cc/assets/difyassets/cxctlogo.png'
         });
     }
 }

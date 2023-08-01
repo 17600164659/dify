@@ -71,7 +71,7 @@ const AppCard = ({
           />
           <div className={style.listItemHeading} style={{ height: 'auto' }}>
             <div className='app-name-text'>{app.name}</div>
-            <div><span className='app-gray-text'>应用类型:</span> 对话型应用</div>
+            {/* <div><span className='app-gray-text'>应用类型:</span> 对话型应用</div> */}
             <div><span className='app-gray-text'>创建时间:</span> 2023.05.20</div>
           </div>
           {/* <span className={style.deleteAppIcon} onClick={onDeleteClick} style={{ backgroundImage: "url('https://assets.metaio.cc/assets/difyassets/delete.png')" }} /> */}

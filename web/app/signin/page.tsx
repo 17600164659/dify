@@ -35,7 +35,8 @@ const SignIn = () => {
           {/* <Header /> */}
           <Forms />
           <div style={{ textAlign: 'right' }} className='px-8 py-6 text-sm font-normal text-gray-500'>
-            <span style={{ float: 'left' }}>V1.1.0</span>© {new Date().getFullYear()} 卒息常谈, Inc. All rights reserved.
+            {/* <span style={{ float: 'left' }}>V1.1.0</span> */}
+            © {new Date().getFullYear()} 卒息常谈, Inc. All rights reserved.
           </div>
         </div>
 

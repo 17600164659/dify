@@ -97,6 +97,25 @@ export default ({ appId }) => {
         }
     }
 
+    const deleteArticle = async (item, e) => {
+        e.stopPropagation()
+        return false;
+        // e.
+        // try {
+        //     const result = await request.post('/wobi/article/save', { ...currentArticle })
+        //     if (result.data.code === 200) {
+        //         getArticle();
+        //     } else {
+        //         throw new Error(result.data.msg)
+        //     }
+        // } catch (e) {
+        //     message.open({
+        //         type: 'error',
+        //         content: e.message,
+        //     });
+        // }
+    }
+
     // ========================= EFFECT =========================
     useEffect(() => {
         getArticle();
@@ -130,7 +149,7 @@ export default ({ appId }) => {
                                     <div className='Article-summary'>&nbsp;&nbsp;&nbsp;&nbsp;{item.articleInfo}</div>
                                     <div className='Article-edit'>
                                         {/* <div className='Article-edit-item Article-edit-up'><img src="https://assets.metaio.cc/assets/difyassets/wobi-up.png" />置顶</div> */}
-                                        <div className='Article-edit-item Article-edit-delete'><img src="https://assets.metaio.cc/assets/difyassets/wobi-delete.png" />删除</div>
+                                        <div onClick={(e) => deleteArticle(item, e)} className='Article-edit-item Article-edit-delete'><img src="https://assets.metaio.cc/assets/difyassets/wobi-delete.png" />删除</div>
                                     </div>
                                 </div>
                             </div>

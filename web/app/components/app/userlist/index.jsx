@@ -165,13 +165,13 @@ export default ({ appId }) => {
                                 <div>{item.gender}</div>
                                 <div>{item.phone}</div>
                                 {/* <div><div className='tag'>全部</div></div> */}
-                                <div onClick={() => showDetail(item)} className='btn'>病例查询</div>
+                                <div onClick={() => showDetail(item)} className='btn'>详细信息</div>
                             </div>
                         ))
                     }
                 </div>
             </div>
-            <Drawer width={800} visible={visible} onClose={() => setVisible(false)} title="病例查询" placement="right">
+            <Drawer width={800} visible={visible} onClose={() => setVisible(false)} title="详细信息" placement="right">
                 <div>
                     <Button onClick={() => setActive("baseInfo")} className={`UserList-detail-btn ${active === 'baseInfo' ? 'active' : ''}`}>基础信息</Button>
                     <Button onClick={() => setActive("suizhen7")} className={`UserList-detail-btn ${active === 'suizhen7' ? 'active' : ''}`}>7天随诊记录</Button>

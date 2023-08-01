@@ -182,10 +182,10 @@ const Main: FC<IMainProps> = ({
   const handleStartChat = (inputs: Record<string, any>) => {
     createNewChat()
     setConversationIdChangeBecauseOfNew(true)
-    setCurrInputs(inputs)
+    setCurrInputs(inputs || {})
     setChatStarted()
     // parse variables in introduction
-    setChatList(generateNewChatListWithOpenstatement('', inputs))
+    setChatList(generateNewChatListWithOpenstatement('', (inputs || {})))
   }
   const hasSetInputs = (() => {
     if (!isNewConversation)
@@ -366,6 +366,7 @@ const Main: FC<IMainProps> = ({
 
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
+        handleStartChat();
       }, 100)
       try {
         if (!is_share) {
