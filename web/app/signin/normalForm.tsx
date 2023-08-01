@@ -210,7 +210,7 @@ const NormalForm = () => {
     }
     // LOG: 登录
     window.localStorage.setItem('logined_menber', email);
-    if (email === 'devin@metaio.cc') {
+    if (email === 'app@wemoai.com') {
       window.localStorage.setItem('is_owner', true);
     }
     try {
