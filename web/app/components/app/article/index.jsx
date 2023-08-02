@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Empty, Upload, Button, message, Drawer, Input } from 'antd';
+import { Empty, Upload, Button, message, Drawer, Input, Modal } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import UploadProps from './uploadHelper';
 import './index.css';
@@ -8,7 +8,7 @@ import r from '@/utils/request';
 
 const request = r('chain.metaio.cc');
 const { TextArea } = Input;
-
+let waitDeleteArcitle = null;
 export default ({ appId }) => {
     // ========================= STATE =========================
     const [visible, setVisible] = useState(false);
@@ -16,6 +16,7 @@ export default ({ appId }) => {
     const [loading, setLoading] = useState(false);
     const [currentArticle, setCurrentArticle] = useState({});
     const [articles, setArticles] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
 
 
     // ========================= HANDLE =========================
@@ -98,22 +99,28 @@ export default ({ appId }) => {
     }
 
     const deleteArticle = async (item, e) => {
+        waitDeleteArcitle = item;
         e.stopPropagation()
+        setModalVisible(true)
         return false;
-        // e.
-        // try {
-        //     const result = await request.post('/wobi/article/save', { ...currentArticle })
-        //     if (result.data.code === 200) {
-        //         getArticle();
-        //     } else {
-        //         throw new Error(result.data.msg)
-        //     }
-        // } catch (e) {
-        //     message.open({
-        //         type: 'error',
-        //         content: e.message,
-        //     });
-        // }
+    }
+
+    const confirmDeleteArticle = async () => {
+        try {
+            const result = await request.post('/wobi/article/delete', { aid: waitDeleteArcitle.aid })
+            if (result.data.code === 200) {
+                getArticle();
+                setModalVisible(false);
+            } else {
+                throw new Error(result.data.msg);
+            }
+        } catch (e) {
+            setModalVisible(false);
+            message.open({
+                type: 'error',
+                content: e.message,
+            });
+        }
     }
 
     // ========================= EFFECT =========================
@@ -219,6 +226,10 @@ export default ({ appId }) => {
                     </div>
                 </div>
             </Drawer>
+
+            <Modal okType="default" title="Basic Modal" open={modalVisible} onOk={confirmDeleteArticle} onCancel={() => setModalVisible(false)}>
+                是否删除文章？
+            </Modal>
         </>
     )
 }
