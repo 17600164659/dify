@@ -288,12 +288,13 @@ const Main: FC<IMainProps> = ({
       return
 
     setConversationList(produce(conversationList, (draft) => {
-      draft.unshift({
-        id: '-1',
-        name: t('share.chat.newChatDefaultName'),
-        inputs: newConversationInputs,
-        introduction: conversationIntroduction,
-      })
+      // LOG: 存疑 解除注释会导致报错
+      // draft.unshift({
+      //   id: '-1',
+      //   name: t('share.chat.newChatDefaultName'),
+      //   inputs: newConversationInputs,
+      //   introduction: conversationIntroduction,
+      // })
     }))
   }
 
@@ -369,10 +370,11 @@ const Main: FC<IMainProps> = ({
         handleStartChat();
       }, 100)
       try {
-        if (!is_share) {
-          const appsResult = await fetchAppList({ page: 1 });
-          setApps(appsResult.data);
-        }
+        // LOG: 存疑 解除注释会导致无法打开
+        // if (!is_share) {
+        //   const appsResult = await fetchAppList({ page: 1 });
+        //   setApps(appsResult.data);
+        // }
         const [appData, conversationData, appParams]: any = await fetchInitData()
         const { app_id: appId, site: siteInfo, plan }: any = appData
         setAppId(appId)
