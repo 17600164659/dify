@@ -125,11 +125,14 @@ const Apps = () => {
   }, [data, myApps]);
 
   const is_owner = window.localStorage.getItem('is_owner')
+
+  const qs = new URLSearchParams(window.location.search);
+  const has_new_app_dialog = qs.get('has_new_app_dialog');
   return (
     <div style={customStyle} id="apps-parent-container">
       <BasicSidebar title={"未陌AI"} desc={"aaa"} noHeader={true} layout="apps" />
       <nav id="apps-container" className='grid content-start grid-cols-1 gap-4 px-12 pt-8 sm:grid-cols-3 lg:grid-cols-3 grow shrink-0' style={{ flex: 1, paddingRight: 20, paddingTop: is_owner ? 130 : 20, position: 'relative', overflowY: 'scroll', paddingBottom: 20 }}>
-        {is_owner && <div onClick={() => setShowNewAppDialog(true)} style={{
+        {(is_owner || has_new_app_dialog) && <div onClick={() => setShowNewAppDialog(true)} style={{
           width: 176,
           height: 76,
           display: 'flex',
