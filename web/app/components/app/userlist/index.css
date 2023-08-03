@@ -8,6 +8,7 @@
     height: calc(100%);
     background-color: white;
     padding: 48px;
+    overflow-y: scroll;
 }
 
 .UserList-main-title {
