@@ -93,8 +93,8 @@ const Welcome: FC<IWelcomeProps> = ({
 
   const renderHeader = () => {
     return (
-      <div style={{ position: 'relative', height: 91 }} className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8 bg-white cxct-title'>
-        <img src={bg.src} className='title-bg' />
+      <div style={{ position: 'relative', height: 60 }} className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8 bg-white cxct-title'>
+        {/* <img src={bg.src} className='title-bg' /> */}
         <img src={back.src} className='title-back' onClick={backToApp} />
         <span style={{ position: 'relative', zIndex: 10 }}>卒息常谈</span>
         {/* <div className='text-gray-900'>{conversationName}</div> */}

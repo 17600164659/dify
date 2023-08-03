@@ -149,7 +149,8 @@ export default ({ appId }) => {
             const userDate = new Date(item.birthday.replace(/-/g, "/"));
             const now = Date.now();
             const diff = now - userDate.getTime();
-            item.age = Math.floor(diff / 1000 / 60 / 60 / 24 / 365);
+            const age = Math.floor(diff / 1000 / 60 / 60 / 24 / 365);
+            item.age = age <= 0 ? 0 : age;
         }
     })
     return (
