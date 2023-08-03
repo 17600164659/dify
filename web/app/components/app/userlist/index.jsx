@@ -21,7 +21,7 @@ const BaseInfo = [
     },
     {
         label: '联系电话',
-        key: 'phone'
+        key: 'contact'
     },
     {
         label: '手术时间',
