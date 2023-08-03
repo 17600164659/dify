@@ -106,7 +106,10 @@ export default ({ appId }) => {
                     const month = `${date.getMonth() + 1}`;
                     const day = `${date.getDate()}`;
 
-                    user.createAt = `${date.getFullYear()}-${month.length === 1 ? '0' + month : month}-${day.length === 1 ? '0' + day : day}`;
+                    const HH = `${date.getHours()}`
+                    const MM = `${date.getMinutes()}`;
+
+                    user.createAt = `${date.getFullYear()}-${month.length === 1 ? '0' + month : month}-${day.length === 1 ? '0' + day : day} ${HH.length === 1 ? '0' + HH : HH}:${MM.length === 1 ? '0' + MM : MM}`;
                     newList.push(user);
                 })
                 setUsers(newList);
@@ -166,7 +169,7 @@ export default ({ appId }) => {
                         <div>手机号</div>
                         <div>年龄</div>
                         <div>注册时间</div>
-                        <div>病例查询</div>
+                        <div>详细信息</div>
                     </div>
                     {
                         users.map(item => (
