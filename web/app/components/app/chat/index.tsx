@@ -565,6 +565,9 @@ const Chat: FC<IChatProps> = ({
       {
         !isHideSendInput && (
           <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0', 'custom-no-border')}>
+            <Button styles={{ position: 'relative', top: !isResponsing ? -15 : 37 }} className='flex items-center space-x-1 bg-white' onClick={() => window.location.href = "https://work.weixin.qq.com/kfid/kfcfc47bf6adc51c104"}>
+              <span className='text-xs text-gray-500 font-normal'>转人工</span>
+            </Button>
             {isResponsing && (
               <div className='flex justify-center mb-4'>
                 <Button className='flex items-center space-x-1 bg-white' onClick={() => abortResponsing?.()}>
