@@ -160,7 +160,7 @@ export default ({ appId }) => {
                                     </div>
                                 </div>
                             </div>
-                        )) : <Empty style={{ marginTop: 160 }} description="暂无内容" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                        )) : <Empty style={{ marginTop: 160 }} description="正在加载" image={Empty.PRESENTED_IMAGE_SIMPLE} />
                     }
                 </div>
             </div>

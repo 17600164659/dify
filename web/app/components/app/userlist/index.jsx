@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Button, message, Drawer } from 'antd';
+import { Button, message, Drawer, Empty } from 'antd';
 import './index.css';
 import r from '@/utils/request';
 
@@ -172,7 +172,7 @@ export default ({ appId }) => {
                         <div>详细信息</div>
                     </div>
                     {
-                        users.map(item => (
+                        users.length ? users.map(item => (
                             <div className='UserList-row'>
                                 <div>{item.name}</div>
                                 <div>{item.gender}</div>
@@ -181,7 +181,7 @@ export default ({ appId }) => {
                                 <div>{item.createAt}</div>
                                 <div onClick={() => showDetail(item)} className='btn'>详细信息</div>
                             </div>
-                        ))
+                        )) : <Empty style={{ marginTop: 160 }} description="正在加载" image={Empty.PRESENTED_IMAGE_SIMPLE} />
                     }
                 </div>
             </div>
