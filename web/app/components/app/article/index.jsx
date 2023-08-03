@@ -38,6 +38,7 @@ export default ({ appId }) => {
     }
 
     const showDetail = (article) => {
+        console.log(article, 2323232323)
         setCurrentArticle(article)
         setVisible(true)
     }
@@ -110,7 +111,6 @@ export default ({ appId }) => {
             const result = await request.post('/wobi/article/delete', { aid: waitDeleteArcitle.aid })
             if (result.data.code === 200) {
                 getArticle();
-                setModalVisible(false);
             } else {
                 throw new Error(result.data.msg);
             }
