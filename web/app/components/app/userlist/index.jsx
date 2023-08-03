@@ -101,6 +101,12 @@ export default ({ appId }) => {
                     user.gender = `${user.gender}` === '1' ? "男" : "女";
                     user.phone = item.phone;
                     user.id = item.UserId;
+
+                    const date = new Date(item.createAt);
+                    const month = `${date.getMonth() + 1}`;
+                    const day = `${date.getDate()}`;
+
+                    user.createAt = `${date.getFullYear()}-${month.length === 1 ? '0' + month : month}-${day.length === 1 ? '0' + day : day}`;
                     newList.push(user);
                 })
                 setUsers(newList);
@@ -118,7 +124,6 @@ export default ({ appId }) => {
             const result2 = await request.post('/wobi/user/getPromptData', { uid: `${user.id}-2` });
             if (result1.data.code === 200 && result1.data.data) {
                 const form = JSON.parse(result1.data.data.form);
-                console.log(form, 23232323)
                 setPromptData1(form)
             }
             if (result2.data.code === 200 && result2.data.data) {
@@ -139,6 +144,14 @@ export default ({ appId }) => {
         getUserList()
     }, []);
 
+    users.forEach(item => {
+        if (item.birthday) {
+            const userDate = new Date(item.birthday.replace(/-/g, "/"));
+            const now = Date.now();
+            const diff = now - userDate.getTime();
+            item.age = Math.floor(diff / 1000 / 60 / 60 / 24 / 365);
+        }
+    })
     return (
         <>
             <div className='UserList'>
@@ -147,21 +160,21 @@ export default ({ appId }) => {
                 </div>
                 <div className='UserList-content'>
                     <div className='UserList-row-title'>
-                        {/* <div>用户标签</div> */}
                         <div>用户姓名</div>
                         <div>性别</div>
                         <div>手机号</div>
-                        {/* <div>标签</div> */}
+                        <div>年龄</div>
+                        <div>注册时间</div>
                         <div>病例查询</div>
                     </div>
                     {
                         users.map(item => (
                             <div className='UserList-row'>
-                                {/* <div><div className='tag'>用户标签</div></div> */}
                                 <div>{item.name}</div>
                                 <div>{item.gender}</div>
                                 <div>{item.phone}</div>
-                                {/* <div><div className='tag'>全部</div></div> */}
+                                <div>{item.age}</div>
+                                <div>{item.createAt}</div>
                                 <div onClick={() => showDetail(item)} className='btn'>详细信息</div>
                             </div>
                         ))
