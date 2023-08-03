@@ -188,8 +188,8 @@ export default ({ appId }) => {
             <Drawer width={800} visible={visible} onClose={() => setVisible(false)} title="详细信息" placement="right">
                 <div>
                     <Button onClick={() => setActive("baseInfo")} className={`UserList-detail-btn ${active === 'baseInfo' ? 'active' : ''}`}>基础信息</Button>
-                    <Button onClick={() => setActive("suizhen7")} className={`UserList-detail-btn ${active === 'suizhen7' ? 'active' : ''}`}>7天随诊记录</Button>
-                    <Button onClick={() => setActive("suizhen30")} className={`UserList-detail-btn ${active === 'suizhen30' ? 'active' : ''}`}>30天随诊记录</Button>
+                    <Button onClick={() => setActive("suizhen7")} className={`UserList-detail-btn ${active === 'suizhen7' ? 'active' : ''}`}>7天随访记录</Button>
+                    <Button onClick={() => setActive("suizhen30")} className={`UserList-detail-btn ${active === 'suizhen30' ? 'active' : ''}`}>30天随访记录</Button>
                 </div>
                 <div className='UserList-detail'>
                     {
