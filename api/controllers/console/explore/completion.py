@@ -45,6 +45,7 @@ class CompletionApi(InstalledAppResource):
         parser = reqparse.RequestParser()
         parser.add_argument("inputs", type=dict, required=True, location="json")
         parser.add_argument("query", type=str, location="json")
+        parser.add_argument("decision_making", type=bool, location="json")
         parser.add_argument(
             "response_mode",
             type=str,
@@ -113,6 +114,7 @@ class ChatApi(InstalledAppResource):
         parser = reqparse.RequestParser()
         parser.add_argument("inputs", type=dict, required=True, location="json")
         parser.add_argument("query", type=str, required=True, location="json")
+        parser.add_argument("decision_making", type=bool, location="json")
         parser.add_argument(
             "response_mode",
             type=str,

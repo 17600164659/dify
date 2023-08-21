@@ -23,6 +23,9 @@ import { promptVariablesToUserInputsForm } from '@/utils/model-config'
 import TextGeneration from '@/app/components/app/text-generate/item'
 import { IS_CE_EDITION } from '@/config'
 
+import { decision, execute, pluginCall } from '@/app/components/share/chat/decision';
+import getStrategy from '@/app/components/share/getStrategy';
+
 type IDebug = {
   hasSetAPIKEY: boolean
   onSetting: () => void
@@ -78,6 +81,17 @@ const Debug: FC<IDebug> = ({
   const [isShowSuggestion, setIsShowSuggestion] = useState(false)
   const [messageTaskId, setMessageTaskId] = useState('')
   const [hasStopResponded, setHasStopResponded, getHasStopResponded] = useGetState(false)
+  const [strategy, setStrategy] = useState([]);
+
+  // strategy
+  const getStrategyHandle = async (appId) => {
+    const data = await getStrategy(appId);
+    setStrategy(data);
+  }
+
+  useEffect(() => {
+    getStrategyHandle(appId);
+  }, [appId])
 
   useEffect(() => {
     if (formattingChanged && chatList.some(item => !item.isAnswer))
@@ -209,6 +223,34 @@ const Debug: FC<IDebug> = ({
     setHasStopResponded(false)
     setResponsingTrue()
     setIsShowSuggestion(false)
+
+    try {
+      console.log(strategy, 23232323);
+      if (strategy && strategy.length) {
+        console.log(1, 23232323)
+        const pluginValue = await pluginCall({ ...data }, strategy)
+        if (pluginValue) {
+          data.query = data.query + pluginValue;
+        }
+      } else {
+        const decisionValue = await decision(data, isInstalledApp, installedAppInfo);
+        const decisionJson = JSON.parse(decisionValue);
+        if (decisionJson.type === 'NoAnswer') {
+          let noAnswerList = getChatList();
+          noAnswerList[noAnswerList.length - 1] = {
+            content: "我不参与讨论此内容。", id: `${Date.now()}`, isAnswer: true
+          }
+          setChatList(noAnswerList)
+          setResponsingFalse()
+          return;
+        }
+        const executedPrompt = await execute(decisionJson, data);
+        data.query = data.query + executedPrompt;
+      }
+    } catch (e) {
+      console.log(e, 23232323);
+    }
+
     sendChatMessage(appId, data, {
       getAbortController: (abortController) => {
         setAbortController(abortController)

@@ -34,7 +34,8 @@ const translation = {
       failed: 'Upload failed',
     },
     notionSyncTitle: 'Notion is not connected',
-    notionSyncTip: 'To sync with Notion, connection to Notion must be established first.',
+    notionSyncTip:
+      'To sync with Notion, connection to Notion must be established first.',
     connect: 'Go to connect',
     button: 'next',
     emptyDatasetCreation: 'I want to create an empty dataset',
@@ -51,13 +52,17 @@ const translation = {
     },
   },
   stepTwo: {
+    fileName: 'Preprocess documents',
     segmentation: 'Segmentation settings',
     auto: 'Automatic',
-    autoDescription: 'Automatically set segmentation and preprocessing rules. Unfamiliar users are recommended to select this.',
+    autoDescription:
+      'Automatically set segmentation and preprocessing rules. Unfamiliar users are recommended to select this.',
     custom: 'Custom',
-    customDescription: 'Customize segmentation rules, segmentation length, and preprocessing rules, etc.',
+    customDescription:
+      'Customize segmentation rules, segmentation length, and preprocessing rules, etc.',
     separator: 'Segment identifier',
-    separatorPlaceholder: 'For example, newline (\\\\n) or special separator (such as "***")',
+    separatorPlaceholder:
+      'For example, newline (\\\\n) or special separator (such as "***")',
     maxLength: 'Maximum segment length',
     rules: 'Text preprocessing rules',
     removeExtraSpaces: 'Replace consecutive spaces, newlines and tabs',
@@ -68,11 +73,13 @@ const translation = {
     indexMode: 'Index mode',
     qualified: 'High Quality',
     recommend: 'Recommend',
-    qualifiedTip: 'Call OpenAI\'s embedding interface for processing to provide higher accuracy when users query.',
+    qualifiedTip:
+      'Call OpenAI\'s embedding interface for processing to provide higher accuracy when users query.',
     warning: 'Please set up the model provider API key first.',
     click: 'Go to settings',
     economical: 'Economical',
-    economicalTip: 'Use offline vector engines, keyword indexes, etc. to reduce accuracy without spending tokens',
+    economicalTip:
+      'Use offline vector engines, keyword indexes, etc. to reduce accuracy without spending tokens',
     emstimateCost: 'Estimation',
     emstimateSegment: 'Estimated segments',
     segmentCount: 'segments',
@@ -87,10 +94,14 @@ const translation = {
     save: 'Save & Process',
     cancel: 'Cancel',
     sideTipTitle: 'Why segment and preprocess?',
-    sideTipP1: 'When processing text data, segmentation and cleaning are two important preprocessing steps.',
-    sideTipP2: 'Segmentation splits long text into paragraphs so models can understand better. This improves the quality and relevance of model results.',
-    sideTipP3: 'Cleaning removes unnecessary characters and formats, making datasets cleaner and easier to parse.',
-    sideTipP4: 'Proper segmentation and cleaning improve model performance, providing more accurate and valuable results.',
+    sideTipP1:
+      'When processing text data, segmentation and cleaning are two important preprocessing steps.',
+    sideTipP2:
+      'Segmentation splits long text into paragraphs so models can understand better. This improves the quality and relevance of model results.',
+    sideTipP3:
+      'Cleaning removes unnecessary characters and formats, making datasets cleaner and easier to parse.',
+    sideTipP4:
+      'Proper segmentation and cleaning improve model performance, providing more accurate and valuable results.',
     previewTitle: 'Preview',
     characters: 'characters',
     indexSettedTip: 'To change the index method, please go to the ',
@@ -98,7 +109,8 @@ const translation = {
   },
   stepThree: {
     creationTitle: '🎉 Dataset created',
-    creationContent: 'We automatically named the dataset, you can modify it at any time',
+    creationContent:
+      'We automatically named the dataset, you can modify it at any time',
     label: 'Dataset name',
     additionTitle: '🎉 Document uploaded',
     additionP1: 'The document has been uploaded to the dataset',
@@ -107,9 +119,11 @@ const translation = {
     resume: 'Resume processing',
     navTo: 'Go to document',
     sideTipTitle: 'What\'s next',
-    sideTipContent: 'After the document finishes indexing, the dataset can be integrated into the application as context, you can find the context setting in the prompt orchestration page. You can also create it as an independent ChatGPT indexing plugin for release.',
+    sideTipContent:
+      'After the document finishes indexing, the dataset can be integrated into the application as context, you can find the context setting in the prompt orchestration page. You can also create it as an independent ChatGPT indexing plugin for release.',
     modelTitle: 'Are you sure to stop embedding?',
-    modelContent: 'If you need to resume processing later, you will continue from where you left off.',
+    modelContent:
+      'If you need to resume processing later, you will continue from where you left off.',
     modelButtonConfirm: 'Confirm',
     modelButtonCancel: 'Cancel',
   },

@@ -21,6 +21,7 @@ const translation = {
     captionAppType: 'What kind of app do you want?',
     previewDemo: 'Preview demo',
     chatApp: 'Chat App',
+    iPlolloDataSet: 'iPlollo DataSet',
     chatAppIntro:
       'I want to build a chat-based application. This app uses a question-and-answer format, allowing for multiple rounds of continuous conversation.',
     completeApp: 'Text Generator',

@@ -1,0 +1,40 @@
+.textIcon {
+    background-image: url(./assets/text-app-icon.png);
+}
+
+.conversationIcon {
+    background-image: url(./assets/conversation-app-icon.png);
+}
+
+.iconBox {
+    width: 48px;
+    height: 48px;
+    background-color: #FFFFFF;
+    background-repeat: no-repeat;
+    box-shadow: 0px 10px 16px 0px #5A647814;
+    border-radius: 12px;
+    margin: 24px;
+    background-position: center;
+}
+
+.contentBox {
+    width: 212px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentBox .title {
+    padding-top: 24px;
+    padding-bottom: 8px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #19243B;
+}
+
+.contentBox .content {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #757C89;
+}

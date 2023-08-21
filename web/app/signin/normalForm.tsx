@@ -1,19 +1,21 @@
-'use client'
-import React, { useEffect, useReducer, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useRouter } from 'next/navigation'
-import classNames from 'classnames'
-import useSWR from 'swr'
-import Link from 'next/link'
-import Toast from '../components/base/toast'
-import style from './page.module.css'
+"use client"
+import React, { useEffect, useReducer, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useRouter } from "next/navigation"
+import classNames from "classnames"
+import useSWR from "swr"
+import Link from "next/link"
+import Toast from "../components/base/toast"
+import style from "./page.module.css"
 // import Tooltip from '@/app/components/base/tooltip/index'
-import { IS_CE_EDITION, apiPrefix } from '@/config'
-import Button from '@/app/components/base/button'
-import { login, oauth } from '@/service/common'
 import { fetchMembers } from '@/service/common'
-import request from '@/service/request';
-import "./style.css";
+import wemoRequest from '@/service/wemoRequest';
+import { IS_CE_EDITION, apiPrefix, emailRegex } from "@/config"
+import Button from "@/app/components/base/button"
+import { login, oauth, inviteMember, activateMember } from "@/service/common"
+import request from "@/service/request"
+import "./style.css"
+import { Member } from "@/models/common"
 
 const validEmailReg = /^[\w\.-]+@([\w-]+\.)+[\w-]{2,}$/
 
@@ -23,7 +25,7 @@ type IState = {
   google: boolean
 }
 
-let members = {};
+let members = {}
 
 // var qweqwe = [
 //   '1638342566@qq.com',
@@ -110,67 +112,68 @@ let members = {};
 
 function reducer(state: IState, action: { type: string; payload: any }) {
   switch (action.type) {
-    case 'login':
+    case "login":
       return {
         ...state,
         formValid: true,
       }
-    case 'login_failed':
+    case "login_failed":
       return {
         ...state,
         formValid: true,
       }
-    case 'github_login':
+    case "github_login":
       return {
         ...state,
         github: true,
       }
-    case 'github_login_failed':
+    case "github_login_failed":
       return {
         ...state,
         github: false,
       }
-    case 'google_login':
+    case "google_login":
       return {
         ...state,
         google: true,
       }
-    case 'google_login_failed':
+    case "google_login_failed":
       return {
         ...state,
         google: false,
       }
     default:
-      throw new Error('Unknown action.')
+      throw new Error("Unknown action.")
   }
 }
 
 const NormalForm = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  const [changePassword, setChangePassword] = useState(false);
+  const [changePassword, setChangePassword] = useState(false)
+  const [registerNew, setRegisterNew] = useState(false)
 
   const getMenbers = async () => {
-    const data = await request.post('/gpt', {
-      type: 'getDifyUsers',
+    const data = await request.post("/gpt", {
+      type: "getDifyUsers",
     })
-    data.data.data.forEach(member => {
-      members[member.Email] = member;
+    data.data.data.forEach((member) => {
+      members[member.Email] = member
     })
   }
 
-  const saveUsers = async () => {
-    for (let i = 0; i < qweqwe.length; i++) {
-      try {
-        await request.post('/gpt', {
-          type: 'saveDifyUsers',
-          email: qweqwe[i],
-        });
-      } catch (e) {
-        console.log(qweqwe[i], '悲剧了')
-      }
-    }
-  }
+  // const saveUsers = async () => {
+  //   for (let i = 0; i < qweqwe.length; i++) {
+  //     try {
+  //       await request.post("/gpt", {
+  //         type: "saveDifyUsers",
+  //         email: qweqwe[i],
+  //       })
+  //     } catch (e) {
+  //       console.log(qweqwe[i], "悲剧了")
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     getMenbers()
@@ -183,38 +186,50 @@ const NormalForm = () => {
   })
 
   const [showPassword, setShowPassword] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const [showOldPassword, setShowOldPassword] = useState(false)
-  const [oldPassword, setOldPassword] = useState('')
+  const [oldPassword, setOldPassword] = useState("")
 
-  const [changePasswordEmail, setChangePasswordEmail] = useState('')
+  const [changePasswordEmail, setChangePasswordEmail] = useState("")
 
   const [showNewPassword, setShowNewPassword] = useState(false)
-  const [newPassword, setNewPassword] = useState('')
+  const [newPassword, setNewPassword] = useState("")
 
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const loginWemoAi = async (email, password) => {
+    const result = await wemoRequest.post('loginWithIpollo', {
+      email, password
+    });
+    if (result.data && result.data.token) {
+      window.localStorage.setItem('wemo_user', JSON.stringify({ ...result.data.user, token: result.data.token }));
+    }
+  }
+  const [language, setLanguage] = useState("zh-Hans")
+  const [timezone, setTimezone] = useState("Asia/Shanghai")
+
   const handleEmailPasswordLogin = async () => {
     // saveUsers();
     if (!validEmailReg.test(email)) {
       Toast.notify({
-        type: 'error',
-        message: t('login.error.emailInValid'),
+        type: "error",
+        message: t("login.error.emailInValid"),
       })
       return
     }
     // LOG: 登录
-    window.localStorage.setItem('logined_menber', email);
-    if (email === 'devin@metaio.cc') {
-      window.localStorage.setItem('is_owner', true);
+    window.localStorage.setItem("logined_menber", email)
+    if (email === "devin@metaio.cc") {
+      window.localStorage.setItem("is_owner", "true")
     }
     try {
       setIsLoading(true)
+      loginWemoAi(email, password);
       await login({
         url: '/login',
         body: {
@@ -223,7 +238,8 @@ const NormalForm = () => {
           remember_me: true,
         },
       })
-      router.push('/apps')
+      await
+        router.push('/apps')
     }
     finally {
       setIsLoading(false)
@@ -231,62 +247,133 @@ const NormalForm = () => {
   }
 
   const changePasswordHandle = async () => {
-    const data = await request.post('/gpt', {
-      type: 'changeDifyUserPassword',
+    const data = await request.post("/gpt", {
+      type: "changeDifyUserPassword",
       email,
       oldPassword,
       newPassword,
-    });
+    })
     if (data.data.code === 200 && data.data.msg === "success") {
-      Toast.notify({ type: 'success', message: "密码修改成功!" })
-      setChangePassword(false);
+      Toast.notify({ type: "success", message: "密码修改成功!" })
+      setChangePassword(false)
     } else {
-      Toast.notify({ type: 'error', message: data.data.msg })
+      Toast.notify({ type: "error", message: data.data.msg })
     }
   }
 
-  const { data: github, error: github_error } = useSWR(state.github
-    ? ({
-      url: '/oauth/login/github',
-      // params: {
-      //   provider: 'github',
-      // },
-    })
-    : null, oauth)
+  // 注册新用户
+  const registerNewHandle = async () => {
+    // console.log(email, password, confirmPassword)
+    let newUserInviteURL = ""
+    if (email === "" || password === "" || confirmPassword === "") {
+      Toast.notify({ type: "error", message: "请输入必填项!" })
+      return
+    } else if (password !== confirmPassword) {
+      Toast.notify({ type: "error", message: "两次密码不一致!" })
+      setPassword("")
+      setConfirmPassword("")
+      return
+    } else if (emailRegex.test(email)) {
+      try {
+        const res = await inviteMember({
+          url: "/workspaces/current/members/invite-email",
+          body: { email, role: "admin" },
+        })
+        if (res.result === "success") {
+          newUserInviteURL = res.invite_url
+        }
+      } catch (error) {
+        console.log(error)
+        Toast.notify({ type: "error", message: "error" })
+      }
+      console.log(newUserInviteURL)
+      // const urlParams = new URLSearchParams(newUserInviteURL)
+      // const token = urlParams.get("token")
+      // const workspaceId = urlParams.get("workspace_id")
+      // console.log(token, workspaceId)
+      const newUserInviteURLParams = newUserInviteURL.split("?")[1]
+      const urlParams = new URLSearchParams(newUserInviteURLParams)
+      // const newUserInviteURLParamsArr = newUserInviteURLParams.split("&")
+      // const newUserInviteURLParamsMap = {}
+      // newUserInviteURLParamsArr.forEach((item) => {
+      //   const [key, value] = item.split("=")
+      //   newUserInviteURLParamsMap[key] = value
+      // })
 
-  const { data: google, error: google_error } = useSWR(state.google
-    ? ({
-      url: '/oauth/login/google',
-      // params: {
-      //   provider: 'google',
-      // },
-    })
-    : null, oauth)
+      try {
+        await activateMember({
+          url: "/activate",
+          body: {
+            name,
+            workspace_id: urlParams.get("workspace_id"),
+            email: email,
+            token: urlParams.get("token"),
+            password: password,
+            interface_language: language,
+            timezone: timezone,
+          },
+        })
+      } catch (error) {
+        console.log(error)
+        Toast.notify({ type: "error", message: "error" })
+      }
+      setRegisterNew(false)
+    } else {
+      Toast.notify({ type: "error", message: "请输入正确的邮箱!" })
+      return
+    }
+  }
+
+  const { data: github, error: github_error } = useSWR(
+    state.github
+      ? {
+        url: "/oauth/login/github",
+        // params: {
+        //   provider: 'github',
+        // },
+      }
+      : null,
+    oauth
+  )
+
+  const { data: google, error: google_error } = useSWR(
+    state.google
+      ? {
+        url: "/oauth/login/google",
+        // params: {
+        //   provider: 'google',
+        // },
+      }
+      : null,
+    oauth
+  )
 
   useEffect(() => {
     if (github_error !== undefined)
-      dispatch({ type: 'github_login_failed', payload: null })
-    if (github)
-      window.location.href = github.redirect_url
+      dispatch({ type: "github_login_failed", payload: null })
+    if (github) window.location.href = github.redirect_url
   }, [github, github_error])
 
   useEffect(() => {
     if (google_error !== undefined)
-      dispatch({ type: 'google_login_failed', payload: null })
-    if (google)
-      window.location.href = google.redirect_url
+      dispatch({ type: "google_login_failed", payload: null })
+    if (google) window.location.href = google.redirect_url
   }, [google, google])
 
   return (
     <>
-      <div className="w-full mx-auto">
-        <h2 className="text-3xl font-normal text-gray-900">欢迎来到 iPollo.AI</h2>
-        <div className='mt-2 text-sm text-gray-600 '>登录以继续</div>
-      </div>
+      {!registerNew ? (
+        <>
+          <div className="w-full mx-auto">
+            <h2 className="text-3xl font-normal text-gray-900">
+              欢迎来到 iPollo.AI
+            </h2>
+            <div className="mt-2 text-sm text-gray-600 ">登录以继续</div>
+          </div>
 
-      <div className="w-full mx-auto mt-8">
-        <div className="bg-white ">
-          {/* {!IS_CE_EDITION && (
+          <div className="w-full mx-auto mt-8">
+            <div className="bg-white ">
+              {/* {!IS_CE_EDITION && (
             <div className="flex flex-col gap-3 mt-6">
               <div className='w-full'>
                 <a href={`${apiPrefix}/oauth/login/github`}>
@@ -329,15 +416,16 @@ const NormalForm = () => {
             </div>
           )} */}
 
-          {
-            // IS_CE_EDITION && <>
-            true && <>
-
               {
-                !changePassword ? (
+                // IS_CE_EDITION && <>
+
+                <>
                   <form className="space-y-6" onSubmit={() => { }}>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700"
+                      >
                         {/* {t('login.email')} */}
                         邮箱
                       </label>
@@ -345,17 +433,22 @@ const NormalForm = () => {
                         <input
                           style={{ height: 50, borderRadius: 2000 }}
                           value={email}
-                          onChange={e => setEmail(e.target.value)}
+                          onChange={(e) => setEmail(e.target.value)}
                           id="email"
                           type="email"
                           autoComplete="email"
-                          className={'appearance-none block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 rounded-md shadow-sm placeholder-gray-400 sm:text-sm'}
+                          className={
+                            "appearance-none block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                          }
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label htmlFor="password" className="flex items-center justify-between text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="password"
+                        className="flex items-center justify-between text-sm font-medium text-gray-700"
+                      >
                         {/* <span>{t('login.password')}</span> */}
                         <span>密码</span>
                         {/* <Tooltip
@@ -379,8 +472,8 @@ const NormalForm = () => {
                           style={{ height: 50, borderRadius: 2000 }}
                           id="password"
                           value={password}
-                          onChange={e => setPassword(e.target.value)}
-                          type={showPassword ? 'text' : 'password'}
+                          onChange={(e) => setPassword(e.target.value)}
+                          type={showPassword ? "text" : "password"}
                           autoComplete="current-password"
                           className={`appearance-none block w-full px-3 py-2
                   border border-gray-300
@@ -393,159 +486,36 @@ const NormalForm = () => {
                             onClick={() => setShowPassword(!showPassword)}
                             className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500"
                           >
-                            {showPassword ? '👀' : '😝'}
+                            {showPassword ? "👀" : "😝"}
                           </button>
                         </div>
                       </div>
                     </div>
 
-                    <div className='submit-btns-container'>
+                    <div className="submit-btns-container">
                       <Button
                         width={150}
                         borderRadius={1000}
-                        type='primary'
+                        type="primary"
                         background="#181A24"
                         onClick={handleEmailPasswordLogin}
                         disabled={isLoading}
                       // >{t('login.signBtn')}</Button>
-                      >登录</Button>
-                      <div className='change-password-btn' onClick={() => setChangePassword(true)}>
-                        修改密码
+                      >
+                        登录
+                      </Button>
+                      <div
+                        className="change-password-btn"
+                        onClick={() => setRegisterNew(true)}
+                      >
+                        新用户注册
                       </div>
                     </div>
                   </form>
-                ) : (
-                  <form className="space-y-6" onSubmit={() => { }}>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                        邮箱
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          style={{ height: 50, borderRadius: 2000 }}
-                          value={email}
-                          onChange={e => setEmail(e.target.value)}
-                          id="email"
-                          type="email"
-                          autoComplete="email"
-                          className={'appearance-none block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 rounded-md shadow-sm placeholder-gray-400 sm:text-sm'}
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="password" className="flex items-center justify-between text-sm font-medium text-gray-700">
-                        <span>旧密码</span>
-                      </label>
-                      <div className="relative mt-1 rounded-md shadow-sm">
-                        <input
-                          style={{ height: 50, borderRadius: 2000 }}
-                          id="password"
-                          value={oldPassword}
-                          onChange={e => setOldPassword(e.target.value)}
-                          type={showOldPassword ? 'text' : 'password'}
-                          autoComplete="current-password"
-                          className={`appearance-none block w-full px-3 py-2
-                  border border-gray-300
-                  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
-                  rounded-md shadow-sm placeholder-gray-400 sm:text-sm pr-10`}
-                        />
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                          <button
-                            type="button"
-                            onClick={() => setShowOldPassword(!showOldPassword)}
-                            className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500"
-                          >
-                            {showOldPassword ? '👀' : '😝'}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="password" className="flex items-center justify-between text-sm font-medium text-gray-700">
-                        <span>新密码</span>
-                      </label>
-                      <div className="relative mt-1 rounded-md shadow-sm">
-                        <input
-                          style={{ height: 50, borderRadius: 2000 }}
-                          id="password"
-                          value={newPassword}
-                          onChange={e => setNewPassword(e.target.value)}
-                          type={showNewPassword ? 'text' : 'password'}
-                          autoComplete="current-password"
-                          className={`appearance-none block w-full px-3 py-2
-                  border border-gray-300
-                  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
-                  rounded-md shadow-sm placeholder-gray-400 sm:text-sm pr-10`}
-                        />
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                          <button
-                            type="button"
-                            onClick={() => setShowNewPassword(!showNewPassword)}
-                            className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500"
-                          >
-                            {showNewPassword ? '👀' : '😝'}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="password" className="flex items-center justify-between text-sm font-medium text-gray-700">
-                        <span>确认新密码</span>
-                      </label>
-                      <div className="relative mt-1 rounded-md shadow-sm">
-                        <input
-                          style={{ height: 50, borderRadius: 2000 }}
-                          id="password"
-                          value={confirmPassword}
-                          onChange={e => setConfirmPassword(e.target.value)}
-                          type={showConfirmPassword ? 'text' : 'password'}
-                          autoComplete="current-password"
-                          className={`appearance-none block w-full px-3 py-2
-                  border border-gray-300
-                  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
-                  rounded-md shadow-sm placeholder-gray-400 sm:text-sm pr-10`}
-                        />
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                          <button
-                            type="button"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500"
-                          >
-                            {showConfirmPassword ? '👀' : '😝'}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className='submit-btns-container'>
-                      <Button
-                        width={150}
-                        borderRadius={1000}
-                        type='primary'
-                        background="#181A24"
-                        onClick={() => changePasswordHandle()}
-                        disabled={isLoading}
-                      >确定</Button>
-                      <Button
-                        styles={{ marginLeft: 20 }}
-                        width={150}
-                        borderRadius={1000}
-                        type='primary'
-                        background="#181A24"
-                        onClick={() => setChangePassword(false)}
-                        disabled={isLoading}
-                      >取消</Button>
-                    </div>
-                  </form>
-                )
+                </>
               }
-            </>
-          }
-          {/*  agree to our Terms and Privacy Policy. */}
-          {/* <div className="block mt-6 text-xs text-gray-600">
+              {/*  agree to our Terms and Privacy Policy. */}
+              {/* <div className="block mt-6 text-xs text-gray-600">
             {t('login.tosDesc')}
             &nbsp;
             <Link
@@ -560,9 +530,140 @@ const NormalForm = () => {
               href='https://ipollo.ai/user-agreement/privacy-policy'
             >{t('login.pp')}</Link>
           </div> */}
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="w-full mx-auto">
+            <h2 className="text-3xl font-normal text-gray-900">
+              欢迎来到 iPollo.AI
+            </h2>
+            <div className="mt-2 text-sm text-gray-600 ">新用户注册</div>
+          </div>
 
-        </div >
-      </div >
+          <div className="w-full mx-auto mt-8">
+            <div className="bg-white "></div>
+
+            <form className="space-y-6" onSubmit={() => { }}>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  邮箱
+                </label>
+                <div className="mt-1">
+                  <input
+                    style={{ height: 50, borderRadius: 2000 }}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    className={
+                      "appearance-none block w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                    }
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="flex items-center justify-between text-sm font-medium text-gray-700"
+                >
+                  <span>密码</span>
+                  <span style={{ fontSize: "12px" }}>
+                    密码必须包含字母和数字，且长度不小于8位
+                  </span>
+                </label>
+                <div className="relative mt-1 rounded-md shadow-sm">
+                  <input
+                    style={{ height: 50, borderRadius: 2000 }}
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    className={`appearance-none block w-full px-3 py-2
+                  border border-gray-300
+                  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                  rounded-md shadow-sm placeholder-gray-400 sm:text-sm pr-10`}
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500"
+                    >
+                      {showPassword ? "👀" : "😝"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="flex items-center justify-between text-sm font-medium text-gray-700"
+                >
+                  <span>确认密码</span>
+                </label>
+                <div className="relative mt-1 rounded-md shadow-sm">
+                  <input
+                    style={{ height: 50, borderRadius: 2000 }}
+                    id="rePassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    type={showConfirmPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    className={`appearance-none block w-full px-3 py-2
+                  border border-gray-300
+                  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
+                  rounded-md shadow-sm placeholder-gray-400 sm:text-sm pr-10`}
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                      className="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500"
+                    >
+                      {showConfirmPassword ? "👀" : "😝"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="submit-btns-container">
+                <Button
+                  width={150}
+                  borderRadius={1000}
+                  type="primary"
+                  background="#181A24"
+                  onClick={() => registerNewHandle()}
+                  disabled={isLoading}
+                >
+                  确定
+                </Button>
+                <Button
+                  styles={{ marginLeft: 20 }}
+                  width={150}
+                  borderRadius={1000}
+                  type="primary"
+                  background="#181A24"
+                  onClick={() => setRegisterNew(false)}
+                  disabled={isLoading}
+                >
+                  取消
+                </Button>
+              </div>
+            </form>
+          </div>
+        </>
+      )}
     </>
   )
 }

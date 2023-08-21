@@ -5,14 +5,17 @@ import s from './style.module.css'
 type IPopover = {
   className?: string
   htmlContent: React.ReactNode
+  // 触发弹出框的方式，可以是 'click' 或 'hover'
   trigger?: 'click' | 'hover'
+  // 弹出框的位置
   position?: 'bottom' | 'br'
+  // 触发弹出框的元素
   btnElement?: string | React.ReactNode
   btnClassName?: string | ((open: boolean) => string)
 }
 
 const timeoutDuration = 100
-
+// 自定义弹出框
 export default function CustomPopover({
   trigger = 'hover',
   position = 'bottom',
@@ -48,12 +51,17 @@ export default function CustomPopover({
                 : {
                   onMouseLeave: () => onMouseLeave(open),
                   onMouseEnter: () => onMouseEnter(open),
-                })
-              }
+                })}
             >
               <Popover.Button
                 ref={buttonRef}
-                className={`group ${s.popupBtn} ${open ? '' : 'bg-gray-100'} ${!btnClassName ? '' : typeof btnClassName === 'string' ? btnClassName : btnClassName?.(open)}`}
+                className={`group ${s.popupBtn} ${open ? '' : 'bg-gray-100'} ${
+                  !btnClassName
+                    ? ''
+                    : typeof btnClassName === 'string'
+                      ? btnClassName
+                      : btnClassName?.(open)
+                }`}
               >
                 {btnElement}
               </Popover.Button>
@@ -67,14 +75,18 @@ export default function CustomPopover({
                 leaveTo="opacity-0 translate-y-1"
               >
                 <Popover.Panel
-                  className={`${s.popupPanel} ${position === 'br' ? 'right-0' : 'transform -translate-x-1/2 left-1/2'} ${className}`}
+                  className={`${s.popupPanel} ${
+                    position === 'br'
+                      ? 'right-0'
+                      : 'transform -translate-x-1/2 left-1/2'
+                  } ${className}`}
                   {...(trigger !== 'hover'
                     ? {}
                     : {
                       onMouseLeave: () => onMouseLeave(open),
                       onMouseEnter: () => onMouseEnter(open),
-                    })
-                  }>
+                    })}
+                >
                   <div
                     className={s.panelContainer}
                     {...(trigger !== 'hover'
@@ -82,8 +94,7 @@ export default function CustomPopover({
                       : {
                         onMouseLeave: () => onMouseLeave(open),
                         onMouseEnter: () => onMouseEnter(open),
-                      })
-                    }
+                      })}
                   >
                     {cloneElement(htmlContent as React.ReactElement, {
                       onClose: () => onMouseLeave(open),

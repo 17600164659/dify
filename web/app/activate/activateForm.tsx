@@ -1,75 +1,78 @@
-'use client'
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import useSWR from 'swr'
-import { useSearchParams } from 'next/navigation'
-import cn from 'classnames'
-import Link from 'next/link'
-import { CheckCircleIcon } from '@heroicons/react/24/solid'
-import style from './style.module.css'
-import Button from '@/app/components/base/button'
+"use client"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+import useSWR from "swr"
+import { useSearchParams } from "next/navigation"
+import cn from "classnames"
+import Link from "next/link"
+import { CheckCircleIcon } from "@heroicons/react/24/solid"
+import style from "./style.module.css"
+import Button from "@/app/components/base/button"
 
-import { SimpleSelect } from '@/app/components/base/select'
-import { timezones } from '@/utils/timezone'
-import { languageMaps, languages } from '@/utils/language'
-import { activateMember, invitationCheck } from '@/service/common'
-import Toast from '@/app/components/base/toast'
-import Loading from '@/app/components/base/loading'
+import { SimpleSelect } from "@/app/components/base/select"
+import { timezones } from "@/utils/timezone"
+import { languageMaps, languages } from "@/utils/language"
+import { activateMember, invitationCheck } from "@/service/common"
+import Toast from "@/app/components/base/toast"
+import Loading from "@/app/components/base/loading"
 
 const validPassword = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/
 
 const ActivateForm = () => {
   const { t } = useTranslation()
   const searchParams = useSearchParams()
-  const workspaceID = searchParams.get('workspace_id')
-  const email = searchParams.get('email')
-  const token = searchParams.get('token')
+  const workspaceID = searchParams.get("workspace_id")
+  const email = searchParams.get("email")
+  const token = searchParams.get("token")
 
   const checkParams = {
-    url: '/activate/check',
+    url: "/activate/check",
     params: {
       workspace_id: workspaceID,
       email,
       token,
     },
   }
-  const { data: checkRes, mutate: recheck } = useSWR(checkParams, invitationCheck, {
-    revalidateOnFocus: false,
-  })
+  const { data: checkRes, mutate: recheck } = useSWR(
+    checkParams,
+    invitationCheck,
+    {
+      revalidateOnFocus: false,
+    }
+  )
 
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-  const [timezone, setTimezone] = useState('Asia/Shanghai')
-  const [language, setLanguage] = useState('zh-Hans')
+  const [name, setName] = useState("")
+  const [password, setPassword] = useState("")
+  const [timezone, setTimezone] = useState("Asia/Shanghai")
+  const [language, setLanguage] = useState("zh-Hans")
   const [showSuccess, setShowSuccess] = useState(false)
 
   const showErrorMessage = (message: string) => {
     Toast.notify({
-      type: 'error',
+      type: "error",
       message,
     })
   }
   const valid = () => {
     if (!name.trim()) {
-      showErrorMessage(t('login.error.nameEmpty'))
+      showErrorMessage(t("login.error.nameEmpty"))
       return false
     }
     if (!password.trim()) {
-      showErrorMessage(t('login.error.passwordEmpty'))
+      showErrorMessage(t("login.error.passwordEmpty"))
       return false
     }
     if (!validPassword.test(password))
-      showErrorMessage(t('login.error.passwordInvalid'))
+      showErrorMessage(t("login.error.passwordInvalid"))
 
     return true
   }
 
   const handleActivate = async () => {
-    if (!valid())
-      return
+    if (!valid()) return
     try {
       await activateMember({
-        url: '/activate',
+        url: "/activate",
         body: {
           workspace_id: workspaceID,
           email,
@@ -81,40 +84,57 @@ const ActivateForm = () => {
         },
       })
       setShowSuccess(true)
-    }
-    catch {
+    } catch {
       recheck()
     }
   }
 
   return (
-    <div className={
-      cn(
-        'flex flex-col items-center w-full grow items-center justify-center',
-        'px-6',
-        'md:px-[108px]',
-      )
-    }>
+    <div
+      className={cn(
+        "flex flex-col items-center w-full grow items-center justify-center",
+        "px-6",
+        "md:px-[108px]"
+      )}
+    >
       {!checkRes && <Loading />}
       {checkRes && !checkRes.is_valid && (
         <div className="flex flex-col md:w-[800px]">
           <div className="w-full mx-auto">
             {/* <div className="mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold">🤷‍♂️</div> */}
-            <h2 style={{ textAlign: 'center' }} className="text-[32px] font-bold text-gray-900">{t('login.invalid')}</h2>
+            <h2
+              style={{ textAlign: "center" }}
+              className="text-[32px] font-bold text-gray-900"
+            >
+              {t("login.invalid")}
+            </h2>
           </div>
-          <div className="w-full mx-auto mt-6 md:w-[500px]" style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button borderRadius={1000} background="#181A24" type="primary" style={{ width: 200 }}>
-              <a href={`${window.location.origin}/apps`}>{t('login.explore')}</a>
+          <div
+            className="w-full mx-auto mt-6 md:w-[500px]"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <Button
+              borderRadius={1000}
+              background="#181A24"
+              type="primary"
+              style={{ width: 200 }}
+            >
+              <a href={`${window.location.origin}/apps`}>
+                {t("login.explore")}
+              </a>
             </Button>
           </div>
         </div>
       )}
       {checkRes && checkRes.is_valid && !showSuccess && (
-        <div className='flex flex-col md:w-[800px]'>
+        <div className="flex flex-col md:w-[800px]">
           <div className="w-full mx-auto">
             {/* <div className={`mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold ${style.logo}`}>
             </div> */}
-            <h2 className="text-[32px] font-bold text-gray-900" style={{ textAlign: 'center' }}>
+            <h2
+              className="text-[32px] font-bold text-gray-900"
+              style={{ textAlign: "center" }}
+            >
               {/* {`${t('login.join')} ${checkRes.workspace_name}`} */}
               设置账号密码
             </h2>
@@ -126,37 +146,49 @@ const ActivateForm = () => {
           <div className="w-full mx-auto mt-6 md:w-[500px]">
             <div className="bg-white">
               {/* username */}
-              <div className='mb-5'>
-                <label htmlFor="name" className="my-2 flex items-center justify-between text-sm font-medium text-gray-900">
-                  {t('login.name')}
+              <div className="mb-5">
+                <label
+                  htmlFor="name"
+                  className="my-2 flex items-center justify-between text-sm font-medium text-gray-900"
+                >
+                  {t("login.name")}
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <input
                     id="name"
                     type="text"
                     value={name}
-                    onChange={e => setName(e.target.value)}
-                    placeholder={t('login.namePlaceholder') || ''}
-                    className={'appearance-none block w-full rounded-lg pl-[14px] px-3 py-2 border border-gray-200 hover:border-gray-300 hover:shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 placeholder-gray-400 caret-primary-600 sm:text-sm pr-10'}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder={t("login.namePlaceholder") || ""}
+                    className={
+                      "appearance-none block w-full rounded-lg pl-[14px] px-3 py-2 border border-gray-200 hover:border-gray-300 hover:shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 placeholder-gray-400 caret-primary-600 sm:text-sm pr-10"
+                    }
                   />
                 </div>
               </div>
               {/* password */}
-              <div className='mb-5'>
-                <label htmlFor="password" className="my-2 flex items-center justify-between text-sm font-medium text-gray-900">
-                  {t('login.password')}
+              <div className="mb-5">
+                <label
+                  htmlFor="password"
+                  className="my-2 flex items-center justify-between text-sm font-medium text-gray-900"
+                >
+                  {t("login.password")}
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <input
                     id="password"
-                    type='password'
+                    type="password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder={t('login.passwordPlaceholder') || ''}
-                    className={'appearance-none block w-full rounded-lg pl-[14px] px-3 py-2 border border-gray-200 hover:border-gray-300 hover:shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 placeholder-gray-400 caret-primary-600 sm:text-sm pr-10'}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder={t("login.passwordPlaceholder") || ""}
+                    className={
+                      "appearance-none block w-full rounded-lg pl-[14px] px-3 py-2 border border-gray-200 hover:border-gray-300 hover:shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 placeholder-gray-400 caret-primary-600 sm:text-sm pr-10"
+                    }
                   />
                 </div>
-                <div className='mt-1 text-xs text-gray-500'>{t('login.error.passwordInvalid')}</div>
+                <div className="mt-1 text-xs text-gray-500">
+                  {t("login.error.passwordInvalid")}
+                </div>
               </div>
               {/* language */}
               {/* <div className='mb-5'>
@@ -192,11 +224,13 @@ const ActivateForm = () => {
                   />
                 </div>
               </div> */}
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
                   // type='primary'
-                  borderRadius={1000} background="#181A24" type="primary"
-                  className='w-full !fone-medium !text-sm'
+                  borderRadius={1000}
+                  background="#181A24"
+                  type="primary"
+                  className="w-full !fone-medium !text-sm"
                   onClick={handleActivate}
                   styles={{ width: 200 }}
                 >
@@ -223,15 +257,23 @@ const ActivateForm = () => {
             {/* <div className="mb-3 flex justify-center items-center w-20 h-20 p-5 rounded-[20px] border border-gray-100 shadow-lg text-[40px] font-bold">
               <CheckCircleIcon className='w-10 h-10 text-[#039855]' />
             </div> */}
-            <h2 className="text-[32px] font-bold text-gray-900" style={{ textAlign: 'center' }}>
+            <h2
+              className="text-[32px] font-bold text-gray-900"
+              style={{ textAlign: "center" }}
+            >
               {/* {`${t('login.activatedTipStart')} ${checkRes.workspace_name} ${t('login.activatedTipEnd')}`} */}
               欢迎加入iPollo.AI
             </h2>
           </div>
           <div className="w-full mx-auto mt-6 md:w-[500px]">
-            <Button borderRadius={1000} background="#181A24" type="primary" className='w-full !fone-medium !text-sm'>
+            <Button
+              borderRadius={1000}
+              background="#181A24"
+              type="primary"
+              className="w-full !fone-medium !text-sm"
+            >
               {/* <Button type='primary' className='w-full !fone-medium !text-sm'> */}
-              <a href="/signin">{t('login.activated')}</a>
+              <a href="/signin">{t("login.activated")}</a>
             </Button>
           </div>
         </div>

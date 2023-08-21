@@ -25,10 +25,13 @@ import AccountSetting from '@/app/components/header/account-setting'
 import { useBoolean } from 'ahooks'
 import Button from '../../base/button'
 import s from './style.module.css';
+import request from '@/service/request';
 
 const Configuration: FC = () => {
   const { t } = useTranslation()
   const { notify } = useContext(ToastContext)
+
+  const [strategy, saveStrategy] = useState([]);
 
   const [hasFetchedDetail, setHasFetchedDetail] = useState(false)
   const [hasFetchedKey, setHasFetchedKey] = useState(false)
@@ -129,8 +132,19 @@ const Configuration: FC = () => {
     setHasFetchedKey(true)
   }
 
+  const getStrategy = async () => {
+    const result = await request.post('/strategy/get', { appId });
+    if (result.data && result.data.code === 200 && result.data.data) {
+      setTimeout(() => {
+        const datas = JSON.parse(result.data.data.strategy);
+        saveStrategy(datas);
+      })
+    }
+  }
+
   useEffect(() => {
-    checkAPIKey()
+    checkAPIKey();
+    getStrategy();
   }, [])
 
   useEffect(() => {
@@ -183,6 +197,7 @@ const Configuration: FC = () => {
   }, [appId])
 
   const saveAppConfig = async () => {
+    await request.post('/strategy/save', { appId, strategy: JSON.stringify(strategy) })
     const modelId = modelConfig.model_id
     const promptTemplate = modelConfig.configs.prompt_template
     const promptVariables = modelConfig.configs.prompt_variables
@@ -306,7 +321,7 @@ const Configuration: FC = () => {
                   </div>
                 </div>
               </div>
-              <Config />
+              <Config strategy={strategy} saveStrategy={saveStrategy} />
             </div>
             <div style={{ minHeight: 600 }} className="relative grow overflow-y-auto  py-4 px-6 flex flex-col">
               <div style={{ background: 'white', borderRadius: 16, height: '100%', display: 'flex', flexDirection: 'column' }}>

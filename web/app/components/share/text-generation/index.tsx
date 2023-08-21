@@ -13,9 +13,19 @@ import RunBatch from './run-batch'
 import ResDownload from './run-batch/res-download'
 import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
 import RunOnce from '@/app/components/share/text-generation/run-once'
-import { fetchSavedMessage as doFetchSavedMessage, fetchAppInfo, fetchAppParams, removeMessage, saveMessage } from '@/service/share'
+import {
+  fetchSavedMessage as doFetchSavedMessage,
+  fetchAppInfo,
+  fetchAppParams,
+  removeMessage,
+  saveMessage,
+} from '@/service/share'
 import type { SiteInfo } from '@/models/share'
-import type { MoreLikeThisConfig, PromptConfig, SavedMessage } from '@/models/debug'
+import type {
+  MoreLikeThisConfig,
+  PromptConfig,
+  SavedMessage,
+} from '@/models/debug'
 import AppIcon from '@/app/components/base/app-icon'
 import { changeLanguage } from '@/i18n/i18next-config'
 import Loading from '@/app/components/base/loading'
@@ -44,7 +54,7 @@ type Task = {
 }
 
 export type IMainProps = {
-  isInstalledApp?: boolean,
+  isInstalledApp?: boolean
   installedAppInfo?: InstalledApp
 }
 
@@ -69,12 +79,16 @@ const TextGeneration: FC<IMainProps> = ({
   const [appId, setAppId] = useState<string>('')
   const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null)
   const [promptConfig, setPromptConfig] = useState<PromptConfig | null>(null)
-  const [moreLikeThisConfig, setMoreLikeThisConfig] = useState<MoreLikeThisConfig | null>(null)
+  const [moreLikeThisConfig, setMoreLikeThisConfig]
+    = useState<MoreLikeThisConfig | null>(null)
 
   // save message
   const [savedMessages, setSavedMessages] = useState<SavedMessage[]>([])
   const fetchSavedMessage = async () => {
-    const res: any = await doFetchSavedMessage(isInstalledApp, installedAppInfo?.id)
+    const res: any = await doFetchSavedMessage(
+      isInstalledApp,
+      installedAppInfo?.id,
+    )
     setSavedMessages(res.data)
   }
   const handleSaveMessage = async (messageId: string) => {
@@ -100,12 +114,21 @@ const TextGeneration: FC<IMainProps> = ({
     showResSidebar()
   }
 
-  const [allTaskList, setAllTaskList, getLatestTaskList] = useGetState<Task[]>([])
-  const pendingTaskList = allTaskList.filter(task => task.status === TaskStatus.pending)
+  const [allTaskList, setAllTaskList, getLatestTaskList] = useGetState<Task[]>(
+    [],
+  )
+  const pendingTaskList = allTaskList.filter(
+    task => task.status === TaskStatus.pending,
+  )
   const noPendingTask = pendingTaskList.length === 0
-  const showTaskList = allTaskList.filter(task => task.status !== TaskStatus.pending)
-  const allTaskFinished = allTaskList.every(task => task.status === TaskStatus.completed)
-  const [batchCompletionRes, setBatchCompletionRes, getBatchCompletionRes] = useGetState<Record<string, string>>({})
+  const showTaskList = allTaskList.filter(
+    task => task.status !== TaskStatus.pending,
+  )
+  const allTaskFinished = allTaskList.every(
+    task => task.status === TaskStatus.completed,
+  )
+  const [batchCompletionRes, setBatchCompletionRes, getBatchCompletionRes]
+    = useGetState<Record<string, string>>({})
   const exportRes = allTaskList.map((task) => {
     if (allTaskList.length > 0 && !allTaskFinished)
       return {}
@@ -116,7 +139,8 @@ const TextGeneration: FC<IMainProps> = ({
       res[v.name] = inputs[v.key]
     })
     res[t('share.generation.queryTitle')] = query
-    res[t('share.generation.completionResult')] = batchCompletionResLatest[task.id]
+    res[t('share.generation.completionResult')]
+      = batchCompletionResLatest[task.id]
     return res
   })
   const checkBatchInputs = (data: string[][]) => {
@@ -139,18 +163,26 @@ const TextGeneration: FC<IMainProps> = ({
       isMapVarName = false
 
     if (!isMapVarName) {
-      notify({ type: 'error', message: t('share.generation.errorMsg.fileStructNotMatch') })
+      notify({
+        type: 'error',
+        message: t('share.generation.errorMsg.fileStructNotMatch'),
+      })
       return false
     }
 
     let payloadData = data.slice(1)
     if (payloadData.length === 0) {
-      notify({ type: 'error', message: t('share.generation.errorMsg.atLeastOne') })
+      notify({
+        type: 'error',
+        message: t('share.generation.errorMsg.atLeastOne'),
+      })
       return false
     }
 
     // check middle empty line
-    const allEmptyLineIndexes = payloadData.filter(item => item.every(i => i === '')).map(item => payloadData.indexOf(item))
+    const allEmptyLineIndexes = payloadData
+      .filter(item => item.every(i => i === ''))
+      .map(item => payloadData.indexOf(item))
     if (allEmptyLineIndexes.length > 0) {
       let hasMiddleEmptyLine = false
       let startIndex = allEmptyLineIndexes[0] - 1
@@ -166,7 +198,12 @@ const TextGeneration: FC<IMainProps> = ({
       })
 
       if (hasMiddleEmptyLine) {
-        notify({ type: 'error', message: t('share.generation.errorMsg.emptyLine', { rowIndex: startIndex + 2 }) })
+        notify({
+          type: 'error',
+          message: t('share.generation.errorMsg.emptyLine', {
+            rowIndex: startIndex + 2,
+          }),
+        })
         return false
       }
     }
@@ -175,7 +212,10 @@ const TextGeneration: FC<IMainProps> = ({
     payloadData = payloadData.filter(item => !item.every(i => i === ''))
     // after remove empty rows in the end, checked again
     if (payloadData.length === 0) {
-      notify({ type: 'error', message: t('share.generation.errorMsg.atLeastOne') })
+      notify({
+        type: 'error',
+        message: t('share.generation.errorMsg.atLeastOne'),
+      })
       return false
     }
     let errorRowIndex = 0
@@ -206,7 +246,13 @@ const TextGeneration: FC<IMainProps> = ({
     })
 
     if (errorRowIndex !== 0) {
-      notify({ type: 'error', message: t('share.generation.errorMsg.invalidLine', { rowIndex: errorRowIndex + 1, varName: requiredVarName }) })
+      notify({
+        type: 'error',
+        message: t('share.generation.errorMsg.invalidLine', {
+          rowIndex: errorRowIndex + 1,
+          varName: requiredVarName,
+        }),
+      })
       return false
     }
     return true
@@ -215,11 +261,16 @@ const TextGeneration: FC<IMainProps> = ({
     if (!checkBatchInputs(data))
       return
     if (!allTaskFinished) {
-      notify({ type: 'info', message: t('appDebug.errorMessage.waitForBatchResponse') })
+      notify({
+        type: 'info',
+        message: t('appDebug.errorMessage.waitForBatchResponse'),
+      })
       return
     }
 
-    const payloadData = data.filter(item => !item.every(i => i === '')).slice(1)
+    const payloadData = data
+      .filter(item => !item.every(i => i === ''))
+      .slice(1)
     const varLen = promptConfig?.prompt_variables.length || 0
     setIsCallBatchAPI(true)
     const allTaskList: Task[] = payloadData.map((item, i) => {
@@ -249,7 +300,9 @@ const TextGeneration: FC<IMainProps> = ({
   const handleCompleted = (completionRes: string, taskId?: number) => {
     const allTasklistLatest = getLatestTaskList()
     const batchCompletionResLatest = getBatchCompletionRes()
-    const pendingTaskList = allTasklistLatest.filter(task => task.status === TaskStatus.pending)
+    const pendingTaskList = allTasklistLatest.filter(
+      task => task.status === TaskStatus.pending,
+    )
     const nextPendingTaskId = pendingTaskList[0]?.id
     // console.log(`start: ${allTasklistLatest.map(item => item.status).join(',')}`)
     const newAllTaskList = allTasklistLatest.map((item) => {
@@ -281,17 +334,21 @@ const TextGeneration: FC<IMainProps> = ({
     if (!isInstalledApp)
       await checkOrSetAccessToken()
 
-    return Promise.all([isInstalledApp
-      ? {
-        app_id: installedAppInfo?.id,
-        site: {
-          title: installedAppInfo?.app.name,
-          prompt_public: false,
-          copyright: '',
-        },
-        plan: 'basic',
-      }
-      : fetchAppInfo(), fetchAppParams(isInstalledApp, installedAppInfo?.id), fetchSavedMessage()])
+    return Promise.all([
+      isInstalledApp
+        ? {
+          app_id: installedAppInfo?.id,
+          site: {
+            title: installedAppInfo?.app.name,
+            prompt_public: false,
+            copyright: '',
+          },
+          plan: 'basic',
+        }
+        : fetchAppInfo(),
+      fetchAppParams(isInstalledApp, installedAppInfo?.id),
+      fetchSavedMessage(),
+    ])
   }
 
   useEffect(() => {
@@ -318,75 +375,78 @@ const TextGeneration: FC<IMainProps> = ({
       document.title = `${siteInfo.title} - iPollo.AI`
   }, [siteInfo?.title])
 
-  const [isShowResSidebar, { setTrue: showResSidebar, setFalse: hideResSidebar }] = useBoolean(false)
+  const [
+    isShowResSidebar,
+    { setTrue: showResSidebar, setFalse: hideResSidebar },
+  ] = useBoolean(false)
   const resRef = useRef<HTMLDivElement>(null)
   useClickAway(() => {
     hideResSidebar()
   }, resRef)
 
-  const renderRes = (task?: Task) => (<Res
-    key={task?.id}
-    isCallBatchAPI={isCallBatchAPI}
-    isPC={isPC}
-    isMobile={isMobile}
-    isInstalledApp={!!isInstalledApp}
-    installedAppInfo={installedAppInfo}
-    promptConfig={promptConfig}
-    moreLikeThisEnabled={!!moreLikeThisConfig?.enabled}
-    inputs={isCallBatchAPI ? (task as Task).params.inputs : inputs}
-    query={isCallBatchAPI ? (task as Task).params.query : query}
-    controlSend={controlSend}
-    controlStopResponding={controlStopResponding}
-    onShowRes={showResSidebar}
-    handleSaveMessage={handleSaveMessage}
-    taskId={task?.id}
-    onCompleted={handleCompleted}
-  />)
+  const renderRes = (task?: Task) => (
+    <Res
+      key={task?.id}
+      isCallBatchAPI={isCallBatchAPI}
+      isPC={isPC}
+      isMobile={isMobile}
+      isInstalledApp={!!isInstalledApp}
+      installedAppInfo={installedAppInfo}
+      promptConfig={promptConfig}
+      moreLikeThisEnabled={!!moreLikeThisConfig?.enabled}
+      inputs={isCallBatchAPI ? (task as Task).params.inputs : inputs}
+      query={isCallBatchAPI ? (task as Task).params.query : query}
+      controlSend={controlSend}
+      controlStopResponding={controlStopResponding}
+      onShowRes={showResSidebar}
+      handleSaveMessage={handleSaveMessage}
+      taskId={task?.id}
+      onCompleted={handleCompleted}
+    />
+  )
 
   const renderBatchRes = () => {
-    return (showTaskList.map(task => renderRes(task)))
+    return showTaskList.map(task => renderRes(task))
   }
 
   const renderResWrap = (
     <div
       ref={resRef}
-      className={
-        cn(
-          'flex flex-col h-full shrink-0',
-          isPC ? 'px-10 py-8' : 'bg-gray-50',
-          isTablet && 'p-6', isMobile && 'p-4')
-      }
+      className={cn(
+        'flex flex-col h-full shrink-0',
+        isPC ? 'px-10 py-8' : 'bg-gray-50',
+        isTablet && 'p-6',
+        isMobile && 'p-4',
+      )}
     >
       <>
-        <div className='shrink-0 flex items-center justify-between'>
-          <div className='flex items-center space-x-3'>
+        <div className="shrink-0 flex items-center justify-between">
+          <div className="flex items-center space-x-3">
             <div className={s.starIcon}></div>
-            <div className='text-lg text-gray-800 font-semibold'>{t('share.generation.title')}</div>
+            <div className="text-lg text-gray-800 font-semibold">
+              {t('share.generation.title')}
+            </div>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className="flex items-center space-x-2">
             {allTaskList.length > 0 && allTaskFinished && (
-              <ResDownload
-                isMobile={isMobile}
-                values={exportRes}
-              />
+              <ResDownload isMobile={isMobile} values={exportRes} />
             )}
             {!isPC && (
               <div
-                className='flex items-center justify-center cursor-pointer'
+                className="flex items-center justify-center cursor-pointer"
                 onClick={hideResSidebar}
               >
-                <XMarkIcon className='w-4 h-4 text-gray-800' />
+                <XMarkIcon className="w-4 h-4 text-gray-800" />
               </div>
             )}
           </div>
-
         </div>
 
-        <div className='grow overflow-y-auto'>
+        <div className="grow overflow-y-auto">
           {!isCallBatchAPI ? renderRes() : renderBatchRes()}
           {!noPendingTask && (
-            <div className='mt-4'>
-              <Loading type='area' />
+            <div className="mt-4">
+              <Loading type="area" />
             </div>
           )}
         </div>
@@ -395,33 +455,45 @@ const TextGeneration: FC<IMainProps> = ({
   )
 
   if (!appId || !siteInfo || !promptConfig)
-    return <Loading type='app' />
+    return <Loading type="app" />
 
   return (
     <>
-      <div className={cn(
-        isPC && 'flex',
-        isInstalledApp ? s.installedApp : 'h-screen',
-        'bg-gray-50',
-      )}>
+      <div
+        className={cn(
+          isPC && 'flex',
+          isInstalledApp ? s.installedApp : 'h-screen',
+          'bg-gray-50',
+        )}
+      >
         {/* Left */}
-        <div className={cn(
-          isPC ? 'w-[600px] max-w-[50%] p-8' : 'p-4',
-          isInstalledApp && 'rounded-l-2xl',
-          'shrink-0 relative flex flex-col pb-10 h-full border-r border-gray-100 bg-white',
-        )}>
-          <div className='mb-6'>
-            <div className='flex justify-between items-center'>
-              <div className='flex items-center space-x-3'>
-                <AppIcon size="small" icon={siteInfo.icon} background={siteInfo.icon_background || appDefaultIconBackground} />
-                <div className='text-lg text-gray-800 font-semibold'>{siteInfo.title}</div>
+        <div
+          className={cn(
+            isPC ? 'w-[600px] max-w-[50%] p-8' : 'p-4',
+            isInstalledApp && 'rounded-l-2xl',
+            'shrink-0 relative flex flex-col pb-10 h-full border-r border-gray-100 bg-white',
+          )}
+        >
+          <div className="mb-6">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-3">
+                <AppIcon
+                  size="small"
+                  icon={siteInfo.icon}
+                  background={
+                    siteInfo.icon_background || appDefaultIconBackground
+                  }
+                />
+                <div className="text-lg text-gray-800 font-semibold">
+                  {siteInfo.title}
+                </div>
               </div>
               {!isPC && (
                 <Button
-                  className='shrink-0 !h-8 !px-3 ml-2'
+                  className="shrink-0 !h-8 !px-3 ml-2"
                   onClick={showResSidebar}
                 >
-                  <div className='flex items-center space-x-2 text-primary-600 text-[13px] font-medium'>
+                  <div className="flex items-center space-x-2 text-primary-600 text-[13px] font-medium">
                     <div className={s.starIcon}></div>
                     <span>{t('share.generation.title')}</span>
                   </div>
@@ -429,7 +501,9 @@ const TextGeneration: FC<IMainProps> = ({
               )}
             </div>
             {siteInfo.description && (
-              <div className='mt-2 text-xs text-gray-500'>{siteInfo.description}</div>
+              <div className="mt-2 text-xs text-gray-500">
+                {siteInfo.description}
+              </div>
             )}
           </div>
           <TabHeader
@@ -440,19 +514,20 @@ const TextGeneration: FC<IMainProps> = ({
                 id: 'saved',
                 name: t('share.generation.tabs.saved'),
                 isRight: true,
-                extra: savedMessages.length > 0
-                  ? (
-                    <div className='ml-1 flext items-center h-5 px-1.5 rounded-md border border-gray-200 text-gray-500 text-xs font-medium'>
-                      {savedMessages.length}
-                    </div>
-                  )
-                  : null,
+                extra:
+                  savedMessages.length > 0
+                    ? (
+                      <div className="ml-1 flext items-center h-5 px-1.5 rounded-md border border-gray-200 text-gray-500 text-xs font-medium">
+                        {savedMessages.length}
+                      </div>
+                    )
+                    : null,
               },
             ]}
             value={currTab}
             onChange={setCurrTab}
           />
-          <div className='grow h-20 overflow-y-auto'>
+          <div className="grow h-20 overflow-y-auto">
             <div className={cn(currTab === 'create' ? 'block' : 'hidden')}>
               <RunOnce
                 siteInfo={siteInfo}
@@ -473,7 +548,7 @@ const TextGeneration: FC<IMainProps> = ({
 
             {currTab === 'saved' && (
               <SavedItems
-                className='mt-4'
+                className="mt-4"
                 list={savedMessages}
                 onRemove={handleRemoveSavedMessage}
                 onStartCreateContent={() => setCurrTab('create')}
@@ -482,15 +557,18 @@ const TextGeneration: FC<IMainProps> = ({
           </div>
 
           {/* copyright */}
-          <div className={cn(
-            isInstalledApp ? 'left-[248px]' : 'left-8',
-            'fixed  bottom-4  flex space-x-2 text-gray-400 font-normal text-xs'
-          )}>
-            <div className="">© iPollo.AI {(new Date()).getFullYear()}</div>
+          <div
+            className={cn(
+              isInstalledApp ? 'left-[248px]' : 'left-8',
+              'fixed  bottom-4  flex space-x-2 text-gray-400 font-normal text-xs',
+            )}
+          >
+            <div className="">© iPollo.AI {new Date().getFullYear()}</div>
             {siteInfo.privacy_policy && (
               <>
                 <div>·</div>
-                <div>{t('share.chat.privacyPolicyLeft')}
+                <div>
+                  {t('share.chat.privacyPolicyLeft')}
                   {/* <a
                     className='text-gray-500'
                     href={siteInfo.privacy_policy}
@@ -503,15 +581,14 @@ const TextGeneration: FC<IMainProps> = ({
         </div>
 
         {/* Result */}
-        {isPC && (
-          <div className='grow h-full'>
-            {renderResWrap}
-          </div>
-        )}
+        {isPC && <div className="grow h-full">{renderResWrap}</div>}
 
-        {(!isPC && isShowResSidebar) && (
+        {!isPC && isShowResSidebar && (
           <div
-            className={cn('fixed z-50 inset-0', isTablet ? 'pl-[128px]' : 'pl-6')}
+            className={cn(
+              'fixed z-50 inset-0',
+              isTablet ? 'pl-[128px]' : 'pl-6',
+            )}
             style={{
               background: 'rgba(35, 56, 118, 0.2)',
             }}

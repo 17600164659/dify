@@ -41,7 +41,7 @@ export default function AppSelector({ userProfile, langeniusVersionInfo }: IAppS
     })
     router.push('/signin')
   }
-  return !is_owner ? null : (
+  return (
     <div style={{ margin: "0 auto", position: "absolute", bottom: 37, marginLeft: 12, marginRigh: 16 }}>
       <Menu as="div" className="relative inline-block text-left">
         <div>

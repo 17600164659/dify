@@ -1,9 +1,7 @@
 'use client'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
-import {
-  ChatBubbleOvalLeftEllipsisIcon,
-} from '@heroicons/react/24/outline'
+import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline'
 import { useInfiniteScroll } from 'ahooks'
 import { ChatBubbleOvalLeftEllipsisIcon as ChatBubbleOvalLeftEllipsisSolidIcon } from '@heroicons/react/24/solid'
 import cn from 'classnames'
@@ -48,8 +46,15 @@ const List: FC<IListProps> = ({
   useInfiniteScroll(
     async () => {
       if (!isNoMore) {
-        const lastId = !isClearConversationList ? list[list.length - 1]?.id : undefined
-        const { data: conversations, has_more }: any = await fetchConversations(isInstalledApp, installedAppId, lastId, isPinned)
+        const lastId = !isClearConversationList
+          ? list[list.length - 1]?.id
+          : undefined
+        const { data: conversations, has_more }: any = await fetchConversations(
+          isInstalledApp,
+          installedAppId,
+          lastId,
+          isPinned,
+        )
         onMoreLoaded({ data: conversations, has_more })
       }
       return { list: [] }
@@ -59,34 +64,40 @@ const List: FC<IListProps> = ({
       isNoMore: () => {
         return isNoMore
       },
+      // 当 isNoMore 或 controlUpdate 的值发生变化时，会重新运行这个 Hook
       reloadDeps: [isNoMore, controlUpdate],
     },
   )
   return (
     <nav
       ref={listRef}
-      className={cn(className, 'shrink-0 space-y-1 bg-white pb-[85px] overflow-y-auto')}
+      className={cn(
+        className,
+        'shrink-0 space-y-1 bg-white pb-[85px] overflow-y-auto',
+      )}
     >
       {list.map((item) => {
         const isCurrent = item.id === currentId
-        const ItemIcon
-            = isCurrent ? ChatBubbleOvalLeftEllipsisSolidIcon : ChatBubbleOvalLeftEllipsisIcon
+        const ItemIcon = isCurrent
+          ? ChatBubbleOvalLeftEllipsisSolidIcon
+          : ChatBubbleOvalLeftEllipsisIcon
         return (
           <div
             onClick={() => onCurrentIdChange(item.id)}
             key={item.id}
-            className={cn(s.item,
+            className={cn(
+              s.item,
               isCurrent
-                ? 'bg-primary-50 text-primary-600'
+                ? 'bg-gray-200 text-gray-600'
                 : 'text-gray-700 hover:bg-gray-200 hover:text-gray-700',
               'group flex justify-between items-center rounded-md px-2 py-2 text-sm font-medium cursor-pointer',
             )}
           >
-            <div className='flex items-center w-0 grow'>
+            <div className="flex items-center w-0 grow">
               <ItemIcon
                 className={cn(
                   isCurrent
-                    ? 'text-primary-600'
+                    ? 'text-gray-600'
                     : 'text-gray-400 group-hover:text-gray-500',
                   'mr-3 h-5 w-5 flex-shrink-0',
                 )}
@@ -96,7 +107,10 @@ const List: FC<IListProps> = ({
             </div>
 
             {item.id !== '-1' && (
-              <div className={cn(s.opBtn, 'shrink-0')} onClick={e => e.stopPropagation()}>
+              <div
+                className={cn(s.opBtn, 'shrink-0')}
+                onClick={e => e.stopPropagation()}
+              >
                 <ItemOperation
                   isPinned={isPinned}
                   togglePin={() => onPinChanged(item.id)}

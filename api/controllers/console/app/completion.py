@@ -53,6 +53,7 @@ class CompletionMessageApi(Resource):
         parser.add_argument("inputs", type=dict, required=True, location="json")
         parser.add_argument("query", type=str, location="json")
         parser.add_argument("model_config", type=dict, required=True, location="json")
+        parser.add_argument("decision_making", type=bool, location="json")
         args = parser.parse_args()
 
         account = flask_login.current_user
@@ -128,6 +129,7 @@ class ChatMessageApi(Resource):
         parser.add_argument("query", type=str, required=True, location="json")
         parser.add_argument("model_config", type=dict, required=True, location="json")
         parser.add_argument("conversation_id", type=uuid_value, location="json")
+        parser.add_argument("decision_making", type=bool, location="json")
         args = parser.parse_args()
 
         account = flask_login.current_user

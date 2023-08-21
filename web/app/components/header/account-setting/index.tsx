@@ -33,6 +33,25 @@ export default function AccountSetting({
 }: IAccountSettingProps) {
   const [activeMenu, setActiveMenu] = useState(activeTab)
   const { t } = useTranslation()
+  const customItems = []
+
+  const is_owner = window.localStorage.getItem('is_owner');
+  if (is_owner) {
+    customItems.push({
+      key: 'members',
+      name: t('common.settings.members'),
+      icon: <UsersIcon className={iconClassName} />,
+      activeIcon: <UsersIconSolid className={iconClassName} />,
+    })
+
+    // customItems.push({
+    //   key: 'provider',
+    //   name: t('common.settings.provider'),
+    //   icon: <CubeTransparentIcon className={iconClassName} />,
+    //   activeIcon: <CubeTransparentIcon className={iconClassName} />,
+    // })
+  }
+
   const menuItems = [
     {
       key: 'account-group',
@@ -50,37 +69,38 @@ export default function AccountSetting({
         //   icon: <AtSymbolIcon className={iconClassName} />,
         //   activeIcon: <AtSymbolIcon className={iconClassName} />,
         // },
-        {
-          key: 'language',
-          name: t('common.settings.language'),
-          icon: <GlobeAltIcon className={iconClassName} />,
-          activeIcon: <GlobalAltIconSolid className={iconClassName} />,
-        },
+        // {
+        //   key: 'language',
+        //   name: t('common.settings.language'),
+        //   icon: <GlobeAltIcon className={iconClassName} />,
+        //   activeIcon: <GlobalAltIconSolid className={iconClassName} />,
+        // },
       ],
     },
     {
       key: 'workspace-group',
       name: t('common.settings.workplaceGroup'),
-      items: [
-        {
-          key: 'members',
-          name: t('common.settings.members'),
-          icon: <UsersIcon className={iconClassName} />,
-          activeIcon: <UsersIconSolid className={iconClassName} />,
-        },
-        {
-          key: 'provider',
-          name: t('common.settings.provider'),
-          icon: <CubeTransparentIcon className={iconClassName} />,
-          activeIcon: <CubeTransparentIcon className={iconClassName} />,
-        },
-        {
-          key: 'data-source',
-          name: t('common.settings.dataSource'),
-          icon: <Database03 className={iconClassName} />,
-          activeIcon: <Database03Solid className={iconClassName} />,
-        },
-      ],
+      items: customItems,
+      // items: [
+      // {
+      //   key: 'members',
+      //   name: t('common.settings.members'),
+      //   icon: <UsersIcon className={iconClassName} />,
+      //   activeIcon: <UsersIconSolid className={iconClassName} />,
+      // },
+      // {
+      //   key: 'provider',
+      //   name: t('common.settings.provider'),
+      //   icon: <CubeTransparentIcon className={iconClassName} />,
+      //   activeIcon: <CubeTransparentIcon className={iconClassName} />,
+      // },
+      // {
+      //   key: 'data-source',
+      //   name: t('common.settings.dataSource'),
+      //   icon: <Database03 className={iconClassName} />,
+      //   activeIcon: <Database03Solid className={iconClassName} />,
+      // },
+      // ],
     },
   ]
   const scrollRef = useRef<HTMLDivElement>(null)

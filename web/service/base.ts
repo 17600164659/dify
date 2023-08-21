@@ -12,34 +12,49 @@ const ContentType = {
   upload: 'multipart/form-data', // for upload
 }
 
+// 默认的请求配置
 const baseOptions = {
+  // 方法默认为GET
   method: 'GET',
+  // 允许跨域
   mode: 'cors',
+  // 每次请求都会携带发送到该域的cookies
   credentials: 'include', // always send cookies、HTTP Basic authentication.
+  // 请求头
   headers: new Headers({
     'Content-Type': ContentType.json,
   }),
+  // 跟随重定向
   redirect: 'follow',
+  // 和credentials: 'include'功能一样
   xhrFields: {
     withCredentials: true,
   },
 }
 
 export type IOnDataMoreInfo = {
+  // 对话id
   conversationId?: string
+  // 任务id
   taskId?: string
+  // 消息id
   messageId: string
   errorMessage?: string
 }
 
+// 3个函数
 export type IOnData = (message: string, isFirstMessage: boolean, moreInfo: IOnDataMoreInfo) => void
 export type IOnCompleted = (hasError?: boolean) => void
 export type IOnError = (msg: string) => void
 
 type IOtherOptions = {
+  // 公共API？
   isPublicAPI?: boolean
+  // 请求体字符串化?
   bodyStringify?: boolean
+  // 完整相应内容？
   needAllResponseContent?: boolean
+  // 删除ContentType？
   deleteContentType?: boolean
   onData?: IOnData // for stream
   onError?: IOnError
@@ -47,24 +62,28 @@ type IOtherOptions = {
   getAbortController?: (abortController: AbortController) => void
 }
 
+// Unicode 编码的字符转换为实际的字符
 function unicodeToChar(text: string) {
   return text.replace(/\\u[0-9a-f]{4}/g, (_match, p1) => {
     return String.fromCharCode(parseInt(p1, 16))
   })
 }
 
+// 格式化字符串
 export function format(text: string) {
+  // 去除首尾空格
   let res = text.trim()
   if (res.startsWith('\n'))
     res = res.replace('\n', '')
-
+  // \n换br
   return res.replaceAll('\n', '<br/>').replaceAll('```', '')
 }
 
+// 处理服务器返回的stream
 const handleStream = (response: any, onData: IOnData, onCompleted?: IOnCompleted) => {
+  // 检查网络
   if (!response.ok)
     throw new Error('Network response was not ok')
-
   const reader = response.body.getReader()
   const decoder = new TextDecoder('utf-8')
   let buffer = ''
@@ -80,10 +99,12 @@ const handleStream = (response: any, onData: IOnData, onCompleted?: IOnCompleted
       buffer += decoder.decode(result.value, { stream: true })
       const lines = buffer.split('\n')
       try {
+        // 对每一行进行遍历
         lines.forEach((message) => {
           if (message.startsWith('data: ')) { // check if it starts with data:
             // console.log(message);
             try {
+              // 去掉'data:'前缀
               bufferObj = JSON.parse(message.substring(6)) // remove data: and parse as json
             }
             catch (e) {
@@ -125,6 +146,7 @@ const handleStream = (response: any, onData: IOnData, onCompleted?: IOnCompleted
         onCompleted && onCompleted(true)
         return
       }
+      // 递归调用
       if (!hasError)
         read()
     })
@@ -132,6 +154,7 @@ const handleStream = (response: any, onData: IOnData, onCompleted?: IOnCompleted
   read()
 }
 
+// 发起网络请求
 const baseFetch = (
   url: string,
   fetchOptions: any,
@@ -142,10 +165,15 @@ const baseFetch = (
     deleteContentType,
   }: IOtherOptions,
 ) => {
+  // 相当于const options = {...baseOptions, ...fetchOptions}
   const options = Object.assign({}, baseOptions, fetchOptions)
+  // 如果是公共API
   if (isPublicAPI) {
+    // 得到URL的最后一项，不包括查询参数
     const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
+    // 到localStorage找token，没有token的话='{ [sharedToken]: '' }'
     const accessToken = localStorage.getItem('token') || JSON.stringify({ [sharedToken]: '' })
+    // JSON格式
     let accessTokenJson = { [sharedToken]: '' }
     try {
       accessTokenJson = JSON.parse(accessToken)
@@ -153,27 +181,33 @@ const baseFetch = (
     catch (e) {
 
     }
+    // 设置请求头的Authorization字段
     if (fetchOptions.params && fetchOptions.params.bearer) {
+      // 如果有参数、参数中还有bearer字段
       options.headers.set('Authorization', `bearer ${fetchOptions.params.bearer}`)
-    } else {
+    }
+    else {
       options.headers.set('Authorization', `bearer ${accessTokenJson[sharedToken]}`)
     }
   }
-
+  // 设置ContentType
   if (deleteContentType) {
     options.headers.delete('Content-Type')
   }
   else {
     const contentType = options.headers.get('Content-Type')
+    // 默认ContentType格式为json
     if (!contentType)
       options.headers.set('Content-Type', ContentType.json)
   }
-
+  // 根据公共API还是私有API选择前缀
   const urlPrefix = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX
+  // 拼接URL
   let urlWithPrefix = `${urlPrefix}${url.startsWith('/') ? url : `/${url}`}`
 
   const { method, params, body } = options
   // handle query
+  // 如果是GET请求且有请求参数，就把请求参数拼接到URL中
   if (method === 'GET' && params) {
     const paramsArray: string[] = []
     Object.keys(params).forEach(key =>
@@ -184,7 +218,6 @@ const baseFetch = (
 
     else
       urlWithPrefix += `&${paramsArray.join('&')}`
-
     delete options.params
   }
 
@@ -271,7 +304,7 @@ const baseFetch = (
     }),
   ])
 }
-
+// 上传文件
 export const upload = (options: any): Promise<any> => {
   const defaultOptions = {
     method: 'POST',
@@ -305,33 +338,60 @@ export const upload = (options: any): Promise<any> => {
   })
 }
 
+// 发起SSE类型的POST请求
 export const ssePost = (url: string, fetchOptions: any, { isPublicAPI = false, onData, onCompleted, onError, getAbortController }: IOtherOptions, Authorization: string) => {
+  // 用来终止请求
   const abortController = new AbortController()
-
+  // 参数
   const options = Object.assign({}, baseOptions, {
     method: 'POST',
     signal: abortController.signal,
   }, fetchOptions)
-
+  // 需要把传入的Authorization添加到请求头
   if (Authorization) {
     options.headers = new Headers({
       'Content-Type': ContentType.json,
       Authorization,
     })
   }
+
+  if (isPublicAPI) {
+    // 得到URL的最后一项，不包括查询参数
+    const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
+    // 到localStorage找token，没有token的话='{ [sharedToken]: '' }'
+    const accessToken = localStorage.getItem('token') || JSON.stringify({ [sharedToken]: '' })
+    // JSON格式
+    let accessTokenJson = { [sharedToken]: '' }
+    try {
+      accessTokenJson = JSON.parse(accessToken)
+    }
+    catch (e) {
+
+    }
+    // 设置请求头的Authorization字段
+    if (fetchOptions.params && fetchOptions.params.bearer) {
+      // 如果有参数、参数中还有bearer字段
+      options.headers.set('Authorization', `bearer ${fetchOptions.params.bearer}`)
+    }
+    else {
+      options.headers.set('Authorization', `bearer ${accessTokenJson[sharedToken]}`)
+    }
+  }
+
+  // Content-Type默认为json
   const contentType = options.headers.get('Content-Type')
   if (!contentType)
     options.headers.set('Content-Type', ContentType.json)
 
   getAbortController?.(abortController)
-
+  // 拼接url前缀
   const urlPrefix = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX
   const urlWithPrefix = `${urlPrefix}${url.startsWith('/') ? url : `/${url}`}`
 
   const { body } = options
   if (body)
     options.body = JSON.stringify(body)
-
+  // 发起请求
   globalThis.fetch(urlWithPrefix, options)
     .then((res: any) => {
       // debugger

@@ -48,6 +48,7 @@ class Completion:
         conversation: Optional[Conversation],
         streaming: bool,
         is_override: bool = False,
+        decision_making: bool = False,
     ):
         """
         errors: ProviderTokenNotInitError
@@ -84,6 +85,7 @@ class Completion:
             inputs=inputs,
             query=query,
             streaming=streaming,
+            decision_making=decision_making,
         )
 
         # build main chain include agent

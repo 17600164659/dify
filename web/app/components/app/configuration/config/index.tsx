@@ -1,37 +1,58 @@
-'use client'
-import type { FC } from 'react'
-import React from 'react'
-import { useContext } from 'use-context-selector'
-import produce from 'immer'
-import useSWR from 'swr'
-import DatasetConfig from '../dataset-config'
-import ChatGroup from '../features/chat-group'
-import ExperienceEnchanceGroup from '../features/experience-enchance-group'
-import Toolbox from '../toolbox'
-import AddFeatureBtn from './feature/add-feature-btn'
-import AutomaticBtn from './automatic/automatic-btn'
-import type { AutomaticRes } from './automatic/get-automatic-res'
-import GetAutomaticResModal from './automatic/get-automatic-res'
-import ChooseFeature from './feature/choose-feature'
-import useFeature from './feature/use-feature'
-import ConfigContext from '@/context/debug-configuration'
-import ConfigPrompt from '@/app/components/app/configuration/config-prompt'
-import ConfigVar from '@/app/components/app/configuration/config-var'
-import { fetchTenantInfo } from '@/service/common'
-import type { PromptVariable } from '@/models/debug'
-import { AppType } from '@/types/app'
-import { useBoolean } from 'ahooks'
-import "./style.css";
+"use client"
+import type { FC } from "react"
+import React from "react"
+import { useContext } from "use-context-selector"
+import produce from "immer"
+import useSWR from "swr"
+import ConfigPlugin from "@/app/components/app/configuration/config-plugin"
+import DatasetConfig from "../dataset-config"
+import ChatGroup from "../features/chat-group"
+import ExperienceEnchanceGroup from "../features/experience-enchance-group"
+import Toolbox from "../toolbox"
+import AddFeatureBtn from "./feature/add-feature-btn"
+import AutomaticBtn from "./automatic/automatic-btn"
+import type { AutomaticRes } from "./automatic/get-automatic-res"
+import GetAutomaticResModal from "./automatic/get-automatic-res"
+import ChooseFeature from "./feature/choose-feature"
+import useFeature from "./feature/use-feature"
+import ConfigContext from "@/context/debug-configuration"
+import ConfigPrompt from "@/app/components/app/configuration/config-prompt"
+import ConfigVar from "@/app/components/app/configuration/config-var"
+import { fetchTenantInfo } from "@/service/common"
+import type { PromptVariable } from "@/models/debug"
+import { AppType } from "@/types/app"
+import { useBoolean } from "ahooks"
+import "./style.css"
 
 const strategyConfigs = [
-  { text: '链上查询策略', icon: 'https://assets.metaio.cc/assets/difyassets/cl/cx.png', color: '#E6C977' },
-  { text: '链上探询模型', icon: 'https://assets.metaio.cc/assets/difyassets/cl/tx.png', color: '#D95356' },
-  { text: '趋势洞察策略', icon: 'https://assets.metaio.cc/assets/difyassets/cl/dc.png', color: '#9DC174' },
-  { text: '指数聚焦统计', icon: 'https://assets.metaio.cc/assets/difyassets/cl/jj.png', color: '#00A3FE' },
-  { text: '社踪探索策略', icon: 'https://assets.metaio.cc/assets/difyassets/cl/ts.png', color: '#4152A4' },
-];
+  {
+    text: "链上查询策略",
+    icon: "https://assets.metaio.cc/assets/difyassets/cl/cx.png",
+    color: "#E6C977",
+  },
+  {
+    text: "链上探询模型",
+    icon: "https://assets.metaio.cc/assets/difyassets/cl/tx.png",
+    color: "#D95356",
+  },
+  {
+    text: "趋势洞察策略",
+    icon: "https://assets.metaio.cc/assets/difyassets/cl/dc.png",
+    color: "#9DC174",
+  },
+  {
+    text: "指数聚焦统计",
+    icon: "https://assets.metaio.cc/assets/difyassets/cl/jj.png",
+    color: "#00A3FE",
+  },
+  {
+    text: "社踪探索策略",
+    icon: "https://assets.metaio.cc/assets/difyassets/cl/ts.png",
+    color: "#4152A4",
+  },
+]
 
-const Config: FC = () => {
+const Config: FC = ({ strategy, saveStrategy }) => {
   const {
     mode,
     introduction,
@@ -48,15 +69,23 @@ const Config: FC = () => {
     setSpeechToTextConfig,
   } = useContext(ConfigContext)
   const isChatApp = mode === AppType.chat
-  const { data: userInfo } = useSWR({ url: '/info' }, fetchTenantInfo)
-  const targetProvider = userInfo?.providers?.find(({ token_is_set, is_valid }) => token_is_set && is_valid)
+  const { data: userInfo } = useSWR({ url: "/info" }, fetchTenantInfo)
+  const targetProvider = userInfo?.providers?.find(
+    ({ token_is_set, is_valid }) => token_is_set && is_valid
+  )
 
   const promptTemplate = modelConfig.configs.prompt_template
   const promptVariables = modelConfig.configs.prompt_variables
-  const handlePromptChange = (newTemplate: string, newVariables: PromptVariable[]) => {
+  const handlePromptChange = (
+    newTemplate: string,
+    newVariables: PromptVariable[]
+  ) => {
     const newModelConfig = produce(modelConfig, (draft) => {
       draft.configs.prompt_template = newTemplate
-      draft.configs.prompt_variables = [...draft.configs.prompt_variables, ...newVariables]
+      draft.configs.prompt_variables = [
+        ...draft.configs.prompt_variables,
+        ...newVariables,
+      ]
     })
 
     if (modelConfig.configs.prompt_template !== newTemplate)
@@ -74,52 +103,71 @@ const Config: FC = () => {
     setModelConfig(newModelConfig)
   }
 
-  const [showChooseFeature, {
-    setTrue: showChooseFeatureTrue,
-    setFalse: showChooseFeatureFalse,
-  }] = useBoolean(false)
+  const [
+    showChooseFeature,
+    { setTrue: showChooseFeatureTrue, setFalse: showChooseFeatureFalse },
+  ] = useBoolean(false)
   const { featureConfig, handleFeatureChange } = useFeature({
     introduction,
     setIntroduction,
     moreLikeThis: moreLikeThisConfig.enabled,
     setMoreLikeThis: (value) => {
-      setMoreLikeThisConfig(produce(moreLikeThisConfig, (draft) => {
-        draft.enabled = value
-      }))
+      setMoreLikeThisConfig(
+        produce(moreLikeThisConfig, (draft) => {
+          draft.enabled = value
+        })
+      )
     },
     suggestedQuestionsAfterAnswer: suggestedQuestionsAfterAnswerConfig.enabled,
     setSuggestedQuestionsAfterAnswer: (value) => {
-      setSuggestedQuestionsAfterAnswerConfig(produce(suggestedQuestionsAfterAnswerConfig, (draft) => {
-        draft.enabled = value
-      }))
+      setSuggestedQuestionsAfterAnswerConfig(
+        produce(suggestedQuestionsAfterAnswerConfig, (draft) => {
+          draft.enabled = value
+        })
+      )
     },
+    // 语音转文字开关
     speechToText: speechToTextConfig.enabled,
     setSpeechToText: (value) => {
-      setSpeechToTextConfig(produce(speechToTextConfig, (draft) => {
-        draft.enabled = value
-      }))
+      setSpeechToTextConfig(
+        produce(speechToTextConfig, (draft) => {
+          draft.enabled = value
+        })
+      )
     },
   })
 
-  const hasChatConfig = isChatApp && (featureConfig.openingStatement || featureConfig.suggestedQuestionsAfterAnswer || (featureConfig.speechToText && targetProvider?.provider_name === 'openai'))
+  const hasChatConfig =
+    isChatApp &&
+    (featureConfig.openingStatement ||
+      featureConfig.suggestedQuestionsAfterAnswer ||
+      (featureConfig.speechToText &&
+        targetProvider?.provider_name === "openai"))
   const hasToolbox = false
 
-  const [showAutomatic, { setTrue: showAutomaticTrue, setFalse: showAutomaticFalse }] = useBoolean(false)
+  const [
+    showAutomatic,
+    { setTrue: showAutomaticTrue, setFalse: showAutomaticFalse },
+  ] = useBoolean(false)
   const handleAutomaticRes = (res: AutomaticRes) => {
     const newModelConfig = produce(modelConfig, (draft) => {
       draft.configs.prompt_template = res.prompt
-      draft.configs.prompt_variables = res.variables.map(key => ({ key, name: key, type: 'string', required: true }))
+      draft.configs.prompt_variables = res.variables.map((key) => ({
+        key,
+        name: key,
+        type: "string",
+        required: true,
+      }))
     })
     setModelConfig(newModelConfig)
     setPrevPromptConfig(modelConfig.configs)
-    if (mode === AppType.chat)
-      setIntroduction(res.opening_statement)
+    if (mode === AppType.chat) setIntroduction(res.opening_statement)
     showAutomaticFalse()
   }
   return (
     <>
-      <div className="pb-[20px]">
-        <div className='flex justify-between items-center mb-4' style={{ position: 'absolute', top: 28 }}>
+      <div className="pb-[20px] relative">
+        <div className='flex justify-between items-center mb-4' style={{ position: 'absolute', top: -45 }}>
           <AddFeatureBtn onClick={showChooseFeatureTrue} />
           {/* <AutomaticBtn onClick={showAutomaticTrue} /> */}
         </div>
@@ -131,7 +179,9 @@ const Config: FC = () => {
             isChatApp={isChatApp}
             config={featureConfig}
             onChange={handleFeatureChange}
-            showSpeechToTextItem={targetProvider?.provider_name === 'openai'}
+            // showSpeechToTextItem={targetProvider?.provider_name === "openai"}
+            // 打开对话型应用的语音转文字功能
+            showSpeechToTextItem={true}
           />
         )}
         {showAutomatic && (
@@ -150,22 +200,28 @@ const Config: FC = () => {
           onChange={handlePromptChange}
         />
 
-        <div className='app-info-strategy'>
+        {/* Plugins */}
+        <ConfigPlugin defaultStrategy={strategy} saveStrategy={saveStrategy} />
+
+        {/* <div className='app-info-strategy'>
           <div className='app-info-strategy-title'>
             <img src="https://assets.metaio.cc/assets/difyassets/cl.png" width={14} height={14} style={{ height: 14, position: 'relative', top: 7 }} />
             策略
           </div>
-          <div className='app-info-strategy-list'>
-            {
-              strategyConfigs.map((item) => (
-                <div className='app-info-strategy-list-item'>
-                  <img className='app-info-strategy-list-item-icon' src={item.icon} />
-                  <div className='app-info-strategy-list-item-text'>{item.text}</div>
+          <div className="app-info-strategy-list">
+            {strategyConfigs.map((item) => (
+              <div className="app-info-strategy-list-item">
+                <img
+                  className="app-info-strategy-list-item-icon"
+                  src={item.icon}
+                />
+                <div className="app-info-strategy-list-item-text">
+                  {item.text}
                 </div>
-              ))
-            }
+              </div>
+            ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Variables */}
         <ConfigVar
@@ -181,30 +237,32 @@ const Config: FC = () => {
           hasChatConfig && (
             <ChatGroup
               isShowOpeningStatement={featureConfig.openingStatement}
-              openingStatementConfig={
-                {
-                  value: introduction,
-                  onChange: setIntroduction,
-                }
+              openingStatementConfig={{
+                value: introduction,
+                onChange: setIntroduction,
+              }}
+              isShowSuggestedQuestionsAfterAnswer={
+                featureConfig.suggestedQuestionsAfterAnswer
               }
-              isShowSuggestedQuestionsAfterAnswer={featureConfig.suggestedQuestionsAfterAnswer}
               isShowSpeechText={featureConfig.speechToText}
+            // isShowSpeechText={true}
             />
           )
         }
 
         {/* TextnGeneration config */}
-        {moreLikeThisConfig.enabled && (
-          <ExperienceEnchanceGroup />
-        )}
+        {moreLikeThisConfig.enabled && <ExperienceEnchanceGroup />}
 
         {/* Toolbox */}
         {
           hasToolbox && (
-            <Toolbox searchToolConfig={false} sensitiveWordAvoidanceConifg={false} />
+            <Toolbox
+              searchToolConfig={false}
+              sensitiveWordAvoidanceConifg={false}
+            />
           )
         }
-      </div>
+      </div >
     </>
   )
 }
