@@ -147,16 +147,19 @@ export default ({ appId }) => {
                 <div className='Article-content'>
                     {
                         articles.length ? articles.map(item => (
-                            <div className='Article-item' onClick={() => showDetail(item)}>
-                                <div className='Article-pic-container'>
-                                    <img className='Article-pic' src={item.imageUrl} />
-                                </div>
-                                <div className='Article-detail'>
-                                    <div className="Article-title">{item.articleTitle}</div>
-                                    <div className='Article-summary'>&nbsp;&nbsp;&nbsp;&nbsp;{item.articleInfo}</div>
-                                    <div className='Article-edit'>
-                                        {/* <div className='Article-edit-item Article-edit-up'><img src="https://assets.metaio.cc/assets/difyassets/wobi-up.png" />置顶</div> */}
-                                        <div onClick={(e) => deleteArticle(item, e)} className='Article-edit-item Article-edit-delete'><img src="https://assets.metaio.cc/assets/difyassets/wobi-delete.png" />删除</div>
+                            <div>
+                                <Input width={50} />
+                                <div className='Article-item' onClick={() => showDetail(item)}>
+                                    <div className='Article-pic-container'>
+                                        <img className='Article-pic' src={item.imageUrl} />
+                                    </div>
+                                    <div className='Article-detail'>
+                                        <div className="Article-title">{item.articleTitle}</div>
+                                        <div className='Article-summary'>&nbsp;&nbsp;&nbsp;&nbsp;{item.articleInfo}</div>
+                                        <div className='Article-edit'>
+                                            {/* <div className='Article-edit-item Article-edit-up'><img src="https://assets.metaio.cc/assets/difyassets/wobi-up.png" />置顶</div> */}
+                                            <div onClick={(e) => deleteArticle(item, e)} className='Article-edit-item Article-edit-delete'><img src="https://assets.metaio.cc/assets/difyassets/wobi-delete.png" />删除</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
